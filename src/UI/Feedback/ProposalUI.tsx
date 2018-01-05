@@ -1,5 +1,5 @@
 import {BaseComponent, GetInnerComp} from "react-vextensions";
-import {Row, Pre} from "react-vcomponents";
+import {Row, Pre, Div, Span} from "react-vcomponents";
 import {Button} from "react-vcomponents";
 import {DropDown} from "react-vcomponents";
 import {Column} from "react-vcomponents";
@@ -13,6 +13,10 @@ import {IsUserCreatorOrMod} from "../../General";
 import {GetUpdates} from "../../Utils/Database/DatabaseHelpers";
 import {Proposal} from "../../Store/firebase/feedback/@Proposal";
 import {ACTProposalSelect} from "../../Store/feedback";
+import {ShowMessageBox} from "react-vmessagebox";
+import {DeleteProposal} from "../../Server/Commands/DeleteProposal";
+import {ProposalDetailsUI} from "./Proposal/ProposalDetailsUI";
+import {UpdateProposal} from "../../Server/Commands/UpdateProposal";
 
 export type ProposalUI_Props = {proposal: Proposal, subNavBarWidth?: number} & Partial<{/*permissions: PermissionGroupSet, posts: Post[]*/}>;
 /*@Connect((state, {proposal}: ProposalUI_Props)=> ({
@@ -21,7 +25,7 @@ export type ProposalUI_Props = {proposal: Proposal, subNavBarWidth?: number} & P
 export class ProposalUI extends BaseComponent<ProposalUI_Props, {}> {
 	static defaultProps = {subNavBarWidth: 0};
 	render() {
-		let {proposal} = this.props;
+		let {proposal, subNavBarWidth} = this.props;
 		let userID = Manager.GetUserID();
 		
 		if (proposal == null) {
@@ -32,18 +36,11 @@ export class ProposalUI extends BaseComponent<ProposalUI_Props, {}> {
 
 		return (
 			<Column style={{flex: 1}}>
-				<ActionBar_Left proposal={proposal}/>
-				<ActionBar_Right proposal={proposal}/>
+				<ActionBar_Left proposal={proposal} subNavBarWidth={subNavBarWidth}/>
+				<ActionBar_Right proposal={proposal} subNavBarWidth={subNavBarWidth}/>
 				<ScrollView ref="scrollView" scrollVBarStyle={{width: 10}} style={{flex: 1}/*styles.fillParent_abs*/}>
 					<Column style={{width: 960, margin: "50px auto 20px auto", filter: "drop-shadow(rgb(0, 0, 0) 0px 0px 10px)"}}>
-						{/*<Column className="clickThrough" style={{height: 80, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0"}}>
-							<Row style={{height: 40, padding: 10}}>
-								<Button text="Add proposal" ml="auto" onClick={()=> {
-									if (userID == null) return Manager.ShowSignInPopup();
-									ShowAddProposalDialog(userID, proposal._id);
-								}}/>
-							</Row>
-						</Column>*/}
+						<ProposalUI_Inner proposal={proposal}/>
 						<Column>
 							{/*posts.map((post, index)=> {
 								return <PostUI key={index} index={index} proposal={proposal} post={post}/>;
@@ -58,43 +55,83 @@ export class ProposalUI extends BaseComponent<ProposalUI_Props, {}> {
 	}
 }
 
-/*class ReplyBox extends BaseComponent<{proposal: Proposal}, {dataError: string}> {
-	postEditorUI: PostEditorUI;
-	newPost: Post;
+type ProposalUI_Inner_Props = {proposal: Proposal} & Partial<{creator: User}>;
+@Connect((state, {proposal}: ProposalUI_Inner_Props)=> ({
+	creator: Manager.GetUser(proposal.creator),
+}))
+class ProposalUI_Inner extends BaseComponent<ProposalUI_Inner_Props, {editing: boolean, dataError: string}> {
+	editorUI: ProposalDetailsUI;
 	render() {
-		let {proposal} = this.props;
-		let {dataError} = this.state;
-		this.newPost = this.newPost || new Post({});
+		let {proposal, creator} = this.props;
+		let {editing, dataError} = this.state;
+
+		if (editing) {
+			return (
+				<Column sel style={{flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, padding: 10, alignItems: "flex-start", cursor: "auto"}}>
+					<ProposalDetailsUI ref={c=>this.editorUI = GetInnerComp(c) as any} baseData={proposal} forNew={false}
+						onChange={(newData, comp)=> {
+							this.SetState({dataError: comp.GetValidationError()});
+						}}/>
+					<Row mt={5}>
+						<Button text="Save" enabled={dataError == null} onLeftClick={async ()=> {
+							let postUpdates = GetUpdates(proposal, this.editorUI.GetNewData());
+							await new UpdateProposal({id: proposal._id, updates: postUpdates}).Run();
+							this.SetState({editing: false, dataError: null});
+						}}/>
+						<Button ml={5} text="Cancel" onLeftClick={async ()=> {
+							this.SetState({editing: false, dataError: null});
+						}}/>
+					</Row>
+				</Column>
+			)
+		}
+
+		let creatorOrMod = IsUserCreatorOrMod(Manager.GetUserID(), proposal);
 		return (
-			<Column sel mt={20} style={{background: "rgba(0,0,0,.7)", borderRadius: 10, padding: 10, alignItems: "flex-start", cursor: "auto"}}>
-				<PostEditorUI ref={c=>this.postEditorUI = GetInnerComp(c) as any} baseData={this.newPost} forNew={true}
-					onChange={(newData, comp)=> {
-						this.newPost = newData;
-						this.SetState({dataError: comp.GetValidationError()});
-					}}/>
-				<Row mt={5}>
-					<Button text="Post reply" enabled={dataError == null} onLeftClick={async ()=> {
-						if (Manager.GetUserID() == null) return Manager.ShowSignInPopup();
-						
-						let post = this.postEditorUI.GetNewData();
-						await new AddPost({proposalID: proposal._id, post: post}).Run();
-						this.newPost = null;
-					}}/>
-					{/*error && <Pre>{error.message}</Pre>*#/}
+			<Column className="clickThrough" style={{height: 80, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0"}}>
+				<Row sel style={{flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, alignItems: "initial", cursor: "auto"}}>
+					<Column p={10} style={{flex: 1}}>
+						<Row style={{width: "100%", fontSize: "18", textAlign: "center"}}>
+							{proposal.title} (by: {creator.displayName})
+						</Row>
+						<Row style={{width: "100%"}}>
+							<Manager.MarkdownRenderer source={proposal.text}/>
+						</Row>
+						<Row mt="auto">
+							<span style={{color: "rgba(255,255,255,.5)"}}>{creator ? creator.displayName : "..."}, at {Manager.FormatTime(proposal.createdAt, "YYYY-MM-DD HH:mm:ss")}</span>
+							{creatorOrMod &&
+								<Button ml={5} text="Edit" onClick={()=> {
+									this.SetState({editing: true});
+								}}/>}
+							{creatorOrMod &&
+								<Button ml={5} text="Delete" onClick={()=> {
+									ShowMessageBox({
+										title: `Delete proposal`, cancelButton: true,
+										message: `Delete this proposal?`,
+										onOK: async ()=> {
+											await new DeleteProposal({id: proposal._id}).Run();
+										}
+									});
+								}}/>}
+							{proposal.editedAt && <Span ml="auto" style={{color: "rgba(255,255,255,.5)"}}>
+								{proposal.text != null ? "edited" : "deleted"} at {Manager.FormatTime(proposal.editedAt, "YYYY-MM-DD HH:mm:ss")}
+							</Span>}
+						</Row>
+					</Column>
 				</Row>
 			</Column>
-		)
+		);
 	}
-}*/
+}
 
-type ActionBar_LeftProps = {proposal: Proposal};
+type ActionBar_LeftProps = {proposal: Proposal, subNavBarWidth: number};
 class ActionBar_Left extends BaseComponent<ActionBar_LeftProps, {}> {
 	render() {
-		let {proposal} = this.props;
+		let {proposal, subNavBarWidth} = this.props;
 
 		return (
 			<nav style={{
-				position: "absolute", zIndex: 1, left: 0, width: "50%", top: 0, textAlign: "center",
+				position: "absolute", zIndex: 1, left: 0, width: `calc(50% - ${subNavBarWidth / 2}px)`, top: 0, textAlign: "center",
 				//background: "rgba(0,0,0,.5)", boxShadow: "3px 3px 7px rgba(0,0,0,.07)",
 			}}>
 				<Row style={{
@@ -171,12 +208,12 @@ class DetailsDropdown extends BaseComponent<DetailsDropdownProps, {dataError: st
 	}
 }*/
 
-class ActionBar_Right extends BaseComponent<{proposal: Proposal}, {}> {
+class ActionBar_Right extends BaseComponent<{proposal: Proposal, subNavBarWidth: number}, {}> {
 	render() {
-		let {proposal} = this.props;
+		let {proposal, subNavBarWidth} = this.props;
 		return (
 			<nav style={{
-				position: "absolute", zIndex: 1, left: "50%", right: 0, top: 0, textAlign: "center",
+				position: "absolute", zIndex: 1, left: `calc(50% + ${subNavBarWidth / 2}px)`, right: 0, top: 0, textAlign: "center",
 				//background: "rgba(0,0,0,.5)", boxShadow: "3px 3px 7px rgba(0,0,0,.07)",
 			}}>
 				<Row style={{

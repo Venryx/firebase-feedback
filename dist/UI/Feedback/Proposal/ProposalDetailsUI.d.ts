@@ -6,13 +6,16 @@ export declare type ProposalDetailsUI_Props = {
     forNew: boolean;
     enabled?: boolean;
     style?;
-    onChange?: (newData: _MainType) => void;
+    onChange?: (newData: _MainType, comp: ProposalDetailsUI) => void;
 } & Partial<{
     creator: User;
 }>;
 export declare class ProposalDetailsUI extends BaseComponent<ProposalDetailsUI_Props, {
     newData: _MainType;
 }> {
+    static defaultProps: {
+        enabled: boolean;
+    };
     ComponentWillMountOrReceiveProps(props: any, forMount: any): void;
     render(): JSX.Element;
     GetValidationError(): any;

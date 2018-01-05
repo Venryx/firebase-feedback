@@ -22,9 +22,10 @@ import {AddProposal} from "../../../Server/Commands/AddProposal";
 export type _MainType = Proposal;
 let MTName = "Proposal";
 
-export type ProposalDetailsUI_Props = {baseData: _MainType, forNew: boolean, enabled?: boolean, style?, onChange?: (newData: _MainType)=>void}
+export type ProposalDetailsUI_Props = {baseData: _MainType, forNew: boolean, enabled?: boolean, style?, onChange?: (newData: _MainType, comp: ProposalDetailsUI)=>void}
 	& Partial<{creator: User}>;
 export class ProposalDetailsUI extends BaseComponent<ProposalDetailsUI_Props, {newData: _MainType}> {
+	static defaultProps = {enabled: true};
 	ComponentWillMountOrReceiveProps(props, forMount) {
 		if (forMount || props.baseData != this.props.baseData) { // if base-data changed
 			this.SetState({newData: Clone(props.baseData)});
@@ -36,7 +37,7 @@ export class ProposalDetailsUI extends BaseComponent<ProposalDetailsUI_Props, {n
 		let {newData} = this.state;
 		let Change = _=> {
 			if (onChange)
-				onChange(this.GetNewData());
+				onChange(this.GetNewData(), this);
 			this.Update();
 		};
 
@@ -50,8 +51,9 @@ export class ProposalDetailsUI extends BaseComponent<ProposalDetailsUI_Props, {n
 						enabled={enabled} style={{width: "100%"}}
 						value={newData.title} onChange={val=>Change(newData.title = val)}/>
 				</RowLR>
-				<RowLR mt={5} splitAt={splitAt} style={{width}}>
-					<Column>
+				<Row mt={5}>Text:</Row>
+				<Row mt={5} /*splitAt={splitAt} style={{width}}*/>
+					<Column style={{width: "100%"}}>
 						{enabled &&
 							<MarkdownToolbar editor={()=>this.refs.editor}>
 								<Link to="https://guides.github.com/features/mastering-markdown" style={{marginLeft: 10}}>How to add links, images, etc.</Link>
@@ -64,7 +66,7 @@ export class ProposalDetailsUI extends BaseComponent<ProposalDetailsUI_Props, {n
 								placeholder: "Write your reply..."
 							}, /*options*/)}/>
 					</Column>
-				</RowLR>
+				</Row>
 			</Column>
 			</div>
 		);

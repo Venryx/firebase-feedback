@@ -12,20 +12,27 @@ import {Manager} from "../Manager";
 import {ProposalEntryUI} from "./Feedback/ProposalEntryUI";
 import {ShowAddProposalDialog} from "./Feedback/Proposal/ProposalDetailsUI";
 import {GetProposals} from "../Store/firebase/feedback";
+import { GetSelectedProposal } from "../index";
+import {ProposalUI} from "./Feedback/ProposalUI";
 
 export const columnWidths = [.7, .2]; //, .1];
 
-export type ProposalsUI_Props = {} & Partial<{proposals: Proposal[]}>;
+export type ProposalsUI_Props = {subNavBarWidth: number} & Partial<{proposals: Proposal[], selectedProposal: Proposal}>;
 @Connect((state, {}: ProposalsUI_Props)=> {
 	return {
 		proposals: GetProposals(),
+		selectedProposal: GetSelectedProposal(),
 	};
 })
 export class ProposalsUI extends BaseComponent<ProposalsUI_Props, {}> {
 	static defaultProps = {subNavBarWidth: 0};
 	render() {
-		let {proposals} = this.props;
+		let {proposals, subNavBarWidth, selectedProposal} = this.props;
 		let userID = Manager.GetUserID();
+
+		if (selectedProposal) {
+			return <ProposalUI proposal={selectedProposal} subNavBarWidth={subNavBarWidth}/>;
+		}
 		
 		if (proposals == null) {
 			return <div style={{display: "flex", alignItems: "center", justifyContent: "center", height: "100%", fontSize: 25}}>Loading proposals...</div>;

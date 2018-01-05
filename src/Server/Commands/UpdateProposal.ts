@@ -1,6 +1,6 @@
 import {Command} from "../Command";
 import { GetDataAsync } from "../../Utils/Database/DatabaseHelpers";
-import {WaitTillSchemaAddedThenRun, GetSchemaJSON} from "../Server";
+import {WaitTillSchemaAddedThenRun, GetSchemaJSON, AddSchema, Schema, AssertValidate} from "../Server";
 import {Proposal} from "../../Store/firebase/feedback/@Proposal";
 
 export type _MainType = Proposal;
