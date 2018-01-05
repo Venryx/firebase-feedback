@@ -1141,7 +1141,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.SubforumUI = exports.columnWidths = undefined;
+	exports.ProposalsUI = exports.columnWidths = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -1186,16 +1186,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
 	var columnWidths = exports.columnWidths = [.7, .2]; //, .1];
-	var SubforumUI = function (_BaseComponent) {
-	    _inherits(SubforumUI, _BaseComponent);
+	var ProposalsUI = function (_BaseComponent) {
+	    _inherits(ProposalsUI, _BaseComponent);
 
-	    function SubforumUI() {
-	        _classCallCheck(this, SubforumUI);
+	    function ProposalsUI() {
+	        _classCallCheck(this, ProposalsUI);
 
-	        return _possibleConstructorReturn(this, (SubforumUI.__proto__ || Object.getPrototypeOf(SubforumUI)).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (ProposalsUI.__proto__ || Object.getPrototypeOf(ProposalsUI)).apply(this, arguments));
 	    }
 
-	    _createClass(SubforumUI, [{
+	    _createClass(ProposalsUI, [{
 	        key: "render",
 	        value: function render() {
 	            var proposals = this.props.proposals;
@@ -1213,17 +1213,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }]);
 
-	    return SubforumUI;
+	    return ProposalsUI;
 	}(_reactVextensions.BaseComponent);
-	SubforumUI.defaultProps = { subNavBarWidth: 0 };
-	exports.SubforumUI = SubforumUI = __decorate([(0, _FirebaseConnect.Connect)(function (state, _ref) {
+	ProposalsUI.defaultProps = { subNavBarWidth: 0 };
+	exports.ProposalsUI = ProposalsUI = __decorate([(0, _FirebaseConnect.Connect)(function (state, _ref) {
 	    _objectDestructuringEmpty(_ref);
 
 	    return {
 	        proposals: (0, _feedback.GetProposals)()
 	    };
-	})], SubforumUI);
-	exports.SubforumUI = SubforumUI;
+	})], ProposalsUI);
+	exports.ProposalsUI = ProposalsUI;
 
 /***/ }),
 /* 15 */

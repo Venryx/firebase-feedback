@@ -21,7 +21,7 @@ export type ProposalsUI_Props = {} & Partial<{proposals: Proposal[]}>;
 		proposals: GetProposals(),
 	};
 })
-export class SubforumUI extends BaseComponent<ProposalsUI_Props, {}> {
+export class ProposalsUI extends BaseComponent<ProposalsUI_Props, {}> {
 	static defaultProps = {subNavBarWidth: 0};
 	render() {
 		let {proposals} = this.props;
