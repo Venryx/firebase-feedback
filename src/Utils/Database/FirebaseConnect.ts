@@ -1,8 +1,8 @@
 import {Assert} from "js-vextensions";
 import {connect} from "react-redux";
 import {ShallowChanged, GetInnerComp} from "react-vextensions";
-import {watchEvents, unWatchEvents} from "react-redux-firebase/dist/actions/query";
-import {getEventsFromInput} from "react-redux-firebase/dist/utils";
+import {watchEvents, unWatchEvents} from "react-redux-firebase/es/actions/query";
+import {getEventsFromInput} from "react-redux-firebase/es/utils";
 import { TryCall, Timer } from "js-vextensions";
 import {SplitStringBySlash_Cached} from "./StringSplitCache";
 import {Manager} from "../../Manager";

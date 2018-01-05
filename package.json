@@ -31,7 +31,7 @@
     "react-dom": "^15.3.0",
     "react-vextensions": "^0.0.1",
     "react-vcomponents": "^0.0.1",
-    "react-redux": "^4.4.5",
+    "react-redux": "^5.0.0",
     "react-redux-firebase": "^1.2.0",
     "react-vmessagebox": "0.0.1",
     "redux": "^3.6.0"
@@ -52,6 +52,8 @@
     "react-redux": "^5.0.6",
     "react-redux-firebase": "^1.2.0",
     "react-vextensions": "^0.0.1",
+    "react-vcomponents": "^0.0.1",
+    "react-vmessagebox": "0.0.1",
     "redux": "^3.7.2",
     "style-loader": "^0.13.0",
     "ts-loader": "^3.2.0",

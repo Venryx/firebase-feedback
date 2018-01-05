@@ -1,7 +1,6 @@
 import {DeepGet} from "js-vextensions";
 import {Manager} from "./Manager";
-import {Post} from "./Store/firebase/forum/@Post";
-import {Thread} from "./Store/firebase/forum/@Thread";
+import { Proposal } from "./index";
 
 export function RemoveDuplicates(items: any) {
 	var result = [];
@@ -82,7 +81,7 @@ export function IsUserBasicOrAnon(userID: string) {
 	let permissionGroups = Manager.GetUserPermissionGroups(userID);
 	return permissionGroups == null || permissionGroups.basic;
 }
-export function IsUserCreatorOrMod(userID: string, entity: Post | Thread) {
+export function IsUserCreatorOrMod(userID: string, entity: Proposal) {
 	let permissionGroups = Manager.GetUserPermissionGroups(userID);
 	if (permissionGroups == null) return false;
 	return (entity.creator == userID && permissionGroups.basic) || permissionGroups.mod;
