@@ -7,7 +7,6 @@ import {Manager} from "../../Manager";
 import {VURL} from "js-vextensions";
 import {Link} from "../@Shared/Link";
 import {Proposal} from "../../Store/firebase/feedback/@Proposal";
-import {columnWidths} from "../Proposals";
 import {ACTProposalSelect} from "../../Store/feedback";
 
 export type ProposalEntryUI_Props = {index: number, last: boolean, proposal: Proposal} & Partial<{creator: User, /*posts: Post[]*/}>;
@@ -25,9 +24,7 @@ export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
 				last && {borderRadius: "0 0 10px 10px"}
 			)}>
 				<Row>
-					<Link text={proposal.title} actions={d=>d(new ACTProposalSelect({id: proposal._id}))} style={{fontSize: 17, flex: columnWidths[0]}}/>
-					<span style={{flex: columnWidths[1]}}>{creator ? creator.displayName : "..."}</span>
-					{/*<span style={{flex: columnWidths[2]}}>{posts ? posts.length : "..."}</span>*/}
+					<Link text={proposal.title} actions={d=>d(new ACTProposalSelect({id: proposal._id}))} style={{fontSize: 15, flex: 1}}/>
 				</Row>
 			</Column>
 		);

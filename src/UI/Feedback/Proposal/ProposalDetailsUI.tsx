@@ -81,9 +81,8 @@ export class ProposalDetailsUI extends BaseComponent<ProposalDetailsUI_Props, {n
 	}
 }
 
-export function ShowAddProposalDialog(userID: string) {
-	let newEntry = new Proposal({
-	});
+export function ShowAddProposalDialog(userID: string, type: string) {
+	let newEntry = new Proposal({type});
 	
 	let detailsUI: ProposalDetailsUI;
 	let error = null;

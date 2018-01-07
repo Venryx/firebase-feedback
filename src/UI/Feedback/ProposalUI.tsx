@@ -92,7 +92,7 @@ class ProposalUI_Inner extends BaseComponent<ProposalUI_Inner_Props, {editing: b
 				<Row sel style={{flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, alignItems: "initial", cursor: "auto"}}>
 					<Column p={10} style={{flex: 1}}>
 						<Row style={{width: "100%", fontSize: "18", textAlign: "center"}}>
-							{proposal.title} (by: {creator.displayName})
+							{proposal.title}
 						</Row>
 						<Row style={{width: "100%"}}>
 							<Manager.MarkdownRenderer source={proposal.text}/>

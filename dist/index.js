@@ -1137,13 +1137,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	(0, _Server.AddSchema)({
 	    properties: {
+	        type: { type: "string" },
 	        title: { type: "string" },
 	        text: { type: "string" },
 	        creator: { type: "string" },
 	        createdAt: { type: "number" },
 	        editedAt: { type: "number" }
 	    },
-	    required: ["title", "text", "creator", "createdAt"]
+	    required: ["type", "title", "text", "creator", "createdAt"]
 	}, "Proposal");
 
 /***/ }),
@@ -1155,7 +1156,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.ProposalsUI = exports.columnWidths = undefined;
+	exports.ProposalsUserRankingColumn = exports.ProposalsColumn = exports.ProposalsUI = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -1203,7 +1204,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var columnWidths = exports.columnWidths = [.7, .2]; //, .1];
+
 	var ProposalsUI = function (_BaseComponent) {
 	    _inherits(ProposalsUI, _BaseComponent);
 
@@ -1228,12 +1229,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (proposals == null) {
 	                return _react2.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "center", height: "100%", fontSize: 25 } }, "Loading proposals...");
 	            }
-	            return _react2.default.createElement(_reactVcomponents.Column, { style: { flex: 1 } }, _react2.default.createElement(_reactVscrollview.ScrollView, { ref: "scrollView", scrollVBarStyle: { width: 10 }, style: { flex: 1 } }, _react2.default.createElement(_reactVcomponents.Column, { style: { width: 960, margin: "50px auto 20px auto", filter: "drop-shadow(rgb(0, 0, 0) 0px 0px 10px)" } }, _react2.default.createElement(_reactVcomponents.Column, { className: "clickThrough", style: { height: 80, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } }, _react2.default.createElement(_reactVcomponents.Row, { style: { height: 40, padding: 10 } }, _react2.default.createElement("span", { style: { position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: 18 } }, "Proposals"), _react2.default.createElement(_reactVcomponents.Button, { text: "Add proposal", ml: "auto", onClick: function onClick() {
-	                    if (userID == null) return _Manager.Manager.ShowSignInPopup();
-	                    (0, _ProposalDetailsUI.ShowAddProposalDialog)(userID);
-	                } })), _react2.default.createElement(_reactVcomponents.Row, { style: { height: 40, padding: 10 } }, _react2.default.createElement("span", { style: { flex: columnWidths[0], fontWeight: 500, fontSize: 17 } }, "Title"), _react2.default.createElement("span", { style: { flex: columnWidths[1], fontWeight: 500, fontSize: 17 } }, "Creator"))), _react2.default.createElement(_reactVcomponents.Column, null, proposals.length == 0 && _react2.default.createElement(_reactVcomponents.Row, { p: "7px 10px", style: { background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px" } }, "There are currently no proposals."), proposals.map(function (proposal, index) {
-	                return _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { key: index, index: index, last: index == proposals.length - 1, proposal: proposal });
-	            })))));
+	            return _react2.default.createElement(_reactVcomponents.Row, { style: { flex: 1, height: "100%", padding: 10, filter: "drop-shadow(rgb(0, 0, 0) 0px 0px 10px)" } }, _react2.default.createElement(ProposalsColumn, { proposals: proposals, type: "feature" }), _react2.default.createElement(ProposalsColumn, { proposals: proposals, type: "issue", ml: 10 }), _react2.default.createElement(ProposalsUserRankingColumn, { proposals: proposals, ml: 10 }));
 	        }
 	    }]);
 
@@ -1249,6 +1245,77 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	})], ProposalsUI);
 	exports.ProposalsUI = ProposalsUI;
+
+	var ProposalsColumn = function (_BaseComponent2) {
+	    _inherits(ProposalsColumn, _BaseComponent2);
+
+	    function ProposalsColumn() {
+	        _classCallCheck(this, ProposalsColumn);
+
+	        return _possibleConstructorReturn(this, (ProposalsColumn.__proto__ || Object.getPrototypeOf(ProposalsColumn)).apply(this, arguments));
+	    }
+
+	    _createClass(ProposalsColumn, [{
+	        key: "render",
+	        value: function render() {
+	            var _props2 = this.props,
+	                proposals = _props2.proposals,
+	                type = _props2.type;
+
+	            var userID = _Manager.Manager.GetUserID();
+	            proposals = proposals.filter(function (a) {
+	                return a.type == type;
+	            });
+	            return _react2.default.createElement(_reactVcomponents.Column, { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVscrollview.ScrollView, { ref: "scrollView", scrollVBarStyle: { width: 10 }, style: { flex: 1 } }, _react2.default.createElement(_reactVcomponents.Column, { className: "clickThrough", style: { height: 40, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } }, _react2.default.createElement(_reactVcomponents.Row, { style: { height: 40, padding: 10 } }, _react2.default.createElement("span", { style: { position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: 18 } }, type.replace(/^(.)/, function (m, s0) {
+	                return s0.toUpperCase();
+	            }), "s"), _react2.default.createElement(_reactVcomponents.Button, { text: type == "feature" ? "Propose feature" : "Report issue", ml: "auto", onClick: function onClick() {
+	                    if (userID == null) return _Manager.Manager.ShowSignInPopup();
+	                    (0, _ProposalDetailsUI.ShowAddProposalDialog)(userID, type);
+	                } }))), _react2.default.createElement(_reactVcomponents.Column, null, proposals.length == 0 && _react2.default.createElement(_reactVcomponents.Row, { p: "7px 10px", style: { background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px" } }, "There are currently no ", type == "feature" ? "feature proposals" : "issue reports", "."), proposals.map(function (proposal, index) {
+	                return _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { key: index, index: index, last: index == proposals.length - 1, proposal: proposal });
+	            }))));
+	        }
+	    }]);
+
+	    return ProposalsColumn;
+	}(_reactVextensions.BaseComponent);
+	exports.ProposalsColumn = ProposalsColumn = __decorate([(0, _FirebaseConnect.Connect)(function (state, _ref2) {
+	    _objectDestructuringEmpty(_ref2);
+
+	    return {};
+	}), _reactVextensions.ApplyBasicStyles], ProposalsColumn);
+	exports.ProposalsColumn = ProposalsColumn;
+
+	var ProposalsUserRankingColumn = function (_BaseComponent3) {
+	    _inherits(ProposalsUserRankingColumn, _BaseComponent3);
+
+	    function ProposalsUserRankingColumn() {
+	        _classCallCheck(this, ProposalsUserRankingColumn);
+
+	        return _possibleConstructorReturn(this, (ProposalsUserRankingColumn.__proto__ || Object.getPrototypeOf(ProposalsUserRankingColumn)).apply(this, arguments));
+	    }
+
+	    _createClass(ProposalsUserRankingColumn, [{
+	        key: "render",
+	        value: function render() {
+	            var proposals = this.props.proposals;
+
+	            var user = _Manager.Manager.GetUser(_Manager.Manager.GetUserID());
+	            proposals = []; // todo
+	            return _react2.default.createElement(_reactVcomponents.Column, { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVscrollview.ScrollView, { ref: "scrollView", scrollVBarStyle: { width: 10 }, style: { flex: 1 } }, _react2.default.createElement(_reactVcomponents.Column, { className: "clickThrough", style: { height: 40, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } }, _react2.default.createElement(_reactVcomponents.Row, { style: { height: 40, padding: 10 } }, _react2.default.createElement("span", { style: { position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: 18 } }, "Your ranking"))), _react2.default.createElement(_reactVcomponents.Column, null, proposals.length == 0 && _react2.default.createElement(_reactVcomponents.Row, { p: "7px 10px", style: { background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px" } }, "You have not yet added any proposals to your user-ranking."), proposals.map(function (proposal, index) {
+	                return _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { key: index, index: index, last: index == proposals.length - 1, proposal: proposal });
+	            }))));
+	        }
+	    }]);
+
+	    return ProposalsUserRankingColumn;
+	}(_reactVextensions.BaseComponent);
+	exports.ProposalsUserRankingColumn = ProposalsUserRankingColumn = __decorate([(0, _FirebaseConnect.Connect)(function (state, _ref3) {
+	    _objectDestructuringEmpty(_ref3);
+
+	    return {};
+	}), _reactVextensions.ApplyBasicStyles], ProposalsUserRankingColumn);
+	exports.ProposalsUserRankingColumn = ProposalsUserRankingColumn;
 
 /***/ }),
 /* 15 */
@@ -2121,8 +2188,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _Link = __webpack_require__(22);
 
-	var _Proposals = __webpack_require__(14);
-
 	var _feedback = __webpack_require__(5);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -2163,7 +2228,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var toURL = new _jsVextensions.VURL(null, ["proposals", proposal._id + ""]);
 	            return _react2.default.createElement(_reactVcomponents.Column, { p: "7px 10px", style: E({ background: index % 2 == 0 ? "rgba(30,30,30,.7)" : "rgba(0,0,0,.7)" }, last && { borderRadius: "0 0 10px 10px" }) }, _react2.default.createElement(_reactVcomponents.Row, null, _react2.default.createElement(_Link.Link, { text: proposal.title, actions: function actions(d) {
 	                    return d(new _feedback.ACTProposalSelect({ id: proposal._id }));
-	                }, style: { fontSize: 17, flex: _Proposals.columnWidths[0] } }), _react2.default.createElement("span", { style: { flex: _Proposals.columnWidths[1] } }, creator ? creator.displayName : "...")));
+	                }, style: { fontSize: 15, flex: 1 } })));
 	        }
 	    }]);
 
@@ -2502,10 +2567,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	}(_reactVextensions.BaseComponent);
 
 	ProposalDetailsUI.defaultProps = { enabled: true };
-	function ShowAddProposalDialog(userID) {
+	function ShowAddProposalDialog(userID, type) {
 	    var _this3 = this;
 
-	    var newEntry = new _Proposal.Proposal({});
+	    var newEntry = new _Proposal.Proposal({ type: type });
 	    var detailsUI = void 0;
 	    var error = null;
 	    var Change = function Change() {
@@ -15117,7 +15182,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    } })));
 	            }
 	            var creatorOrMod = (0, _General.IsUserCreatorOrMod)(_Manager.Manager.GetUserID(), proposal);
-	            return _react2.default.createElement(_reactVcomponents.Column, { className: "clickThrough", style: { height: 80, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } }, _react2.default.createElement(_reactVcomponents.Row, { sel: true, style: { flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, alignItems: "initial", cursor: "auto" } }, _react2.default.createElement(_reactVcomponents.Column, { p: 10, style: { flex: 1 } }, _react2.default.createElement(_reactVcomponents.Row, { style: { width: "100%", fontSize: "18", textAlign: "center" } }, proposal.title, " (by: ", creator.displayName, ")"), _react2.default.createElement(_reactVcomponents.Row, { style: { width: "100%" } }, _react2.default.createElement(_Manager.Manager.MarkdownRenderer, { source: proposal.text })), _react2.default.createElement(_reactVcomponents.Row, { mt: "auto" }, _react2.default.createElement("span", { style: { color: "rgba(255,255,255,.5)" } }, creator ? creator.displayName : "...", ", at ", _Manager.Manager.FormatTime(proposal.createdAt, "YYYY-MM-DD HH:mm:ss")), creatorOrMod && _react2.default.createElement(_reactVcomponents.Button, { ml: 5, text: "Edit", onClick: function onClick() {
+	            return _react2.default.createElement(_reactVcomponents.Column, { className: "clickThrough", style: { height: 80, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } }, _react2.default.createElement(_reactVcomponents.Row, { sel: true, style: { flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, alignItems: "initial", cursor: "auto" } }, _react2.default.createElement(_reactVcomponents.Column, { p: 10, style: { flex: 1 } }, _react2.default.createElement(_reactVcomponents.Row, { style: { width: "100%", fontSize: "18", textAlign: "center" } }, proposal.title), _react2.default.createElement(_reactVcomponents.Row, { style: { width: "100%" } }, _react2.default.createElement(_Manager.Manager.MarkdownRenderer, { source: proposal.text })), _react2.default.createElement(_reactVcomponents.Row, { mt: "auto" }, _react2.default.createElement("span", { style: { color: "rgba(255,255,255,.5)" } }, creator ? creator.displayName : "...", ", at ", _Manager.Manager.FormatTime(proposal.createdAt, "YYYY-MM-DD HH:mm:ss")), creatorOrMod && _react2.default.createElement(_reactVcomponents.Button, { ml: 5, text: "Edit", onClick: function onClick() {
 	                    _this3.SetState({ editing: true });
 	                } }), creatorOrMod && _react2.default.createElement(_reactVcomponents.Button, { ml: 5, text: "Delete", onClick: function onClick() {
 	                    (0, _reactVmessagebox.ShowMessageBox)({

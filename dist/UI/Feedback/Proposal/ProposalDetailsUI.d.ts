@@ -21,4 +21,4 @@ export declare class ProposalDetailsUI extends BaseComponent<ProposalDetailsUI_P
     GetValidationError(): any;
     GetNewData(): Proposal;
 }
-export declare function ShowAddProposalDialog(userID: string): void;
+export declare function ShowAddProposalDialog(userID: string, type: string): void;

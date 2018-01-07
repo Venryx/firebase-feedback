@@ -5,6 +5,7 @@ export class Proposal {
 	}
 
 	_id: number;
+	type: string;
 	title = "";
 	text = "";
 
@@ -15,6 +16,7 @@ export class Proposal {
 
 AddSchema({
 	properties: {
+		type: {type: "string"},
 		title: {type: "string"},
 		text: {type: "string"},
 		
@@ -22,5 +24,5 @@ AddSchema({
 		createdAt: {type: "number"},
 		editedAt: {type: "number"},
 	},
-	required: ["title", "text", "creator", "createdAt"],
+	required: ["type", "title", "text", "creator", "createdAt"],
 }, "Proposal");
