@@ -34,6 +34,7 @@ export type ProposalEntryUI_Props = {index: number, last: boolean, proposal: Pro
 	},
 	drop(props, monitor, dropTarget) {
 		if (monitor.didDrop()) return;
+		if (Manager.GetUserID() == null) return void Manager.ShowSignInPopup();
 
 		var draggedItem = monitor.getItem();
 		var {proposal: dropOnProposal, columnType} = props;

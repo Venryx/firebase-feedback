@@ -12410,12 +12410,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var dropOnEntry = props.proposal,
 	            columnType = props.columnType;
 	        //if (!monitor.isOver({shallow: true})) return false;
-	        //console.log("Can drop?");
 
 	        return true;
 	    },
 	    drop: function drop(props, monitor, dropTarget) {
 	        if (monitor.didDrop()) return;
+	        if (_Manager.Manager.GetUserID() == null) return void _Manager.Manager.ShowSignInPopup();
 	        var draggedItem = monitor.getItem();
 	        new _SetProposalOrder2.default({ proposalID: draggedItem.proposal._id, index: Number.MAX_SAFE_INTEGER }).Run();
 	    }
@@ -13436,6 +13436,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    drop: function drop(props, monitor, dropTarget) {
 	        if (monitor.didDrop()) return;
+	        if (_Manager.Manager.GetUserID() == null) return void _Manager.Manager.ShowSignInPopup();
 	        var draggedItem = monitor.getItem();
 	        var dropOnProposal = props.proposal,
 	            columnType = props.columnType;

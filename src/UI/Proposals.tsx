@@ -144,12 +144,12 @@ export type ProposalsUserRankingColumn_Props = {proposals: Proposal[]} & Partial
 		let {proposal: dropOnEntry, columnType} = props;
 		//if (!monitor.isOver({shallow: true})) return false;
 
-		//console.log("Can drop?");
-
 		return true;
 	},
 	drop(props, monitor, dropTarget) {
 		if (monitor.didDrop()) return;
+		if (Manager.GetUserID() == null) return void Manager.ShowSignInPopup();
+
 		var draggedItem = monitor.getItem();
 		new SetProposalOrder({proposalID: draggedItem.proposal._id, index: Number.MAX_SAFE_INTEGER}).Run();
 	}
