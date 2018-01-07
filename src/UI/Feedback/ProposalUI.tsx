@@ -88,38 +88,36 @@ class ProposalUI_Inner extends BaseComponent<ProposalUI_Inner_Props, {editing: b
 
 		let creatorOrMod = IsUserCreatorOrMod(Manager.GetUserID(), proposal);
 		return (
-			<Column className="clickThrough" style={{height: 80, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0"}}>
-				<Row sel style={{flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, alignItems: "initial", cursor: "auto"}}>
-					<Column p={10} style={{flex: 1}}>
-						<Row style={{width: "100%", fontSize: "18", textAlign: "center"}}>
-							{proposal.title}
-						</Row>
-						<Row style={{width: "100%"}}>
-							<Manager.MarkdownRenderer source={proposal.text}/>
-						</Row>
-						<Row mt="auto">
-							<span style={{color: "rgba(255,255,255,.5)"}}>{creator ? creator.displayName : "..."}, at {Manager.FormatTime(proposal.createdAt, "YYYY-MM-DD HH:mm:ss")}</span>
-							{creatorOrMod &&
-								<Button ml={5} text="Edit" onClick={()=> {
-									this.SetState({editing: true});
-								}}/>}
-							{creatorOrMod &&
-								<Button ml={5} text="Delete" onClick={()=> {
-									ShowMessageBox({
-										title: `Delete proposal`, cancelButton: true,
-										message: `Delete this proposal?`,
-										onOK: async ()=> {
-											await new DeleteProposal({id: proposal._id}).Run();
-										}
-									});
-								}}/>}
-							{proposal.editedAt && <Span ml="auto" style={{color: "rgba(255,255,255,.5)"}}>
-								{proposal.text != null ? "edited" : "deleted"} at {Manager.FormatTime(proposal.editedAt, "YYYY-MM-DD HH:mm:ss")}
-							</Span>}
-						</Row>
-					</Column>
-				</Row>
-			</Column>
+			<Row sel style={{flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, alignItems: "initial", cursor: "auto"}}>
+				<Column p={10} style={{flex: 1}}>
+					<Row style={{width: "100%", fontSize: "18", textAlign: "center"}}>
+						{proposal.title}
+					</Row>
+					<Row mt={10} style={{width: "100%"}}>
+						<Manager.MarkdownRenderer source={proposal.text}/>
+					</Row>
+					<Row mt={5}>
+						<span style={{color: "rgba(255,255,255,.5)"}}>{creator ? creator.displayName : "..."}, at {Manager.FormatTime(proposal.createdAt, "YYYY-MM-DD HH:mm:ss")}</span>
+						{creatorOrMod &&
+							<Button ml={5} text="Edit" onClick={()=> {
+								this.SetState({editing: true});
+							}}/>}
+						{creatorOrMod &&
+							<Button ml={5} text="Delete" onClick={()=> {
+								ShowMessageBox({
+									title: `Delete proposal`, cancelButton: true,
+									message: `Delete this proposal?`,
+									onOK: async ()=> {
+										await new DeleteProposal({id: proposal._id}).Run();
+									}
+								});
+							}}/>}
+						{proposal.editedAt && <Span ml="auto" style={{color: "rgba(255,255,255,.5)"}}>
+							{proposal.text != null ? "edited" : "deleted"} at {Manager.FormatTime(proposal.editedAt, "YYYY-MM-DD HH:mm:ss")}
+						</Span>}
+					</Row>
+				</Column>
+			</Row>
 		);
 	}
 }

@@ -23,6 +23,17 @@ import SetProposalOrder from "../Server/Commands/SetProposalOrder";
 import { GetProposalIndexes, GetProposalOrder } from "../index";
 import {GetData} from "../Utils/Database/DatabaseHelpers";
 
+// temp fix for "isOver({shallow: true})"
+var DragDropMonitor = require("dnd-core/lib/DragDropMonitor").default;
+DragDropMonitor.prototype.GetTargetComponents = function() {
+    return this.getTargetIds().map(targetID=>this.registry.handlers[targetID].component);
+};
+/*var createTargetMonitor = require("react-dnd/lib/createTargetMonitor").default;
+var TargetMonitor = createTargetMonitor({getMonitor: function() {}}).constructor;
+TargetMonitor.prototype.GetTargetComponent = function() {
+    return this.internalMonitor.registry.handlers[this.targetId].component;
+};*/
+
 export type ProposalsUI_Props = {subNavBarWidth: number} & Partial<{proposals: Proposal[], selectedProposal: Proposal}>;
 @Connect((state, {}: ProposalsUI_Props)=> {
 	return {
@@ -48,7 +59,7 @@ export class ProposalsUI extends BaseComponent<ProposalsUI_Props, {}> {
 		}
 
 		return (
-			<Row style={{flex: 1, height: "100%", padding: 10, filter: "drop-shadow(rgb(0, 0, 0) 0px 0px 10px)"}}>
+			<Row style={{marginTop: 10, flex: 1, height: "100%", padding: 10, filter: "drop-shadow(rgb(0, 0, 0) 0px 0px 10px)"}}>
 				<ProposalsColumn proposals={proposals} type="feature"/>
 				<ProposalsColumn proposals={proposals} type="issue" ml={10}/>
 				<ProposalsUserRankingColumn proposals={proposals} ml={10}/>
@@ -140,26 +151,35 @@ export type ProposalsUserRankingColumn_Props = {proposals: Proposal[]} & Partial
 	drop(props, monitor, dropTarget) {
 		if (monitor.didDrop()) return;
 		var draggedItem = monitor.getItem();
-		console.log("Dropping directly on list...");
-		if (draggedItem.columnType != "userRanking") {
-			new SetProposalOrder({proposalID: draggedItem.proposal._id, index: 0}).Run();
-		}
+		new SetProposalOrder({proposalID: draggedItem.proposal._id, index: Number.MAX_SAFE_INTEGER}).Run();
 	}
 },
 (connect, monitor)=> {
+	//var dropTarget = monitor.GetTargetComponent();
+	var targetComps = monitor.internalMonitor.GetTargetComponents();
+	
+	//let isOver_shallow = monitor.isOver({shallow: true});
+	let IsProposalEntry = a=>a.props.index != null && !a.props.asDragPreview;
+	let isOver_shallow = monitor.isOver() && !targetComps.Any(IsProposalEntry); // we're over this list shallowly, if not over any proposal-entries
+	//console.log(ToJSON(targetComps.map(a=>a.props.index)));
+
 	return {
 		connectDropTarget: connect.dropTarget(),
-		isOver: monitor.isOver({shallow: true})
+		isOver: isOver_shallow,
+		draggedItem: monitor.getItem(),
 	};
 })
 @ApplyBasicStyles
 export class ProposalsUserRankingColumn extends BaseComponent<ProposalsUserRankingColumn_Props, {}> {
 	render() {
-		let {proposals, proposalOrder} = this.props;
-		let {connectDropTarget, isOver} = this.props as any;
+		let {proposals, proposalOrder,} = this.props;
+		let {connectDropTarget, isOver, draggedItem} = this.props as any;
 		let user = Manager.GetUser(Manager.GetUserID());
 
 		proposals = proposals.filter(a=>proposalOrder.Contains(a._id)).OrderBy(a=>proposalOrder.indexOf(a._id));
+
+		let dragPreviewUI = isOver &&
+			<ProposalEntryUI proposal={draggedItem.proposal} index={0} last={true} columnType="userRanking" style={{opacity: .3, borderRadius: 10}} asDragPreview={true}/>;
 
 		return connectDropTarget(<div style={{flex: 1, height: "100%"}}>
 			<Column style={{flex: 1, height: "100%"}}>
@@ -173,13 +193,14 @@ export class ProposalsUserRankingColumn extends BaseComponent<ProposalsUserRanki
 						</div>
 					</Column>
 					<Column>
-						{proposals.length == 0 &&
+						{proposals.length == 0 && !dragPreviewUI &&
 							<Row p="7px 10px" style={{background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px"}}>
 								You have not yet added any proposals to your user-ranking.
 							</Row>}
 						{proposals.map((proposal, index)=> {
 							return <ProposalEntryUI key={index} index={index} last={index == proposals.length - 1} proposal={proposal} columnType="userRanking"/>;
 						})}
+						{dragPreviewUI}
 					</Column>
 				</ScrollView>
 			</Column>

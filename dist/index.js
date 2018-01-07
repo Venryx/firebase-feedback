@@ -12200,6 +12200,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	//import HTML5Backend from "react-dnd-html5-backend";
 	//import TouchBackend from "react-dnd-touch-backend";
 
+	// temp fix for "isOver({shallow: true})"
+	var DragDropMonitor = __webpack_require__(215).default;
+	DragDropMonitor.prototype.GetTargetComponents = function () {
+	    var _this = this;
+
+	    return this.getTargetIds().map(function (targetID) {
+	        return _this.registry.handlers[targetID].component;
+	    });
+	};
 	var ProposalsUI = function (_BaseComponent) {
 	    _inherits(ProposalsUI, _BaseComponent);
 
@@ -12224,7 +12233,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (proposals == null) {
 	                return _react2.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "center", height: "100%", fontSize: 25 } }, "Loading proposals...");
 	            }
-	            return _react2.default.createElement(_reactVcomponents.Row, { style: { flex: 1, height: "100%", padding: 10, filter: "drop-shadow(rgb(0, 0, 0) 0px 0px 10px)" } }, _react2.default.createElement(ProposalsColumn, { proposals: proposals, type: "feature" }), _react2.default.createElement(ProposalsColumn, { proposals: proposals, type: "issue", ml: 10 }), _react2.default.createElement(ProposalsUserRankingColumn, { proposals: proposals, ml: 10 }), _react2.default.createElement(_VDragLayer.VDragLayer, null));
+	            return _react2.default.createElement(_reactVcomponents.Row, { style: { marginTop: 10, flex: 1, height: "100%", padding: 10, filter: "drop-shadow(rgb(0, 0, 0) 0px 0px 10px)" } }, _react2.default.createElement(ProposalsColumn, { proposals: proposals, type: "feature" }), _react2.default.createElement(ProposalsColumn, { proposals: proposals, type: "issue", ml: 10 }), _react2.default.createElement(ProposalsUserRankingColumn, { proposals: proposals, ml: 10 }), _react2.default.createElement(_VDragLayer.VDragLayer, null));
 	        }
 	    }]);
 
@@ -12371,7 +12380,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                proposalOrder = _props3.proposalOrder;
 	            var _props4 = this.props,
 	                connectDropTarget = _props4.connectDropTarget,
-	                isOver = _props4.isOver;
+	                isOver = _props4.isOver,
+	                draggedItem = _props4.draggedItem;
 
 	            var user = _Manager.Manager.GetUser(_Manager.Manager.GetUserID());
 	            proposals = proposals.filter(function (a) {
@@ -12379,9 +12389,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }).OrderBy(function (a) {
 	                return proposalOrder.indexOf(a._id);
 	            });
-	            return connectDropTarget(_react2.default.createElement("div", { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVcomponents.Column, { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVscrollview.ScrollView, { ref: "scrollView", scrollVBarStyle: { width: 10 }, style: { flex: 1 } }, _react2.default.createElement(_reactVcomponents.Column, { className: "clickThrough", style: { background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } }, _react2.default.createElement(_reactVcomponents.Row, { style: { height: 40, padding: 10 } }, _react2.default.createElement("span", { style: { position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: 18 } }, "Your ranking")), _react2.default.createElement("div", { style: { padding: 10, paddingTop: 0, alignItems: "center", fontSize: 13, textAlign: "center" } }, "Drag proposals onto this list to \"vote\" for them. Items at the top get the highest score boost.")), _react2.default.createElement(_reactVcomponents.Column, null, proposals.length == 0 && _react2.default.createElement(_reactVcomponents.Row, { p: "7px 10px", style: { background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px" } }, "You have not yet added any proposals to your user-ranking."), proposals.map(function (proposal, index) {
+	            var dragPreviewUI = isOver && _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { proposal: draggedItem.proposal, index: 0, last: true, columnType: "userRanking", style: { opacity: .3, borderRadius: 10 }, asDragPreview: true });
+	            return connectDropTarget(_react2.default.createElement("div", { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVcomponents.Column, { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVscrollview.ScrollView, { ref: "scrollView", scrollVBarStyle: { width: 10 }, style: { flex: 1 } }, _react2.default.createElement(_reactVcomponents.Column, { className: "clickThrough", style: { background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } }, _react2.default.createElement(_reactVcomponents.Row, { style: { height: 40, padding: 10 } }, _react2.default.createElement("span", { style: { position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: 18 } }, "Your ranking")), _react2.default.createElement("div", { style: { padding: 10, paddingTop: 0, alignItems: "center", fontSize: 13, textAlign: "center" } }, "Drag proposals onto this list to \"vote\" for them. Items at the top get the highest score boost.")), _react2.default.createElement(_reactVcomponents.Column, null, proposals.length == 0 && !dragPreviewUI && _react2.default.createElement(_reactVcomponents.Row, { p: "7px 10px", style: { background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px" } }, "You have not yet added any proposals to your user-ranking."), proposals.map(function (proposal, index) {
 	                return _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { key: index, index: index, last: index == proposals.length - 1, proposal: proposal, columnType: "userRanking" });
-	            }))))));
+	            }), dragPreviewUI)))));
 	        }
 	    }]);
 
@@ -12406,15 +12417,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	    drop: function drop(props, monitor, dropTarget) {
 	        if (monitor.didDrop()) return;
 	        var draggedItem = monitor.getItem();
-	        console.log("Dropping directly on list...");
-	        if (draggedItem.columnType != "userRanking") {
-	            new _SetProposalOrder2.default({ proposalID: draggedItem.proposal._id, index: 0 }).Run();
-	        }
+	        new _SetProposalOrder2.default({ proposalID: draggedItem.proposal._id, index: Number.MAX_SAFE_INTEGER }).Run();
 	    }
 	}, function (connect, monitor) {
+	    //var dropTarget = monitor.GetTargetComponent();
+	    var targetComps = monitor.internalMonitor.GetTargetComponents();
+	    //let isOver_shallow = monitor.isOver({shallow: true});
+	    var IsProposalEntry = function IsProposalEntry(a) {
+	        return a.props.index != null && !a.props.asDragPreview;
+	    };
+	    var isOver_shallow = monitor.isOver() && !targetComps.Any(IsProposalEntry); // we're over this list shallowly, if not over any proposal-entries
+	    //console.log(ToJSON(targetComps.map(a=>a.props.index)));
 	    return {
 	        connectDropTarget: connect.dropTarget(),
-	        isOver: monitor.isOver({ shallow: true })
+	        isOver: isOver_shallow,
+	        draggedItem: monitor.getItem()
 	    };
 	}), _reactVextensions.ApplyBasicStyles], ProposalsUserRankingColumn);
 	exports.ProposalsUserRankingColumn = ProposalsUserRankingColumn;
@@ -13317,7 +13334,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
 
-	var ProposalEntryUI = function (_BaseComponent) {
+	var ProposalEntryUI = ProposalEntryUI_1 = function (_BaseComponent) {
 	    _inherits(ProposalEntryUI, _BaseComponent);
 
 	    function ProposalEntryUI() {
@@ -13328,20 +13345,43 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    _createClass(ProposalEntryUI, [{
 	        key: "ShouldDropBefore",
+
+	        //newPos_midY;
 	        value: function ShouldDropBefore() {
 	            //var mousePos = monitor.getClientOffset().y;
-	            /*var dropTargetDOM = FindDOM_(this);
-	            var newPos_script_midY = dropTargetDOM.position_Vector2i().y + (dropTargetDOM.height() / 2);*/
+	            var dropTargetDOM = (0, _reactVextensions.FindDOM)(this.innerRoot);
+	            if (dropTargetDOM == null) return true;
+	            var newPos_midY = (dropTargetDOM.getBoundingClientRect().top + dropTargetDOM.getBoundingClientRect().bottom) / 2;
 	            //var {newPos_script_midY} = this.state;
-	            var newPos_script_midY = this.newPos_midY;
-	            if (newPos_script_midY == null) return true;
+	            //var newPos_script_midY = this.newPos_midY;
+	            //if (newPos_midY == null) return true;
 	            // if over top-half of script, drop before
-	            //Log(g.mousePos.y + ";" + newPos_script_midY);
-	            return window["mousePos"] && window["mousePos"].y < newPos_script_midY;
+	            //console.log(window["mousePos"].y + ";" + newPos_midY);
+	            return window["mousePos"] && window["mousePos"].y < newPos_midY;
+	        }
+	    }, {
+	        key: "ComponentWillReceiveProps",
+	        value: function ComponentWillReceiveProps(props) {
+	            var _this2 = this;
+
+	            // if hovering with item over our component, start auto-updating the ui (to match with place-above-or-below state)
+	            if (props.isOver) {
+	                this.updateTimer = new _jsVextensions.Timer(50, function () {
+	                    return _this2.Update();
+	                });
+	                this.updateTimer.Start();
+	            } else {
+	                if (this.updateTimer) {
+	                    this.updateTimer.Stop();
+	                    this.updateTimer = null;
+	                }
+	            }
 	        }
 	    }, {
 	        key: "render",
 	        value: function render() {
+	            var _this3 = this;
+
 	            var _props = this.props,
 	                index = _props.index,
 	                last = _props.last,
@@ -13349,31 +13389,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	                rankingScore = _props.rankingScore,
 	                creator = _props.creator,
 	                columnType = _props.columnType,
-	                asDragPreview = _props.asDragPreview;
+	                asDragPreview = _props.asDragPreview,
+	                style = _props.style;
 	            var _props2 = this.props,
 	                connectDragSource = _props2.connectDragSource,
 	                isDragging = _props2.isDragging,
 	                connectDropTarget = _props2.connectDropTarget,
-	                isOver = _props2.isOver; // lazy
+	                isOver = _props2.isOver,
+	                draggedItem = _props2.draggedItem; // lazy
 
+	            if (isDragging && columnType == "userRanking") return _react2.default.createElement("div", null);
+	            var dragPreviewUI = columnType == "userRanking" && isOver && !asDragPreview && _react2.default.createElement(ProposalEntryUI_1, { proposal: draggedItem.proposal, index: index, last: false, columnType: columnType, style: { opacity: .3, borderRadius: 10 }, asDragPreview: true });
 	            var toURL = new _jsVextensions.VURL(null, ["proposals", proposal._id + ""]);
-	            return connectDragSource(connectDropTarget(_react2.default.createElement("div", null, _react2.default.createElement(_reactVcomponents.Column, { p: "7px 10px", style: E({ background: index % 2 == 0 ? "rgba(30,30,30,.7)" : "rgba(0,0,0,.7)" }, last && { borderRadius: "0 0 10px 10px" }, asDragPreview && { borderRadius: 10 }) }, _react2.default.createElement(_reactVcomponents.Row, null, _react2.default.createElement(_Link.Link, { text: proposal.title, actions: function actions(d) {
+	            return connectDragSource(connectDropTarget(_react2.default.createElement("div", null, this.ShouldDropBefore() && dragPreviewUI, _react2.default.createElement(_reactVcomponents.Column, { ref: function ref(c) {
+	                    return _this3.innerRoot = c;
+	                }, p: "7px 10px", style: E({ background: index % 2 == 0 ? "rgba(30,30,30,.7)" : "rgba(0,0,0,.7)" }, last && { borderRadius: "0 0 10px 10px" }, style) }, _react2.default.createElement(_reactVcomponents.Row, null, _react2.default.createElement(_Link.Link, { text: proposal.title, actions: function actions(d) {
 	                    return d(new _main.ACTProposalSelect({ id: proposal._id }));
-	                }, style: { fontSize: 15, flex: 1 } }), _react2.default.createElement("span", { style: { float: "right" } }, columnType == "userRanking" ? "#" + (index + 1) + " (+" + (0, _Proposals.GetRankingScoreToAddForUserRankingIndex)(index).RoundTo_Str(.001, null, false) + ")" : rankingScore ? rankingScore.RoundTo_Str(.001, null, false) : ""))))));
-	        }
-	    }, {
-	        key: "PostRender",
-	        value: function PostRender() {
-	            var dropTargetDOM = (0, _reactVextensions.FindDOM)(this);
-	            var newPos_midY = (dropTargetDOM.getBoundingClientRect().top + dropTargetDOM.getBoundingClientRect().bottom) / 2;
-	            //this.setState({newPos_script_midY: newPos_script_midY});
-	            this.newPos_midY = newPos_midY;
+	                }, style: { fontSize: 15, flex: 1 } }), _react2.default.createElement("span", { style: { float: "right" } }, columnType == "userRanking" ? "#" + (index + 1) + " (+" + (0, _Proposals.GetRankingScoreToAddForUserRankingIndex)(index).RoundTo_Str(.001, null, false) + ")" : rankingScore ? rankingScore.RoundTo_Str(.001, null, false) : ""), columnType == "userRanking" && !asDragPreview && _react2.default.createElement(_reactVcomponents.Button, { text: "X", style: { margin: "-3px 0 -3px 5px", padding: "3px 5px" }, onClick: function onClick() {
+	                    new _SetProposalOrder2.default({ proposalID: proposal._id, index: -1 }).Run();
+	                } }))), !this.ShouldDropBefore() && dragPreviewUI)));
 	        }
 	    }]);
 
 	    return ProposalEntryUI;
 	}(_reactVextensions.BaseComponent);
-	exports.ProposalEntryUI = ProposalEntryUI = __decorate([(0, _reactDnd.DragSource)("proposal", { beginDrag: function beginDrag(_ref) {
+	exports.ProposalEntryUI = ProposalEntryUI = ProposalEntryUI_1 = __decorate([(0, _reactDnd.DragSource)("proposal", { beginDrag: function beginDrag(_ref) {
 	        var proposal = _ref.proposal,
 	            columnType = _ref.columnType;
 	        return { proposal: proposal, columnType: columnType };
@@ -13408,7 +13448,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	}, function (connect, monitor) {
 	    return {
 	        connectDropTarget: connect.dropTarget(),
-	        isOver: monitor.isOver({ shallow: true })
+	        isOver: monitor.isOver(),
+	        draggedItem: monitor.getItem()
 	    };
 	}), (0, _FirebaseConnect.Connect)(function (state, _ref2) {
 	    var proposal = _ref2.proposal;
@@ -13417,6 +13458,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	})], ProposalEntryUI);
 	exports.ProposalEntryUI = ProposalEntryUI;
+
+	var ProposalEntryUI_1;
 
 /***/ }),
 /* 101 */
@@ -21675,7 +21718,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                idsOrdered = oldIndexes.VValues(true);
 	                                oldIndex = idsOrdered.indexOf(proposalID);
 
-	                                idsOrdered.Move(proposalID, index);
+	                                if (index != -1) {
+	                                    idsOrdered.Move(proposalID, index, true);
+	                                } else {
+	                                    idsOrdered.Remove(proposalID);
+	                                }
 	                                this.newIndexes = idsOrdered; //.ToMap();
 
 	                            case 11:
@@ -34477,7 +34524,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    } })));
 	            }
 	            var creatorOrMod = (0, _General.IsUserCreatorOrMod)(_Manager.Manager.GetUserID(), proposal);
-	            return _react2.default.createElement(_reactVcomponents.Column, { className: "clickThrough", style: { height: 80, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } }, _react2.default.createElement(_reactVcomponents.Row, { sel: true, style: { flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, alignItems: "initial", cursor: "auto" } }, _react2.default.createElement(_reactVcomponents.Column, { p: 10, style: { flex: 1 } }, _react2.default.createElement(_reactVcomponents.Row, { style: { width: "100%", fontSize: "18", textAlign: "center" } }, proposal.title), _react2.default.createElement(_reactVcomponents.Row, { style: { width: "100%" } }, _react2.default.createElement(_Manager.Manager.MarkdownRenderer, { source: proposal.text })), _react2.default.createElement(_reactVcomponents.Row, { mt: "auto" }, _react2.default.createElement("span", { style: { color: "rgba(255,255,255,.5)" } }, creator ? creator.displayName : "...", ", at ", _Manager.Manager.FormatTime(proposal.createdAt, "YYYY-MM-DD HH:mm:ss")), creatorOrMod && _react2.default.createElement(_reactVcomponents.Button, { ml: 5, text: "Edit", onClick: function onClick() {
+	            return _react2.default.createElement(_reactVcomponents.Row, { sel: true, style: { flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, alignItems: "initial", cursor: "auto" } }, _react2.default.createElement(_reactVcomponents.Column, { p: 10, style: { flex: 1 } }, _react2.default.createElement(_reactVcomponents.Row, { style: { width: "100%", fontSize: "18", textAlign: "center" } }, proposal.title), _react2.default.createElement(_reactVcomponents.Row, { mt: 10, style: { width: "100%" } }, _react2.default.createElement(_Manager.Manager.MarkdownRenderer, { source: proposal.text })), _react2.default.createElement(_reactVcomponents.Row, { mt: 5 }, _react2.default.createElement("span", { style: { color: "rgba(255,255,255,.5)" } }, creator ? creator.displayName : "...", ", at ", _Manager.Manager.FormatTime(proposal.createdAt, "YYYY-MM-DD HH:mm:ss")), creatorOrMod && _react2.default.createElement(_reactVcomponents.Button, { ml: 5, text: "Edit", onClick: function onClick() {
 	                    _this3.SetState({ editing: true });
 	                } }), creatorOrMod && _react2.default.createElement(_reactVcomponents.Button, { ml: 5, text: "Delete", onClick: function onClick() {
 	                    (0, _reactVmessagebox.ShowMessageBox)({
@@ -34501,7 +34548,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            }));
 	                        }
 	                    });
-	                } }), proposal.editedAt && _react2.default.createElement(_reactVcomponents.Span, { ml: "auto", style: { color: "rgba(255,255,255,.5)" } }, proposal.text != null ? "edited" : "deleted", " at ", _Manager.Manager.FormatTime(proposal.editedAt, "YYYY-MM-DD HH:mm:ss"))))));
+	                } }), proposal.editedAt && _react2.default.createElement(_reactVcomponents.Span, { ml: "auto", style: { color: "rgba(255,255,255,.5)" } }, proposal.text != null ? "edited" : "deleted", " at ", _Manager.Manager.FormatTime(proposal.editedAt, "YYYY-MM-DD HH:mm:ss")))));
 	        }
 	    }]);
 
@@ -35273,7 +35320,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                itemType == "element" ? <ElementDragPreview element={item.element} canDrop={canDrop}/> :
 	                itemType == "script" ? <ScriptDragPreview script={item.script} canDrop={canDrop}/> :
 	                null;*/
-	            return _react2.default.createElement("div", { style: { position: "fixed", pointerEvents: "none", zIndex: 100, left: 0, top: 0, width: "100%", height: "100%" } }, _react2.default.createElement("div", { style: E(getItemStyles(this.props)) }, itemType == "proposal" && _react2.default.createElement("div", { style: { width: "33%" } }, _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { proposal: item.proposal, index: 0, last: false, columnType: item.columnType, asDragPreview: true }))));
+	            return _react2.default.createElement("div", { style: { position: "fixed", pointerEvents: "none", zIndex: 100, left: 0, top: 0, width: "100%", height: "100%" } }, _react2.default.createElement("div", { style: E(getItemStyles(this.props)) }, itemType == "proposal" && _react2.default.createElement("div", { style: { width: "33%" } }, _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { proposal: item.proposal, index: 0, last: false, columnType: item.columnType, asDragPreview: true, style: { borderRadius: 10 } }))));
 	        }
 	    }]);
 

@@ -46,7 +46,7 @@ export class VDragLayer extends BaseComponent<{item?, itemType?, isDragging?, ca
 				<div style={E(getItemStyles(this.props))}>
 					{itemType == "proposal" &&
 						<div style={{width: "33%"}}>
-							<ProposalEntryUI proposal={item.proposal} index={0} last={false} columnType={item.columnType} asDragPreview={true}/>
+							<ProposalEntryUI proposal={item.proposal} index={0} last={false} columnType={item.columnType} asDragPreview={true} style={{borderRadius: 10}}/>
 						</div>}
 				</div>
 			</div>

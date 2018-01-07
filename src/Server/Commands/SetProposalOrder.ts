@@ -11,7 +11,11 @@ export default class SetProposalOrder extends Command<{proposalID: number, index
 		let oldIndexes = await GetDataAsync("userData", this.userInfo.id, "proposalIndexes") as ProposalIndexSet || {};
 		let idsOrdered = oldIndexes.VValues(true);
 		let oldIndex = idsOrdered.indexOf(proposalID);
-		idsOrdered.Move(proposalID, index);
+		if (index != -1) {
+			idsOrdered.Move(proposalID, index, true);
+		} else {
+			idsOrdered.Remove(proposalID);
+		}
 		this.newIndexes = idsOrdered; //.ToMap();
 	}
 	async Validate() {
