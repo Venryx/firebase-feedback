@@ -1,4 +1,5 @@
 import {AddSchema} from "../../../Server/Server";
+
 export class Proposal {
 	constructor(initialData: Partial<Proposal>) {
 		this.Extend(initialData);

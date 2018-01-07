@@ -1,7 +1,7 @@
-import {Action} from "../Utils/Action";
+import {Action} from "./../Utils/Action";
 import {combineReducers} from "redux";
-import { Manager, Proposal, GetProposal } from "../index";
-import { State } from "../General";
+import { Manager, Proposal, GetProposal } from "./../index";
+import { State } from "./../General";
 
 export class ACTProposalSelect extends Action<{id: number}> {}
 

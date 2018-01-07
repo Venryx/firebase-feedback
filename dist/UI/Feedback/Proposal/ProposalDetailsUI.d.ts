@@ -1,5 +1,5 @@
 import { BaseComponent } from "react-vextensions";
-import { Proposal } from "../../../Store/firebase/feedback/@Proposal";
+import { Proposal } from "./../../../Store/firebase/proposals/@Proposal";
 export declare type _MainType = Proposal;
 export declare type ProposalDetailsUI_Props = {
     baseData: _MainType;

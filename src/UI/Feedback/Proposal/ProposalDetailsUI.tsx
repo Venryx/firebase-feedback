@@ -10,14 +10,14 @@ import {CheckBox} from "react-vcomponents";
 import {ScrollView} from "react-vscrollview";
 import {Button} from "react-vcomponents";
 import {Spinner} from "react-vcomponents";
-import {Proposal} from "../../../Store/firebase/feedback/@Proposal";
+import {Proposal} from "./../../../Store/firebase/proposals/@Proposal";
 import {MarkdownToolbar} from "../../@Shared/MarkdownToolbar";
 import {Link} from "../../@Shared/Link";
 import Editor from "react-md-editor";
 import { GetErrorMessagesUnderElement } from "js-vextensions";
 import {ShowMessageBox, BoxController} from "react-vmessagebox";
-import {ACTProposalSelect} from "../../../Store/feedback";
 import {AddProposal} from "../../../Server/Commands/AddProposal";
+import {ACTProposalSelect} from "../../../Store/main";
 
 export type _MainType = Proposal;
 let MTName = "Proposal";

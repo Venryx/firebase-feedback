@@ -1,7 +1,7 @@
 import {Assert} from "js-vextensions";
 import {Command, MergeDBUpdates} from "../Command";
 import { GetAsync } from "../../Utils/Database/DatabaseHelpers";
-import {GetProposal} from "../../Store/firebase/feedback";
+import {GetProposal} from "../../Store/firebase/proposals";
 
 //@UserEdit
 export class DeleteProposal extends Command<{id: number}> {

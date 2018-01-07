@@ -11,12 +11,12 @@ import {Manager, PermissionGroupSet} from "../../Manager";
 import {colors} from "../GlobalStyles";
 import {IsUserCreatorOrMod} from "../../General";
 import {GetUpdates} from "../../Utils/Database/DatabaseHelpers";
-import {Proposal} from "../../Store/firebase/feedback/@Proposal";
-import {ACTProposalSelect} from "../../Store/feedback";
+import {Proposal} from "./../../Store/firebase/proposals/@Proposal";
 import {ShowMessageBox} from "react-vmessagebox";
 import {DeleteProposal} from "../../Server/Commands/DeleteProposal";
 import {ProposalDetailsUI} from "./Proposal/ProposalDetailsUI";
 import {UpdateProposal} from "../../Server/Commands/UpdateProposal";
+import {ACTProposalSelect} from "../../Store/main";
 
 export type ProposalUI_Props = {proposal: Proposal, subNavBarWidth?: number} & Partial<{/*permissions: PermissionGroupSet, posts: Post[]*/}>;
 /*@Connect((state, {proposal}: ProposalUI_Props)=> ({

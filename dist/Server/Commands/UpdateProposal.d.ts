@@ -1,5 +1,5 @@
 import { Command } from "../Command";
-import { Proposal } from "../../Store/firebase/feedback/@Proposal";
+import { Proposal } from "./../../Store/firebase/proposals/@Proposal";
 export declare type _MainType = Proposal;
 export declare class UpdateProposal extends Command<{
     id: number;
