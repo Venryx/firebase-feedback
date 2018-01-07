@@ -189,13 +189,13 @@ export class ProposalsUserRankingColumn extends BaseComponent<ProposalsUserRanki
 							<span style={{position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: 18}}>Your ranking</span>
 						</Row>
 						<div style={{padding: 10, paddingTop: 0, alignItems: "center", fontSize: 13, textAlign: "center"}}>
-							Drag proposals onto this list to "vote" for them. Items at the top get the highest score boost.
+							Drag proposals onto this list to "vote" for them. Items at the top get the highest score increase.
 						</div>
 					</Column>
 					<Column>
 						{proposals.length == 0 && !dragPreviewUI &&
 							<Row p="7px 10px" style={{background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px"}}>
-								You have not yet added any proposals to your user-ranking.
+								You have not yet added any proposals to your ranking.
 							</Row>}
 						{proposals.map((proposal, index)=> {
 							return <ProposalEntryUI key={index} index={index} last={index == proposals.length - 1} proposal={proposal} columnType="userRanking"/>;
