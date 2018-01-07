@@ -21,6 +21,7 @@ import MouseBackend from "react-dnd-mouse-backend";
 import {VDragLayer} from "./@Shared/VDragLayer";
 import SetProposalOrder from "../Server/Commands/SetProposalOrder";
 import { GetProposalIndexes, GetProposalOrder } from "../index";
+import {GetData} from "../Utils/Database/DatabaseHelpers";
 
 export type ProposalsUI_Props = {subNavBarWidth: number} & Partial<{proposals: Proposal[], selectedProposal: Proposal}>;
 @Connect((state, {}: ProposalsUI_Props)=> {
@@ -57,16 +58,40 @@ export class ProposalsUI extends BaseComponent<ProposalsUI_Props, {}> {
 	}
 }
 
-export type ProposalsColumn_Props = {proposals: Proposal[], type: string} & Partial<{}>;
+export function GetRankingScoreToAddForUserRankingIndex(indexInRankingOrder: number) {
+	let rankingScoreToAdd = 1;
+	for (var i = 0; i < indexInRankingOrder; i++) {
+		rankingScoreToAdd *= .66;
+	}
+	return rankingScoreToAdd;
+}
+
+export type ProposalsColumn_Props = {proposals: Proposal[], type: string} & Partial<{userData}>;
 @Connect((state, {}: ProposalsColumn_Props)=> ({
+	userData: GetData("userData"),
 }))
 @ApplyBasicStyles
 export class ProposalsColumn extends BaseComponent<ProposalsColumn_Props, {}> {
 	render() {
-		let {proposals, type} = this.props;
+		let {proposals, type, userData} = this.props;
 		let userID = Manager.GetUserID();
 
 		proposals = proposals.filter(a=>a.type == type);
+
+		let proposalOrders = userData ? userData.VValues().map(a=>(a.proposalIndexes || {}).VValues(true)) : [];
+		let rankingScores = {};
+		for (let proposal of proposals) {
+			let rankingScore = 0;
+			for (let proposalOrder of proposalOrders) {
+				let indexInOrder = proposalOrder.indexOf(proposal._id);
+				if (indexInOrder == -1) continue;
+				
+				rankingScore += GetRankingScoreToAddForUserRankingIndex(indexInOrder);
+			}
+			rankingScores[proposal._id] = rankingScore;
+		}
+
+		proposals = proposals.OrderByDescending(a=>rankingScores[a._id]);
 
 		return (
 			<Column style={{flex: 1, height: "100%"}}>
@@ -88,7 +113,8 @@ export class ProposalsColumn extends BaseComponent<ProposalsColumn_Props, {}> {
 								There are currently no {type == "feature" ? "feature proposals" : "issue reports"}.
 							</Row>}
 						{proposals.map((proposal, index)=> {
-							return <ProposalEntryUI key={index} index={index} last={index == proposals.length - 1} proposal={proposal} columnType={type}/>;
+							return <ProposalEntryUI key={index} index={index} last={index == proposals.length - 1}
+								proposal={proposal} rankingScore={rankingScores[proposal._id]} columnType={type}/>;
 						})}
 					</Column>
 				</ScrollView>

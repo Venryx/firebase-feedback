@@ -12,10 +12,13 @@ export declare class ProposalsUI extends BaseComponent<ProposalsUI_Props, {}> {
     };
     render(): JSX.Element;
 }
+export declare function GetRankingScoreToAddForUserRankingIndex(indexInRankingOrder: number): number;
 export declare type ProposalsColumn_Props = {
     proposals: Proposal[];
     type: string;
-} & Partial<{}>;
+} & Partial<{
+    userData;
+}>;
 export declare class ProposalsColumn extends BaseComponent<ProposalsColumn_Props, {}> {
     render(): JSX.Element;
 }

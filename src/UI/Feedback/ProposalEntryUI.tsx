@@ -10,8 +10,9 @@ import {Proposal} from "./../../Store/firebase/proposals/@Proposal";
 import {DragSource, DropTarget} from "react-dnd";
 import SetProposalOrder from "../../Server/Commands/SetProposalOrder";
 import {ACTProposalSelect} from "../../Store/main";
+import { GetRankingScoreToAddForUserRankingIndex } from "../Proposals";
 
-export type ProposalEntryUI_Props = {index: number, last: boolean, proposal: Proposal, columnType: string} & Partial<{creator: User, /*posts: Post[]*/}>;
+export type ProposalEntryUI_Props = {index: number, last: boolean, proposal: Proposal, rankingScore?: number, columnType: string} & Partial<{creator: User, /*posts: Post[]*/}>;
 
 @DragSource("proposal",
 	{beginDrag: ({proposal, columnType})=>({proposal, columnType})},
@@ -69,7 +70,7 @@ export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
 		return window["mousePos"] && window["mousePos"].y < newPos_script_midY;
 	}
 	render() {
-		let {index, last, proposal, creator} = this.props;
+		let {index, last, proposal, rankingScore, creator, columnType} = this.props;
 		var {connectDragSource, isDragging, connectDropTarget, isOver} = this.props as any; // lazy
 
 		let toURL = new VURL(null, ["proposals", proposal._id+""]);
@@ -80,6 +81,11 @@ export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
 			)}>
 				<Row>
 					<Link text={proposal.title} actions={d=>d(new ACTProposalSelect({id: proposal._id}))} style={{fontSize: 15, flex: 1}}/>
+					<span style={{float: "right"}}>
+						{columnType == "userRanking"
+							? `#${index + 1} (+${GetRankingScoreToAddForUserRankingIndex(index).RoundTo_Str(.001, null, false)})`
+							: rankingScore.RoundTo_Str(.001, null, false)}
+					</span>
 				</Row>
 			</Column>
 		</div>));
