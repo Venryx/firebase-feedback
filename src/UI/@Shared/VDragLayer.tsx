@@ -1,6 +1,7 @@
 import React from "react";
 import {DragLayer} from "react-dnd";
 import {BaseComponent} from "react-vextensions";
+import {ProposalEntryUI} from "../Feedback/ProposalEntryUI";
 
 function getItemStyles(props) {
 	const {currentOffset} = props;
@@ -42,8 +43,11 @@ export class VDragLayer extends BaseComponent<{item?, itemType?, isDragging?, ca
 
 		return (
 			<div style={{position: "fixed", pointerEvents: "none", zIndex: 100, left: 0, top: 0, width: "100%", height: "100%"}}>
-				<div style={getItemStyles(this.props)}>
-					{itemType}
+				<div style={E(getItemStyles(this.props))}>
+					{itemType == "proposal" &&
+						<div style={{width: "33%"}}>
+							<ProposalEntryUI proposal={item.proposal} index={0} last={false} columnType={item.columnType} asDragPreview={true}/>
+						</div>}
 				</div>
 			</div>
 		);

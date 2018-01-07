@@ -12379,7 +12379,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }).OrderBy(function (a) {
 	                return proposalOrder.indexOf(a._id);
 	            });
-	            return connectDropTarget(_react2.default.createElement("div", { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVcomponents.Column, { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVscrollview.ScrollView, { ref: "scrollView", scrollVBarStyle: { width: 10 }, style: { flex: 1 } }, _react2.default.createElement(_reactVcomponents.Column, { className: "clickThrough", style: { height: 40, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } }, _react2.default.createElement(_reactVcomponents.Row, { style: { height: 40, padding: 10 } }, _react2.default.createElement("span", { style: { position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: 18 } }, "Your ranking"))), _react2.default.createElement(_reactVcomponents.Column, null, proposals.length == 0 && _react2.default.createElement(_reactVcomponents.Row, { p: "7px 10px", style: { background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px" } }, "You have not yet added any proposals to your user-ranking."), proposals.map(function (proposal, index) {
+	            return connectDropTarget(_react2.default.createElement("div", { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVcomponents.Column, { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVscrollview.ScrollView, { ref: "scrollView", scrollVBarStyle: { width: 10 }, style: { flex: 1 } }, _react2.default.createElement(_reactVcomponents.Column, { className: "clickThrough", style: { background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } }, _react2.default.createElement(_reactVcomponents.Row, { style: { height: 40, padding: 10 } }, _react2.default.createElement("span", { style: { position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: 18 } }, "Your ranking")), _react2.default.createElement("div", { style: { padding: 10, paddingTop: 0, alignItems: "center", fontSize: 13, textAlign: "center" } }, "Drag proposals onto this list to \"vote\" for them. Items at the top get the highest score boost.")), _react2.default.createElement(_reactVcomponents.Column, null, proposals.length == 0 && _react2.default.createElement(_reactVcomponents.Row, { p: "7px 10px", style: { background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px" } }, "You have not yet added any proposals to your user-ranking."), proposals.map(function (proposal, index) {
 	                return _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { key: index, index: index, last: index == proposals.length - 1, proposal: proposal, columnType: "userRanking" });
 	            }))))));
 	        }
@@ -13348,7 +13348,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                proposal = _props.proposal,
 	                rankingScore = _props.rankingScore,
 	                creator = _props.creator,
-	                columnType = _props.columnType;
+	                columnType = _props.columnType,
+	                asDragPreview = _props.asDragPreview;
 	            var _props2 = this.props,
 	                connectDragSource = _props2.connectDragSource,
 	                isDragging = _props2.isDragging,
@@ -13356,9 +13357,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                isOver = _props2.isOver; // lazy
 
 	            var toURL = new _jsVextensions.VURL(null, ["proposals", proposal._id + ""]);
-	            return connectDragSource(connectDropTarget(_react2.default.createElement("div", null, _react2.default.createElement(_reactVcomponents.Column, { p: "7px 10px", style: E({ background: index % 2 == 0 ? "rgba(30,30,30,.7)" : "rgba(0,0,0,.7)" }, last && { borderRadius: "0 0 10px 10px" }) }, _react2.default.createElement(_reactVcomponents.Row, null, _react2.default.createElement(_Link.Link, { text: proposal.title, actions: function actions(d) {
+	            return connectDragSource(connectDropTarget(_react2.default.createElement("div", null, _react2.default.createElement(_reactVcomponents.Column, { p: "7px 10px", style: E({ background: index % 2 == 0 ? "rgba(30,30,30,.7)" : "rgba(0,0,0,.7)" }, last && { borderRadius: "0 0 10px 10px" }, asDragPreview && { borderRadius: 10 }) }, _react2.default.createElement(_reactVcomponents.Row, null, _react2.default.createElement(_Link.Link, { text: proposal.title, actions: function actions(d) {
 	                    return d(new _main.ACTProposalSelect({ id: proposal._id }));
-	                }, style: { fontSize: 15, flex: 1 } }), _react2.default.createElement("span", { style: { float: "right" } }, columnType == "userRanking" ? "#" + (index + 1) + " (+" + (0, _Proposals.GetRankingScoreToAddForUserRankingIndex)(index).RoundTo_Str(.001, null, false) + ")" : rankingScore.RoundTo_Str(.001, null, false)))))));
+	                }, style: { fontSize: 15, flex: 1 } }), _react2.default.createElement("span", { style: { float: "right" } }, columnType == "userRanking" ? "#" + (index + 1) + " (+" + (0, _Proposals.GetRankingScoreToAddForUserRankingIndex)(index).RoundTo_Str(.001, null, false) + ")" : rankingScore ? rankingScore.RoundTo_Str(.001, null, false) : ""))))));
 	        }
 	    }, {
 	        key: "PostRender",
@@ -13390,7 +13391,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        if (dropOnEntry == draggedEntry) return false; // if we're dragging item onto itself, reject
 	        //if (dropOnEntry.AncestorScripts.Contains(draggedScript)) return false; // if we're dragging an ancestor-script onto a descendent, reject
-	        if (dropOnEntry.type != columnType && columnType != "userRanking") return false;
+	        if (columnType != "userRanking") return false;
 	        return true;
 	    },
 	    drop: function drop(props, monitor, dropTarget) {
@@ -22235,7 +22236,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return boxController.UpdateUI();
 	    };
 	    var boxController = (0, _reactVmessagebox.ShowMessageBox)({
-	        title: "Add proposal", cancelButton: true,
+	        title: type == "feature" ? "Propose feature" : "Report issue", cancelButton: true,
 	        messageUI: function messageUI() {
 	            boxController.options.okButtonClickable = error == null;
 	            return _react2.default.createElement(_reactVcomponents.Column, { style: { padding: "10px 0", width: 600 } }, _react2.default.createElement(ProposalDetailsUI, { ref: function ref(c) {
@@ -35215,6 +35216,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactVextensions = __webpack_require__(95);
 
+	var _ProposalEntryUI = __webpack_require__(100);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35270,7 +35273,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                itemType == "element" ? <ElementDragPreview element={item.element} canDrop={canDrop}/> :
 	                itemType == "script" ? <ScriptDragPreview script={item.script} canDrop={canDrop}/> :
 	                null;*/
-	            return _react2.default.createElement("div", { style: { position: "fixed", pointerEvents: "none", zIndex: 100, left: 0, top: 0, width: "100%", height: "100%" } }, _react2.default.createElement("div", { style: getItemStyles(this.props) }, itemType));
+	            return _react2.default.createElement("div", { style: { position: "fixed", pointerEvents: "none", zIndex: 100, left: 0, top: 0, width: "100%", height: "100%" } }, _react2.default.createElement("div", { style: E(getItemStyles(this.props)) }, itemType == "proposal" && _react2.default.createElement("div", { style: { width: "33%" } }, _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { proposal: item.proposal, index: 0, last: false, columnType: item.columnType, asDragPreview: true }))));
 	        }
 	    }]);
 

@@ -164,10 +164,13 @@ export class ProposalsUserRankingColumn extends BaseComponent<ProposalsUserRanki
 		return connectDropTarget(<div style={{flex: 1, height: "100%"}}>
 			<Column style={{flex: 1, height: "100%"}}>
 				<ScrollView ref="scrollView" scrollVBarStyle={{width: 10}} style={{flex: 1}}>
-					<Column className="clickThrough" style={{height: 40, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0"}}>
+					<Column className="clickThrough" style={{background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0"}}>
 						<Row style={{height: 40, padding: 10}}>
 							<span style={{position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: 18}}>Your ranking</span>
 						</Row>
+						<div style={{padding: 10, paddingTop: 0, alignItems: "center", fontSize: 13, textAlign: "center"}}>
+							Drag proposals onto this list to "vote" for them. Items at the top get the highest score boost.
+						</div>
 					</Column>
 					<Column>
 						{proposals.length == 0 &&

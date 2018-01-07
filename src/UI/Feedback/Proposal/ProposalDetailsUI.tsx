@@ -88,7 +88,7 @@ export function ShowAddProposalDialog(userID: string, type: string) {
 	let error = null;
 	let Change = (..._)=>boxController.UpdateUI();
 	let boxController: BoxController = ShowMessageBox({
-		title: `Add proposal`, cancelButton: true,
+		title: type == "feature" ? "Propose feature" : "Report issue", cancelButton: true,
 		messageUI: ()=> {
 			boxController.options.okButtonClickable = error == null;
 			return (

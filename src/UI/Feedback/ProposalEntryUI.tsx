@@ -12,7 +12,8 @@ import SetProposalOrder from "../../Server/Commands/SetProposalOrder";
 import {ACTProposalSelect} from "../../Store/main";
 import { GetRankingScoreToAddForUserRankingIndex } from "../Proposals";
 
-export type ProposalEntryUI_Props = {index: number, last: boolean, proposal: Proposal, rankingScore?: number, columnType: string} & Partial<{creator: User, /*posts: Post[]*/}>;
+export type ProposalEntryUI_Props = {index: number, last: boolean, proposal: Proposal, rankingScore?: number, columnType: string, asDragPreview?: boolean}
+	& Partial<{creator: User, /*posts: Post[]*/}>;
 
 @DragSource("proposal",
 	{beginDrag: ({proposal, columnType})=>({proposal, columnType})},
@@ -28,7 +29,7 @@ export type ProposalEntryUI_Props = {index: number, last: boolean, proposal: Pro
 
 		if (dropOnEntry == draggedEntry) return false; // if we're dragging item onto itself, reject
 		//if (dropOnEntry.AncestorScripts.Contains(draggedScript)) return false; // if we're dragging an ancestor-script onto a descendent, reject
-		if (dropOnEntry.type != columnType && columnType != "userRanking") return false;
+		if (columnType != "userRanking") return false;
 		return true;
 	},
 	drop(props, monitor, dropTarget) {
@@ -70,21 +71,22 @@ export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
 		return window["mousePos"] && window["mousePos"].y < newPos_script_midY;
 	}
 	render() {
-		let {index, last, proposal, rankingScore, creator, columnType} = this.props;
+		let {index, last, proposal, rankingScore, creator, columnType, asDragPreview} = this.props;
 		var {connectDragSource, isDragging, connectDropTarget, isOver} = this.props as any; // lazy
 
 		let toURL = new VURL(null, ["proposals", proposal._id+""]);
 		return connectDragSource(connectDropTarget(<div>
 			<Column p="7px 10px" style={E(
 				{background: index % 2 == 0 ? "rgba(30,30,30,.7)" : "rgba(0,0,0,.7)"},
-				last && {borderRadius: "0 0 10px 10px"}
+				last && {borderRadius: "0 0 10px 10px"},
+				asDragPreview && {borderRadius: 10},
 			)}>
 				<Row>
 					<Link text={proposal.title} actions={d=>d(new ACTProposalSelect({id: proposal._id}))} style={{fontSize: 15, flex: 1}}/>
 					<span style={{float: "right"}}>
 						{columnType == "userRanking"
 							? `#${index + 1} (+${GetRankingScoreToAddForUserRankingIndex(index).RoundTo_Str(.001, null, false)})`
-							: rankingScore.RoundTo_Str(.001, null, false)}
+							: (rankingScore ? rankingScore.RoundTo_Str(.001, null, false) : "")}
 					</span>
 				</Row>
 			</Column>
