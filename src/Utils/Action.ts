@@ -28,3 +28,7 @@ Object.prototype._AddFunction("IsAny", Action.prototype.IsAny);*/
 	return this.type == actionType.name;
 	//return this instanceof actionType; // alternative
 }*/
+
+export function IsACTSetFor(action: Action<any>, path: any) {
+	return action.type.startsWith("ACTSetFF_") && action.payload["path"] == path;
+}

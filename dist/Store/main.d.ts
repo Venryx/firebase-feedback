@@ -1,12 +1,15 @@
 import { Action } from "./../Utils/Action";
-import { Proposal } from "./../index";
-export declare class ACTProposalSelect extends Action<{
-    id: number;
-}> {
+import { Proposals } from "./main/proposals";
+import { RootState } from "../General";
+export declare type ACTSet_Payload = {
+    path: string | ((state: RootState) => any);
+    value;
+};
+export declare class ACTSet extends Action<ACTSet_Payload> {
+    constructor(path: string | ((state: RootState) => any), value: any);
 }
+export declare function SimpleReducer(path: string | ((store: RootState) => any), defaultValue?: any): (state: any, action: Action<any>) => any;
 export declare class Feedback {
-    selectedProposalID: number;
+    proposals: Proposals;
 }
 export declare const FeedbackReducer: any;
-export declare function GetSelectedProposalID(): number;
-export declare function GetSelectedProposal(): Proposal;

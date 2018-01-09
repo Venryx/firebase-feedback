@@ -1,7 +1,11 @@
 import { Proposal } from "./index";
+import { Feedback } from "./Store/main";
 export declare function RemoveDuplicates(items: any): any[];
-export declare type RootState = any;
-export declare function State<T>(...args: any[]): any;
+export declare type RootState = Feedback;
+export declare function State<T>(): RootState;
+export declare function State<T>(pathGetterFunc: (state: RootState) => T): any;
+export declare function State<T>(...pathSegments: (string | number)[]): any;
+export declare function StorePath(pathGetterFunc: (state: RootState) => any): string;
 export declare var emptyArray: any[];
 export declare enum AccessLevel {
     Basic = 10,

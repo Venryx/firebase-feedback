@@ -1,5 +1,5 @@
 import {BaseComponent, GetInnerComp} from "react-vextensions";
-import {Row, Pre, Div, Span} from "react-vcomponents";
+import {Row, Pre, Div, Span, CheckBox} from "react-vcomponents";
 import {Button} from "react-vcomponents";
 import {DropDown} from "react-vcomponents";
 import {Column} from "react-vcomponents";
@@ -9,14 +9,14 @@ import React from "react";
 import {Connect} from "../../Utils/Database/FirebaseConnect";
 import {Manager, PermissionGroupSet} from "../../Manager";
 import {colors} from "../GlobalStyles";
-import {IsUserCreatorOrMod} from "../../General";
+import {IsUserCreatorOrMod, IsUserAdmin} from "../../General";
 import {GetUpdates} from "../../Utils/Database/DatabaseHelpers";
 import {Proposal} from "./../../Store/firebase/proposals/@Proposal";
 import {ShowMessageBox} from "react-vmessagebox";
 import {DeleteProposal} from "../../Server/Commands/DeleteProposal";
 import {ProposalDetailsUI} from "./Proposal/ProposalDetailsUI";
 import {UpdateProposal} from "../../Server/Commands/UpdateProposal";
-import {ACTProposalSelect} from "../../Store/main";
+import {ACTProposalSelect} from "../../Store/main/proposals";
 
 export type ProposalUI_Props = {proposal: Proposal, subNavBarWidth?: number} & Partial<{/*permissions: PermissionGroupSet, posts: Post[]*/}>;
 /*@Connect((state, {proposal}: ProposalUI_Props)=> ({
@@ -115,6 +115,9 @@ class ProposalUI_Inner extends BaseComponent<ProposalUI_Inner_Props, {editing: b
 						{proposal.editedAt && <Span ml="auto" style={{color: "rgba(255,255,255,.5)"}}>
 							{proposal.text != null ? "edited" : "deleted"} at {Manager.FormatTime(proposal.editedAt, "YYYY-MM-DD HH:mm:ss")}
 						</Span>}
+						<CheckBox ml="auto" mr={5} text="Completed" checked={proposal.completed} enabled={IsUserAdmin(Manager.GetUserID())} onChange={val=>{
+							new UpdateProposal({id: proposal._id, updates: {completed: !proposal.completed ? true : null}}).Run();
+						}}/>
 					</Row>
 				</Column>
 			</Row>

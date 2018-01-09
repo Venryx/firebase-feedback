@@ -1,25 +1,30 @@
-import {Action} from "./../Utils/Action";
+import {Action, IsACTSetFor} from "./../Utils/Action";
 import {combineReducers} from "redux";
 import { Manager, Proposal, GetProposal } from "./../index";
-import { State } from "./../General";
+import { State, StorePath } from "./../General";
+import { Proposals, ProposalsReducer } from "./main/proposals";
+import {RootState} from "../General";
 
-export class ACTProposalSelect extends Action<{id: number}> {}
+export type ACTSet_Payload = {path: string | ((state: RootState)=>any), value};
+export class ACTSet extends Action<ACTSet_Payload> {
+	constructor(path: string | ((state: RootState)=>any), value) {
+		if (typeof path == "function") path = StorePath(path);
+		super({path, value});
+		this.type = "ACTSetFF_" + path; //.replace(/[^a-zA-Z0-9]/g, "_"); // add path to action-type, for easier debugging in dev-tools
+	}
+}
+export function SimpleReducer(path: string | ((store: RootState)=>any), defaultValue = null) {
+	if (typeof path == "function") path = StorePath(path);
+	return (state = defaultValue, action: Action<any>)=> {
+		if (IsACTSetFor(action, path)) return action.payload.value;
+		return state;
+	};
+}
 
 export class Feedback {
-	selectedProposalID: number;
+	proposals: Proposals;
 }
 
 export const FeedbackReducer = combineReducers({
-	selectedProposalID: (state = null, action)=> {
-		if (action.Is(ACTProposalSelect)) return action.payload.id;
-		return state;
-	},
+	proposals: ProposalsReducer,
 }) as any;
-
-export function GetSelectedProposalID(): number {
-	return State("selectedProposalID");
-}
-export function GetSelectedProposal(): Proposal {
-	let selectedID = GetSelectedProposalID();
-	return GetProposal(selectedID);
-}

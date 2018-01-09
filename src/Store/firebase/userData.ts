@@ -2,7 +2,7 @@ import {AddSchema} from "../../Server/Server";
 import {GetData} from "../../Utils/Database/DatabaseHelpers";
 
 export interface UserData {
-	proposalIndexes: ProposalIndexSet; 
+	proposalIndexes: ProposalIndexSet;
 }
 
 export type ProposalIndexSet = { [key: number]: number; }; // index -> proposalID

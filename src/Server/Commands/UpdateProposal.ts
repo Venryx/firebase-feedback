@@ -11,7 +11,7 @@ WaitTillSchemaAddedThenRun(MTName, ()=> {
 		properties: {
 			id: {type: "number"},
 			updates: Schema({
-				properties: GetSchemaJSON(MTName).properties.Including("title", "text"),
+				properties: GetSchemaJSON(MTName).properties.Including("title", "text", "completed"),
 			}),
 		},
 		required: ["id", "updates"],

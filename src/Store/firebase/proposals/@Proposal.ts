@@ -9,6 +9,7 @@ export class Proposal {
 	type: string;
 	title = "";
 	text = "";
+	completed: boolean;
 
 	creator: string;
 	createdAt: number;
@@ -20,6 +21,7 @@ AddSchema({
 		type: {type: "string"},
 		title: {type: "string"},
 		text: {type: "string"},
+		completed: {type: ["null", "boolean"]},
 		
 		creator: {type: "string"},
 		createdAt: {type: "number"},

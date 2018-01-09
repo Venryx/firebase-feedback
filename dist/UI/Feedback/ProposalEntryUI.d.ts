@@ -6,6 +6,7 @@ export declare type ProposalEntryUI_Props = {
     index: number;
     last: boolean;
     proposal: Proposal;
+    orderIndex?: number;
     rankingScore?: number;
     columnType: string;
     asDragPreview?: boolean;

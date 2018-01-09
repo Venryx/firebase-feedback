@@ -103,7 +103,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 	});
 
-	var _proposals = __webpack_require__(8);
+	var _proposals = __webpack_require__(279);
 
 	Object.keys(_proposals).forEach(function (key) {
 	  if (key === "default" || key === "__esModule") return;
@@ -111,6 +111,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	    enumerable: true,
 	    get: function get() {
 	      return _proposals[key];
+	    }
+	  });
+	});
+
+	var _proposals2 = __webpack_require__(8);
+
+	Object.keys(_proposals2).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function get() {
+	      return _proposals2[key];
 	    }
 	  });
 	});
@@ -223,6 +235,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.AccessLevel = exports.emptyArray = undefined;
 	exports.RemoveDuplicates = RemoveDuplicates;
 	exports.State = State;
+	exports.StorePath = StorePath;
 	exports.GetUserAccessLevel = GetUserAccessLevel;
 	exports.IsUserBasic = IsUserBasic;
 	exports.IsUserVerified = IsUserVerified;
@@ -266,12 +279,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    return result;
 	}
-	/*declare global {
-	    function State<T>(): RootState;
-	    function State<T>(pathGetterFunc: (state: RootState)=>T);
-	    function State<T>(...pathSegments: (string | number)[]);
-	    //function State<T>(options: State_Options, ...pathSegments: (string | number)[]);
-	}*/
 	function State() {
 	    var pathSegments = void 0; //, options = new State_Options();
 	    //if (args.length == 0) return State_overrides.state || store.getState();
@@ -280,7 +287,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        args[_key] = arguments[_key];
 	    }
 
-	    if (args.length == 0) return store.getState();else if (typeof args[0] == "string") pathSegments = args;else {
+	    if (args.length == 0) return store.getState();else if (typeof args[0] == "function") pathSegments = ConvertPathGetterFuncToPropChain(args[0]);else if (typeof args[0] == "string") pathSegments = args.length == 1 ? args[0].split("/") : args; // if only one string provided, assume it's the full path
+	    else {
 	        ;
 	        pathSegments = args.slice(0);
 	    } /*if (__DEV__) {
@@ -292,14 +300,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return selectedData;*/
 	    return _Manager.Manager.State.apply(_Manager.Manager, _toConsumableArray(_Manager.Manager.storePath_mainData.split("/").concat(pathSegments)));
 	}
-	/*function ConvertPathGetterFuncToPropChain(pathGetterFunc: Function) {
-	    let pathStr = pathGetterFunc.toString().match(/return a\.(.+?);/)[1] as string;
-	    Assert(!pathStr.includes("["), `State-getter-func cannot contain bracket-based property-access.\n\n${""
-	        }For variable inclusion, use multiple segments as in "State("main", "mapViews", mapID)".`);
+	function ConvertPathGetterFuncToPropChain(pathGetterFunc) {
+	    var pathStr = pathGetterFunc.toString().match(/return a\.(.+?);/)[1];
+	    Assert(!pathStr.includes("["), "State-getter-func cannot contain bracket-based property-access.\n\n" + "For variable inclusion, use multiple segments as in \"State(\"main\", \"mapViews\", mapID)\".");
 	    //let result = pathStr.replace(/\./g, "/");
-	    let result = pathStr.split(".");
+	    var result = pathStr.split(".");
 	    return result;
-	}*/
+	}
+	function StorePath(pathGetterFunc) {
+	    return ConvertPathGetterFuncToPropChain(pathGetterFunc).join("/");
+	}
 	var emptyArray = exports.emptyArray = [];
 	var AccessLevel = exports.AccessLevel = undefined;
 	(function (AccessLevel) {
@@ -352,17 +362,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.FeedbackReducer = exports.Feedback = exports.ACTProposalSelect = undefined;
-	exports.GetSelectedProposalID = GetSelectedProposalID;
-	exports.GetSelectedProposal = GetSelectedProposal;
+	exports.FeedbackReducer = exports.Feedback = exports.ACTSet = undefined;
+	exports.SimpleReducer = SimpleReducer;
 
 	var _Action2 = __webpack_require__(6);
 
 	var _redux = __webpack_require__(7);
 
-	var _index = __webpack_require__(1);
-
 	var _General = __webpack_require__(4);
+
+	var _proposals = __webpack_require__(279);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -370,38 +379,43 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ACTProposalSelect = exports.ACTProposalSelect = function (_Action) {
-	    _inherits(ACTProposalSelect, _Action);
+	var ACTSet = exports.ACTSet = function (_Action) {
+	    _inherits(ACTSet, _Action);
 
-	    function ACTProposalSelect() {
-	        _classCallCheck(this, ACTProposalSelect);
+	    function ACTSet(path, value) {
+	        _classCallCheck(this, ACTSet);
 
-	        return _possibleConstructorReturn(this, (ACTProposalSelect.__proto__ || Object.getPrototypeOf(ACTProposalSelect)).apply(this, arguments));
+	        if (typeof path == "function") path = (0, _General.StorePath)(path);
+
+	        var _this = _possibleConstructorReturn(this, (ACTSet.__proto__ || Object.getPrototypeOf(ACTSet)).call(this, { path: path, value: value }));
+
+	        _this.type = "ACTSetFF_" + path; //.replace(/[^a-zA-Z0-9]/g, "_"); // add path to action-type, for easier debugging in dev-tools
+	        return _this;
 	    }
 
-	    return ACTProposalSelect;
+	    return ACTSet;
 	}(_Action2.Action);
+
+	function SimpleReducer(path) {
+	    var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+	    if (typeof path == "function") path = (0, _General.StorePath)(path);
+	    return function () {
+	        var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultValue;
+	        var action = arguments[1];
+
+	        if ((0, _Action2.IsACTSetFor)(action, path)) return action.payload.value;
+	        return state;
+	    };
+	}
 
 	var Feedback = exports.Feedback = function Feedback() {
 	    _classCallCheck(this, Feedback);
 	};
 
 	var FeedbackReducer = exports.FeedbackReducer = (0, _redux.combineReducers)({
-	    selectedProposalID: function selectedProposalID() {
-	        var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-	        var action = arguments[1];
-
-	        if (action.Is(ACTProposalSelect)) return action.payload.id;
-	        return state;
-	    }
+	    proposals: _proposals.ProposalsReducer
 	});
-	function GetSelectedProposalID() {
-	    return (0, _General.State)("selectedProposalID");
-	}
-	function GetSelectedProposal() {
-	    var selectedID = GetSelectedProposalID();
-	    return (0, _index.GetProposal)(selectedID);
-	}
 
 /***/ }),
 /* 6 */
@@ -412,6 +426,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.IsACTSetFor = IsACTSetFor;
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -433,6 +448,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return this.type == actionType.name;
 	    //return this instanceof actionType; // alternative
 	}*/
+
+
+	function IsACTSetFor(action, path) {
+	    return action.type.startsWith("ACTSetFF_") && action.payload["path"] == path;
+	}
 
 /***/ }),
 /* 7 */
@@ -1152,6 +1172,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        type: { type: "string" },
 	        title: { type: "string" },
 	        text: { type: "string" },
+	        completed: { type: ["null", "boolean"] },
 	        creator: { type: "string" },
 	        createdAt: { type: "number" },
 	        editedAt: { type: "number" }
@@ -12159,8 +12180,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ProposalUI = __webpack_require__(271);
 
-	var _main = __webpack_require__(5);
-
 	var _proposals = __webpack_require__(8);
 
 	var _reactDnd = __webpack_require__(102);
@@ -12178,6 +12197,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _index = __webpack_require__(1);
 
 	var _DatabaseHelpers = __webpack_require__(9);
+
+	var _proposals2 = __webpack_require__(279);
+
+	var _General = __webpack_require__(4);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12245,7 +12268,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    return {
 	        proposals: (0, _proposals.GetProposals)(),
-	        selectedProposal: (0, _main.GetSelectedProposal)()
+	        selectedProposal: (0, _proposals2.GetSelectedProposal)()
 	    };
 	})
 	//@DragDropContext(HTML5Backend)
@@ -12256,7 +12279,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function GetRankingScoreToAddForUserRankingIndex(indexInRankingOrder) {
 	    var rankingScoreToAdd = 1;
 	    for (var i = 0; i < indexInRankingOrder; i++) {
-	        rankingScoreToAdd *= .66;
+	        rankingScoreToAdd *= .9;
 	    }
 	    return rankingScoreToAdd;
 	}
@@ -12275,22 +12298,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var _props2 = this.props,
 	                proposals = _props2.proposals,
 	                type = _props2.type,
-	                userData = _props2.userData;
+	                userData = _props2.userData,
+	                showCompleted = _props2.showCompleted;
 
 	            var userID = _Manager.Manager.GetUserID();
-	            proposals = proposals.filter(function (a) {
-	                return a.type == type;
+	            var shownProposals = proposals.filter(function (a) {
+	                return a.type == type && (!a.completed || showCompleted);
 	            });
 	            var proposalOrders = userData ? userData.VValues().map(function (a) {
 	                return (a.proposalIndexes || {}).VValues(true);
 	            }) : [];
+	            var proposalOrders_uncompleted = proposalOrders.map(function (order) {
+	                return order.filter(function (id) {
+	                    return !proposals.find(function (a) {
+	                        return a._id == id;
+	                    }).completed;
+	                });
+	            });
 	            var rankingScores = {};
 	            var _iteratorNormalCompletion = true;
 	            var _didIteratorError = false;
 	            var _iteratorError = undefined;
 
 	            try {
-	                for (var _iterator = proposals[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                for (var _iterator = shownProposals[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 	                    var proposal = _step.value;
 
 	                    var rankingScore = 0;
@@ -12299,7 +12330,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    var _iteratorError2 = undefined;
 
 	                    try {
-	                        for (var _iterator2 = proposalOrders[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	                        for (var _iterator2 = proposalOrders_uncompleted[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
 	                            var proposalOrder = _step2.value;
 
 	                            var indexInOrder = proposalOrder.indexOf(proposal._id);
@@ -12338,16 +12369,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            }
 
-	            proposals = proposals.OrderByDescending(function (a) {
+	            shownProposals = shownProposals.OrderByDescending(function (a) {
 	                return rankingScores[a._id];
 	            });
-	            return _react2.default.createElement(_reactVcomponents.Column, { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVscrollview.ScrollView, { ref: "scrollView", scrollVBarStyle: { width: 10 }, style: { flex: 1 } }, _react2.default.createElement(_reactVcomponents.Column, { className: "clickThrough", style: { height: 40, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } }, _react2.default.createElement(_reactVcomponents.Row, { style: { height: 40, padding: 10 } }, _react2.default.createElement("span", { style: { position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: 18 } }, type.replace(/^(.)/, function (m, s0) {
+	            return _react2.default.createElement(_reactVcomponents.Column, { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVscrollview.ScrollView, { ref: "scrollView", scrollVBarStyle: { width: 10 }, style: { flex: 1 } }, _react2.default.createElement(_reactVcomponents.Column, { className: "clickThrough", style: { height: 40, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } }, _react2.default.createElement(_reactVcomponents.Row, { style: { height: 40, padding: 10 } }, _react2.default.createElement(_reactVcomponents.CheckBox, { ml: 5, text: "Show completed", checked: showCompleted, onChange: function onChange(val) {
+	                    store.dispatch(new _index.ACTSet("proposals/" + type + "s_showCompleted", val));
+	                } }), _react2.default.createElement("span", { style: { position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: 18 } }, type.replace(/^(.)/, function (m, s0) {
 	                return s0.toUpperCase();
 	            }), "s"), _react2.default.createElement(_reactVcomponents.Button, { text: type == "feature" ? "Propose feature" : "Report issue", ml: "auto", onClick: function onClick() {
 	                    if (userID == null) return _Manager.Manager.ShowSignInPopup();
 	                    (0, _ProposalDetailsUI.ShowAddProposalDialog)(userID, type);
-	                } }))), _react2.default.createElement(_reactVcomponents.Column, null, proposals.length == 0 && _react2.default.createElement(_reactVcomponents.Row, { p: "7px 10px", style: { background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px" } }, "There are currently no ", type == "feature" ? "feature proposals" : "issue reports", "."), proposals.map(function (proposal, index) {
-	                return _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { key: index, index: index, last: index == proposals.length - 1, proposal: proposal, rankingScore: rankingScores[proposal._id], columnType: type });
+	                } }))), _react2.default.createElement(_reactVcomponents.Column, null, shownProposals.length == 0 && _react2.default.createElement(_reactVcomponents.Row, { p: "7px 10px", style: { background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px" } }, "There are currently no ", type == "feature" ? "feature proposals" : "issue reports", "."), shownProposals.map(function (proposal, index) {
+	                return _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { key: index, index: index, last: index == shownProposals.length - 1, proposal: proposal, rankingScore: rankingScores[proposal._id], columnType: type });
 	            }))));
 	        }
 	    }]);
@@ -12355,10 +12388,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return ProposalsColumn;
 	}(_reactVextensions.BaseComponent);
 	exports.ProposalsColumn = ProposalsColumn = __decorate([(0, _FirebaseConnect.Connect)(function (state, _ref2) {
-	    _objectDestructuringEmpty(_ref2);
-
+	    var type = _ref2.type;
 	    return {
-	        userData: (0, _DatabaseHelpers.GetData)("userData")
+	        userData: (0, _DatabaseHelpers.GetData)("userData"),
+	        showCompleted: (0, _General.State)("proposals/" + type + "s_showCompleted")
 	    };
 	}), _reactVextensions.ApplyBasicStyles], ProposalsColumn);
 	exports.ProposalsColumn = ProposalsColumn;
@@ -12384,14 +12417,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	                draggedItem = _props4.draggedItem;
 
 	            var user = _Manager.Manager.GetUser(_Manager.Manager.GetUserID());
+	            var proposalOrder_uncompleted = proposalOrder.filter(function (id) {
+	                return !proposals.find(function (a) {
+	                    return a._id == id;
+	                }).completed;
+	            });
 	            proposals = proposals.filter(function (a) {
 	                return proposalOrder.Contains(a._id);
 	            }).OrderBy(function (a) {
 	                return proposalOrder.indexOf(a._id);
 	            });
-	            var dragPreviewUI = isOver && _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { proposal: draggedItem.proposal, index: 0, last: true, columnType: "userRanking", style: { opacity: .3, borderRadius: 10 }, asDragPreview: true });
+	            var dragPreviewUI = isOver && _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { proposal: draggedItem.proposal, orderIndex: 0, index: 0, last: true, columnType: "userRanking", style: { opacity: .3, borderRadius: 10 }, asDragPreview: true });
 	            return connectDropTarget(_react2.default.createElement("div", { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVcomponents.Column, { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVscrollview.ScrollView, { ref: "scrollView", scrollVBarStyle: { width: 10 }, style: { flex: 1 } }, _react2.default.createElement(_reactVcomponents.Column, { className: "clickThrough", style: { background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } }, _react2.default.createElement(_reactVcomponents.Row, { style: { height: 40, padding: 10 } }, _react2.default.createElement("span", { style: { position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: 18 } }, "Your ranking")), _react2.default.createElement("div", { style: { padding: 10, paddingTop: 0, alignItems: "center", fontSize: 13, textAlign: "center" } }, "Drag proposals onto this list to \"vote\" for them. Items at the top get the highest score increase.")), _react2.default.createElement(_reactVcomponents.Column, null, proposals.length == 0 && !dragPreviewUI && _react2.default.createElement(_reactVcomponents.Row, { p: "7px 10px", style: { background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px" } }, "You have not yet added any proposals to your ranking."), proposals.map(function (proposal, index) {
-	                return _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { key: index, index: index, last: index == proposals.length - 1, proposal: proposal, columnType: "userRanking" });
+	                return _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { key: index, index: index, orderIndex: proposalOrder_uncompleted.indexOf(proposal._id), last: index == proposals.length - 1, proposal: proposal, columnType: "userRanking" });
 	            }), dragPreviewUI)))));
 	        }
 	    }]);
@@ -13313,7 +13351,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _SetProposalOrder2 = _interopRequireDefault(_SetProposalOrder);
 
-	var _main = __webpack_require__(5);
+	var _proposals = __webpack_require__(279);
 
 	var _Proposals = __webpack_require__(93);
 
@@ -13386,6 +13424,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                index = _props.index,
 	                last = _props.last,
 	                proposal = _props.proposal,
+	                orderIndex = _props.orderIndex,
 	                rankingScore = _props.rankingScore,
 	                creator = _props.creator,
 	                columnType = _props.columnType,
@@ -13399,13 +13438,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	                draggedItem = _props2.draggedItem; // lazy
 
 	            if (isDragging && columnType == "userRanking") return _react2.default.createElement("div", null);
-	            var dragPreviewUI = columnType == "userRanking" && isOver && !asDragPreview && _react2.default.createElement(ProposalEntryUI_1, { proposal: draggedItem.proposal, index: index, last: false, columnType: columnType, style: { opacity: .3, borderRadius: 10 }, asDragPreview: true });
+	            var dragPreviewUI = columnType == "userRanking" && isOver && !asDragPreview && _react2.default.createElement(ProposalEntryUI_1, { proposal: draggedItem.proposal, orderIndex: orderIndex, index: index, last: false, columnType: columnType, style: { opacity: .3, borderRadius: 10 }, asDragPreview: true });
 	            var toURL = new _jsVextensions.VURL(null, ["proposals", proposal._id + ""]);
 	            return connectDragSource(connectDropTarget(_react2.default.createElement("div", null, this.ShouldDropBefore() && dragPreviewUI, _react2.default.createElement(_reactVcomponents.Column, { ref: function ref(c) {
 	                    return _this3.innerRoot = c;
 	                }, p: "7px 10px", style: E({ background: index % 2 == 0 ? "rgba(30,30,30,.7)" : "rgba(0,0,0,.7)" }, last && { borderRadius: "0 0 10px 10px" }, style) }, _react2.default.createElement(_reactVcomponents.Row, null, _react2.default.createElement(_Link.Link, { text: proposal.title, actions: function actions(d) {
-	                    return d(new _main.ACTProposalSelect({ id: proposal._id }));
-	                }, style: { fontSize: 15, flex: 1 } }), _react2.default.createElement("span", { style: { float: "right" } }, columnType == "userRanking" ? "#" + (index + 1) + " (+" + (0, _Proposals.GetRankingScoreToAddForUserRankingIndex)(index).RoundTo_Str(.001, null, false) + ")" : rankingScore ? rankingScore.RoundTo_Str(.001, null, false) : ""), columnType == "userRanking" && !asDragPreview && _react2.default.createElement(_reactVcomponents.Button, { text: "X", style: { margin: "-3px 0 -3px 5px", padding: "3px 5px" }, onClick: function onClick() {
+	                    return d(new _proposals.ACTProposalSelect({ id: proposal._id }));
+	                }, style: { fontSize: 15, flex: 1 } }), _react2.default.createElement("span", { style: { float: "right" } }, columnType == "userRanking" ? "#" + (index + 1) + (proposal.completed ? " (✔️)" : " (+" + (0, _Proposals.GetRankingScoreToAddForUserRankingIndex)(orderIndex).RoundTo_Str(.001, null, false) + ")") : proposal.completed ? "✔️" : rankingScore ? rankingScore.RoundTo_Str(.001, null, false) : ""), columnType == "userRanking" && !asDragPreview && _react2.default.createElement(_reactVcomponents.Button, { text: "X", style: { margin: "-3px 0 -3px 5px", padding: "3px 5px" }, onClick: function onClick() {
 	                    new _SetProposalOrder2.default({ proposalID: proposal._id, index: -1 }).Run();
 	                } }))), !this.ShouldDropBefore() && dragPreviewUI)));
 	        }
@@ -22171,7 +22210,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _AddProposal = __webpack_require__(270);
 
-	var _main = __webpack_require__(5);
+	var _proposals = __webpack_require__(279);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22306,7 +22345,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            case 2:
 	                                id = _context.sent;
 
-	                                store.dispatch(new _main.ACTProposalSelect({ id: id }));
+	                                store.dispatch(new _proposals.ACTProposalSelect({ id: id }));
 
 	                            case 4:
 	                            case "end":
@@ -34385,7 +34424,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _UpdateProposal = __webpack_require__(274);
 
-	var _main = __webpack_require__(5);
+	var _proposals = __webpack_require__(279);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34549,7 +34588,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            }));
 	                        }
 	                    });
-	                } }), proposal.editedAt && _react2.default.createElement(_reactVcomponents.Span, { ml: "auto", style: { color: "rgba(255,255,255,.5)" } }, proposal.text != null ? "edited" : "deleted", " at ", _Manager.Manager.FormatTime(proposal.editedAt, "YYYY-MM-DD HH:mm:ss")))));
+	                } }), proposal.editedAt && _react2.default.createElement(_reactVcomponents.Span, { ml: "auto", style: { color: "rgba(255,255,255,.5)" } }, proposal.text != null ? "edited" : "deleted", " at ", _Manager.Manager.FormatTime(proposal.editedAt, "YYYY-MM-DD HH:mm:ss")), _react2.default.createElement(_reactVcomponents.CheckBox, { ml: "auto", mr: 5, text: "Completed", checked: proposal.completed, enabled: (0, _General.IsUserAdmin)(_Manager.Manager.GetUserID()), onChange: function onChange(val) {
+	                    new _UpdateProposal.UpdateProposal({ id: proposal._id, updates: { completed: !proposal.completed ? true : null } }).Run();
+	                } }))));
 	        }
 	    }]);
 
@@ -34584,7 +34625,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    justifyContent: "flex-start", background: "rgba(0,0,0,.7)", boxShadow: _GlobalStyles.colors.navBarBoxShadow,
 	                    width: "100%", height: 30, borderRadius: "0 0 10px 0"
 	                } }, _react2.default.createElement(_reactVcomponents.Button, { text: "Back", onClick: function onClick() {
-	                    store.dispatch(new _main.ACTProposalSelect({ id: null }));
+	                    store.dispatch(new _proposals.ACTProposalSelect({ id: null }));
 	                } })));
 	        }
 	    }]);
@@ -34885,7 +34926,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        properties: {
 	            id: { type: "number" },
 	            updates: (0, _Server.Schema)({
-	                properties: (0, _Server.GetSchemaJSON)(MTName).properties.Including("title", "text")
+	                properties: (0, _Server.GetSchemaJSON)(MTName).properties.Including("title", "text", "completed")
 	            })
 	        },
 	        required: ["id", "updates"]
@@ -35503,6 +35544,74 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 	});
 
+
+/***/ }),
+/* 279 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.ProposalsReducer = exports.Proposals = exports.ACTProposalSelect = undefined;
+	exports.GetSelectedProposalID = GetSelectedProposalID;
+	exports.GetSelectedProposal = GetSelectedProposal;
+
+	var _redux = __webpack_require__(7);
+
+	var _Action2 = __webpack_require__(6);
+
+	var _proposals = __webpack_require__(8);
+
+	var _General = __webpack_require__(4);
+
+	var _main = __webpack_require__(5);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ACTProposalSelect = exports.ACTProposalSelect = function (_Action) {
+	    _inherits(ACTProposalSelect, _Action);
+
+	    function ACTProposalSelect() {
+	        _classCallCheck(this, ACTProposalSelect);
+
+	        return _possibleConstructorReturn(this, (ACTProposalSelect.__proto__ || Object.getPrototypeOf(ACTProposalSelect)).apply(this, arguments));
+	    }
+
+	    return ACTProposalSelect;
+	}(_Action2.Action);
+
+	var Proposals = exports.Proposals = function Proposals() {
+	    _classCallCheck(this, Proposals);
+	};
+
+	var ProposalsReducer = exports.ProposalsReducer = (0, _redux.combineReducers)({
+	    selectedProposalID: function selectedProposalID() {
+	        var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+	        var action = arguments[1];
+
+	        if (action.Is(ACTProposalSelect)) return action.payload.id;
+	        return state;
+	    },
+	    features_showCompleted: (0, _main.SimpleReducer)(function (a) {
+	        return a.proposals.features_showCompleted;
+	    }),
+	    issues_showCompleted: (0, _main.SimpleReducer)(function (a) {
+	        return a.proposals.issues_showCompleted;
+	    })
+	});
+	function GetSelectedProposalID() {
+	    return (0, _General.State)("proposals", "selectedProposalID");
+	}
+	function GetSelectedProposal() {
+	    var selectedID = GetSelectedProposalID();
+	    return (0, _proposals.GetProposal)(selectedID);
+	}
 
 /***/ })
 /******/ ])

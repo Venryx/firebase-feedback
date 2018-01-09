@@ -9,10 +9,10 @@ import {Link} from "../@Shared/Link";
 import {Proposal} from "./../../Store/firebase/proposals/@Proposal";
 import {DragSource, DropTarget} from "react-dnd";
 import SetProposalOrder from "../../Server/Commands/SetProposalOrder";
-import {ACTProposalSelect} from "../../Store/main";
+import {ACTProposalSelect} from "../../Store/main/proposals";
 import { GetRankingScoreToAddForUserRankingIndex } from "../Proposals";
 
-export type ProposalEntryUI_Props = {index: number, last: boolean, proposal: Proposal, rankingScore?: number, columnType: string, asDragPreview?: boolean, style?}
+export type ProposalEntryUI_Props = {index: number, last: boolean, proposal: Proposal, orderIndex?: number, rankingScore?: number, columnType: string, asDragPreview?: boolean, style?}
 	& Partial<{creator: User, /*posts: Post[]*/}>;
 
 @DragSource("proposal",
@@ -89,12 +89,13 @@ export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
 
 	innerRoot: Column;
 	render() {
-		let {index, last, proposal, rankingScore, creator, columnType, asDragPreview, style} = this.props;
+		let {index, last, proposal, orderIndex, rankingScore, creator, columnType, asDragPreview, style} = this.props;
 		var {connectDragSource, isDragging, connectDropTarget, isOver, draggedItem} = this.props as any; // lazy
 
 		if (isDragging && columnType == "userRanking") return <div/>;
 		let dragPreviewUI = columnType == "userRanking" && isOver && !asDragPreview &&
-			<ProposalEntryUI proposal={draggedItem.proposal} index={index} last={false} columnType={columnType} style={{opacity: .3, borderRadius: 10}} asDragPreview={true}/>;
+			<ProposalEntryUI proposal={draggedItem.proposal} orderIndex={orderIndex} index={index} last={false}
+				columnType={columnType} style={{opacity: .3, borderRadius: 10}} asDragPreview={true}/>;
 
 		let toURL = new VURL(null, ["proposals", proposal._id+""]);
 		return connectDragSource(connectDropTarget(<div>
@@ -108,8 +109,8 @@ export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
 					<Link text={proposal.title} actions={d=>d(new ACTProposalSelect({id: proposal._id}))} style={{fontSize: 15, flex: 1}}/>
 					<span style={{float: "right"}}>
 						{columnType == "userRanking"
-							? `#${index + 1} (+${GetRankingScoreToAddForUserRankingIndex(index).RoundTo_Str(.001, null, false)})`
-							: (rankingScore ? rankingScore.RoundTo_Str(.001, null, false) : "")}
+							? "#" + (index + 1) + (proposal.completed ? " (✔️)" : ` (+${GetRankingScoreToAddForUserRankingIndex(orderIndex).RoundTo_Str(.001, null, false)})`)
+							: (proposal.completed ? "✔️" : rankingScore ? rankingScore.RoundTo_Str(.001, null, false) : "")}
 					</span>
 					{columnType == "userRanking" && !asDragPreview &&
 						<Button text="X" style={{margin: "-3px 0 -3px 5px", padding: "3px 5px"}} onClick={()=> {

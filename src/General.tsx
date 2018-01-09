@@ -1,6 +1,7 @@
 import {DeepGet} from "js-vextensions";
 import {Manager} from "./Manager";
 import { Proposal } from "./index";
+import {Feedback} from "./Store/main";
 
 export function RemoveDuplicates(items: any) {
 	var result = [];
@@ -13,19 +14,22 @@ export function RemoveDuplicates(items: any) {
 }
 
 // for substantially better perf, we now only accept string-or-number arrays
-export type RootState = any;
+export type RootState = Feedback;
 /*declare global {
 	function State<T>(): RootState;
 	function State<T>(pathGetterFunc: (state: RootState)=>T);
 	function State<T>(...pathSegments: (string | number)[]);
 	//function State<T>(options: State_Options, ...pathSegments: (string | number)[]);
 }*/
+export function State<T>(): RootState;
+export function State<T>(pathGetterFunc: (state: RootState)=>T);
+export function State<T>(...pathSegments: (string | number)[]);
 export function State<T>(...args) {
 	let pathSegments: (string | number)[]; //, options = new State_Options();
 	//if (args.length == 0) return State_overrides.state || store.getState();
 	if (args.length == 0) return store.getState();
-	//else if (typeof args[0] == "function") pathSegments = ConvertPathGetterFuncToPropChain(args[0]);
-	else if (typeof args[0] == "string") pathSegments = args;
+	else if (typeof args[0] == "function") pathSegments = ConvertPathGetterFuncToPropChain(args[0]);
+	else if (typeof args[0] == "string") pathSegments = args.length == 1 ? args[0].split("/") : args; // if only one string provided, assume it's the full path
 	//else [options, ...pathSegments] = args;
 	else [...pathSegments] = args;
 
@@ -40,14 +44,17 @@ export function State<T>(...args) {
 
 	return Manager.State(...Manager.storePath_mainData.split("/").concat(pathSegments as any));
 }
-/*function ConvertPathGetterFuncToPropChain(pathGetterFunc: Function) {
+function ConvertPathGetterFuncToPropChain(pathGetterFunc: Function) {
 	let pathStr = pathGetterFunc.toString().match(/return a\.(.+?);/)[1] as string;
 	Assert(!pathStr.includes("["), `State-getter-func cannot contain bracket-based property-access.\n\n${""
 		}For variable inclusion, use multiple segments as in "State("main", "mapViews", mapID)".`);
 	//let result = pathStr.replace(/\./g, "/");
 	let result = pathStr.split(".");
 	return result;
-}*/
+}
+export function StorePath(pathGetterFunc: (state: RootState)=>any) {
+	return ConvertPathGetterFuncToPropChain(pathGetterFunc).join("/");
+}
 
 export var emptyArray = [];
 

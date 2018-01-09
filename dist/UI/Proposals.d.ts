@@ -18,6 +18,7 @@ export declare type ProposalsColumn_Props = {
     type: string;
 } & Partial<{
     userData;
+    showCompleted: boolean;
 }>;
 export declare class ProposalsColumn extends BaseComponent<ProposalsColumn_Props, {}> {
     render(): JSX.Element;

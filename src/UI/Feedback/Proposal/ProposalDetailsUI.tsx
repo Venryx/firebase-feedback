@@ -17,7 +17,7 @@ import Editor from "react-md-editor";
 import { GetErrorMessagesUnderElement } from "js-vextensions";
 import {ShowMessageBox, BoxController} from "react-vmessagebox";
 import {AddProposal} from "../../../Server/Commands/AddProposal";
-import {ACTProposalSelect} from "../../../Store/main";
+import {ACTProposalSelect} from "../../../Store/main/proposals";
 
 export type _MainType = Proposal;
 let MTName = "Proposal";
