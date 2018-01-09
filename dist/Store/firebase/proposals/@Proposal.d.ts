@@ -4,8 +4,8 @@ export declare class Proposal {
     type: string;
     title: string;
     text: string;
-    completed: boolean;
     creator: string;
     createdAt: number;
     editedAt: number;
+    completedAt: number;
 }

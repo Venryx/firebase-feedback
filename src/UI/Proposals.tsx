@@ -89,10 +89,10 @@ export class ProposalsColumn extends BaseComponent<ProposalsColumn_Props, {}> {
 		let {proposals, type, userData, showCompleted} = this.props;
 		let userID = Manager.GetUserID();
 
-		let shownProposals = proposals.filter(a=>a.type == type && (!a.completed || showCompleted));
+		let shownProposals = proposals.filter(a=>a.type == type && (!a.completedAt || showCompleted));
 
 		let proposalOrders = userData ? userData.VValues().map(a=>(a.proposalIndexes || {}).VValues(true)) : [];
-		let proposalOrders_uncompleted = proposalOrders.map(order=>order.filter(id=>!proposals.find(a=>a._id == id).completed));
+		let proposalOrders_uncompleted = proposalOrders.map(order=>order.filter(id=>!proposals.find(a=>a._id == id).completedAt));
 
 		let rankingScores = {};
 		for (let proposal of shownProposals) {
@@ -103,6 +103,12 @@ export class ProposalsColumn extends BaseComponent<ProposalsColumn_Props, {}> {
 				
 				rankingScore += GetRankingScoreToAddForUserRankingIndex(indexInOrder);
 			}
+
+			// show completed proposals at the top
+			if (proposal.completedAt) {
+				rankingScore = proposal.completedAt;
+			}
+
 			rankingScores[proposal._id] = rankingScore;
 		}
 
@@ -110,22 +116,22 @@ export class ProposalsColumn extends BaseComponent<ProposalsColumn_Props, {}> {
 
 		return (
 			<Column style={{flex: 1, height: "100%"}}>
+				<Column className="clickThrough" style={{height: 40, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0"}}>
+					<Row style={{position: "relative", height: 40, padding: 10}}>
+						{/*<Pre>Show: </Pre>*/}
+						<CheckBox ml={5} text="Show completed" checked={showCompleted} onChange={val=>{
+							store.dispatch(new ACTSet(`proposals/${type}s_showCompleted`, val));
+						}}/>
+						<span style={{position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: 18}}>
+							{type.replace(/^(.)/, (m,s0)=>s0.toUpperCase())}s
+						</span>
+						<Button text={type == "feature" ? "Propose feature" : "Report issue"} ml="auto" onClick={()=> {
+							if (userID == null) return Manager.ShowSignInPopup();
+							ShowAddProposalDialog(userID, type);
+						}}/>
+					</Row>
+				</Column>
 				<ScrollView ref="scrollView" scrollVBarStyle={{width: 10}} style={{flex: 1}}>
-					<Column className="clickThrough" style={{height: 40, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0"}}>
-						<Row style={{height: 40, padding: 10}}>
-							{/*<Pre>Show: </Pre>*/}
-							<CheckBox ml={5} text="Show completed" checked={showCompleted} onChange={val=>{
-								store.dispatch(new ACTSet(`proposals/${type}s_showCompleted`, val));
-							}}/>
-							<span style={{position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: 18}}>
-								{type.replace(/^(.)/, (m,s0)=>s0.toUpperCase())}s
-							</span>
-							<Button text={type == "feature" ? "Propose feature" : "Report issue"} ml="auto" onClick={()=> {
-								if (userID == null) return Manager.ShowSignInPopup();
-								ShowAddProposalDialog(userID, type);
-							}}/>
-						</Row>
-					</Column>
 					<Column>
 						{shownProposals.length == 0 &&
 							<Row p="7px 10px" style={{background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px"}}>
@@ -184,7 +190,7 @@ export class ProposalsUserRankingColumn extends BaseComponent<ProposalsUserRanki
 		let {connectDropTarget, isOver, draggedItem} = this.props as any;
 		let user = Manager.GetUser(Manager.GetUserID());
 
-		let proposalOrder_uncompleted = proposalOrder.filter(id=>!proposals.find(a=>a._id == id).completed);
+		let proposalOrder_uncompleted = proposalOrder.filter(id=>!proposals.find(a=>a._id == id).completedAt);
 
 		proposals = proposals.filter(a=>proposalOrder.Contains(a._id)).OrderBy(a=>proposalOrder.indexOf(a._id));
 
@@ -194,15 +200,15 @@ export class ProposalsUserRankingColumn extends BaseComponent<ProposalsUserRanki
 
 		return connectDropTarget(<div style={{flex: 1, height: "100%"}}>
 			<Column style={{flex: 1, height: "100%"}}>
+				<Column className="clickThrough" style={{background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0"}}>
+					<Row style={{position: "relative", height: 40, padding: 10}}>
+						<span style={{position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: 18}}>Your ranking</span>
+					</Row>
+					<div style={{padding: 10, paddingTop: 0, alignItems: "center", fontSize: 13, textAlign: "center"}}>
+						Drag proposals onto this list to "vote" for them. Items at the top get the highest score increase.
+					</div>
+				</Column>
 				<ScrollView ref="scrollView" scrollVBarStyle={{width: 10}} style={{flex: 1}}>
-					<Column className="clickThrough" style={{background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0"}}>
-						<Row style={{height: 40, padding: 10}}>
-							<span style={{position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: 18}}>Your ranking</span>
-						</Row>
-						<div style={{padding: 10, paddingTop: 0, alignItems: "center", fontSize: 13, textAlign: "center"}}>
-							Drag proposals onto this list to "vote" for them. Items at the top get the highest score increase.
-						</div>
-					</Column>
 					<Column>
 						{proposals.length == 0 && !dragPreviewUI &&
 							<Row p="7px 10px" style={{background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px"}}>

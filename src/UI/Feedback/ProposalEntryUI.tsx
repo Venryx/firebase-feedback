@@ -109,8 +109,8 @@ export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
 					<Link text={proposal.title} actions={d=>d(new ACTProposalSelect({id: proposal._id}))} style={{fontSize: 15, flex: 1}}/>
 					<span style={{float: "right"}}>
 						{columnType == "userRanking"
-							? "#" + (index + 1) + (proposal.completed ? " (✔️)" : ` (+${GetRankingScoreToAddForUserRankingIndex(orderIndex).RoundTo_Str(.001, null, false)})`)
-							: (proposal.completed ? "✔️" : rankingScore ? rankingScore.RoundTo_Str(.001, null, false) : "")}
+							? "#" + (index + 1) + (proposal.completedAt ? " (✔️)" : ` (+${GetRankingScoreToAddForUserRankingIndex(orderIndex).RoundTo_Str(.001, null, false)})`)
+							: (proposal.completedAt ? "✔️" : rankingScore ? rankingScore.RoundTo_Str(.001, null, false) : "")}
 					</span>
 					{columnType == "userRanking" && !asDragPreview &&
 						<Button text="X" style={{margin: "-3px 0 -3px 5px", padding: "3px 5px"}} onClick={()=> {

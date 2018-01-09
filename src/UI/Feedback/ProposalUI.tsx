@@ -115,8 +115,8 @@ class ProposalUI_Inner extends BaseComponent<ProposalUI_Inner_Props, {editing: b
 						{proposal.editedAt && <Span ml="auto" style={{color: "rgba(255,255,255,.5)"}}>
 							{proposal.text != null ? "edited" : "deleted"} at {Manager.FormatTime(proposal.editedAt, "YYYY-MM-DD HH:mm:ss")}
 						</Span>}
-						<CheckBox ml="auto" mr={5} text="Completed" checked={proposal.completed} enabled={IsUserAdmin(Manager.GetUserID())} onChange={val=>{
-							new UpdateProposal({id: proposal._id, updates: {completed: !proposal.completed ? true : null}}).Run();
+						<CheckBox ml="auto" mr={5} text="Completed" checked={proposal.completedAt != null} enabled={IsUserAdmin(Manager.GetUserID())} onChange={val=>{
+							new UpdateProposal({id: proposal._id, updates: {completedAt: proposal.completedAt == null ? Date.now() : null}}).Run();
 						}}/>
 					</Row>
 				</Column>

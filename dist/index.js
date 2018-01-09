@@ -1172,10 +1172,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        type: { type: "string" },
 	        title: { type: "string" },
 	        text: { type: "string" },
-	        completed: { type: ["null", "boolean"] },
+	        //completed: {type: ["null", "boolean"]},
 	        creator: { type: "string" },
 	        createdAt: { type: "number" },
-	        editedAt: { type: "number" }
+	        editedAt: { type: "number" },
+	        completedAt: { type: ["null", "number"] }
 	    },
 	    required: ["type", "title", "text", "creator", "createdAt"]
 	}, "Proposal");
@@ -12303,7 +12304,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            var userID = _Manager.Manager.GetUserID();
 	            var shownProposals = proposals.filter(function (a) {
-	                return a.type == type && (!a.completed || showCompleted);
+	                return a.type == type && (!a.completedAt || showCompleted);
 	            });
 	            var proposalOrders = userData ? userData.VValues().map(function (a) {
 	                return (a.proposalIndexes || {}).VValues(true);
@@ -12312,7 +12313,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                return order.filter(function (id) {
 	                    return !proposals.find(function (a) {
 	                        return a._id == id;
-	                    }).completed;
+	                    }).completedAt;
 	                });
 	            });
 	            var rankingScores = {};
@@ -12337,6 +12338,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            if (indexInOrder == -1) continue;
 	                            rankingScore += GetRankingScoreToAddForUserRankingIndex(indexInOrder);
 	                        }
+	                        // show completed proposals at the top
 	                    } catch (err) {
 	                        _didIteratorError2 = true;
 	                        _iteratorError2 = err;
@@ -12352,6 +12354,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        }
 	                    }
 
+	                    if (proposal.completedAt) {
+	                        rankingScore = proposal.completedAt;
+	                    }
 	                    rankingScores[proposal._id] = rankingScore;
 	                }
 	            } catch (err) {
@@ -12372,14 +12377,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	            shownProposals = shownProposals.OrderByDescending(function (a) {
 	                return rankingScores[a._id];
 	            });
-	            return _react2.default.createElement(_reactVcomponents.Column, { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVscrollview.ScrollView, { ref: "scrollView", scrollVBarStyle: { width: 10 }, style: { flex: 1 } }, _react2.default.createElement(_reactVcomponents.Column, { className: "clickThrough", style: { height: 40, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } }, _react2.default.createElement(_reactVcomponents.Row, { style: { height: 40, padding: 10 } }, _react2.default.createElement(_reactVcomponents.CheckBox, { ml: 5, text: "Show completed", checked: showCompleted, onChange: function onChange(val) {
+	            return _react2.default.createElement(_reactVcomponents.Column, { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVcomponents.Column, { className: "clickThrough", style: { height: 40, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } }, _react2.default.createElement(_reactVcomponents.Row, { style: { position: "relative", height: 40, padding: 10 } }, _react2.default.createElement(_reactVcomponents.CheckBox, { ml: 5, text: "Show completed", checked: showCompleted, onChange: function onChange(val) {
 	                    store.dispatch(new _index.ACTSet("proposals/" + type + "s_showCompleted", val));
 	                } }), _react2.default.createElement("span", { style: { position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: 18 } }, type.replace(/^(.)/, function (m, s0) {
 	                return s0.toUpperCase();
 	            }), "s"), _react2.default.createElement(_reactVcomponents.Button, { text: type == "feature" ? "Propose feature" : "Report issue", ml: "auto", onClick: function onClick() {
 	                    if (userID == null) return _Manager.Manager.ShowSignInPopup();
 	                    (0, _ProposalDetailsUI.ShowAddProposalDialog)(userID, type);
-	                } }))), _react2.default.createElement(_reactVcomponents.Column, null, shownProposals.length == 0 && _react2.default.createElement(_reactVcomponents.Row, { p: "7px 10px", style: { background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px" } }, "There are currently no ", type == "feature" ? "feature proposals" : "issue reports", "."), shownProposals.map(function (proposal, index) {
+	                } }))), _react2.default.createElement(_reactVscrollview.ScrollView, { ref: "scrollView", scrollVBarStyle: { width: 10 }, style: { flex: 1 } }, _react2.default.createElement(_reactVcomponents.Column, null, shownProposals.length == 0 && _react2.default.createElement(_reactVcomponents.Row, { p: "7px 10px", style: { background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px" } }, "There are currently no ", type == "feature" ? "feature proposals" : "issue reports", "."), shownProposals.map(function (proposal, index) {
 	                return _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { key: index, index: index, last: index == shownProposals.length - 1, proposal: proposal, rankingScore: rankingScores[proposal._id], columnType: type });
 	            }))));
 	        }
@@ -12420,7 +12425,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var proposalOrder_uncompleted = proposalOrder.filter(function (id) {
 	                return !proposals.find(function (a) {
 	                    return a._id == id;
-	                }).completed;
+	                }).completedAt;
 	            });
 	            proposals = proposals.filter(function (a) {
 	                return proposalOrder.Contains(a._id);
@@ -12428,7 +12433,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                return proposalOrder.indexOf(a._id);
 	            });
 	            var dragPreviewUI = isOver && _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { proposal: draggedItem.proposal, orderIndex: 0, index: 0, last: true, columnType: "userRanking", style: { opacity: .3, borderRadius: 10 }, asDragPreview: true });
-	            return connectDropTarget(_react2.default.createElement("div", { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVcomponents.Column, { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVscrollview.ScrollView, { ref: "scrollView", scrollVBarStyle: { width: 10 }, style: { flex: 1 } }, _react2.default.createElement(_reactVcomponents.Column, { className: "clickThrough", style: { background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } }, _react2.default.createElement(_reactVcomponents.Row, { style: { height: 40, padding: 10 } }, _react2.default.createElement("span", { style: { position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: 18 } }, "Your ranking")), _react2.default.createElement("div", { style: { padding: 10, paddingTop: 0, alignItems: "center", fontSize: 13, textAlign: "center" } }, "Drag proposals onto this list to \"vote\" for them. Items at the top get the highest score increase.")), _react2.default.createElement(_reactVcomponents.Column, null, proposals.length == 0 && !dragPreviewUI && _react2.default.createElement(_reactVcomponents.Row, { p: "7px 10px", style: { background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px" } }, "You have not yet added any proposals to your ranking."), proposals.map(function (proposal, index) {
+	            return connectDropTarget(_react2.default.createElement("div", { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVcomponents.Column, { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVcomponents.Column, { className: "clickThrough", style: { background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } }, _react2.default.createElement(_reactVcomponents.Row, { style: { position: "relative", height: 40, padding: 10 } }, _react2.default.createElement("span", { style: { position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: 18 } }, "Your ranking")), _react2.default.createElement("div", { style: { padding: 10, paddingTop: 0, alignItems: "center", fontSize: 13, textAlign: "center" } }, "Drag proposals onto this list to \"vote\" for them. Items at the top get the highest score increase.")), _react2.default.createElement(_reactVscrollview.ScrollView, { ref: "scrollView", scrollVBarStyle: { width: 10 }, style: { flex: 1 } }, _react2.default.createElement(_reactVcomponents.Column, null, proposals.length == 0 && !dragPreviewUI && _react2.default.createElement(_reactVcomponents.Row, { p: "7px 10px", style: { background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px" } }, "You have not yet added any proposals to your ranking."), proposals.map(function (proposal, index) {
 	                return _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { key: index, index: index, orderIndex: proposalOrder_uncompleted.indexOf(proposal._id), last: index == proposals.length - 1, proposal: proposal, columnType: "userRanking" });
 	            }), dragPreviewUI)))));
 	        }
@@ -13444,7 +13449,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    return _this3.innerRoot = c;
 	                }, p: "7px 10px", style: E({ background: index % 2 == 0 ? "rgba(30,30,30,.7)" : "rgba(0,0,0,.7)" }, last && { borderRadius: "0 0 10px 10px" }, style) }, _react2.default.createElement(_reactVcomponents.Row, null, _react2.default.createElement(_Link.Link, { text: proposal.title, actions: function actions(d) {
 	                    return d(new _proposals.ACTProposalSelect({ id: proposal._id }));
-	                }, style: { fontSize: 15, flex: 1 } }), _react2.default.createElement("span", { style: { float: "right" } }, columnType == "userRanking" ? "#" + (index + 1) + (proposal.completed ? " (✔️)" : " (+" + (0, _Proposals.GetRankingScoreToAddForUserRankingIndex)(orderIndex).RoundTo_Str(.001, null, false) + ")") : proposal.completed ? "✔️" : rankingScore ? rankingScore.RoundTo_Str(.001, null, false) : ""), columnType == "userRanking" && !asDragPreview && _react2.default.createElement(_reactVcomponents.Button, { text: "X", style: { margin: "-3px 0 -3px 5px", padding: "3px 5px" }, onClick: function onClick() {
+	                }, style: { fontSize: 15, flex: 1 } }), _react2.default.createElement("span", { style: { float: "right" } }, columnType == "userRanking" ? "#" + (index + 1) + (proposal.completedAt ? " (✔️)" : " (+" + (0, _Proposals.GetRankingScoreToAddForUserRankingIndex)(orderIndex).RoundTo_Str(.001, null, false) + ")") : proposal.completedAt ? "✔️" : rankingScore ? rankingScore.RoundTo_Str(.001, null, false) : ""), columnType == "userRanking" && !asDragPreview && _react2.default.createElement(_reactVcomponents.Button, { text: "X", style: { margin: "-3px 0 -3px 5px", padding: "3px 5px" }, onClick: function onClick() {
 	                    new _SetProposalOrder2.default({ proposalID: proposal._id, index: -1 }).Run();
 	                } }))), !this.ShouldDropBefore() && dragPreviewUI)));
 	        }
@@ -34588,8 +34593,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            }));
 	                        }
 	                    });
-	                } }), proposal.editedAt && _react2.default.createElement(_reactVcomponents.Span, { ml: "auto", style: { color: "rgba(255,255,255,.5)" } }, proposal.text != null ? "edited" : "deleted", " at ", _Manager.Manager.FormatTime(proposal.editedAt, "YYYY-MM-DD HH:mm:ss")), _react2.default.createElement(_reactVcomponents.CheckBox, { ml: "auto", mr: 5, text: "Completed", checked: proposal.completed, enabled: (0, _General.IsUserAdmin)(_Manager.Manager.GetUserID()), onChange: function onChange(val) {
-	                    new _UpdateProposal.UpdateProposal({ id: proposal._id, updates: { completed: !proposal.completed ? true : null } }).Run();
+	                } }), proposal.editedAt && _react2.default.createElement(_reactVcomponents.Span, { ml: "auto", style: { color: "rgba(255,255,255,.5)" } }, proposal.text != null ? "edited" : "deleted", " at ", _Manager.Manager.FormatTime(proposal.editedAt, "YYYY-MM-DD HH:mm:ss")), _react2.default.createElement(_reactVcomponents.CheckBox, { ml: "auto", mr: 5, text: "Completed", checked: proposal.completedAt != null, enabled: (0, _General.IsUserAdmin)(_Manager.Manager.GetUserID()), onChange: function onChange(val) {
+	                    new _UpdateProposal.UpdateProposal({ id: proposal._id, updates: { completedAt: proposal.completedAt == null ? Date.now() : null } }).Run();
 	                } }))));
 	        }
 	    }]);
@@ -34926,7 +34931,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        properties: {
 	            id: { type: "number" },
 	            updates: (0, _Server.Schema)({
-	                properties: (0, _Server.GetSchemaJSON)(MTName).properties.Including("title", "text", "completed")
+	                properties: (0, _Server.GetSchemaJSON)(MTName).properties.Including("title", "text", "completedAt")
 	            })
 	        },
 	        required: ["id", "updates"]
