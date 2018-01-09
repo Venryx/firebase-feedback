@@ -577,13 +577,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    parts.splice.apply(parts, [parts.length - removeFromEndCount, removeFromEndCount].concat(itemsToAdd));
 	    return parts.join("/");
 	}
-	Object.prototype._AddFunction_Inline = function DBRef() {
-	    var path = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
-	    var inVersionRoot = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-
-	    var finalPath = DBPath(path, inVersionRoot);
-	    return this.ref(finalPath);
-	};
 	function ProcessDBData(data, standardizeForm, addHelpers, rootKey) {
 	    var treeNodes = (0, _jsVextensions.GetTreeNodesInObjTree)(data, true);
 	    var _iteratorNormalCompletion = true;
@@ -21833,6 +21826,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _Manager = __webpack_require__(2);
 
+	var _DatabaseHelpers = __webpack_require__(9);
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
@@ -21962,37 +21957,45 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                }, function () {
 	                                    return "Running command. @type:" + _this.constructor.name + " @payload(" + ToJSON(_this.payload) + ")";
 	                                });
+	                                _context2.prev = 7;
+
 	                                this.Validate_Early();
-	                                _context2.next = 10;
+	                                _context2.next = 11;
 	                                return this.Prepare();
 
-	                            case 10:
-	                                _context2.next = 12;
+	                            case 11:
+	                                _context2.next = 13;
 	                                return this.Validate();
 
-	                            case 12:
+	                            case 13:
 	                                dbUpdates = this.GetDBUpdates();
 	                                //FixDBUpdates(dbUpdates);
 
-	                                _context2.next = 15;
-	                                return store.firebase.helpers.DBRef().update(dbUpdates);
+	                                _context2.next = 16;
+	                                return store.firebase.helpers.ref((0, _DatabaseHelpers.DBPath)("", true)).update(dbUpdates);
 
-	                            case 15:
+	                            case 16:
 	                                (0, _Logging.MaybeLog)(function (a) {
 	                                    return a.commands;
 	                                }, function () {
 	                                    return "Finishing command. @type:" + _this.constructor.name + " @payload(" + ToJSON(_this.payload) + ")";
 	                                });
+
+	                            case 17:
+	                                _context2.prev = 17;
+
 	                                OnCurrentCommandFinished();
-	                                // later on (once set up on server), this will send the data back to the client, rather than return it
+	                                return _context2.finish(17);
+
+	                            case 20:
 	                                return _context2.abrupt("return", this.returnData);
 
-	                            case 18:
+	                            case 21:
 	                            case "end":
 	                                return _context2.stop();
 	                        }
 	                    }
-	                }, _callee2, this);
+	                }, _callee2, this, [[7,, 17, 20]]);
 	            }));
 	        }
 	    }]);
