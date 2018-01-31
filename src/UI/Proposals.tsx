@@ -80,7 +80,7 @@ export function GetRankingScoreToAddForUserRankingIndex(indexInRankingOrder: num
 
 export type ProposalsColumn_Props = {proposals: Proposal[], type: string} & Partial<{userData, showCompleted: boolean}>;
 @Connect((state, {type}: ProposalsColumn_Props)=> ({
-	userData: GetData("userData"),
+	userData: (GetData("userData") || {}).Props().filter(a=>a.value != null).ToMap(a=>a.name, a=>a.value),
 	showCompleted: State(`proposals/${type}s_showCompleted`),
 }))
 @ApplyBasicStyles

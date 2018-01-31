@@ -34,6 +34,7 @@
     "react-redux": "^5.0.0",
     "react-redux-firebase": "^1.2.0",
     "react-vmessagebox": "0.0.1",
+	 "react-vscrollview": "0.0.2",
     "redux": "^3.6.0"
   },
   "devDependencies": {
@@ -60,7 +61,8 @@
     "ts-loader": "^3.2.0",
     "typescript": "^2.6.2",
     "webpack": "^1.12.12",
-    "webpack-dev-server": "^1.14.1"
+	 "webpack-dev-server": "^1.14.1",
+	 "react-vscrollview": "0.0.2"
   },
   "dependencies": {
     "ajv": "^5.5.2",
@@ -70,7 +72,6 @@
     "react-dnd": "^2.5.4",
     "react-dnd-mouse-backend": "^0.1.1",
     "react-md-editor": "^0.2.2",
-    "react-redux-firebase": "^1.2.0",
-    "react-vscrollview": "0.0.2"
+    "react-redux-firebase": "^1.2.0"
   }
 }

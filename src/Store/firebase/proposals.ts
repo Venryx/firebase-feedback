@@ -8,5 +8,6 @@ export function GetProposal(id: number): Proposal {
 }
 export function GetProposals(): Proposal[] {
 	let entryMap = GetData("proposals");
-	return CachedTransform("GetProposals", [], entryMap, ()=>entryMap ? entryMap.VValues(true) : []);
+	//return CachedTransform("GetProposals", [], entryMap, ()=>entryMap ? entryMap.VValues(true) : []);
+	return CachedTransform("GetProposals", [], entryMap, ()=>entryMap ? entryMap.VValues(true).filter(a=>a) : []); // filter() needed for some reason
 }

@@ -13,7 +13,7 @@ export class AddProposal extends Command<{data: _MainType}> {
 	async Prepare() {
 		let {data} = this.payload;
 
-		let lastProposalID = await GetDataAsync("general", "lastProposalID") as number;
+		let lastProposalID = await GetDataAsync("general", "data", ".lastProposalID") as number;
 		this.id = lastProposalID + 1;
 		data.creator = this.userInfo.id;
 		data.createdAt = Date.now();
@@ -29,7 +29,7 @@ export class AddProposal extends Command<{data: _MainType}> {
 	GetDBUpdates() {
 		let {data} = this.payload;
 		let updates = {
-			"general/lastProposalID": this.id,
+			"general/data/.lastProposalID": this.id,
 			[`proposals/${this.id}`]: data,
 		} as any;
 		return updates;

@@ -10,7 +10,7 @@ AddSchema({patternProperties: {"^[0-9]+$": {type: "number"}}}, "ProposalIndexSet
 
 export function GetProposalIndexes(userID: string) {
 	if (userID == null) return {};
-	return GetData("userData", userID, "proposalIndexes") as ProposalIndexSet || {};
+	return GetData("userData", userID, ".proposalIndexes") as ProposalIndexSet || {};
 }
 export function GetProposalOrder(userID: string) {
 	return GetProposalIndexes(userID).VValues(true);

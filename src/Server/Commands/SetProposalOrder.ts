@@ -8,7 +8,7 @@ export default class SetProposalOrder extends Command<{proposalID: number, index
 	async Prepare() {
 		let {proposalID, index} = this.payload;
 
-		let oldIndexes = await GetDataAsync("userData", this.userInfo.id, "proposalIndexes") as ProposalIndexSet || {};
+		let oldIndexes = await GetDataAsync("userData", this.userInfo.id, ".proposalIndexes") as ProposalIndexSet || {};
 		let idsOrdered = oldIndexes.VValues(true);
 		let oldIndex = idsOrdered.indexOf(proposalID);
 		if (index != -1) {
@@ -27,7 +27,7 @@ export default class SetProposalOrder extends Command<{proposalID: number, index
 		let {proposalID} = this.payload;
 
 		let updates = {};
-		updates[`userData/${this.userInfo.id}/proposalIndexes`] = this.newIndexes;
+		updates[`userData/${this.userInfo.id}/.proposalIndexes`] = this.newIndexes;
 		return updates;
 	}
 }
