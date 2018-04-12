@@ -11,9 +11,8 @@ import {ScrollView} from "react-vscrollview";
 import {Button} from "react-vcomponents";
 import {Spinner} from "react-vcomponents";
 import {Proposal} from "./../../../Store/firebase/proposals/@Proposal";
-import {MarkdownToolbar} from "../../@Shared/MarkdownToolbar";
+import {MarkdownEditor, MarkdownToolbar} from "react-vmarkdown";
 import {Link} from "../../@Shared/Link";
-import Editor from "react-md-editor";
 import { GetErrorMessagesUnderElement } from "js-vextensions";
 import {ShowMessageBox, BoxController} from "react-vmessagebox";
 import {AddProposal} from "../../../Server/Commands/AddProposal";
@@ -58,7 +57,7 @@ export class ProposalDetailsUI extends BaseComponent<ProposalDetailsUI_Props, {n
 							<MarkdownToolbar editor={()=>this.refs.editor}>
 								<Link to="https://guides.github.com/features/mastering-markdown" style={{marginLeft: 10}}>How to add links, images, etc.</Link>
 							</MarkdownToolbar>}
-						<Editor ref="editor" value={newData.text || ""} onChange={val=>Change(newData.text = val)}
+						<MarkdownEditor ref="editor" value={newData.text || ""} onChange={val=>Change(newData.text = val)}
 							options={E({
 								scrollbarStyle: "overlay",
 								lineWrapping: true,
