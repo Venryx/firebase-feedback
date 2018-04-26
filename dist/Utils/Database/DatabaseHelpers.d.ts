@@ -1,32 +1,7 @@
-/// <reference types="firebase" />
 export declare function DBPath(path?: string, inVersionRoot?: boolean): string;
 export declare function DBPathSegments(pathSegments: (string | number)[], inVersionRoot?: boolean): (string | number)[];
 export declare function SlicePath(path: string, removeFromEndCount: number, ...itemsToAdd: string[]): string;
-export declare type FirebaseApp = Firebase & {
-    _;
-    helpers: {
-        ref(path: string): FirebaseQuery;
-        set;
-        uniqueSet;
-        push;
-        remove;
-        update;
-        login(options: {
-            provider: "email?" | "google" | "facebook" | "twitter" | "github" | "anonymous?" | "?";
-            type: "popup" | "?";
-        });
-        logout();
-        uploadFile;
-        uploadFiles;
-        deleteFile;
-        createUser;
-        resetPassword;
-        watchEvent;
-        unWatchEvent;
-        storage(): FirebaseStatic;
-        DBRef(path?: string, inVersionRoot?: boolean): FirebaseQuery;
-    };
-};
+export declare type FirebaseApp = any;
 export declare function ProcessDBData(data: any, standardizeForm: boolean, addHelpers: boolean, rootKey: string): any;
 /** Note: this mutates the original object. */
 export declare function RemoveHelpers(data: any): any;

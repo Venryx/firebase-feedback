@@ -1,5 +1,4 @@
 import React from 'react';
-import { PropTypes } from "react";
 import {BaseComponent} from "react-vextensions";
 import {VURL, GetCurrentURLString} from "js-vextensions";
 import {Connect} from "../../Utils/Database/FirebaseConnect";

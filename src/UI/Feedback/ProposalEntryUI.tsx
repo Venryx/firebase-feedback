@@ -1,5 +1,5 @@
 import React from "react";
-import {BaseComponent, FindDOM, GetInnerComp} from "react-vextensions";
+import {BaseComponent, GetDOM, GetInnerComp} from "react-vextensions";
 import {Column, Button} from "react-vcomponents";
 import {Row} from "react-vcomponents";
 import {Connect} from "../../Utils/Database/FirebaseConnect";
@@ -62,7 +62,7 @@ export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
 	//newPos_midY;
 	ShouldDropBefore() {
 		//var mousePos = monitor.getClientOffset().y;
-		var dropTargetDOM = FindDOM(this.innerRoot);
+		var dropTargetDOM = GetDOM(this.innerRoot);
 		if (dropTargetDOM == null) return true;
 		var newPos_midY = (dropTargetDOM.getBoundingClientRect().top + dropTargetDOM.getBoundingClientRect().bottom) / 2;
 		//var {newPos_script_midY} = this.state;
@@ -123,7 +123,7 @@ export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
 	}
 
 	/*PostRender() {
-		var dropTargetDOM = FindDOM(this);
+		var dropTargetDOM = GetDOM(this);
 		var newPos_midY = (dropTargetDOM.getBoundingClientRect().top + dropTargetDOM.getBoundingClientRect().bottom) / 2;
 		//this.setState({newPos_script_midY: newPos_script_midY});
 		this.newPos_midY = newPos_midY;

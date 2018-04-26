@@ -1,5 +1,5 @@
-import React from "react";
-import {BaseComponent, FindDOM, GetInnerComp} from "react-vextensions";
+import React, {Component} from "react";
+import {BaseComponent, GetInnerComp} from "react-vextensions";
 import {Pre} from "react-vcomponents";
 import {Column} from "react-vcomponents";
 import {Row} from "react-vcomponents";
@@ -71,7 +71,7 @@ export class ProposalDetailsUI extends BaseComponent<ProposalDetailsUI_Props, {n
 		);
 	}
 	GetValidationError() {
-		return GetErrorMessagesUnderElement(FindDOM(this))[0];
+		return GetErrorMessagesUnderElement(GetDOM(this))[0];
 	}
 
 	GetNewData() {

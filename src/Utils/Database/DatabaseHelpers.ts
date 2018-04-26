@@ -38,7 +38,7 @@ export function SlicePath(path: string, removeFromEndCount: number, ...itemsToAd
 	return this.ref(finalPath);
 }*/
 
-export type FirebaseApp = Firebase & {
+/*export type FirebaseApp = Firebase & {
 	// added by react-redux-firebase
 	_,
 	helpers: {
@@ -65,7 +65,8 @@ export type FirebaseApp = Firebase & {
 		//DBRef(path?: string, inVersionRoot?: boolean), //: firebase.DatabaseReference,
 		DBRef(path?: string, inVersionRoot?: boolean): FirebaseQuery,
 	},
-};
+};*/
+export type FirebaseApp = any;
 
 export function ProcessDBData(data, standardizeForm: boolean, addHelpers: boolean, rootKey: string) {
 	var treeNodes = GetTreeNodesInObjTree(data, true);
