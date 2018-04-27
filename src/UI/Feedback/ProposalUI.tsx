@@ -29,7 +29,7 @@ export class ProposalUI extends BaseComponent<ProposalUI_Props, {}> {
 		let userID = Manager.GetUserID();
 		
 		if (proposal == null) {
-			return <div style={{display: "flex", alignItems: "center", justifyContent: "center", flex: 1, fontSize: 25}}>Loading proposal...</div>;
+			return <div style={{display: "flex", alignItems: "center", justifyContent: "center", flex: 1, fontSize: "25px"}}>Loading proposal...</div>;
 		}
 
 		//let firstPostWritten = posts.length > 1 || posts[0].text != firstPostPlaceholderText;
@@ -90,7 +90,7 @@ class ProposalUI_Inner extends BaseComponent<ProposalUI_Inner_Props, {editing: b
 		return (
 			<Row sel style={{flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, alignItems: "initial", cursor: "auto"}}>
 				<Column p={10} style={{flex: 1}}>
-					<Row style={{width: "100%", fontSize: "18", textAlign: "center"}}>
+					<Row style={{width: "100%", fontSize: "18px", textAlign: "center"}}>
 						{proposal.title}
 					</Row>
 					<Row mt={10} style={{width: "100%"}}>

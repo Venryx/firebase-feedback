@@ -5,7 +5,6 @@ import {Row} from "react-vcomponents";
 import {Connect} from "../../Utils/Database/FirebaseConnect";
 import {Manager} from "../../Manager";
 import {VURL, Timer} from "js-vextensions";
-import {Link} from "../@Shared/Link";
 import {Proposal} from "./../../Store/firebase/proposals/@Proposal";
 import {DragSource, DropTarget} from "react-dnd";
 import SetProposalOrder from "../../Server/Commands/SetProposalOrder";
@@ -58,7 +57,7 @@ export type ProposalEntryUI_Props = {index: number, last: boolean, proposal: Pro
 	creator: proposal && Manager.GetUser(proposal.creator),
 	//posts: proposal && GetProposalPosts(proposal),
 }))
-export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
+export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {shouldDropBefore: boolean}> {
 	//newPos_midY;
 	ShouldDropBefore() {
 		//var mousePos = monitor.getClientOffset().y;
@@ -77,7 +76,10 @@ export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
 	ComponentWillReceiveProps(props) {
 		// if hovering with item over our component, start auto-updating the ui (to match with place-above-or-below state)
 		if (props.isOver) {
-			this.updateTimer = new Timer(50, ()=>this.Update());
+			this.updateTimer = new Timer(50, ()=> {
+				if (this.mounted) this.Update();
+				else if (this.updateTimer) this.updateTimer.Stop();
+			});
 			this.updateTimer.Start();
 		} else {
 			if (this.updateTimer) {
@@ -90,7 +92,8 @@ export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
 	innerRoot: Column;
 	render() {
 		let {index, last, proposal, orderIndex, rankingScore, creator, columnType, asDragPreview, style} = this.props;
-		var {connectDragSource, isDragging, connectDropTarget, isOver, draggedItem} = this.props as any; // lazy
+		let {connectDragSource, isDragging, connectDropTarget, isOver, draggedItem} = this.props as any; // lazy
+		let {shouldDropBefore} = this.state;
 
 		if (isDragging && columnType == "userRanking") return <div/>;
 		let dragPreviewUI = columnType == "userRanking" && isOver && !asDragPreview &&
@@ -99,14 +102,14 @@ export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
 
 		let toURL = new VURL(null, ["proposals", proposal._id+""]);
 		return connectDragSource(connectDropTarget(<div>
-			{this.ShouldDropBefore() && dragPreviewUI}
+			{shouldDropBefore && dragPreviewUI}
 			<Column ref={c=>this.innerRoot = c} p="7px 10px" style={E(
 				{background: index % 2 == 0 ? "rgba(30,30,30,.7)" : "rgba(0,0,0,.7)"},
 				last && {borderRadius: "0 0 10px 10px"},
 				style,
 			)}>
 				<Row>
-					<Link text={proposal.title} actions={d=>d(new ACTProposalSelect({id: proposal._id}))} style={{fontSize: 15, flex: 1}}/>
+					<Manager.Link text={proposal.title} actions={d=>d(new ACTProposalSelect({id: proposal._id}))} style={{fontSize: "15px", flex: 1}}/>
 					<span style={{float: "right"}}>
 						{columnType == "userRanking"
 							? "#" + (index + 1) + (proposal.completedAt ? " (✔️)" : ` (+${GetRankingScoreToAddForUserRankingIndex(orderIndex).RoundTo_Str(.001, null, false)})`)
@@ -118,14 +121,15 @@ export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
 						}}/>}
 				</Row>
 			</Column>
-			{!this.ShouldDropBefore() && dragPreviewUI}
+			{!shouldDropBefore && dragPreviewUI}
 		</div>));
 	}
 
-	/*PostRender() {
-		var dropTargetDOM = GetDOM(this);
+	PostRender() {
+		/*var dropTargetDOM = GetDOM(this);
 		var newPos_midY = (dropTargetDOM.getBoundingClientRect().top + dropTargetDOM.getBoundingClientRect().bottom) / 2;
 		//this.setState({newPos_script_midY: newPos_script_midY});
-		this.newPos_midY = newPos_midY;
-	}*/
+		this.newPos_midY = newPos_midY;*/
+		this.SetState({shouldDropBefore: this.ShouldDropBefore()});
+	}
 }

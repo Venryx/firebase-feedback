@@ -56,7 +56,7 @@ export class ProposalsUI extends BaseComponent<ProposalsUI_Props, {}> {
 		}
 		
 		if (proposals == null) {
-			return <div style={{display: "flex", alignItems: "center", justifyContent: "center", height: "100%", fontSize: 25}}>Loading proposals...</div>;
+			return <div style={{display: "flex", alignItems: "center", justifyContent: "center", height: "100%", fontSize: "25px"}}>Loading proposals...</div>;
 		}
 
 		return (
@@ -122,7 +122,7 @@ export class ProposalsColumn extends BaseComponent<ProposalsColumn_Props, {}> {
 						<CheckBox ml={5} text="Show completed" checked={showCompleted} onChange={val=>{
 							store.dispatch(new ACTSet(`proposals/${type}s_showCompleted`, val));
 						}}/>
-						<span style={{position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: 18}}>
+						<span style={{position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: "18px"}}>
 							{type.replace(/^(.)/, (m,s0)=>s0.toUpperCase())}s
 						</span>
 						<Button text={type == "feature" ? "Propose feature" : "Report issue"} ml="auto" onClick={()=> {
@@ -202,9 +202,9 @@ export class ProposalsUserRankingColumn extends BaseComponent<ProposalsUserRanki
 			<Column style={{flex: 1, height: "100%"}}>
 				<Column className="clickThrough" style={{background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0"}}>
 					<Row style={{position: "relative", height: 40, padding: 10}}>
-						<span style={{position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: 18}}>Your ranking</span>
+						<span style={{position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: "18px"}}>Your ranking</span>
 					</Row>
-					<div style={{padding: 10, paddingTop: 0, alignItems: "center", fontSize: 13, textAlign: "center"}}>
+					<div style={{padding: 10, paddingTop: 0, alignItems: "center", fontSize: "13px", textAlign: "center"}}>
 						Drag proposals onto this list to "vote" for them. Items at the top get the highest score increase.
 					</div>
 				</Column>

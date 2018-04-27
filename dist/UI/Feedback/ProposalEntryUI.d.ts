@@ -14,10 +14,13 @@ export declare type ProposalEntryUI_Props = {
 } & Partial<{
     creator: User;
 }>;
-export declare class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
+export declare class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {
+    shouldDropBefore: boolean;
+}> {
     ShouldDropBefore(): boolean;
     updateTimer: Timer;
     ComponentWillReceiveProps(props: any): void;
     innerRoot: Column;
     render(): any;
+    PostRender(): void;
 }

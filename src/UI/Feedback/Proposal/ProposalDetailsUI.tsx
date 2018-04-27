@@ -12,11 +12,11 @@ import {Button} from "react-vcomponents";
 import {Spinner} from "react-vcomponents";
 import {Proposal} from "./../../../Store/firebase/proposals/@Proposal";
 import {MarkdownEditor, MarkdownToolbar} from "react-vmarkdown";
-import {Link} from "../../@Shared/Link";
 import { GetErrorMessagesUnderElement } from "js-vextensions";
 import {ShowMessageBox, BoxController} from "react-vmessagebox";
 import {AddProposal} from "../../../Server/Commands/AddProposal";
 import {ACTProposalSelect} from "../../../Store/main/proposals";
+import {Manager} from "../../..";
 
 export type _MainType = Proposal;
 let MTName = "Proposal";
@@ -55,7 +55,7 @@ export class ProposalDetailsUI extends BaseComponent<ProposalDetailsUI_Props, {n
 					<Column style={{width: "100%"}}>
 						{enabled &&
 							<MarkdownToolbar editor={()=>this.refs.editor}>
-								<Link to="https://guides.github.com/features/mastering-markdown" style={{marginLeft: 10}}>How to add links, images, etc.</Link>
+								<Manager.Link to="https://guides.github.com/features/mastering-markdown" style={{marginLeft: 10}}>How to add links, images, etc.</Manager.Link>
 							</MarkdownToolbar>}
 						<MarkdownEditor ref="editor" value={newData.text || ""} onChange={val=>Change(newData.text = val)}
 							options={E({
