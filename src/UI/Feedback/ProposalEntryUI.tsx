@@ -1,15 +1,14 @@
+import {Timer, VURL} from "js-vextensions";
 import React from "react";
-import {BaseComponent, GetDOM, GetInnerComp} from "react-vextensions";
-import {Column, Button} from "react-vcomponents";
-import {Row} from "react-vcomponents";
-import {Connect} from "../../Utils/Database/FirebaseConnect";
-import {Manager} from "../../Manager";
-import {VURL, Timer} from "js-vextensions";
-import {Proposal} from "./../../Store/firebase/proposals/@Proposal";
 import {DragSource, DropTarget} from "react-dnd";
+import {Button, Column, Row} from "react-vcomponents";
+import {BaseComponent, GetDOM, GetInnerComp} from "react-vextensions";
+import {Manager} from "../../Manager";
 import SetProposalOrder from "../../Server/Commands/SetProposalOrder";
 import {ACTProposalSelect} from "../../Store/main/proposals";
-import { GetRankingScoreToAddForUserRankingIndex } from "../Proposals";
+import {Connect} from "../../Utils/Database/FirebaseConnect";
+import {GetRankingScoreToAddForUserRankingIndex} from "../Proposals";
+import {Proposal} from "./../../Store/firebase/proposals/@Proposal";
 
 export type ProposalEntryUI_Props = {index: number, last: boolean, proposal: Proposal, orderIndex?: number, rankingScore?: number, columnType: string, asDragPreview?: boolean, style?}
 	& Partial<{creator: User, /*posts: Post[]*/}>;
@@ -42,7 +41,7 @@ export type ProposalEntryUI_Props = {index: number, last: boolean, proposal: Pro
 		let newIndex = dropBefore ? props.index : props.index + 1;
 
 		//if (draggedItem.columnType != "userRanking" && columnType == "userRanking") {
-		new SetProposalOrder({proposalID: draggedItem.proposal._id, index: newIndex}).Run();
+		new SetProposalOrder({proposalID: draggedItem.proposal._id, userID: Manager.GetUserID(), index: newIndex}).Run();
 	}
 },
 (connect, monitor)=> {
@@ -117,7 +116,7 @@ export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {shoul
 					</span>
 					{columnType == "userRanking" && !asDragPreview &&
 						<Button text="X" style={{margin: "-3px 0 -3px 5px", padding: "3px 5px"}} onClick={()=> {
-							new SetProposalOrder({proposalID: proposal._id, index: -1}).Run();
+							new SetProposalOrder({proposalID: proposal._id, userID: Manager.GetUserID(), index: -1}).Run();
 						}}/>}
 				</Row>
 			</Column>

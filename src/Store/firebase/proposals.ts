@@ -1,6 +1,6 @@
-import {Proposal} from "./proposals/@Proposal";
-import {GetData} from "../../Utils/Database/DatabaseHelpers";
-import {CachedTransform} from "../../Utils/VCache";
+import { GetData } from "../../Utils/Database/DatabaseHelpers";
+import { CachedTransform } from "../../Utils/VCache";
+import { Proposal } from "./proposals/@Proposal";
 
 export function GetProposal(id: number): Proposal {
 	if (id == null) return null;

@@ -1,6 +1,6 @@
-import { BaseComponent } from "react-vextensions";
-import { Column } from "react-vcomponents";
 import { Timer } from "js-vextensions";
+import { Column } from "react-vcomponents";
+import { BaseComponent } from "react-vextensions";
 import { Proposal } from "./../../Store/firebase/proposals/@Proposal";
 export declare type ProposalEntryUI_Props = {
     index: number;

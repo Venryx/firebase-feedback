@@ -1,28 +1,24 @@
 import React from "react";
-import {BaseComponent, GetInnerComp, ApplyBasicStyles} from "react-vextensions";
-import {Row, DropDownTrigger, DropDownContent, CheckBox, Pre} from "react-vcomponents";
-import {Button} from "react-vcomponents";
-import {DropDown} from "react-vcomponents";
-import {Column} from "react-vcomponents";
-import {ScrollView} from "react-vscrollview";
-import {Spinner} from "react-vcomponents";
-import {Connect} from "../Utils/Database/FirebaseConnect";
-import {Proposal} from "./../Store/firebase/proposals/@Proposal";
-import {Manager} from "../Manager";
-import {ProposalEntryUI} from "./Feedback/ProposalEntryUI";
-import {ShowAddProposalDialog} from "./Feedback/Proposal/ProposalDetailsUI";
-import {ProposalUI} from "./Feedback/ProposalUI";
-import {GetProposals} from "../Store/firebase/proposals";
 import {DragDropContext, DropTarget} from "react-dnd";
 //import HTML5Backend from "react-dnd-html5-backend";
 //import TouchBackend from "react-dnd-touch-backend";
 import MouseBackend from "react-dnd-mouse-backend";
-import {VDragLayer} from "./@Shared/VDragLayer";
-import SetProposalOrder from "../Server/Commands/SetProposalOrder";
-import { GetProposalIndexes, GetProposalOrder, ACTSet } from "../index";
-import {GetData} from "../Utils/Database/DatabaseHelpers";
-import {GetSelectedProposal} from "../Store/main/proposals";
+import {Button, CheckBox, Column, Row} from "react-vcomponents";
+import {ApplyBasicStyles, BaseComponent} from "react-vextensions";
+import {ScrollView} from "react-vscrollview";
 import {State} from "../General";
+import {Manager} from "../Manager";
+import SetProposalOrder from "../Server/Commands/SetProposalOrder";
+import {GetProposals} from "../Store/firebase/proposals";
+import {GetSelectedProposal} from "../Store/main/proposals";
+import {GetData} from "../Utils/Database/DatabaseHelpers";
+import {Connect} from "../Utils/Database/FirebaseConnect";
+import {ACTSet, GetProposalOrder} from "../index";
+import {Proposal} from "./../Store/firebase/proposals/@Proposal";
+import {VDragLayer} from "./@Shared/VDragLayer";
+import {ShowAddProposalDialog} from "./Feedback/Proposal/ProposalDetailsUI";
+import {ProposalEntryUI} from "./Feedback/ProposalEntryUI";
+import {ProposalUI} from "./Feedback/ProposalUI";
 
 // temp fix for "isOver({shallow: true})"
 var DragDropMonitor = require("dnd-core/lib/DragDropMonitor").default;
@@ -78,6 +74,14 @@ export function GetRankingScoreToAddForUserRankingIndex(indexInRankingOrder: num
 	return rankingScoreToAdd;
 }
 
+function GetIncompleteProposalsInOrder(order: number[], proposals: Proposal[]) {
+	return order.filter(id=> {
+		let proposalReferencedInOrder = proposals.find(a=>a._id == id);
+		// for some reason, proposalReferencedInOrder is null for a just-deleted proposal
+		return proposalReferencedInOrder && !proposalReferencedInOrder.completedAt;
+	});
+}
+
 export type ProposalsColumn_Props = {proposals: Proposal[], type: string} & Partial<{userData, showCompleted: boolean}>;
 @Connect((state, {type}: ProposalsColumn_Props)=> ({
 	userData: (GetData("userData") || {}).Props().filter(a=>a.value != null).ToMap(a=>a.name, a=>a.value),
@@ -92,7 +96,11 @@ export class ProposalsColumn extends BaseComponent<ProposalsColumn_Props, {}> {
 		let shownProposals = proposals.filter(a=>a.type == type && (!a.completedAt || showCompleted));
 
 		let proposalOrders = userData ? userData.VValues().map(a=>(a.proposalIndexes || {}).VValues(true)) : [];
-		let proposalOrders_uncompleted = proposalOrders.map(order=>order.filter(id=>!proposals.find(a=>a._id == id).completedAt));
+		//let proposalOrders_uncompleted = proposalOrders.map(order=>order.filter(id=>!proposals.find(a=>a._id == id).completedAt));
+		/*let deletedProposalsInOrdering = proposalOrders.filter(id=>!proposals.find(a=>a._id == id));
+		Assert(deletedProposalsInOrdering <= 1, "More than one proposal in your ordering has been deleted!");
+		let proposalOrders_uncompleted = proposalOrders.Except(deletedProposalsInOrdering).map(order=>order.filter(id=>!proposals.find(a=>a._id == id).completedAt));*/
+		let proposalOrders_uncompleted = proposalOrders.map(order=>GetIncompleteProposalsInOrder(order, proposals));
 
 		let rankingScores = {};
 		for (let proposal of shownProposals) {
@@ -165,7 +173,7 @@ export type ProposalsUserRankingColumn_Props = {proposals: Proposal[]} & Partial
 		if (Manager.GetUserID() == null) return void Manager.ShowSignInPopup();
 
 		var draggedItem = monitor.getItem();
-		new SetProposalOrder({proposalID: draggedItem.proposal._id, index: Number.MAX_SAFE_INTEGER}).Run();
+		new SetProposalOrder({proposalID: draggedItem.proposal._id, userID: Manager.GetUserID(), index: Number.MAX_SAFE_INTEGER}).Run();
 	}
 },
 (connect, monitor)=> {
@@ -190,7 +198,7 @@ export class ProposalsUserRankingColumn extends BaseComponent<ProposalsUserRanki
 		let {connectDropTarget, isOver, draggedItem} = this.props as any;
 		let user = Manager.GetUser(Manager.GetUserID());
 
-		let proposalOrder_uncompleted = proposalOrder.filter(id=>!proposals.find(a=>a._id == id).completedAt);
+		let proposalOrder_uncompleted = GetIncompleteProposalsInOrder(proposalOrder, proposals);
 
 		proposals = proposals.filter(a=>proposalOrder.Contains(a._id)).OrderBy(a=>proposalOrder.indexOf(a._id));
 

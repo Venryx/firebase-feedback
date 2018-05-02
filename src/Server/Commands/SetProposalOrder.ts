@@ -1,14 +1,14 @@
-import {Command} from "../Command";
 import {ProposalIndexSet} from "../../Store/firebase/userData";
-import { GetDataAsync } from "../../Utils/Database/DatabaseHelpers";
+import {GetDataAsync} from "../../Utils/Database/DatabaseHelpers";
+import {Command} from "../Command";
 
 //@UserEdit
-export default class SetProposalOrder extends Command<{proposalID: number, index: number}> {
+export default class SetProposalOrder extends Command<{proposalID: number, userID: string, index: number}> {
 	newIndexes: ProposalIndexSet;
 	async Prepare() {
-		let {proposalID, index} = this.payload;
+		let {proposalID, userID, index} = this.payload;
 
-		let oldIndexes = await GetDataAsync("userData", this.userInfo.id, ".proposalIndexes") as ProposalIndexSet || {};
+		let oldIndexes = await GetDataAsync("userData", userID, ".proposalIndexes") as ProposalIndexSet || {};
 		let idsOrdered = oldIndexes.VValues(true);
 		let oldIndex = idsOrdered.indexOf(proposalID);
 		if (index != -1) {
@@ -24,10 +24,10 @@ export default class SetProposalOrder extends Command<{proposalID: number, index
 	}
 	
 	GetDBUpdates() {
-		let {proposalID} = this.payload;
+		let {userID, proposalID} = this.payload;
 
 		let updates = {};
-		updates[`userData/${this.userInfo.id}/.proposalIndexes`] = this.newIndexes;
+		updates[`userData/${userID}/.proposalIndexes`] = this.newIndexes;
 		return updates;
 	}
 }

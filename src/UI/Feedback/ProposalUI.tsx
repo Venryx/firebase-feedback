@@ -1,22 +1,18 @@
-import {BaseComponent, GetInnerComp} from "react-vextensions";
-import {Row, Pre, Div, Span, CheckBox} from "react-vcomponents";
-import {Button} from "react-vcomponents";
-import {DropDown} from "react-vcomponents";
-import {Column} from "react-vcomponents";
-import {ScrollView} from "react-vscrollview";
-import {Spinner, DropDownTrigger, DropDownContent} from "react-vcomponents";
 import React from "react";
-import {Connect} from "../../Utils/Database/FirebaseConnect";
-import {Manager, PermissionGroupSet} from "../../Manager";
-import {colors} from "../GlobalStyles";
-import {IsUserCreatorOrMod, IsUserAdmin} from "../../General";
-import {GetUpdates} from "../../Utils/Database/DatabaseHelpers";
-import {Proposal} from "./../../Store/firebase/proposals/@Proposal";
-import {ShowMessageBox} from "react-vmessagebox";
-import {DeleteProposal} from "../../Server/Commands/DeleteProposal";
-import {ProposalDetailsUI} from "./Proposal/ProposalDetailsUI";
-import {UpdateProposal} from "../../Server/Commands/UpdateProposal";
-import {ACTProposalSelect} from "../../Store/main/proposals";
+import { Button, CheckBox, Column, Row, Span } from "react-vcomponents";
+import { BaseComponent, GetInnerComp } from "react-vextensions";
+import { ShowMessageBox } from "react-vmessagebox";
+import { ScrollView } from "react-vscrollview";
+import { IsUserAdmin, IsUserCreatorOrMod } from "../../General";
+import { Manager } from "../../Manager";
+import { DeleteProposal } from "../../Server/Commands/DeleteProposal";
+import { UpdateProposal } from "../../Server/Commands/UpdateProposal";
+import { ACTProposalSelect } from "../../Store/main/proposals";
+import { GetUpdates } from "../../Utils/Database/DatabaseHelpers";
+import { Connect } from "../../Utils/Database/FirebaseConnect";
+import { colors } from "../GlobalStyles";
+import { Proposal } from "./../../Store/firebase/proposals/@Proposal";
+import { ProposalDetailsUI } from "./Proposal/ProposalDetailsUI";
 
 export type ProposalUI_Props = {proposal: Proposal, subNavBarWidth?: number} & Partial<{/*permissions: PermissionGroupSet, posts: Post[]*/}>;
 /*@Connect((state, {proposal}: ProposalUI_Props)=> ({
