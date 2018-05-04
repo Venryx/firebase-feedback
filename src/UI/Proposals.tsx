@@ -56,7 +56,7 @@ export class ProposalsUI extends BaseComponent<ProposalsUI_Props, {}> {
 		}
 
 		return (
-			<Row style={{marginTop: 10, flex: 1, height: "100%", padding: 10, filter: "drop-shadow(rgb(0, 0, 0) 0px 0px 10px)"}}>
+			<Row style={ES({marginTop: 10, flex: 1, padding: 10, filter: "drop-shadow(rgb(0, 0, 0) 0px 0px 10px)"})}>
 				<ProposalsColumn proposals={proposals} type="feature"/>
 				<ProposalsColumn proposals={proposals} type="issue" ml={10}/>
 				<ProposalsUserRankingColumn proposals={proposals} ml={10}/>
@@ -123,7 +123,7 @@ export class ProposalsColumn extends BaseComponent<ProposalsColumn_Props, {}> {
 		shownProposals = shownProposals.OrderByDescending(a=>rankingScores[a._id]);
 
 		return (
-			<Column style={{flex: 1, height: "100%"}}>
+			<Column style={ES({flex: 1, height: "100%"})}>
 				<Column className="clickThrough" style={{height: 40, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0"}}>
 					<Row style={{position: "relative", height: 40, padding: 10}}>
 						{/*<Pre>Show: </Pre>*/}
@@ -139,7 +139,7 @@ export class ProposalsColumn extends BaseComponent<ProposalsColumn_Props, {}> {
 						}}/>
 					</Row>
 				</Column>
-				<ScrollView ref="scrollView" scrollVBarStyle={{width: 10}} style={{flex: 1}}>
+				<ScrollView ref="scrollView" scrollVBarStyle={{width: 10}} style={ES({flex: 1})}>
 					<Column>
 						{shownProposals.length == 0 &&
 							<Row p="7px 10px" style={{background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px"}}>
@@ -206,8 +206,8 @@ export class ProposalsUserRankingColumn extends BaseComponent<ProposalsUserRanki
 			<ProposalEntryUI proposal={draggedItem.proposal} orderIndex={0} index={0} last={true}
 				columnType="userRanking" style={{opacity: .3, borderRadius: 10}} asDragPreview={true}/>;
 
-		return connectDropTarget(<div style={{flex: 1, height: "100%"}}>
-			<Column style={{flex: 1, height: "100%"}}>
+		return connectDropTarget(<div style={ES({flex: 1, height: "100%"})}>
+			<Column style={ES({flex: 1, height: "100%"})}>
 				<Column className="clickThrough" style={{background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0"}}>
 					<Row style={{position: "relative", height: 40, padding: 10}}>
 						<span style={{position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: "18px"}}>Your ranking</span>
@@ -216,7 +216,7 @@ export class ProposalsUserRankingColumn extends BaseComponent<ProposalsUserRanki
 						Drag proposals onto this list to "vote" for them. Items at the top get the highest score increase.
 					</div>
 				</Column>
-				<ScrollView ref="scrollView" scrollVBarStyle={{width: 10}} style={{flex: 1}}>
+				<ScrollView ref="scrollView" scrollVBarStyle={{width: 10}} style={ES({flex: 1})}>
 					<Column>
 						{proposals.length == 0 && !dragPreviewUI &&
 							<Row p="7px 10px" style={{background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px"}}>

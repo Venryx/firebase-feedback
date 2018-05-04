@@ -25,16 +25,16 @@ export class ProposalUI extends BaseComponent<ProposalUI_Props, {}> {
 		let userID = Manager.GetUserID();
 		
 		if (proposal == null) {
-			return <div style={{display: "flex", alignItems: "center", justifyContent: "center", flex: 1, fontSize: "25px"}}>Loading proposal...</div>;
+			return <div style={ES({display: "flex", alignItems: "center", justifyContent: "center", flex: 1, fontSize: "25px"})}>Loading proposal...</div>;
 		}
 
 		//let firstPostWritten = posts.length > 1 || posts[0].text != firstPostPlaceholderText;
 
 		return (
-			<Column style={{flex: 1}}>
+			<Column style={ES({flex: 1})}>
 				<ActionBar_Left proposal={proposal} subNavBarWidth={subNavBarWidth}/>
 				<ActionBar_Right proposal={proposal} subNavBarWidth={subNavBarWidth}/>
-				<ScrollView ref="scrollView" scrollVBarStyle={{width: 10}} style={{flex: 1}/*styles.fillParent_abs*/}>
+				<ScrollView ref="scrollView" scrollVBarStyle={{width: 10}} style={ES({flex: 1}/*styles.fillParent_abs*/)}>
 					<Column style={{width: 960, margin: "50px auto 20px auto", filter: "drop-shadow(rgb(0, 0, 0) 0px 0px 10px)"}}>
 						<ProposalUI_Inner proposal={proposal}/>
 						<Column>
@@ -85,7 +85,7 @@ class ProposalUI_Inner extends BaseComponent<ProposalUI_Inner_Props, {editing: b
 		let creatorOrMod = IsUserCreatorOrMod(Manager.GetUserID(), proposal);
 		return (
 			<Row sel style={{flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, alignItems: "initial", cursor: "auto"}}>
-				<Column p={10} style={{flex: 1}}>
+				<Column p={10} style={ES({flex: 1})}>
 					<Row style={{width: "100%", fontSize: "18px", textAlign: "center"}}>
 						{proposal.title}
 					</Row>

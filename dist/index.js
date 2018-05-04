@@ -11932,7 +11932,7 @@ var ProposalsUI = function (_BaseComponent) {
             if (proposals == null) {
                 return _react2.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "center", height: "100%", fontSize: "25px" } }, "Loading proposals...");
             }
-            return _react2.default.createElement(_reactVcomponents.Row, { style: { marginTop: 10, flex: 1, height: "100%", padding: 10, filter: "drop-shadow(rgb(0, 0, 0) 0px 0px 10px)" } }, _react2.default.createElement(ProposalsColumn, { proposals: proposals, type: "feature" }), _react2.default.createElement(ProposalsColumn, { proposals: proposals, type: "issue", ml: 10 }), _react2.default.createElement(ProposalsUserRankingColumn, { proposals: proposals, ml: 10 }), _react2.default.createElement(_VDragLayer.VDragLayer, null));
+            return _react2.default.createElement(_reactVcomponents.Row, { style: ES({ marginTop: 10, flex: 1, padding: 10, filter: "drop-shadow(rgb(0, 0, 0) 0px 0px 10px)" }) }, _react2.default.createElement(ProposalsColumn, { proposals: proposals, type: "feature" }), _react2.default.createElement(ProposalsColumn, { proposals: proposals, type: "issue", ml: 10 }), _react2.default.createElement(ProposalsUserRankingColumn, { proposals: proposals, ml: 10 }), _react2.default.createElement(_VDragLayer.VDragLayer, null));
         }
     }]);
 
@@ -12061,14 +12061,14 @@ var ProposalsColumn = function (_BaseComponent2) {
             shownProposals = shownProposals.OrderByDescending(function (a) {
                 return rankingScores[a._id];
             });
-            return _react2.default.createElement(_reactVcomponents.Column, { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVcomponents.Column, { className: "clickThrough", style: { height: 40, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } }, _react2.default.createElement(_reactVcomponents.Row, { style: { position: "relative", height: 40, padding: 10 } }, _react2.default.createElement(_reactVcomponents.CheckBox, { ml: 5, text: "Show completed", checked: showCompleted, onChange: function onChange(val) {
+            return _react2.default.createElement(_reactVcomponents.Column, { style: ES({ flex: 1, height: "100%" }) }, _react2.default.createElement(_reactVcomponents.Column, { className: "clickThrough", style: { height: 40, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } }, _react2.default.createElement(_reactVcomponents.Row, { style: { position: "relative", height: 40, padding: 10 } }, _react2.default.createElement(_reactVcomponents.CheckBox, { ml: 5, text: "Show completed", checked: showCompleted, onChange: function onChange(val) {
                     store.dispatch(new _index.ACTSet("proposals/" + type + "s_showCompleted", val));
                 } }), _react2.default.createElement("span", { style: { position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: "18px" } }, type.replace(/^(.)/, function (m, s0) {
                 return s0.toUpperCase();
             }), "s"), _react2.default.createElement(_reactVcomponents.Button, { text: type == "feature" ? "Propose feature" : "Report issue", ml: "auto", onClick: function onClick() {
                     if (userID == null) return _Manager.Manager.ShowSignInPopup();
                     (0, _ProposalDetailsUI.ShowAddProposalDialog)(userID, type);
-                } }))), _react2.default.createElement(_reactVscrollview.ScrollView, { ref: "scrollView", scrollVBarStyle: { width: 10 }, style: { flex: 1 } }, _react2.default.createElement(_reactVcomponents.Column, null, shownProposals.length == 0 && _react2.default.createElement(_reactVcomponents.Row, { p: "7px 10px", style: { background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px" } }, "There are currently no ", type == "feature" ? "feature proposals" : "issue reports", "."), shownProposals.map(function (proposal, index) {
+                } }))), _react2.default.createElement(_reactVscrollview.ScrollView, { ref: "scrollView", scrollVBarStyle: { width: 10 }, style: ES({ flex: 1 }) }, _react2.default.createElement(_reactVcomponents.Column, null, shownProposals.length == 0 && _react2.default.createElement(_reactVcomponents.Row, { p: "7px 10px", style: { background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px" } }, "There are currently no ", type == "feature" ? "feature proposals" : "issue reports", "."), shownProposals.map(function (proposal, index) {
                 return _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { key: index, index: index, last: index == shownProposals.length - 1, proposal: proposal, rankingScore: rankingScores[proposal._id], columnType: type });
             }))));
         }
@@ -12119,7 +12119,7 @@ var ProposalsUserRankingColumn = function (_BaseComponent3) {
                 return proposalOrder.indexOf(a._id);
             });
             var dragPreviewUI = isOver && _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { proposal: draggedItem.proposal, orderIndex: 0, index: 0, last: true, columnType: "userRanking", style: { opacity: .3, borderRadius: 10 }, asDragPreview: true });
-            return connectDropTarget(_react2.default.createElement("div", { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVcomponents.Column, { style: { flex: 1, height: "100%" } }, _react2.default.createElement(_reactVcomponents.Column, { className: "clickThrough", style: { background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } }, _react2.default.createElement(_reactVcomponents.Row, { style: { position: "relative", height: 40, padding: 10 } }, _react2.default.createElement("span", { style: { position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: "18px" } }, "Your ranking")), _react2.default.createElement("div", { style: { padding: 10, paddingTop: 0, alignItems: "center", fontSize: "13px", textAlign: "center" } }, "Drag proposals onto this list to \"vote\" for them. Items at the top get the highest score increase.")), _react2.default.createElement(_reactVscrollview.ScrollView, { ref: "scrollView", scrollVBarStyle: { width: 10 }, style: { flex: 1 } }, _react2.default.createElement(_reactVcomponents.Column, null, proposals.length == 0 && !dragPreviewUI && _react2.default.createElement(_reactVcomponents.Row, { p: "7px 10px", style: { background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px" } }, "You have not yet added any proposals to your ranking."), proposals.map(function (proposal, index) {
+            return connectDropTarget(_react2.default.createElement("div", { style: ES({ flex: 1, height: "100%" }) }, _react2.default.createElement(_reactVcomponents.Column, { style: ES({ flex: 1, height: "100%" }) }, _react2.default.createElement(_reactVcomponents.Column, { className: "clickThrough", style: { background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } }, _react2.default.createElement(_reactVcomponents.Row, { style: { position: "relative", height: 40, padding: 10 } }, _react2.default.createElement("span", { style: { position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: "18px" } }, "Your ranking")), _react2.default.createElement("div", { style: { padding: 10, paddingTop: 0, alignItems: "center", fontSize: "13px", textAlign: "center" } }, "Drag proposals onto this list to \"vote\" for them. Items at the top get the highest score increase.")), _react2.default.createElement(_reactVscrollview.ScrollView, { ref: "scrollView", scrollVBarStyle: { width: 10 }, style: ES({ flex: 1 }) }, _react2.default.createElement(_reactVcomponents.Column, null, proposals.length == 0 && !dragPreviewUI && _react2.default.createElement(_reactVcomponents.Row, { p: "7px 10px", style: { background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px" } }, "You have not yet added any proposals to your ranking."), proposals.map(function (proposal, index) {
                 return _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { key: index, index: index, orderIndex: proposalOrder_uncompleted.indexOf(proposal._id), last: index == proposals.length - 1, proposal: proposal, columnType: "userRanking" });
             }), dragPreviewUI)))));
         }
@@ -21026,7 +21026,7 @@ var ProposalEntryUI = ProposalEntryUI_1 = function (_BaseComponent) {
                     return _this3.innerRoot = c;
                 }, p: "7px 10px", style: E({ background: index % 2 == 0 ? "rgba(30,30,30,.7)" : "rgba(0,0,0,.7)" }, last && { borderRadius: "0 0 10px 10px" }, style) }, _react2.default.createElement(_reactVcomponents.Row, null, _react2.default.createElement(_Manager.Manager.Link, { text: proposal.title, actions: function actions(d) {
                     return d(new _proposals.ACTProposalSelect({ id: proposal._id }));
-                }, style: { fontSize: "15px", flex: 1 } }), _react2.default.createElement("span", { style: { float: "right" } }, columnType == "userRanking" ? "#" + (index + 1) + (proposal.completedAt ? " (✔️)" : " (+" + (0, _Proposals.GetRankingScoreToAddForUserRankingIndex)(orderIndex).RoundTo_Str(.001, null, false) + ")") : proposal.completedAt ? "✔️" : rankingScore ? rankingScore.RoundTo_Str(.001, null, false) : ""), columnType == "userRanking" && !asDragPreview && _react2.default.createElement(_reactVcomponents.Button, { text: "X", style: { margin: "-3px 0 -3px 5px", padding: "3px 5px" }, onClick: function onClick() {
+                }, style: ES({ fontSize: "15px", flex: 1 }) }), _react2.default.createElement("span", { style: { float: "right" } }, columnType == "userRanking" ? "#" + (index + 1) + (proposal.completedAt ? " (✔️)" : " (+" + (0, _Proposals.GetRankingScoreToAddForUserRankingIndex)(orderIndex).RoundTo_Str(.001, null, false) + ")") : proposal.completedAt ? "✔️" : rankingScore ? rankingScore.RoundTo_Str(.001, null, false) : ""), columnType == "userRanking" && !asDragPreview && _react2.default.createElement(_reactVcomponents.Button, { text: "X", style: { margin: "-3px 0 -3px 5px", padding: "3px 5px" }, onClick: function onClick() {
                     new _SetProposalOrder2.default({ proposalID: proposal._id, userID: _Manager.Manager.GetUserID(), index: -1 }).Run();
                 } }))), !shouldDropBefore && dragPreviewUI)));
         }
@@ -36179,10 +36179,10 @@ var ProposalUI = exports.ProposalUI = function (_BaseComponent) {
 
             var userID = _Manager.Manager.GetUserID();
             if (proposal == null) {
-                return _react2.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "center", flex: 1, fontSize: "25px" } }, "Loading proposal...");
+                return _react2.default.createElement("div", { style: ES({ display: "flex", alignItems: "center", justifyContent: "center", flex: 1, fontSize: "25px" }) }, "Loading proposal...");
             }
             //let firstPostWritten = posts.length > 1 || posts[0].text != firstPostPlaceholderText;
-            return _react2.default.createElement(_reactVcomponents.Column, { style: { flex: 1 } }, _react2.default.createElement(ActionBar_Left, { proposal: proposal, subNavBarWidth: subNavBarWidth }), _react2.default.createElement(ActionBar_Right, { proposal: proposal, subNavBarWidth: subNavBarWidth }), _react2.default.createElement(_reactVscrollview.ScrollView, { ref: "scrollView", scrollVBarStyle: { width: 10 }, style: { flex: 1 /*styles.fillParent_abs*/ } }, _react2.default.createElement(_reactVcomponents.Column, { style: { width: 960, margin: "50px auto 20px auto", filter: "drop-shadow(rgb(0, 0, 0) 0px 0px 10px)" } }, _react2.default.createElement(ProposalUI_Inner, { proposal: proposal }), _react2.default.createElement(_reactVcomponents.Column, null))));
+            return _react2.default.createElement(_reactVcomponents.Column, { style: ES({ flex: 1 }) }, _react2.default.createElement(ActionBar_Left, { proposal: proposal, subNavBarWidth: subNavBarWidth }), _react2.default.createElement(ActionBar_Right, { proposal: proposal, subNavBarWidth: subNavBarWidth }), _react2.default.createElement(_reactVscrollview.ScrollView, { ref: "scrollView", scrollVBarStyle: { width: 10 }, style: ES({ flex: 1 /*styles.fillParent_abs*/ }) }, _react2.default.createElement(_reactVcomponents.Column, { style: { width: 960, margin: "50px auto 20px auto", filter: "drop-shadow(rgb(0, 0, 0) 0px 0px 10px)" } }, _react2.default.createElement(ProposalUI_Inner, { proposal: proposal }), _react2.default.createElement(_reactVcomponents.Column, null))));
         }
     }]);
 
@@ -36255,7 +36255,7 @@ var ProposalUI_Inner = function (_BaseComponent2) {
                     } })));
             }
             var creatorOrMod = (0, _General.IsUserCreatorOrMod)(_Manager.Manager.GetUserID(), proposal);
-            return _react2.default.createElement(_reactVcomponents.Row, { sel: true, style: { flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, alignItems: "initial", cursor: "auto" } }, _react2.default.createElement(_reactVcomponents.Column, { p: 10, style: { flex: 1 } }, _react2.default.createElement(_reactVcomponents.Row, { style: { width: "100%", fontSize: "18px", textAlign: "center" } }, proposal.title), _react2.default.createElement(_reactVcomponents.Row, { mt: 10, style: { width: "100%" } }, _react2.default.createElement(_Manager.Manager.MarkdownRenderer, { source: proposal.text })), _react2.default.createElement(_reactVcomponents.Row, { mt: 5 }, _react2.default.createElement("span", { style: { color: "rgba(255,255,255,.5)" } }, creator ? creator.displayName : "...", ", at ", _Manager.Manager.FormatTime(proposal.createdAt, "YYYY-MM-DD HH:mm:ss")), creatorOrMod && _react2.default.createElement(_reactVcomponents.Button, { ml: 5, text: "Edit", onClick: function onClick() {
+            return _react2.default.createElement(_reactVcomponents.Row, { sel: true, style: { flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, alignItems: "initial", cursor: "auto" } }, _react2.default.createElement(_reactVcomponents.Column, { p: 10, style: ES({ flex: 1 }) }, _react2.default.createElement(_reactVcomponents.Row, { style: { width: "100%", fontSize: "18px", textAlign: "center" } }, proposal.title), _react2.default.createElement(_reactVcomponents.Row, { mt: 10, style: { width: "100%" } }, _react2.default.createElement(_Manager.Manager.MarkdownRenderer, { source: proposal.text })), _react2.default.createElement(_reactVcomponents.Row, { mt: 5 }, _react2.default.createElement("span", { style: { color: "rgba(255,255,255,.5)" } }, creator ? creator.displayName : "...", ", at ", _Manager.Manager.FormatTime(proposal.createdAt, "YYYY-MM-DD HH:mm:ss")), creatorOrMod && _react2.default.createElement(_reactVcomponents.Button, { ml: 5, text: "Edit", onClick: function onClick() {
                     _this3.SetState({ editing: true });
                 } }), creatorOrMod && _react2.default.createElement(_reactVcomponents.Button, { ml: 5, text: "Delete", onClick: function onClick() {
                     (0, _reactVmessagebox.ShowMessageBox)({
@@ -36864,9 +36864,17 @@ var colors = exports.colors = {
     //navBarBoxShadow: "rgba(100,100,100,1) 0px 0px 3px",
     navBarBoxShadow: "rgba(100, 100, 100, .3) 0px 0px 3px, rgba(70,70,70,.5) 0px 0px 150px"
 };
-/*AddGlobalStyle(`
-.VMenu > div:first-child { border-top: initial !important; }
-`);*/
+G({ ES: ES });
+// same as E(...), except applies extra things for style-objects
+function ES() {
+    var result = E.apply(undefined, arguments);
+    // for firefox; prevents {flex: 1} from setting {minWidth: "auto"}
+    if (result.flex) {
+        if (result.minWidth == null) result.minWidth = 0;
+        if (result.minHeight == null) result.minHeight = 0;
+    }
+    return result;
+}
 
 /***/ }),
 /* 265 */
