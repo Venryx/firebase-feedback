@@ -64,7 +64,7 @@ class ProposalUI_Inner extends BaseComponent<ProposalUI_Inner_Props, {editing: b
 		if (editing) {
 			return (
 				<Column sel style={{flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, padding: 10, alignItems: "flex-start", cursor: "auto"}}>
-					<ProposalDetailsUI ref={c=>this.editorUI = GetInnerComp(c) as any} baseData={proposal} forNew={false}
+					<ProposalDetailsUI ref={c=>this.editorUI = c} baseData={proposal} forNew={false}
 						onChange={(newData, comp)=> {
 							this.SetState({dataError: comp.GetValidationError()});
 						}}/>
@@ -163,7 +163,7 @@ class DetailsDropdown extends BaseComponent<DetailsDropdownProps, {dataError: st
 				</DropDownTrigger>
 				<DropDownContent style={{left: 0}}>
 					<Column>
-						<ProposalDetailsUI ref={c=>this.detailsUI = GetInnerComp(c) as any} baseData={proposal}
+						<ProposalDetailsUI ref={c=>this.detailsUI = c} baseData={proposal}
 							forNew={false} enabled={creatorOrMod}
 							onChange={newData=> {
 								this.SetState({dataError: this.detailsUI.GetValidationError()});

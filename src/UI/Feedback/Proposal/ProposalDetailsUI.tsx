@@ -81,7 +81,7 @@ export function ShowAddProposalDialog(userID: string, type: string) {
 			boxController.options.okButtonClickable = error == null;
 			return (
 				<Column style={{width: 600}}>
-					<ProposalDetailsUI ref={c=>detailsUI = GetInnerComp(c) as any} baseData={newEntry} forNew={true}
+					<ProposalDetailsUI ref={c=>detailsUI = c} baseData={newEntry} forNew={true}
 						onChange={val=>Change(newEntry = val, error = detailsUI.GetValidationError())}/>
 					{error && error != "Please fill out this field." && <Row mt={5} style={{color: "rgba(200,70,70,1)"}}>{error}</Row>}
 				</Column>

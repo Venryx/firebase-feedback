@@ -21246,7 +21246,7 @@ function ShowAddProposalDialog(userID, type) {
         message: function message() {
             boxController.options.okButtonClickable = error == null;
             return _react2.default.createElement(_reactVcomponents.Column, { style: { width: 600 } }, _react2.default.createElement(ProposalDetailsUI, { ref: function ref(c) {
-                    return detailsUI = (0, _reactVextensions.GetInnerComp)(c);
+                    return detailsUI = c;
                 }, baseData: newEntry, forNew: true, onChange: function onChange(val) {
                     return Change(newEntry = val, error = detailsUI.GetValidationError());
                 } }), error && error != "Please fill out this field." && _react2.default.createElement(_reactVcomponents.Row, { mt: 5, style: { color: "rgba(200,70,70,1)" } }, error));
@@ -36217,7 +36217,7 @@ var ProposalUI_Inner = function (_BaseComponent2) {
 
             if (editing) {
                 return _react2.default.createElement(_reactVcomponents.Column, { sel: true, style: { flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, padding: 10, alignItems: "flex-start", cursor: "auto" } }, _react2.default.createElement(_ProposalDetailsUI.ProposalDetailsUI, { ref: function ref(c) {
-                        return _this3.editorUI = (0, _reactVextensions.GetInnerComp)(c);
+                        return _this3.editorUI = c;
                     }, baseData: proposal, forNew: false, onChange: function onChange(newData, comp) {
                         _this3.SetState({ dataError: comp.GetValidationError() });
                     } }), _react2.default.createElement(_reactVcomponents.Row, { mt: 5 }, _react2.default.createElement(_reactVcomponents.Button, { text: "Save", enabled: dataError == null, onLeftClick: function onLeftClick() {
@@ -36345,7 +36345,7 @@ class DetailsDropdown extends BaseComponent<DetailsDropdownProps, {dataError: st
                 </DropDownTrigger>
                 <DropDownContent style={{left: 0}}>
                     <Column>
-                        <ProposalDetailsUI ref={c=>this.detailsUI = GetInnerComp(c) as any} baseData={proposal}
+                        <ProposalDetailsUI ref={c=>this.detailsUI = c} baseData={proposal}
                             forNew={false} enabled={creatorOrMod}
                             onChange={newData=> {
                                 this.SetState({dataError: this.detailsUI.GetValidationError()});
