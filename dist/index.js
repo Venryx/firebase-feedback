@@ -21201,7 +21201,7 @@ var ProposalDetailsUI = exports.ProposalDetailsUI = function (_BaseComponent) {
             };
             var splitAt = 50,
                 width = 600;
-            return _react2.default.createElement(_reactVcomponents.Column, { style: style }, _react2.default.createElement(_reactVcomponents.RowLR, { mt: 5, splitAt: splitAt, style: { width: width } }, _react2.default.createElement(_reactVcomponents.Pre, null, "Title: "), _react2.default.createElement(_reactVcomponents.TextInput, { required: true, enabled: enabled, style: { width: "100%" }, value: newData.title, onChange: function onChange(val) {
+            return _react2.default.createElement(_reactVcomponents.Column, { style: style }, _react2.default.createElement(_reactVcomponents.RowLR, { splitAt: splitAt, style: { width: width } }, _react2.default.createElement(_reactVcomponents.Pre, null, "Title: "), _react2.default.createElement(_reactVcomponents.TextInput, { required: true, enabled: enabled, style: { width: "100%" }, value: newData.title, onChange: function onChange(val) {
                     return Change(newData.title = val);
                 } })), _react2.default.createElement(_reactVcomponents.Row, { mt: 5 }, "Text:"), _react2.default.createElement(_reactVcomponents.Row, { mt: 5 }, _react2.default.createElement(_reactVcomponents.Column, { style: { width: "100%" } }, enabled && _react2.default.createElement(_reactVmarkdown.MarkdownToolbar, { editor: function editor() {
                     return _this2.refs.editor;

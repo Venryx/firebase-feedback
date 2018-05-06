@@ -34,7 +34,7 @@ export class ProposalDetailsUI extends BaseComponent<ProposalDetailsUI_Props, {n
 		let splitAt = 50, width = 600;
 		return (
 			<Column style={style}>
-				<RowLR mt={5} splitAt={splitAt} style={{width}}>
+				<RowLR splitAt={splitAt} style={{width}}>
 					<Pre>Title: </Pre>
 					<TextInput required
 						enabled={enabled} style={{width: "100%"}}
