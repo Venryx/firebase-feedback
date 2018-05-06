@@ -33,7 +33,6 @@ export class ProposalDetailsUI extends BaseComponent<ProposalDetailsUI_Props, {n
 
 		let splitAt = 50, width = 600;
 		return (
-			<div> {/* needed so GetInnerComp() works */}
 			<Column style={style}>
 				<RowLR mt={5} splitAt={splitAt} style={{width}}>
 					<Pre>Title: </Pre>
@@ -58,7 +57,6 @@ export class ProposalDetailsUI extends BaseComponent<ProposalDetailsUI_Props, {n
 					</Column>
 				</Row>
 			</Column>
-			</div>
 		);
 	}
 	GetValidationError() {
@@ -79,10 +77,10 @@ export function ShowAddProposalDialog(userID: string, type: string) {
 	let Change = (..._)=>boxController.UpdateUI();
 	let boxController: BoxController = ShowMessageBox({
 		title: type == "feature" ? "Propose feature" : "Report issue", cancelButton: true,
-		messageUI: ()=> {
+		message: ()=> {
 			boxController.options.okButtonClickable = error == null;
 			return (
-				<Column style={{padding: `10px 0`, width: 600}}>
+				<Column style={{width: 600}}>
 					<ProposalDetailsUI ref={c=>detailsUI = GetInnerComp(c) as any} baseData={newEntry} forNew={true}
 						onChange={val=>Change(newEntry = val, error = detailsUI.GetValidationError())}/>
 					{error && error != "Please fill out this field." && <Row mt={5} style={{color: "rgba(200,70,70,1)"}}>{error}</Row>}

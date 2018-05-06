@@ -21201,7 +21201,7 @@ var ProposalDetailsUI = exports.ProposalDetailsUI = function (_BaseComponent) {
             };
             var splitAt = 50,
                 width = 600;
-            return _react2.default.createElement("div", null, " ", _react2.default.createElement(_reactVcomponents.Column, { style: style }, _react2.default.createElement(_reactVcomponents.RowLR, { mt: 5, splitAt: splitAt, style: { width: width } }, _react2.default.createElement(_reactVcomponents.Pre, null, "Title: "), _react2.default.createElement(_reactVcomponents.TextInput, { required: true, enabled: enabled, style: { width: "100%" }, value: newData.title, onChange: function onChange(val) {
+            return _react2.default.createElement(_reactVcomponents.Column, { style: style }, _react2.default.createElement(_reactVcomponents.RowLR, { mt: 5, splitAt: splitAt, style: { width: width } }, _react2.default.createElement(_reactVcomponents.Pre, null, "Title: "), _react2.default.createElement(_reactVcomponents.TextInput, { required: true, enabled: enabled, style: { width: "100%" }, value: newData.title, onChange: function onChange(val) {
                     return Change(newData.title = val);
                 } })), _react2.default.createElement(_reactVcomponents.Row, { mt: 5 }, "Text:"), _react2.default.createElement(_reactVcomponents.Row, { mt: 5 }, _react2.default.createElement(_reactVcomponents.Column, { style: { width: "100%" } }, enabled && _react2.default.createElement(_reactVmarkdown.MarkdownToolbar, { editor: function editor() {
                     return _this2.refs.editor;
@@ -21212,7 +21212,7 @@ var ProposalDetailsUI = exports.ProposalDetailsUI = function (_BaseComponent) {
                     lineWrapping: true,
                     readOnly: !enabled,
                     placeholder: "Write your reply..."
-                }) })))));
+                }) }))));
         }
     }, {
         key: "GetValidationError",
@@ -21243,9 +21243,9 @@ function ShowAddProposalDialog(userID, type) {
     };
     var boxController = (0, _reactVmessagebox.ShowMessageBox)({
         title: type == "feature" ? "Propose feature" : "Report issue", cancelButton: true,
-        messageUI: function messageUI() {
+        message: function message() {
             boxController.options.okButtonClickable = error == null;
-            return _react2.default.createElement(_reactVcomponents.Column, { style: { padding: "10px 0", width: 600 } }, _react2.default.createElement(ProposalDetailsUI, { ref: function ref(c) {
+            return _react2.default.createElement(_reactVcomponents.Column, { style: { width: 600 } }, _react2.default.createElement(ProposalDetailsUI, { ref: function ref(c) {
                     return detailsUI = (0, _reactVextensions.GetInnerComp)(c);
                 }, baseData: newEntry, forNew: true, onChange: function onChange(val) {
                     return Change(newEntry = val, error = detailsUI.GetValidationError());

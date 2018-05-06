@@ -8,11 +8,11 @@ export interface UserData {
 export type ProposalIndexSet = { [key: number]: number; }; // index -> proposalID
 AddSchema({patternProperties: {"^[0-9]+$": {type: "number"}}}, "ProposalIndexSet");
 
-export function GetProposalIndexes(userID: string) {
+export function GetProposalIndexes(userID: string): ProposalIndexSet {
 	if (userID == null) return {};
-	return GetData("userData", userID, ".proposalIndexes") as ProposalIndexSet || {};
+	return GetData("userData", userID, ".proposalIndexes") || {};
 }
-export function GetProposalOrder(userID: string) {
+export function GetProposalOrder(userID: string): number[] {
 	return GetProposalIndexes(userID).VValues(true);
 }
 export function GetProposalIndex(userID: string, proposalID: number) {
