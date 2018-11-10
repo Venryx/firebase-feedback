@@ -1,6 +1,6 @@
 {
   "name": "firebase-feedback",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Feedback (proposals + issues + roadmap) solution built using ReactJS, Redux, and Firebase.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -73,7 +73,6 @@
     "classnames": "^2.2.5",
     "codemirror": "^5.37.0",
     "react-dnd": "^2.6.0",
-    "react-dnd-mouse-backend": "^0.1.1",
-    "react-redux-firebase": "^1.2.0"
+    "react-dnd-mouse-backend": "^0.1.1"
   }
 }
