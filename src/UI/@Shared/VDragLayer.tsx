@@ -3,18 +3,7 @@ import {DragLayer} from "react-dnd";
 import {BaseComponent} from "react-vextensions";
 import {ProposalEntryUI} from "../Feedback/ProposalEntryUI";
 
-function getItemStyles(props) {
-	const {currentOffset} = props;
-	if (!currentOffset)
-		return {display: "none"};
-
-	const {x, y} = currentOffset;
-	const transform = `translate(${x}px, ${y}px)`;
-	return {
-		transform: transform,
-		WebkitTransform: transform
-	};
-}
+export type DragLayerProps = {currentOffset: {x: number, y: number}};
 
 @DragLayer(monitor=>({
 	item: monitor.getItem(),
@@ -29,21 +18,21 @@ function getItemStyles(props) {
 	    return targetIds.some(a=>monitor.isOverTarget(a) && monitor.canDropOnTarget(a));
 	})(),
 }))
-export class VDragLayer extends BaseComponent<{item?, itemType?, isDragging?, canDrop?}, {}> {
+export class VDragLayer extends BaseComponent<{item?, itemType?, isDragging?, canDrop?} & Partial<DragLayerProps>, {}> {
 	render() {
 		//const {item, itemType, isDragging, monitor} = this.props;
-		const {item, itemType, isDragging, canDrop} = this.props;
+		const {currentOffset, item, itemType, isDragging, canDrop} = this.props;
 		if (!isDragging) return null;
-
-	    //var itemUI = itemType == "element" && <PieceDragPreview piece={item.piece} monitor={monitor}/>;
-		/*var itemUI =
-			itemType == "element" ? <ElementDragPreview element={item.element} canDrop={canDrop}/> :
-			itemType == "script" ? <ScriptDragPreview script={item.script} canDrop={canDrop}/> :
-			null;*/
 
 		return (
 			<div style={{position: "fixed", pointerEvents: "none", zIndex: 100, left: 0, top: 0, width: "100%", height: "100%"}}>
-				<div style={E(getItemStyles(this.props))}>
+				<div style={E(
+					{
+						transform: `translate(${currentOffset.x}px, ${currentOffset.y}px)`,
+						WebkitTransform: `translate(${currentOffset.x}px, ${currentOffset.y}px)`
+					},
+					!currentOffset && {display: "none"},
+				)}>
 					{itemType == "proposal" &&
 						<div style={{width: "33%"}}>
 							<ProposalEntryUI proposal={item.proposal} index={0} last={false} columnType={item.columnType} asDragPreview={true} style={{borderRadius: 10}}/>

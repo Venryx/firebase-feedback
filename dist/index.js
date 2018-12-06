@@ -20832,19 +20832,6 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-function getItemStyles(props) {
-    var currentOffset = props.currentOffset;
-
-    if (!currentOffset) return { display: "none" };
-    var x = currentOffset.x,
-        y = currentOffset.y;
-
-    var transform = "translate(" + x + "px, " + y + "px)";
-    return {
-        transform: transform,
-        WebkitTransform: transform
-    };
-}
 var VDragLayer = function (_BaseComponent) {
     _inherits(VDragLayer, _BaseComponent);
 
@@ -20859,18 +20846,17 @@ var VDragLayer = function (_BaseComponent) {
         value: function render() {
             //const {item, itemType, isDragging, monitor} = this.props;
             var _props = this.props,
+                currentOffset = _props.currentOffset,
                 item = _props.item,
                 itemType = _props.itemType,
                 isDragging = _props.isDragging,
                 canDrop = _props.canDrop;
 
             if (!isDragging) return null;
-            //var itemUI = itemType == "element" && <PieceDragPreview piece={item.piece} monitor={monitor}/>;
-            /*var itemUI =
-                itemType == "element" ? <ElementDragPreview element={item.element} canDrop={canDrop}/> :
-                itemType == "script" ? <ScriptDragPreview script={item.script} canDrop={canDrop}/> :
-                null;*/
-            return _react2.default.createElement("div", { style: { position: "fixed", pointerEvents: "none", zIndex: 100, left: 0, top: 0, width: "100%", height: "100%" } }, _react2.default.createElement("div", { style: E(getItemStyles(this.props)) }, itemType == "proposal" && _react2.default.createElement("div", { style: { width: "33%" } }, _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { proposal: item.proposal, index: 0, last: false, columnType: item.columnType, asDragPreview: true, style: { borderRadius: 10 } }))));
+            return _react2.default.createElement("div", { style: { position: "fixed", pointerEvents: "none", zIndex: 100, left: 0, top: 0, width: "100%", height: "100%" } }, _react2.default.createElement("div", { style: E({
+                    transform: "translate(" + currentOffset.x + "px, " + currentOffset.y + "px)",
+                    WebkitTransform: "translate(" + currentOffset.x + "px, " + currentOffset.y + "px)"
+                }, !currentOffset && { display: "none" }) }, itemType == "proposal" && _react2.default.createElement("div", { style: { width: "33%" } }, _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { proposal: item.proposal, index: 0, last: false, columnType: item.columnType, asDragPreview: true, style: { borderRadius: 10 } }))));
         }
     }]);
 
