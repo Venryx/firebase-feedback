@@ -547,7 +547,7 @@ var ProposalsReducer = exports.ProposalsReducer = (0, _redux.combineReducers)({
         var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
         var action = arguments[1];
 
-        if (action.Is(ACTProposalSelect)) return action.payload.id;
+        if (action.type == "ACTProposalSelect") return action.payload.id;
         return state;
     },
     features_showCompleted: (0, _main.SimpleReducer)(function (a) {

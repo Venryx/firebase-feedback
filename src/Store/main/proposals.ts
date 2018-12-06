@@ -15,7 +15,7 @@ export class Proposals {
 
 export const ProposalsReducer = combineReducers({
 	selectedProposalID: (state = null, action)=> {
-		if (action.Is(ACTProposalSelect)) return action.payload.id;
+		if (action.type == "ACTProposalSelect") return action.payload.id;
 		return state;
 	},
 	features_showCompleted: SimpleReducer(a=>a.proposals.features_showCompleted),
