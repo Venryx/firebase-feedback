@@ -11,16 +11,15 @@ export declare class ProposalUI extends BaseComponent<ProposalUI_Props, {}> {
     };
     render(): JSX.Element;
 }
-export declare type ProposalUI_Inner_Props = {
+declare const ProposalUI_Inner_base: new (..._: any[]) => BaseComponent<{
     proposal: Proposal;
 } & Partial<{
-    creator: User;
-}>;
-export declare let ProposalUI_Inner: typeof ProposalUI_Inner_NC;
-export declare class ProposalUI_Inner_NC extends BaseComponent<ProposalUI_Inner_Props, {
+    creator: any;
+}>, {
     editing: boolean;
     dataError: string;
-}> {
+}>;
+export declare class ProposalUI_Inner extends ProposalUI_Inner_base {
     editorUI: ProposalDetailsUI;
     render(): JSX.Element;
 }

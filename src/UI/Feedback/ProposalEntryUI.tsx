@@ -12,13 +12,11 @@ import {Proposal} from "./../../Store/firebase/proposals/@Proposal";
 export type ProposalEntryUI_Props = {index: number, last: boolean, proposal: Proposal, orderIndex?: number, rankingScore?: number, columnType: string, asDragPreview?: boolean, style?}
 	& Partial<{creator: User, /*posts: Post[]*/}>;
 
-export let ProposalEntryUI: typeof ProposalEntryUI_NC;
-manager.onPopulated.then(()=> {
-	ProposalEntryUI = manager.Connect((state, {proposal})=> ({
-		creator: proposal && manager.GetUser(proposal.creator),
-		//posts: proposal && GetProposalPosts(proposal),
-	}))(ProposalEntryUI_NC);
+let connector = (state, {proposal})=> ({
+	creator: proposal && manager.GetUser(proposal.creator),
+	//posts: proposal && GetProposalPosts(proposal),
 });
+manager.onPopulated.then(()=>(ProposalEntryUI as any) = manager.Connect(connector)(ProposalEntryUI));
 
 @DragSource("proposal",
 	{beginDrag: ({proposal, columnType})=>({proposal, columnType})},
@@ -58,7 +56,7 @@ manager.onPopulated.then(()=> {
 		draggedItem: monitor.getItem(),
 	};
 })
-export class ProposalEntryUI_NC extends BaseComponent<ProposalEntryUI_Props, {shouldDropBefore: boolean}> {
+export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {shouldDropBefore: boolean}> {
 	//newPos_midY;
 	ShouldDropBefore() {
 		//var mousePos = monitor.getClientOffset().y;

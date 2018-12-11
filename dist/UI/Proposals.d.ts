@@ -1,36 +1,33 @@
 import { BaseComponent } from "react-vextensions";
 import { Proposal } from "./../Store/firebase/proposals/@Proposal";
-export declare type ProposalsUI_Props = {
+declare const ProposalsUI_base: new (..._: any[]) => BaseComponent<{
     subNavBarWidth: number;
 } & Partial<{
     proposals: Proposal[];
     selectedProposal: Proposal;
-}>;
-export declare let ProposalsUI: typeof ProposalsUI_NC;
-export declare class ProposalsUI_NC extends BaseComponent<ProposalsUI_Props, {}> {
+}>, {}>;
+export declare class ProposalsUI extends ProposalsUI_base {
     static defaultProps: {
         subNavBarWidth: number;
     };
     render(): JSX.Element;
 }
 export declare function GetRankingScoreToAddForUserRankingIndex(indexInRankingOrder: number): number;
-export declare type ProposalsColumn_Props = {
+declare const ProposalsColumn_base: new (..._: any[]) => BaseComponent<{
     proposals: Proposal[];
     type: string;
 } & Partial<{
-    userData;
-    showCompleted: boolean;
-}>;
-export declare let ProposalsColumn: typeof ProposalsColumn_NC;
-export declare class ProposalsColumn_NC extends BaseComponent<ProposalsColumn_Props, {}> {
+    userData: any;
+    showCompleted: any;
+}>, {}>;
+export declare class ProposalsColumn extends ProposalsColumn_base {
     render(): JSX.Element;
 }
-export declare type ProposalsUserRankingColumn_Props = {
+declare const ProposalsUserRankingColumn_base: new (..._: any[]) => BaseComponent<{
     proposals: Proposal[];
 } & Partial<{
     proposalOrder: number[];
-}>;
-export declare let ProposalsUserRankingColumn: typeof ProposalsUserRankingColumn_NC;
-export declare class ProposalsUserRankingColumn_NC extends BaseComponent<ProposalsUserRankingColumn_Props, {}> {
+}>, {}>;
+export declare class ProposalsUserRankingColumn extends ProposalsUserRankingColumn_base {
     render(): any;
 }

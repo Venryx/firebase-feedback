@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, CheckBox, Column, Row, Span } from "react-vcomponents";
-import { BaseComponent, GetInnerComp } from "react-vextensions";
+import { BaseComponent, GetInnerComp, BaseComponentWithConnector } from "react-vextensions";
 import { ShowMessageBox } from "react-vmessagebox";
 import { ScrollView } from "react-vscrollview";
 import { IsUserAdmin, IsUserCreatorOrMod } from "../../General";
@@ -50,14 +50,11 @@ export class ProposalUI extends BaseComponent<ProposalUI_Props, {}> {
 	}
 }
 
-export type ProposalUI_Inner_Props = {proposal: Proposal} & Partial<{creator: User}>;
-export let ProposalUI_Inner: typeof ProposalUI_Inner_NC;
-manager.onPopulated.then(()=> {
-	ProposalUI_Inner = manager.Connect((state, {proposal}: ProposalUI_Inner_Props)=> ({
-		creator: manager.GetUser(proposal.creator),
-	}))(ProposalUI_Inner_NC);
+let ProposalUI_Inner_connector = (state, {proposal}: {proposal: Proposal})=> ({
+	creator: manager.GetUser(proposal.creator),
 });
-export class ProposalUI_Inner_NC extends BaseComponent<ProposalUI_Inner_Props, {editing: boolean, dataError: string}> {
+manager.onPopulated.then(()=>(ProposalUI_Inner as any) = manager.Connect(ProposalUI_Inner_connector)(ProposalUI_Inner));
+export class ProposalUI_Inner extends BaseComponentWithConnector(ProposalUI_Inner_connector, {editing: false, dataError: null as string}) {
 	editorUI: ProposalDetailsUI;
 	render() {
 		let {proposal, creator} = this.props;

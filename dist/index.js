@@ -11572,7 +11572,7 @@ function GetProposalIndex(userID, proposalID) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.ProposalsUserRankingColumn_NC = exports.ProposalsUserRankingColumn = exports.ProposalsColumn_NC = exports.ProposalsColumn = exports.ProposalsUI_NC = exports.ProposalsUI = undefined;
+exports.ProposalsUserRankingColumn = exports.ProposalsColumn = exports.ProposalsUI = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -11650,29 +11650,34 @@ DragDropMonitor.prototype.GetTargetComponents = function () {
         return _this.registry.handlers[targetID].component;
     });
 };
-var ProposalsUI = exports.ProposalsUI = void 0;
-_Manager.manager.onPopulated.then(function () {
-    exports.ProposalsUI = ProposalsUI = _Manager.manager.Connect(function (state, _ref) {
-        _objectDestructuringEmpty(_ref);
+/*var createTargetMonitor = require("react-dnd/lib/createTargetMonitor").default;
+var TargetMonitor = createTargetMonitor({getMonitor: function() {}}).constructor;
+TargetMonitor.prototype.GetTargetComponent = function() {
+    return this.internalMonitor.registry.handlers[this.targetId].component;
+};*/
+var ProposalsUI_connector = function ProposalsUI_connector(state, _ref) {
+    _objectDestructuringEmpty(_ref);
 
-        return {
-            proposals: (0, _proposals.GetProposals)(),
-            selectedProposal: (0, _proposals2.GetSelectedProposal)()
-        };
-    })(ProposalsUI_NC);
+    return {
+        proposals: (0, _proposals.GetProposals)(),
+        selectedProposal: (0, _proposals2.GetSelectedProposal)()
+    };
+};
+_Manager.manager.onPopulated.then(function () {
+    return exports.ProposalsUI = ProposalsUI = _Manager.manager.Connect(ProposalsUI_connector)(ProposalsUI);
 });
 //@DragDropContext(HTML5Backend)
 //@DragDropContext(TouchBackend({enableMouseEvents: true}))
-var ProposalsUI_NC = function (_BaseComponent) {
-    _inherits(ProposalsUI_NC, _BaseComponent);
+var ProposalsUI = function (_BaseComponentWithCon) {
+    _inherits(ProposalsUI, _BaseComponentWithCon);
 
-    function ProposalsUI_NC() {
-        _classCallCheck(this, ProposalsUI_NC);
+    function ProposalsUI() {
+        _classCallCheck(this, ProposalsUI);
 
-        return _possibleConstructorReturn(this, (ProposalsUI_NC.__proto__ || Object.getPrototypeOf(ProposalsUI_NC)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (ProposalsUI.__proto__ || Object.getPrototypeOf(ProposalsUI)).apply(this, arguments));
     }
 
-    _createClass(ProposalsUI_NC, [{
+    _createClass(ProposalsUI, [{
         key: "render",
         value: function render() {
             var _props = this.props,
@@ -11691,11 +11696,11 @@ var ProposalsUI_NC = function (_BaseComponent) {
         }
     }]);
 
-    return ProposalsUI_NC;
-}(_reactVextensions.BaseComponent);
-ProposalsUI_NC.defaultProps = { subNavBarWidth: 0 };
-exports.ProposalsUI_NC = ProposalsUI_NC = __decorate([(0, _reactDnd.DragDropContext)(_reactDndMouseBackend2.default)], ProposalsUI_NC);
-exports.ProposalsUI_NC = ProposalsUI_NC;
+    return ProposalsUI;
+}((0, _reactVextensions.BaseComponentWithConnector)(ProposalsUI_connector, {}));
+ProposalsUI.defaultProps = { subNavBarWidth: 0 };
+exports.ProposalsUI = ProposalsUI = __decorate([(0, _reactDnd.DragDropContext)(_reactDndMouseBackend2.default)], ProposalsUI);
+exports.ProposalsUI = ProposalsUI;
 function GetRankingScoreToAddForUserRankingIndex(indexInRankingOrder) {
     var rankingScoreToAdd = 1;
     for (var i = 0; i < indexInRankingOrder; i++) {
@@ -11712,32 +11717,32 @@ function GetIncompleteProposalsInOrder(order, proposals) {
         return proposalReferencedInOrder && !proposalReferencedInOrder.completedAt;
     });
 }
-var ProposalsColumn = exports.ProposalsColumn = void 0;
+var ProposalsColumn_connector = function ProposalsColumn_connector(state, _ref2) {
+    var type = _ref2.type;
+    return {
+        userData: ((0, _DatabaseHelpers.GetData)("userData") || {}).Props().filter(function (a) {
+            return a.value != null;
+        }).ToMap(function (a) {
+            return a.name;
+        }, function (a) {
+            return a.value;
+        }),
+        showCompleted: (0, _General.State)("proposals/" + type + "s_showCompleted")
+    };
+};
 _Manager.manager.onPopulated.then(function () {
-    exports.ProposalsColumn = ProposalsColumn = _Manager.manager.Connect(function (state, _ref2) {
-        var type = _ref2.type;
-        return {
-            userData: ((0, _DatabaseHelpers.GetData)("userData") || {}).Props().filter(function (a) {
-                return a.value != null;
-            }).ToMap(function (a) {
-                return a.name;
-            }, function (a) {
-                return a.value;
-            }),
-            showCompleted: (0, _General.State)("proposals/" + type + "s_showCompleted")
-        };
-    })(ProposalsColumn_NC);
+    return exports.ProposalsColumn = ProposalsColumn = _Manager.manager.Connect(ProposalsColumn_connector)(ProposalsColumn);
 });
-var ProposalsColumn_NC = function (_BaseComponent2) {
-    _inherits(ProposalsColumn_NC, _BaseComponent2);
+var ProposalsColumn = function (_BaseComponentWithCon2) {
+    _inherits(ProposalsColumn, _BaseComponentWithCon2);
 
-    function ProposalsColumn_NC() {
-        _classCallCheck(this, ProposalsColumn_NC);
+    function ProposalsColumn() {
+        _classCallCheck(this, ProposalsColumn);
 
-        return _possibleConstructorReturn(this, (ProposalsColumn_NC.__proto__ || Object.getPrototypeOf(ProposalsColumn_NC)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (ProposalsColumn.__proto__ || Object.getPrototypeOf(ProposalsColumn)).apply(this, arguments));
     }
 
-    _createClass(ProposalsColumn_NC, [{
+    _createClass(ProposalsColumn, [{
         key: "render",
         value: function render() {
             var _props2 = this.props,
@@ -11834,30 +11839,31 @@ var ProposalsColumn_NC = function (_BaseComponent2) {
         }
     }]);
 
-    return ProposalsColumn_NC;
-}(_reactVextensions.BaseComponent);
-exports.ProposalsColumn_NC = ProposalsColumn_NC = __decorate([_reactVextensions.ApplyBasicStyles], ProposalsColumn_NC);
-exports.ProposalsColumn_NC = ProposalsColumn_NC;
-var ProposalsUserRankingColumn = exports.ProposalsUserRankingColumn = void 0;
+    return ProposalsColumn;
+}((0, _reactVextensions.BaseComponentWithConnector)(ProposalsColumn_connector, {}));
+exports.ProposalsColumn = ProposalsColumn = __decorate([_reactVextensions.ApplyBasicStyles], ProposalsColumn);
+exports.ProposalsColumn = ProposalsColumn;
+
+var ProposalsUserRankingColumn_connector = function ProposalsUserRankingColumn_connector(state, _ref3) {
+    _objectDestructuringEmpty(_ref3);
+
+    return {
+        proposalOrder: (0, _index.GetProposalOrder)(_Manager.manager.GetUserID())
+    };
+};
 _Manager.manager.onPopulated.then(function () {
-    exports.ProposalsUserRankingColumn = ProposalsUserRankingColumn = _Manager.manager.Connect(function (state, _ref3) {
-        _objectDestructuringEmpty(_ref3);
-
-        return {
-            proposalOrder: (0, _index.GetProposalOrder)(_Manager.manager.GetUserID())
-        };
-    })(ProposalsUserRankingColumn_NC);
+    return exports.ProposalsUserRankingColumn = ProposalsUserRankingColumn = _Manager.manager.Connect(ProposalsUserRankingColumn_connector)(ProposalsUserRankingColumn);
 });
-var ProposalsUserRankingColumn_NC = function (_BaseComponent3) {
-    _inherits(ProposalsUserRankingColumn_NC, _BaseComponent3);
+var ProposalsUserRankingColumn = function (_BaseComponentWithCon3) {
+    _inherits(ProposalsUserRankingColumn, _BaseComponentWithCon3);
 
-    function ProposalsUserRankingColumn_NC() {
-        _classCallCheck(this, ProposalsUserRankingColumn_NC);
+    function ProposalsUserRankingColumn() {
+        _classCallCheck(this, ProposalsUserRankingColumn);
 
-        return _possibleConstructorReturn(this, (ProposalsUserRankingColumn_NC.__proto__ || Object.getPrototypeOf(ProposalsUserRankingColumn_NC)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (ProposalsUserRankingColumn.__proto__ || Object.getPrototypeOf(ProposalsUserRankingColumn)).apply(this, arguments));
     }
 
-    _createClass(ProposalsUserRankingColumn_NC, [{
+    _createClass(ProposalsUserRankingColumn, [{
         key: "render",
         value: function render() {
             var _props3 = this.props,
@@ -11882,9 +11888,9 @@ var ProposalsUserRankingColumn_NC = function (_BaseComponent3) {
         }
     }]);
 
-    return ProposalsUserRankingColumn_NC;
-}(_reactVextensions.BaseComponent);
-exports.ProposalsUserRankingColumn_NC = ProposalsUserRankingColumn_NC = __decorate([(0, _reactDnd.DropTarget)("proposal", {
+    return ProposalsUserRankingColumn;
+}((0, _reactVextensions.BaseComponentWithConnector)(ProposalsUserRankingColumn_connector, {}));
+exports.ProposalsUserRankingColumn = ProposalsUserRankingColumn = __decorate([(0, _reactDnd.DropTarget)("proposal", {
     canDrop: function canDrop(props, monitor) {
         var draggedEntry = monitor.getItem().proposal;
         var dropOnEntry = props.proposal,
@@ -11913,8 +11919,8 @@ exports.ProposalsUserRankingColumn_NC = ProposalsUserRankingColumn_NC = __decora
         isOver: isOver_shallow,
         draggedItem: monitor.getItem()
     };
-}), _reactVextensions.ApplyBasicStyles], ProposalsUserRankingColumn_NC);
-exports.ProposalsUserRankingColumn_NC = ProposalsUserRankingColumn_NC;
+}), _reactVextensions.ApplyBasicStyles], ProposalsUserRankingColumn);
+exports.ProposalsUserRankingColumn = ProposalsUserRankingColumn;
 
 /***/ }),
 /* 100 */
@@ -20626,7 +20632,7 @@ exports.VDragLayer = VDragLayer;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.ProposalEntryUI_NC = exports.ProposalEntryUI = undefined;
+exports.ProposalEntryUI = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -20670,25 +20676,26 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
         if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var ProposalEntryUI = exports.ProposalEntryUI = void 0;
+
+var connector = function connector(state, _ref) {
+    var proposal = _ref.proposal;
+    return {
+        creator: proposal && _Manager.manager.GetUser(proposal.creator)
+    };
+};
 _Manager.manager.onPopulated.then(function () {
-    exports.ProposalEntryUI = ProposalEntryUI = _Manager.manager.Connect(function (state, _ref) {
-        var proposal = _ref.proposal;
-        return {
-            creator: proposal && _Manager.manager.GetUser(proposal.creator)
-        };
-    })(ProposalEntryUI_NC);
+    return exports.ProposalEntryUI = ProposalEntryUI = _Manager.manager.Connect(connector)(ProposalEntryUI);
 });
-var ProposalEntryUI_NC = function (_BaseComponent) {
-    _inherits(ProposalEntryUI_NC, _BaseComponent);
+var ProposalEntryUI = ProposalEntryUI_1 = function (_BaseComponent) {
+    _inherits(ProposalEntryUI, _BaseComponent);
 
-    function ProposalEntryUI_NC() {
-        _classCallCheck(this, ProposalEntryUI_NC);
+    function ProposalEntryUI() {
+        _classCallCheck(this, ProposalEntryUI);
 
-        return _possibleConstructorReturn(this, (ProposalEntryUI_NC.__proto__ || Object.getPrototypeOf(ProposalEntryUI_NC)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (ProposalEntryUI.__proto__ || Object.getPrototypeOf(ProposalEntryUI)).apply(this, arguments));
     }
 
-    _createClass(ProposalEntryUI_NC, [{
+    _createClass(ProposalEntryUI, [{
         key: "ShouldDropBefore",
 
         //newPos_midY;
@@ -20747,7 +20754,7 @@ var ProposalEntryUI_NC = function (_BaseComponent) {
             var shouldDropBefore = this.state.shouldDropBefore;
 
             if (isDragging && columnType == "userRanking") return _react2.default.createElement("div", null);
-            var dragPreviewUI = columnType == "userRanking" && isOver && !asDragPreview && _react2.default.createElement(ProposalEntryUI, { proposal: draggedItem.proposal, orderIndex: orderIndex, index: index, last: false, columnType: columnType, style: { opacity: .3, borderRadius: 10 }, asDragPreview: true });
+            var dragPreviewUI = columnType == "userRanking" && isOver && !asDragPreview && _react2.default.createElement(ProposalEntryUI_1, { proposal: draggedItem.proposal, orderIndex: orderIndex, index: index, last: false, columnType: columnType, style: { opacity: .3, borderRadius: 10 }, asDragPreview: true });
             var toURL = new _jsVextensions.VURL(null, ["proposals", proposal._id + ""]);
             return connectDragSource(connectDropTarget(_react2.default.createElement("div", null, shouldDropBefore && dragPreviewUI, _react2.default.createElement(_reactVcomponents.Column, { ref: function ref(c) {
                     return _this3.innerRoot = c;
@@ -20768,9 +20775,9 @@ var ProposalEntryUI_NC = function (_BaseComponent) {
         }
     }]);
 
-    return ProposalEntryUI_NC;
+    return ProposalEntryUI;
 }(_reactVextensions.BaseComponent);
-exports.ProposalEntryUI_NC = ProposalEntryUI_NC = __decorate([(0, _reactDnd.DragSource)("proposal", { beginDrag: function beginDrag(_ref2) {
+exports.ProposalEntryUI = ProposalEntryUI = ProposalEntryUI_1 = __decorate([(0, _reactDnd.DragSource)("proposal", { beginDrag: function beginDrag(_ref2) {
         var proposal = _ref2.proposal,
             columnType = _ref2.columnType;
         return { proposal: proposal, columnType: columnType };
@@ -20809,8 +20816,10 @@ exports.ProposalEntryUI_NC = ProposalEntryUI_NC = __decorate([(0, _reactDnd.Drag
         isOver: monitor.isOver(),
         draggedItem: monitor.getItem()
     };
-})], ProposalEntryUI_NC);
-exports.ProposalEntryUI_NC = ProposalEntryUI_NC;
+})], ProposalEntryUI);
+exports.ProposalEntryUI = ProposalEntryUI;
+
+var ProposalEntryUI_1;
 
 /***/ }),
 /* 255 */
@@ -35805,7 +35814,7 @@ var AddProposal = exports.AddProposal = function (_Command) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.ProposalUI_Inner_NC = exports.ProposalUI_Inner = exports.ProposalUI = undefined;
+exports.ProposalUI_Inner = exports.ProposalUI = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -35902,26 +35911,26 @@ var ProposalUI = exports.ProposalUI = function (_BaseComponent) {
 }(_reactVextensions.BaseComponent);
 
 ProposalUI.defaultProps = { subNavBarWidth: 0 };
-var ProposalUI_Inner = exports.ProposalUI_Inner = void 0;
+var ProposalUI_Inner_connector = function ProposalUI_Inner_connector(state, _ref) {
+    var proposal = _ref.proposal;
+    return {
+        creator: _Manager.manager.GetUser(proposal.creator)
+    };
+};
 _Manager.manager.onPopulated.then(function () {
-    exports.ProposalUI_Inner = ProposalUI_Inner = _Manager.manager.Connect(function (state, _ref) {
-        var proposal = _ref.proposal;
-        return {
-            creator: _Manager.manager.GetUser(proposal.creator)
-        };
-    })(ProposalUI_Inner_NC);
+    return exports.ProposalUI_Inner = ProposalUI_Inner = _Manager.manager.Connect(ProposalUI_Inner_connector)(ProposalUI_Inner);
 });
 
-var ProposalUI_Inner_NC = exports.ProposalUI_Inner_NC = function (_BaseComponent2) {
-    _inherits(ProposalUI_Inner_NC, _BaseComponent2);
+var ProposalUI_Inner = exports.ProposalUI_Inner = function (_BaseComponentWithCon) {
+    _inherits(ProposalUI_Inner, _BaseComponentWithCon);
 
-    function ProposalUI_Inner_NC() {
-        _classCallCheck(this, ProposalUI_Inner_NC);
+    function ProposalUI_Inner() {
+        _classCallCheck(this, ProposalUI_Inner);
 
-        return _possibleConstructorReturn(this, (ProposalUI_Inner_NC.__proto__ || Object.getPrototypeOf(ProposalUI_Inner_NC)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (ProposalUI_Inner.__proto__ || Object.getPrototypeOf(ProposalUI_Inner)).apply(this, arguments));
     }
 
-    _createClass(ProposalUI_Inner_NC, [{
+    _createClass(ProposalUI_Inner, [{
         key: "render",
         value: function render() {
             var _this3 = this;
@@ -36007,11 +36016,11 @@ var ProposalUI_Inner_NC = exports.ProposalUI_Inner_NC = function (_BaseComponent
         }
     }]);
 
-    return ProposalUI_Inner_NC;
-}(_reactVextensions.BaseComponent);
+    return ProposalUI_Inner;
+}((0, _reactVextensions.BaseComponentWithConnector)(ProposalUI_Inner_connector, { editing: false, dataError: null }));
 
-var ActionBar_Left = function (_BaseComponent3) {
-    _inherits(ActionBar_Left, _BaseComponent3);
+var ActionBar_Left = function (_BaseComponent2) {
+    _inherits(ActionBar_Left, _BaseComponent2);
 
     function ActionBar_Left() {
         _classCallCheck(this, ActionBar_Left);
@@ -36100,8 +36109,8 @@ class DetailsDropdown extends BaseComponent<DetailsDropdownProps, {dataError: st
 }*/
 
 
-var ActionBar_Right = function (_BaseComponent4) {
-    _inherits(ActionBar_Right, _BaseComponent4);
+var ActionBar_Right = function (_BaseComponent3) {
+    _inherits(ActionBar_Right, _BaseComponent3);
 
     function ActionBar_Right() {
         _classCallCheck(this, ActionBar_Right);

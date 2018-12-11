@@ -4,7 +4,7 @@ import {DragDropContext, DropTarget} from "react-dnd";
 //import TouchBackend from "react-dnd-touch-backend";
 import MouseBackend from "react-dnd-mouse-backend";
 import {Button, CheckBox, Column, Row} from "react-vcomponents";
-import {ApplyBasicStyles, BaseComponent} from "react-vextensions";
+import {ApplyBasicStyles, BaseComponent, BaseComponentWithConnector} from "react-vextensions";
 import {ScrollView} from "react-vscrollview";
 import {State} from "../General";
 import {manager} from "../Manager";
@@ -30,22 +30,17 @@ TargetMonitor.prototype.GetTargetComponent = function() {
     return this.internalMonitor.registry.handlers[this.targetId].component;
 };*/
 
-export type ProposalsUI_Props = {subNavBarWidth: number} & Partial<{proposals: Proposal[], selectedProposal: Proposal}>;
-
-export let ProposalsUI: typeof ProposalsUI_NC;
-manager.onPopulated.then(()=> {
-	ProposalsUI = manager.Connect((state, {}: ProposalsUI_Props)=> {
-		return {
-			proposals: GetProposals(),
-			selectedProposal: GetSelectedProposal(),
-		};
-	})(ProposalsUI_NC);
-});
-
+let ProposalsUI_connector = (state, {}: {subNavBarWidth: number})=> {
+	return {
+		proposals: GetProposals(),
+		selectedProposal: GetSelectedProposal(),
+	};
+};
+manager.onPopulated.then(()=>(ProposalsUI as any) = manager.Connect(ProposalsUI_connector)(ProposalsUI));
 //@DragDropContext(HTML5Backend)
 //@DragDropContext(TouchBackend({enableMouseEvents: true}))
 @DragDropContext(MouseBackend)
-export class ProposalsUI_NC extends BaseComponent<ProposalsUI_Props, {}> {
+export class ProposalsUI extends BaseComponentWithConnector(ProposalsUI_connector, {}) {
 	static defaultProps = {subNavBarWidth: 0};
 	render() {
 		let {proposals, subNavBarWidth, selectedProposal} = this.props;
@@ -86,16 +81,13 @@ function GetIncompleteProposalsInOrder(order: number[], proposals: Proposal[]) {
 	});
 }
 
-export type ProposalsColumn_Props = {proposals: Proposal[], type: string} & Partial<{userData, showCompleted: boolean}>;
-export let ProposalsColumn: typeof ProposalsColumn_NC;
-manager.onPopulated.then(()=> {
-	ProposalsColumn = manager.Connect((state, {type}: ProposalsColumn_Props)=> ({
-		userData: (GetData("userData") || {}).Props().filter(a=>a.value != null).ToMap(a=>a.name, a=>a.value),
-		showCompleted: State(`proposals/${type}s_showCompleted`),
-	}))(ProposalsColumn_NC);
+let ProposalsColumn_connector = (state, {type}: {proposals: Proposal[], type: string})=> ({
+	userData: (GetData("userData") || {}).Props().filter(a=>a.value != null).ToMap(a=>a.name, a=>a.value),
+	showCompleted: State(`proposals/${type}s_showCompleted`),
 });
+manager.onPopulated.then(()=>(ProposalsColumn as any) = manager.Connect(ProposalsColumn_connector)(ProposalsColumn));
 @ApplyBasicStyles
-export class ProposalsColumn_NC extends BaseComponent<ProposalsColumn_Props, {}> {
+export class ProposalsColumn extends BaseComponentWithConnector(ProposalsColumn_connector, {}) {
 	render() {
 		let {proposals, type, userData, showCompleted} = this.props;
 		let userID = manager.GetUserID();
@@ -163,13 +155,10 @@ export class ProposalsColumn_NC extends BaseComponent<ProposalsColumn_Props, {}>
 	}
 }
 
-export type ProposalsUserRankingColumn_Props = {proposals: Proposal[]} & Partial<{proposalOrder: number[]}>;
-export let ProposalsUserRankingColumn: typeof ProposalsUserRankingColumn_NC;
-manager.onPopulated.then(()=> {
-	ProposalsUserRankingColumn = manager.Connect((state, {}: ProposalsUserRankingColumn_Props)=> ({
-		proposalOrder: GetProposalOrder(manager.GetUserID()),
-	}))(ProposalsUserRankingColumn_NC);
+let ProposalsUserRankingColumn_connector = (state, {}: {proposals: Proposal[]})=> ({
+	proposalOrder: GetProposalOrder(manager.GetUserID()),
 });
+manager.onPopulated.then(()=>(ProposalsUserRankingColumn as any) = manager.Connect(ProposalsUserRankingColumn_connector)(ProposalsUserRankingColumn));
 @DropTarget("proposal", {
 	canDrop(props, monitor) {
 		let draggedEntry = monitor.getItem().proposal;
@@ -202,7 +191,7 @@ manager.onPopulated.then(()=> {
 	};
 })
 @ApplyBasicStyles
-export class ProposalsUserRankingColumn_NC extends BaseComponent<ProposalsUserRankingColumn_Props, {}> {
+export class ProposalsUserRankingColumn extends BaseComponentWithConnector(ProposalsUserRankingColumn_connector, {}) {
 	render() {
 		let {proposals, proposalOrder,} = this.props;
 		let {connectDropTarget, isOver, draggedItem} = this.props as any;
