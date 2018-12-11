@@ -195,7 +195,7 @@ Object.keys(_Proposals).forEach(function (key) {
 
 __webpack_require__(11);
 
-__webpack_require__(265);
+__webpack_require__(264);
 
 /***/ }),
 /* 2 */
@@ -205,23 +205,44 @@ __webpack_require__(265);
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
-exports.Manager = exports.PermissionGroupSet = undefined;
+exports.manager = exports.Manager = exports.PermissionGroupSet = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _Logging = __webpack_require__(3);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var PermissionGroupSet = exports.PermissionGroupSet = function PermissionGroupSet() {
-  _classCallCheck(this, PermissionGroupSet);
+    _classCallCheck(this, PermissionGroupSet);
 };
 
-var Manager = exports.Manager = function Manager() {
-  _classCallCheck(this, Manager);
-};
+var Manager = exports.Manager = function () {
+    function Manager() {
+        var _this = this;
 
-Manager.logTypes = new _Logging.LogTypes();
+        _classCallCheck(this, Manager);
+
+        this.onPopulated = new Promise(function (resolve, reject) {
+            return _this.onPopulated_resolve = resolve;
+        });
+        this.logTypes = new _Logging.LogTypes();
+    }
+
+    _createClass(Manager, [{
+        key: "Populate",
+        value: function Populate(data) {
+            this.Extend(data);
+            this.onPopulated_resolve();
+        }
+    }]);
+
+    return Manager;
+}();
+
+var manager = exports.manager = new Manager();
 
 /***/ }),
 /* 3 */
@@ -248,7 +269,7 @@ var LogTypes = exports.LogTypes = function LogTypes() {
 };
 
 function ShouldLog(shouldLogFunc) {
-    return shouldLogFunc(_Manager.Manager.logTypes || {});
+    return shouldLogFunc(_Manager.manager.logTypes || {});
 }
 function MaybeLog(shouldLogFunc, logMessageGetter) {
     if (!ShouldLog(shouldLogFunc)) return;
@@ -330,9 +351,9 @@ function State() {
           Assert(pathSegments.All(segment=>typeof segment == "number" || !segment.Contains("/")),
               `Each string path-segment must be a plain prop-name. (ie. contain no "/" separators) @segments(${pathSegments})`);
       }*/
-    /*let selectedData = DeepGet(store.getState(), Manager.storePath_mainData + "/" + pathSegments.join("/"));
+    /*let selectedData = DeepGet(store.getState(), manager.storePath_mainData + "/" + pathSegments.join("/"));
     return selectedData;*/
-    return _Manager.Manager.State.apply(_Manager.Manager, _toConsumableArray(_Manager.Manager.storePath_mainData.split("/").concat(pathSegments)));
+    return _Manager.manager.State.apply(_Manager.manager, _toConsumableArray(_Manager.manager.storePath_mainData.split("/").concat(pathSegments)));
 }
 function ConvertPathGetterFuncToPropChain(pathGetterFunc) {
     var pathStr = pathGetterFunc.toString().match(/return a\.(.+?);/)[1];
@@ -357,7 +378,7 @@ var AccessLevel = exports.AccessLevel = undefined;
     return GetData("userExtras", userID, "permissionGroups");
 }*/
 function GetUserAccessLevel(userID) {
-    var groups = _Manager.Manager.GetUserPermissionGroups(userID);
+    var groups = _Manager.manager.GetUserPermissionGroups(userID);
     if (groups == null) return AccessLevel.Basic;
     if (groups.admin) return AccessLevel.Admin;
     if (groups.mod) return AccessLevel.Mod;
@@ -366,23 +387,23 @@ function GetUserAccessLevel(userID) {
     Assert(false);
 }
 function IsUserBasic(userID) {
-    return (_Manager.Manager.GetUserPermissionGroups(userID) || {}).basic;
+    return (_Manager.manager.GetUserPermissionGroups(userID) || {}).basic;
 }
 function IsUserVerified(userID) {
-    return (_Manager.Manager.GetUserPermissionGroups(userID) || {}).verified;
+    return (_Manager.manager.GetUserPermissionGroups(userID) || {}).verified;
 }
 function IsUserMod(userID) {
-    return (_Manager.Manager.GetUserPermissionGroups(userID) || {}).mod;
+    return (_Manager.manager.GetUserPermissionGroups(userID) || {}).mod;
 }
 function IsUserAdmin(userID) {
-    return (_Manager.Manager.GetUserPermissionGroups(userID) || {}).admin;
+    return (_Manager.manager.GetUserPermissionGroups(userID) || {}).admin;
 }
 function IsUserBasicOrAnon(userID) {
-    var permissionGroups = _Manager.Manager.GetUserPermissionGroups(userID);
+    var permissionGroups = _Manager.manager.GetUserPermissionGroups(userID);
     return permissionGroups == null || permissionGroups.basic;
 }
 function IsUserCreatorOrMod(userID, entity) {
-    var permissionGroups = _Manager.Manager.GetUserPermissionGroups(userID);
+    var permissionGroups = _Manager.manager.GetUserPermissionGroups(userID);
     if (permissionGroups == null) return false;
     return entity.creator == userID && permissionGroups.basic || permissionGroups.mod;
 }
@@ -607,13 +628,9 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.GetDataAsync_Options = exports.GetData_Options = undefined;
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 exports.DBPath = DBPath;
 exports.DBPathSegments = DBPathSegments;
 exports.SlicePath = SlicePath;
-exports.ProcessDBData = ProcessDBData;
 exports.RemoveHelpers = RemoveHelpers;
 exports.GetUpdates = GetUpdates;
 exports.GetData = GetData;
@@ -664,7 +681,9 @@ function DBPath() {
     (0, _jsVextensions.Assert)(IsString(path), "Path must be a string.");
     /*let versionPrefix = path.match(/^v[0-9]+/);
     if (versionPrefix == null) // if no version prefix already, add one (referencing the current version)*/
-    if (inVersionRoot) path = _index.Manager.storePath_dbData + "/" + path;
+    if (inVersionRoot) {
+        path = "" + _index.manager.storePath_dbData + (path ? "/" + path : "");
+    }
     return path;
 }
 function DBPathSegments(pathSegments) {
@@ -672,7 +691,7 @@ function DBPathSegments(pathSegments) {
 
     var result = pathSegments;
     if (inVersionRoot) {
-        result = _index.Manager.storePath_dbData.split("/").concat(result);
+        result = _index.manager.storePath_dbData.split("/").concat(result);
     }
     return result;
 }
@@ -687,7 +706,9 @@ function SlicePath(path, removeFromEndCount) {
     parts.splice.apply(parts, [parts.length - removeFromEndCount, removeFromEndCount].concat(itemsToAdd));
     return parts.join("/");
 }
-function ProcessDBData(data, standardizeForm, addHelpers, rootKey) {
+var helperProps = ["_key", "_id"];
+/** Note: this mutates the original object. */
+function RemoveHelpers(data) {
     var treeNodes = (0, _jsVextensions.GetTreeNodesInObjTree)(data, true);
     var _iteratorNormalCompletion = true;
     var _didIteratorError = false;
@@ -697,50 +718,7 @@ function ProcessDBData(data, standardizeForm, addHelpers, rootKey) {
         for (var _iterator = treeNodes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             var treeNode = _step.value;
 
-            // turn the should-not-have-been-array arrays (the ones without a "0" property) into objects
-            if (standardizeForm && treeNode.Value instanceof Array && treeNode.Value[0] === undefined) {
-                // if changing root, we have to actually modify the prototype of the passed-in "data" object
-                /*if (treeNode.Value == data) {
-                    Object.setPrototypeOf(data, Object.getPrototypeOf({}));
-                    for (var key of Object.keys(data)) {
-                        if (data[key] === undefined)
-                            delete data[key];
-                    }
-                    continue;
-                }*/
-                var valueAsObject = {}.Extend(treeNode.Value);
-                for (var key in valueAsObject) {
-                    // if fake array-item added by Firebase/js (just so the array would have no holes), remove it
-                    //if (valueAsObject[key] == null)
-                    if (valueAsObject[key] === undefined) delete valueAsObject[key];
-                }
-                if (treeNode.Value == data) treeNode.obj[treeNode.prop] = valueAsObject; // if changing root, we need to modify wrapper.data
-                else (0, _jsVextensions.DeepSet)(data, treeNode.PathStr, valueAsObject); // else, we need to use deep-set, because ancestors may have already changed during this transform/processing
-            }
-            // turn the should-have-been-array objects (the ones with a "0" property) into arrays
-            if (standardizeForm && _typeof(treeNode.Value) == "object" && !(treeNode.Value instanceof Array) && treeNode.Value[0] !== undefined) {
-                // if changing root, we have to actually modify the prototype of the passed-in "data" object
-                /*if (treeNode.Value == data) {
-                    Object.setPrototypeOf(data, Object.getPrototypeOf([]));
-                    data.length = data.VKeys(true).filter(a=>IsNumberString(a));
-                    continue;
-                }*/
-                var valueAsArray = [].Extend(treeNode.Value);
-                if (treeNode.Value == data) treeNode.obj[treeNode.prop] = valueAsArray; // if changing root, we need to modify wrapper.data
-                else (0, _jsVextensions.DeepSet)(data, treeNode.PathStr, valueAsArray); // else, we need to use deep-set, because ancestors may have already changed during this transform/processing
-            }
-            // add special _key or _id prop
-            if (addHelpers && _typeof(treeNode.Value) == "object") {
-                var _key2 = treeNode.prop == "_root" ? rootKey : treeNode.prop;
-                if (parseInt(_key2).toString() == _key2) {
-                    treeNode.Value._id = parseInt(_key2);
-                    //treeNode.Value._Set("_id", parseInt(key));
-                }
-                // actually, always set "_key" (in case it's a "_key" that also happens to look like an "_id"/integer)
-                //else {
-                treeNode.Value._key = _key2;
-                //treeNode.Value._Set("_key", key);
-            }
+            if (helperProps.Contains(treeNode.prop)) delete treeNode.obj[treeNode.prop];
         }
     } catch (err) {
         _didIteratorError = true;
@@ -757,21 +735,26 @@ function ProcessDBData(data, standardizeForm, addHelpers, rootKey) {
         }
     }
 
-    return treeNodes[0].Value; // get possibly-modified wrapper.data
+    return data;
 }
-var helperProps = ["_key", "_id"];
-/** Note: this mutates the original object. */
-function RemoveHelpers(data) {
-    var treeNodes = (0, _jsVextensions.GetTreeNodesInObjTree)(data, true);
+function GetUpdates(oldData, newData) {
+    var useNullInsteadOfUndefined = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+    var result = {};
     var _iteratorNormalCompletion2 = true;
     var _didIteratorError2 = false;
     var _iteratorError2 = undefined;
 
     try {
-        for (var _iterator2 = treeNodes[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-            var treeNode = _step2.value;
+        for (var _iterator2 = oldData.VKeys(true).concat(newData.VKeys(true))[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var key = _step2.value;
 
-            if (helperProps.Contains(treeNode.prop)) delete treeNode.obj[treeNode.prop];
+            if (newData[key] !== oldData[key]) {
+                result[key] = newData[key];
+                if (newData[key] === undefined && useNullInsteadOfUndefined) {
+                    result[key] = null;
+                }
+            }
         }
     } catch (err) {
         _didIteratorError2 = true;
@@ -788,52 +771,8 @@ function RemoveHelpers(data) {
         }
     }
 
-    return data;
-}
-function GetUpdates(oldData, newData) {
-    var useNullInsteadOfUndefined = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-
-    var result = {};
-    var _iteratorNormalCompletion3 = true;
-    var _didIteratorError3 = false;
-    var _iteratorError3 = undefined;
-
-    try {
-        for (var _iterator3 = oldData.VKeys(true).concat(newData.VKeys(true))[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-            var key = _step3.value;
-
-            if (newData[key] !== oldData[key]) {
-                result[key] = newData[key];
-                if (newData[key] === undefined && useNullInsteadOfUndefined) {
-                    result[key] = null;
-                }
-            }
-        }
-    } catch (err) {
-        _didIteratorError3 = true;
-        _iteratorError3 = err;
-    } finally {
-        try {
-            if (!_iteratorNormalCompletion3 && _iterator3.return) {
-                _iterator3.return();
-            }
-        } finally {
-            if (_didIteratorError3) {
-                throw _iteratorError3;
-            }
-        }
-    }
-
     return RemoveHelpers(result);
 }
-
-var DBPathInfo = function DBPathInfo() {
-    _classCallCheck(this, DBPathInfo);
-
-    this.lastTimestamp = -1;
-};
-
-var pathInfos = {};
 
 var GetData_Options = exports.GetData_Options = function GetData_Options() {
     _classCallCheck(this, GetData_Options);
@@ -846,8 +785,8 @@ function GetData() {
     var pathSegments = void 0,
         options = void 0;
 
-    for (var _len2 = arguments.length, args = Array(_len2), _key3 = 0; _key3 < _len2; _key3++) {
-        args[_key3] = arguments[_key3];
+    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
     }
 
     if (typeof args[0] == "string") pathSegments = args;else {
@@ -855,41 +794,7 @@ function GetData() {
         options = args[0];
         pathSegments = args.slice(1);
     }options = E(new GetData_Options(), options);
-    /*if (__DEV__) {
-        Assert(pathSegments.All(segment=>typeof segment == "number" || !segment.Contains("/")),
-            `Each string path-segment must be a plain prop-name. (ie. contain no "/" separators) @segments(${pathSegments})`);
-    }
-      pathSegments = DBPathSegments(pathSegments, options.inVersionRoot);
-      /*Assert(!path.endsWith("/"), "Path cannot end with a slash. (This may mean a path parameter is missing)");
-    Assert(!path.Contains("//"), "Path cannot contain a double-slash. (This may mean a path parameter is missing)");*#/
-      let path = pathSegments.join("/");
-    /*if (options.queries && options.queries.VKeys().length) {
-        let queriesStr = "";
-        for (let {name, value, index} of options.queries.Props()) {
-            queriesStr += (index == 0 ? "#" : "&") + name + "=" + value;
-        }
-        pathSegments[pathSegments.length - 1] = pathSegments.Last() + queriesStr;
-        path += queriesStr.replace(/[#=]/g, "_");
-    }*#/
-      if (options.makeRequest) {
-        let queriesStr = "";
-        if (options.queries && options.queries.VKeys().length) {
-            for (let {name, value, index} of options.queries.Props()) {
-                queriesStr += (index == 0 ? "#" : "&") + name + "=" + value;
-            }
-        }
-        RequestPath(path + queriesStr);
-    }
-      //let result = State("firebase", "data", ...SplitStringByForwardSlash_Cached(path)) as any;
-    let result = State("firebase", "data", ...pathSegments) as any;
-    //let result = State("firebase", "data", ...pathSegments) as any;
-    if (result == null && options.useUndefinedForInProgress) {
-        let requestCompleted = State().firebase.requested[path];
-        if (!requestCompleted) return undefined; // undefined means, current-data for path is null/non-existent, but we haven't completed the current request yet
-        else return null; // null means, we've completed the request, and there is no data at that path
-    }
-    return result;*/
-    return _index.Manager.GetData.apply(_index.Manager, [options].concat(_toConsumableArray(_index.Manager.storePath_dbData.split("/").concat(pathSegments))));
+    return _index.manager.GetData.apply(_index.manager, [options].concat(_toConsumableArray(_index.manager.storePath_dbData.split("/").concat(pathSegments))));
 }
 
 var GetDataAsync_Options = exports.GetDataAsync_Options = function GetDataAsync_Options() {
@@ -899,8 +804,8 @@ var GetDataAsync_Options = exports.GetDataAsync_Options = function GetDataAsync_
 };
 
 function GetDataAsync() {
-    for (var _len3 = arguments.length, args = Array(_len3), _key4 = 0; _key4 < _len3; _key4++) {
-        args[_key4] = arguments[_key4];
+    for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+        args[_key3] = arguments[_key3];
     }
 
     return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
@@ -916,22 +821,7 @@ function GetDataAsync() {
                             options = args[0];
                             pathSegments = args.slice(1);
                         }options = E(new GetDataAsync_Options(), options);
-                        /*let firebase = store.firebase.helpers;
-                        return await new Promise((resolve, reject) => {
-                            //firebase.child(DBPath(path, inVersionRoot)).once("value",
-                            let path = pathSegments.join("/");
-                            firebase.DBRef(path, options.inVersionRoot).once("value",
-                                (snapshot: FirebaseDataSnapshot)=> {
-                                    let result = snapshot.val();
-                                    if (result)
-                                        result = ProcessDBData(result, true, options.addHelpers, pathSegments.Last()+"");
-                                    resolve(result);
-                                },
-                                (ex: Error)=> {
-                                    reject(ex);
-                                });
-                        });*/
-                        return _context.abrupt("return", _index.Manager.GetDataAsync.apply(_index.Manager, [options].concat(_toConsumableArray(_index.Manager.storePath_dbData.split("/").concat(pathSegments)))));
+                        return _context.abrupt("return", _index.manager.GetDataAsync.apply(_index.manager, [options].concat(_toConsumableArray(_index.manager.storePath_dbData.split("/").concat(pathSegments)))));
 
                     case 4:
                     case "end":
@@ -941,78 +831,6 @@ function GetDataAsync() {
         }, _callee, this);
     }));
 }
-/**
- * Usage: await GetAsync(()=>GetNode(123))
- * It has the same processing as in Connect(), except callable using async/await.
- * It basically makes a pretend component -- connecting to firebase, and resolving the promise once:
- * It re-calls the db-getter func (after the last generation's requested-path-data was all received), and finds that no new paths are requested.
- */
-/*G({GetAsync});
-export async function GetAsync<T>(dbGetterFunc: ()=>T, statsLogger?: ({requestedPaths: string})=>void): Promise<T> {
-    Assert(!window["inConnectFunc"], "Cannot run GetAsync() from within a Connect() function.");
-    //Assert(!g.inGetAsyncFunc, "Cannot run GetAsync() from within a GetAsync() function.");
-    let firebase = store.firebase;
-
-    let result;
-
-    let requestedPathsSoFar = {};
-    let requestedPathsSoFar_last;
-    do {
-        requestedPathsSoFar_last = Clone(requestedPathsSoFar);
-
-        ClearRequestedPaths();
-        result = dbGetterFunc();
-        let newRequestedPaths = GetRequestedPaths().Except(requestedPathsSoFar.VKeys());
-
-        unWatchEvents(firebase, store.dispatch, getEventsFromInput(newRequestedPaths)); // do this just to trigger re-get
-        // start watching paths (causes paths to be requested)
-        watchEvents(firebase, store.dispatch, getEventsFromInput(newRequestedPaths));
-
-        for (let path of newRequestedPaths) {
-            requestedPathsSoFar[path] = true;
-            // wait till data is received
-            await WaitTillPathDataIsReceived(path);
-        }
-
-        // stop watching paths (since we already got their data)
-        // todo: find correct way of unwatching events; the way below seems to sometimes unwatch while still needed watched
-        // for now, we just never unwatch
-        //unWatchEvents(firebase, store.dispatch, getEventsFromInput(newRequestedPaths));
-    } while (ShallowChanged(requestedPathsSoFar, requestedPathsSoFar_last))
-
-    /*let paths_final = requestedPathsSoFar.VKeys();
-    let paths_data = await Promise.all(paths_final.map(path=>GetDataAsync(path)));
-    let listener = ()=> {
-        listener(); // unsubscribe
-    };
-    store.subscribe(listener);*#/
-
-    if (statsLogger) {
-        statsLogger({requestedPaths: requestedPathsSoFar});
-    }
-
-    return result;
-}
-export function WaitTillPathDataIsReceived(path: string): Promise<any> {
-    return new Promise((resolve, reject)=> {
-        let pathDataReceived = (State as any)().firebase.requested[path];
-        // if data already received, return right away
-        if (pathDataReceived) {
-            resolve();
-        }
-
-        // else, add listener, and wait till store received the data (then return it)
-        let listener = ()=> {
-            //pathDataReceived = State(a=>a.firebase.requested[path]);
-            pathDataReceived = (State as any)().firebase.requested[path];
-            if (pathDataReceived) {
-                unsubscribe();
-                resolve();
-            }
-        };
-        let unsubscribe = store.subscribe(listener);
-    });
-}*/
 function GetAsync(dbGetterFunc, statsLogger) {
     return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
@@ -1020,7 +838,7 @@ function GetAsync(dbGetterFunc, statsLogger) {
                 switch (_context2.prev = _context2.next) {
                     case 0:
                         _context2.next = 2;
-                        return _index.Manager.GetAsync(dbGetterFunc, statsLogger);
+                        return _index.manager.GetAsync(dbGetterFunc, statsLogger);
 
                     case 2:
                         return _context2.abrupt("return", _context2.sent);
@@ -1033,80 +851,6 @@ function GetAsync(dbGetterFunc, statsLogger) {
         }, _callee2, this);
     }));
 }
-/*;(function() {
-    var Firebase = require("firebase");
-    var FirebaseRef = Firebase.database.Reference;
-
-    Firebase.ABORT_TRANSACTION_NOW = {};
-
-    var originalTransaction = FirebaseRef.prototype.transaction;
-    FirebaseRef.prototype.transaction = function transaction(updateFunction, onComplete, applyLocally) {
-        var aborted, tries = 0, ref = this, updateError;
-
-        var promise = new Promise(function(resolve, reject) {
-            var wrappedUpdate = function(data) {
-                // Clone data in case updateFunction modifies it before aborting.
-                var originalData = JSON.parse(JSON.stringify(data));
-                aborted = false;
-                try {
-                    if (++tries > 100) throw new Error('maxretry');
-                    var result = updateFunction.call(this, data);
-                    if (result === undefined) {
-                        aborted = true;
-                        result = originalData;
-                    } else if (result === Firebase.ABORT_TRANSACTION_NOW) {
-                        aborted = true;
-                        result = undefined;
-                    }
-                    return result;
-                } catch (e) {
-                    // Firebase propagates exceptions thrown by the update function to the top level.	So
-                    // catch them here instead, reject the promise, and abort the transaction by returning
-                    // undefined.
-                    updateError = e;
-                }
-            };
-
-            function txn() {
-                try {
-                    originalTransaction.call(ref, wrappedUpdate, function(error, committed, snapshot) {
-                        error = error || updateError;
-                        var result;
-                        if (error && (error.message === 'set' || error.message === 'disconnect')) {
-                            txn();
-                        } else if (error) {
-                            result = onComplete ? onComplete(error, false, snapshot) : undefined;
-                            reject(error);
-                        } else {
-                            result = onComplete ? onComplete(error, committed && !aborted, snapshot) : undefined;
-                            resolve({committed: committed && !aborted, snapshot: snapshot});
-                        }
-                        return result;
-                    }, applyLocally);
-                } catch (e) {
-                    if (onComplete) onComplete(e, false);
-                    reject(e);
-                }
-            }
-
-            txn();
-        });
-
-        return promise;
-    };
-})();*/
-//export function FirebaseConnect<T>(paths: string[]); // just disallow this atm, since you might as well just use a connect/getter func
-/*export function FirebaseConnect<T>(pathsOrGetterFunc?: string[] | ((props: T)=>string[]));
-export function FirebaseConnect<T>(pathsOrGetterFunc?) {
-    return firebaseConnect(props=> {
-        let paths =
-            pathsOrGetterFunc instanceof Array ? pathsOrGetterFunc :
-            pathsOrGetterFunc instanceof Function ? pathsOrGetterFunc(props) :
-            [];
-        paths = paths.map(a=>DBPath(a)); // add version prefix to paths
-        return paths;
-    });
-}*/
 
 /***/ }),
 /* 11 */
@@ -11828,7 +11572,7 @@ function GetProposalIndex(userID, proposalID) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.ProposalsUserRankingColumn = exports.ProposalsColumn = exports.ProposalsUI = undefined;
+exports.ProposalsUserRankingColumn_NC = exports.ProposalsUserRankingColumn = exports.ProposalsColumn_NC = exports.ProposalsColumn = exports.ProposalsUI_NC = exports.ProposalsUI = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -11866,27 +11610,25 @@ var _proposals2 = __webpack_require__(8);
 
 var _DatabaseHelpers = __webpack_require__(10);
 
-var _FirebaseConnect = __webpack_require__(253);
-
 var _index = __webpack_require__(1);
 
-var _VDragLayer = __webpack_require__(254);
+var _VDragLayer = __webpack_require__(253);
 
-var _ProposalDetailsUI = __webpack_require__(256);
+var _ProposalDetailsUI = __webpack_require__(255);
 
-var _ProposalEntryUI = __webpack_require__(255);
+var _ProposalEntryUI = __webpack_require__(254);
 
-var _ProposalUI = __webpack_require__(261);
+var _ProposalUI = __webpack_require__(260);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
 
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
@@ -11908,16 +11650,29 @@ DragDropMonitor.prototype.GetTargetComponents = function () {
         return _this.registry.handlers[targetID].component;
     });
 };
-var ProposalsUI = function (_BaseComponent) {
-    _inherits(ProposalsUI, _BaseComponent);
+var ProposalsUI = exports.ProposalsUI = void 0;
+_Manager.manager.onPopulated.then(function () {
+    exports.ProposalsUI = ProposalsUI = _Manager.manager.Connect(function (state, _ref) {
+        _objectDestructuringEmpty(_ref);
 
-    function ProposalsUI() {
-        _classCallCheck(this, ProposalsUI);
+        return {
+            proposals: (0, _proposals.GetProposals)(),
+            selectedProposal: (0, _proposals2.GetSelectedProposal)()
+        };
+    })(ProposalsUI_NC);
+});
+//@DragDropContext(HTML5Backend)
+//@DragDropContext(TouchBackend({enableMouseEvents: true}))
+var ProposalsUI_NC = function (_BaseComponent) {
+    _inherits(ProposalsUI_NC, _BaseComponent);
 
-        return _possibleConstructorReturn(this, (ProposalsUI.__proto__ || Object.getPrototypeOf(ProposalsUI)).apply(this, arguments));
+    function ProposalsUI_NC() {
+        _classCallCheck(this, ProposalsUI_NC);
+
+        return _possibleConstructorReturn(this, (ProposalsUI_NC.__proto__ || Object.getPrototypeOf(ProposalsUI_NC)).apply(this, arguments));
     }
 
-    _createClass(ProposalsUI, [{
+    _createClass(ProposalsUI_NC, [{
         key: "render",
         value: function render() {
             var _props = this.props,
@@ -11925,7 +11680,7 @@ var ProposalsUI = function (_BaseComponent) {
                 subNavBarWidth = _props.subNavBarWidth,
                 selectedProposal = _props.selectedProposal;
 
-            var userID = _Manager.Manager.GetUserID();
+            var userID = _Manager.manager.GetUserID();
             if (selectedProposal) {
                 return _react2.default.createElement(_ProposalUI.ProposalUI, { proposal: selectedProposal, subNavBarWidth: subNavBarWidth });
             }
@@ -11936,22 +11691,11 @@ var ProposalsUI = function (_BaseComponent) {
         }
     }]);
 
-    return ProposalsUI;
+    return ProposalsUI_NC;
 }(_reactVextensions.BaseComponent);
-ProposalsUI.defaultProps = { subNavBarWidth: 0 };
-exports.ProposalsUI = ProposalsUI = __decorate([(0, _FirebaseConnect.Connect)(function (state, _ref) {
-    _objectDestructuringEmpty(_ref);
-
-    return {
-        proposals: (0, _proposals.GetProposals)(),
-        selectedProposal: (0, _proposals2.GetSelectedProposal)()
-    };
-})
-//@DragDropContext(HTML5Backend)
-//@DragDropContext(TouchBackend({enableMouseEvents: true}))
-
-, (0, _reactDnd.DragDropContext)(_reactDndMouseBackend2.default)], ProposalsUI);
-exports.ProposalsUI = ProposalsUI;
+ProposalsUI_NC.defaultProps = { subNavBarWidth: 0 };
+exports.ProposalsUI_NC = ProposalsUI_NC = __decorate([(0, _reactDnd.DragDropContext)(_reactDndMouseBackend2.default)], ProposalsUI_NC);
+exports.ProposalsUI_NC = ProposalsUI_NC;
 function GetRankingScoreToAddForUserRankingIndex(indexInRankingOrder) {
     var rankingScoreToAdd = 1;
     for (var i = 0; i < indexInRankingOrder; i++) {
@@ -11968,16 +11712,32 @@ function GetIncompleteProposalsInOrder(order, proposals) {
         return proposalReferencedInOrder && !proposalReferencedInOrder.completedAt;
     });
 }
-var ProposalsColumn = function (_BaseComponent2) {
-    _inherits(ProposalsColumn, _BaseComponent2);
+var ProposalsColumn = exports.ProposalsColumn = void 0;
+_Manager.manager.onPopulated.then(function () {
+    exports.ProposalsColumn = ProposalsColumn = _Manager.manager.Connect(function (state, _ref2) {
+        var type = _ref2.type;
+        return {
+            userData: ((0, _DatabaseHelpers.GetData)("userData") || {}).Props().filter(function (a) {
+                return a.value != null;
+            }).ToMap(function (a) {
+                return a.name;
+            }, function (a) {
+                return a.value;
+            }),
+            showCompleted: (0, _General.State)("proposals/" + type + "s_showCompleted")
+        };
+    })(ProposalsColumn_NC);
+});
+var ProposalsColumn_NC = function (_BaseComponent2) {
+    _inherits(ProposalsColumn_NC, _BaseComponent2);
 
-    function ProposalsColumn() {
-        _classCallCheck(this, ProposalsColumn);
+    function ProposalsColumn_NC() {
+        _classCallCheck(this, ProposalsColumn_NC);
 
-        return _possibleConstructorReturn(this, (ProposalsColumn.__proto__ || Object.getPrototypeOf(ProposalsColumn)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (ProposalsColumn_NC.__proto__ || Object.getPrototypeOf(ProposalsColumn_NC)).apply(this, arguments));
     }
 
-    _createClass(ProposalsColumn, [{
+    _createClass(ProposalsColumn_NC, [{
         key: "render",
         value: function render() {
             var _props2 = this.props,
@@ -11986,7 +11746,7 @@ var ProposalsColumn = function (_BaseComponent2) {
                 userData = _props2.userData,
                 showCompleted = _props2.showCompleted;
 
-            var userID = _Manager.Manager.GetUserID();
+            var userID = _Manager.manager.GetUserID();
             var shownProposals = proposals.filter(function (a) {
                 return a.type == type && (!a.completedAt || showCompleted);
             });
@@ -12066,7 +11826,7 @@ var ProposalsColumn = function (_BaseComponent2) {
                 } }), _react2.default.createElement("span", { style: { position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: "18px" } }, type.replace(/^(.)/, function (m, s0) {
                 return s0.toUpperCase();
             }), "s"), _react2.default.createElement(_reactVcomponents.Button, { text: type == "feature" ? "Propose feature" : "Report issue", ml: "auto", onClick: function onClick() {
-                    if (userID == null) return _Manager.Manager.ShowSignInPopup();
+                    if (userID == null) return _Manager.manager.ShowSignInPopup();
                     (0, _ProposalDetailsUI.ShowAddProposalDialog)(userID, type);
                 } }))), _react2.default.createElement(_reactVscrollview.ScrollView, { ref: "scrollView", scrollVBarStyle: { width: 10 }, style: ES({ flex: 1 }) }, _react2.default.createElement(_reactVcomponents.Column, null, shownProposals.length == 0 && _react2.default.createElement(_reactVcomponents.Row, { p: "7px 10px", style: { background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px" } }, "There are currently no ", type == "feature" ? "feature proposals" : "issue reports", "."), shownProposals.map(function (proposal, index) {
                 return _react2.default.createElement(_ProposalEntryUI.ProposalEntryUI, { key: index, index: index, last: index == shownProposals.length - 1, proposal: proposal, rankingScore: rankingScores[proposal._id], columnType: type });
@@ -12074,33 +11834,30 @@ var ProposalsColumn = function (_BaseComponent2) {
         }
     }]);
 
-    return ProposalsColumn;
+    return ProposalsColumn_NC;
 }(_reactVextensions.BaseComponent);
-exports.ProposalsColumn = ProposalsColumn = __decorate([(0, _FirebaseConnect.Connect)(function (state, _ref2) {
-    var type = _ref2.type;
-    return {
-        userData: ((0, _DatabaseHelpers.GetData)("userData") || {}).Props().filter(function (a) {
-            return a.value != null;
-        }).ToMap(function (a) {
-            return a.name;
-        }, function (a) {
-            return a.value;
-        }),
-        showCompleted: (0, _General.State)("proposals/" + type + "s_showCompleted")
-    };
-}), _reactVextensions.ApplyBasicStyles], ProposalsColumn);
-exports.ProposalsColumn = ProposalsColumn;
+exports.ProposalsColumn_NC = ProposalsColumn_NC = __decorate([_reactVextensions.ApplyBasicStyles], ProposalsColumn_NC);
+exports.ProposalsColumn_NC = ProposalsColumn_NC;
+var ProposalsUserRankingColumn = exports.ProposalsUserRankingColumn = void 0;
+_Manager.manager.onPopulated.then(function () {
+    exports.ProposalsUserRankingColumn = ProposalsUserRankingColumn = _Manager.manager.Connect(function (state, _ref3) {
+        _objectDestructuringEmpty(_ref3);
 
-var ProposalsUserRankingColumn = function (_BaseComponent3) {
-    _inherits(ProposalsUserRankingColumn, _BaseComponent3);
+        return {
+            proposalOrder: (0, _index.GetProposalOrder)(_Manager.manager.GetUserID())
+        };
+    })(ProposalsUserRankingColumn_NC);
+});
+var ProposalsUserRankingColumn_NC = function (_BaseComponent3) {
+    _inherits(ProposalsUserRankingColumn_NC, _BaseComponent3);
 
-    function ProposalsUserRankingColumn() {
-        _classCallCheck(this, ProposalsUserRankingColumn);
+    function ProposalsUserRankingColumn_NC() {
+        _classCallCheck(this, ProposalsUserRankingColumn_NC);
 
-        return _possibleConstructorReturn(this, (ProposalsUserRankingColumn.__proto__ || Object.getPrototypeOf(ProposalsUserRankingColumn)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (ProposalsUserRankingColumn_NC.__proto__ || Object.getPrototypeOf(ProposalsUserRankingColumn_NC)).apply(this, arguments));
     }
 
-    _createClass(ProposalsUserRankingColumn, [{
+    _createClass(ProposalsUserRankingColumn_NC, [{
         key: "render",
         value: function render() {
             var _props3 = this.props,
@@ -12111,7 +11868,7 @@ var ProposalsUserRankingColumn = function (_BaseComponent3) {
                 isOver = _props4.isOver,
                 draggedItem = _props4.draggedItem;
 
-            var user = _Manager.Manager.GetUser(_Manager.Manager.GetUserID());
+            var user = _Manager.manager.GetUser(_Manager.manager.GetUserID());
             var proposalOrder_uncompleted = GetIncompleteProposalsInOrder(proposalOrder, proposals);
             proposals = proposals.filter(function (a) {
                 return proposalOrder.Contains(a._id);
@@ -12125,15 +11882,9 @@ var ProposalsUserRankingColumn = function (_BaseComponent3) {
         }
     }]);
 
-    return ProposalsUserRankingColumn;
+    return ProposalsUserRankingColumn_NC;
 }(_reactVextensions.BaseComponent);
-exports.ProposalsUserRankingColumn = ProposalsUserRankingColumn = __decorate([(0, _FirebaseConnect.Connect)(function (state, _ref3) {
-    _objectDestructuringEmpty(_ref3);
-
-    return {
-        proposalOrder: (0, _index.GetProposalOrder)(_Manager.Manager.GetUserID())
-    };
-}), (0, _reactDnd.DropTarget)("proposal", {
+exports.ProposalsUserRankingColumn_NC = ProposalsUserRankingColumn_NC = __decorate([(0, _reactDnd.DropTarget)("proposal", {
     canDrop: function canDrop(props, monitor) {
         var draggedEntry = monitor.getItem().proposal;
         var dropOnEntry = props.proposal,
@@ -12144,9 +11895,9 @@ exports.ProposalsUserRankingColumn = ProposalsUserRankingColumn = __decorate([(0
     },
     drop: function drop(props, monitor, dropTarget) {
         if (monitor.didDrop()) return;
-        if (_Manager.Manager.GetUserID() == null) return void _Manager.Manager.ShowSignInPopup();
+        if (_Manager.manager.GetUserID() == null) return void _Manager.manager.ShowSignInPopup();
         var draggedItem = monitor.getItem();
-        new _SetProposalOrder2.default({ proposalID: draggedItem.proposal._id, userID: _Manager.Manager.GetUserID(), index: Number.MAX_SAFE_INTEGER }).Run();
+        new _SetProposalOrder2.default({ proposalID: draggedItem.proposal._id, userID: _Manager.manager.GetUserID(), index: Number.MAX_SAFE_INTEGER }).Run();
     }
 }, function (connect, monitor) {
     //var dropTarget = monitor.GetTargetComponent();
@@ -12162,8 +11913,8 @@ exports.ProposalsUserRankingColumn = ProposalsUserRankingColumn = __decorate([(0
         isOver: isOver_shallow,
         draggedItem: monitor.getItem()
     };
-}), _reactVextensions.ApplyBasicStyles], ProposalsUserRankingColumn);
-exports.ProposalsUserRankingColumn = ProposalsUserRankingColumn;
+}), _reactVextensions.ApplyBasicStyles], ProposalsUserRankingColumn_NC);
+exports.ProposalsUserRankingColumn_NC = ProposalsUserRankingColumn_NC;
 
 /***/ }),
 /* 100 */
@@ -20504,7 +20255,7 @@ var Command = exports.Command = function () {
     function Command(payload) {
         _classCallCheck(this, Command);
 
-        this.userInfo = { id: _Manager.Manager.GetUserID() }; // temp
+        this.userInfo = { id: _Manager.manager.GetUserID() }; // temp
         this.type = this.constructor.name;
         this.payload = payload;
         //this.Extend(payload);
@@ -20566,7 +20317,7 @@ var Command = exports.Command = function () {
                                 //await store.firebase.helpers.ref(DBPath("")).update(dbUpdates);
 
                                 _context2.next = 16;
-                                return _Manager.Manager.ApplyDBUpdates((0, _DatabaseHelpers.DBPath)(""), dbUpdates);
+                                return _Manager.manager.ApplyDBUpdates((0, _DatabaseHelpers.DBPath)(), dbUpdates);
 
                             case 16:
                                 (0, _Logging.MaybeLog)(function (a) {
@@ -20783,22 +20534,6 @@ function MergeDBUpdates(baseUpdatesMap, updatesToMergeMap) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Connect = Connect;
-function Connect(funcOrFuncGetter) {
-    //return Manager.FirebaseConnect(funcOrFuncGetter);
-    return window["FirebaseConnect"](funcOrFuncGetter);
-}
-
-/***/ }),
-/* 254 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 exports.VDragLayer = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -20813,7 +20548,7 @@ var _reactDnd = __webpack_require__(101);
 
 var _reactVextensions = __webpack_require__(249);
 
-var _ProposalEntryUI = __webpack_require__(255);
+var _ProposalEntryUI = __webpack_require__(254);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20882,7 +20617,7 @@ exports.VDragLayer = VDragLayer = __decorate([(0, _reactDnd.DragLayer)(function 
 exports.VDragLayer = VDragLayer;
 
 /***/ }),
-/* 255 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20891,7 +20626,7 @@ exports.VDragLayer = VDragLayer;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.ProposalEntryUI = undefined;
+exports.ProposalEntryUI_NC = exports.ProposalEntryUI = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -20917,8 +20652,6 @@ var _SetProposalOrder2 = _interopRequireDefault(_SetProposalOrder);
 
 var _proposals = __webpack_require__(8);
 
-var _FirebaseConnect = __webpack_require__(253);
-
 var _Proposals = __webpack_require__(99);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -20937,17 +20670,25 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
         if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var ProposalEntryUI = exports.ProposalEntryUI = void 0;
+_Manager.manager.onPopulated.then(function () {
+    exports.ProposalEntryUI = ProposalEntryUI = _Manager.manager.Connect(function (state, _ref) {
+        var proposal = _ref.proposal;
+        return {
+            creator: proposal && _Manager.manager.GetUser(proposal.creator)
+        };
+    })(ProposalEntryUI_NC);
+});
+var ProposalEntryUI_NC = function (_BaseComponent) {
+    _inherits(ProposalEntryUI_NC, _BaseComponent);
 
-var ProposalEntryUI = ProposalEntryUI_1 = function (_BaseComponent) {
-    _inherits(ProposalEntryUI, _BaseComponent);
+    function ProposalEntryUI_NC() {
+        _classCallCheck(this, ProposalEntryUI_NC);
 
-    function ProposalEntryUI() {
-        _classCallCheck(this, ProposalEntryUI);
-
-        return _possibleConstructorReturn(this, (ProposalEntryUI.__proto__ || Object.getPrototypeOf(ProposalEntryUI)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (ProposalEntryUI_NC.__proto__ || Object.getPrototypeOf(ProposalEntryUI_NC)).apply(this, arguments));
     }
 
-    _createClass(ProposalEntryUI, [{
+    _createClass(ProposalEntryUI_NC, [{
         key: "ShouldDropBefore",
 
         //newPos_midY;
@@ -21006,14 +20747,14 @@ var ProposalEntryUI = ProposalEntryUI_1 = function (_BaseComponent) {
             var shouldDropBefore = this.state.shouldDropBefore;
 
             if (isDragging && columnType == "userRanking") return _react2.default.createElement("div", null);
-            var dragPreviewUI = columnType == "userRanking" && isOver && !asDragPreview && _react2.default.createElement(ProposalEntryUI_1, { proposal: draggedItem.proposal, orderIndex: orderIndex, index: index, last: false, columnType: columnType, style: { opacity: .3, borderRadius: 10 }, asDragPreview: true });
+            var dragPreviewUI = columnType == "userRanking" && isOver && !asDragPreview && _react2.default.createElement(ProposalEntryUI, { proposal: draggedItem.proposal, orderIndex: orderIndex, index: index, last: false, columnType: columnType, style: { opacity: .3, borderRadius: 10 }, asDragPreview: true });
             var toURL = new _jsVextensions.VURL(null, ["proposals", proposal._id + ""]);
             return connectDragSource(connectDropTarget(_react2.default.createElement("div", null, shouldDropBefore && dragPreviewUI, _react2.default.createElement(_reactVcomponents.Column, { ref: function ref(c) {
                     return _this3.innerRoot = c;
-                }, p: "7px 10px", style: E({ background: index % 2 == 0 ? "rgba(30,30,30,.7)" : "rgba(0,0,0,.7)" }, last && { borderRadius: "0 0 10px 10px" }, style) }, _react2.default.createElement(_reactVcomponents.Row, null, _react2.default.createElement(_Manager.Manager.Link, { text: proposal.title, actions: function actions(d) {
+                }, p: "7px 10px", style: E({ background: index % 2 == 0 ? "rgba(30,30,30,.7)" : "rgba(0,0,0,.7)" }, last && { borderRadius: "0 0 10px 10px" }, style) }, _react2.default.createElement(_reactVcomponents.Row, null, _react2.default.createElement(_Manager.manager.Link, { text: proposal.title, actions: function actions(d) {
                     return d(new _proposals.ACTProposalSelect({ id: proposal._id }));
                 }, style: ES({ fontSize: "15px", flex: 1 }) }), _react2.default.createElement("span", { style: { float: "right" } }, columnType == "userRanking" ? "#" + (index + 1) + (proposal.completedAt ? " (✔️)" : " (+" + (0, _Proposals.GetRankingScoreToAddForUserRankingIndex)(orderIndex).RoundTo_Str(.001, null, false) + ")") : proposal.completedAt ? "✔️" : rankingScore ? rankingScore.RoundTo_Str(.001, null, false) : ""), columnType == "userRanking" && !asDragPreview && _react2.default.createElement(_reactVcomponents.Button, { text: "X", style: { margin: "-3px 0 -3px 5px", padding: "3px 5px" }, onClick: function onClick() {
-                    new _SetProposalOrder2.default({ proposalID: proposal._id, userID: _Manager.Manager.GetUserID(), index: -1 }).Run();
+                    new _SetProposalOrder2.default({ proposalID: proposal._id, userID: _Manager.manager.GetUserID(), index: -1 }).Run();
                 } }))), !shouldDropBefore && dragPreviewUI)));
         }
     }, {
@@ -21027,11 +20768,11 @@ var ProposalEntryUI = ProposalEntryUI_1 = function (_BaseComponent) {
         }
     }]);
 
-    return ProposalEntryUI;
+    return ProposalEntryUI_NC;
 }(_reactVextensions.BaseComponent);
-exports.ProposalEntryUI = ProposalEntryUI = ProposalEntryUI_1 = __decorate([(0, _reactDnd.DragSource)("proposal", { beginDrag: function beginDrag(_ref) {
-        var proposal = _ref.proposal,
-            columnType = _ref.columnType;
+exports.ProposalEntryUI_NC = ProposalEntryUI_NC = __decorate([(0, _reactDnd.DragSource)("proposal", { beginDrag: function beginDrag(_ref2) {
+        var proposal = _ref2.proposal,
+            columnType = _ref2.columnType;
         return { proposal: proposal, columnType: columnType };
     } }, function (connect, monitor) {
     return {
@@ -21052,7 +20793,7 @@ exports.ProposalEntryUI = ProposalEntryUI = ProposalEntryUI_1 = __decorate([(0, 
     },
     drop: function drop(props, monitor, dropTarget) {
         if (monitor.didDrop()) return;
-        if (_Manager.Manager.GetUserID() == null) return void _Manager.Manager.ShowSignInPopup();
+        if (_Manager.manager.GetUserID() == null) return void _Manager.manager.ShowSignInPopup();
         var draggedItem = monitor.getItem();
         var dropOnProposal = props.proposal,
             columnType = props.columnType;
@@ -21060,7 +20801,7 @@ exports.ProposalEntryUI = ProposalEntryUI = ProposalEntryUI_1 = __decorate([(0, 
         var dropBefore = (0, _reactVextensions.GetInnerComp)(dropTarget).ShouldDropBefore();
         var newIndex = dropBefore ? props.index : props.index + 1;
         //if (draggedItem.columnType != "userRanking" && columnType == "userRanking") {
-        new _SetProposalOrder2.default({ proposalID: draggedItem.proposal._id, userID: _Manager.Manager.GetUserID(), index: newIndex }).Run();
+        new _SetProposalOrder2.default({ proposalID: draggedItem.proposal._id, userID: _Manager.manager.GetUserID(), index: newIndex }).Run();
     }
 }, function (connect, monitor) {
     return {
@@ -21068,18 +20809,11 @@ exports.ProposalEntryUI = ProposalEntryUI = ProposalEntryUI_1 = __decorate([(0, 
         isOver: monitor.isOver(),
         draggedItem: monitor.getItem()
     };
-}), (0, _FirebaseConnect.Connect)(function (state, _ref2) {
-    var proposal = _ref2.proposal;
-    return {
-        creator: proposal && _Manager.Manager.GetUser(proposal.creator)
-    };
-})], ProposalEntryUI);
-exports.ProposalEntryUI = ProposalEntryUI;
-
-var ProposalEntryUI_1;
+})], ProposalEntryUI_NC);
+exports.ProposalEntryUI_NC = ProposalEntryUI_NC;
 
 /***/ }),
-/* 256 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21104,13 +20838,13 @@ var _reactVcomponents = __webpack_require__(248);
 
 var _reactVextensions = __webpack_require__(249);
 
-var _reactVmarkdown = __webpack_require__(257);
+var _reactVmarkdown = __webpack_require__(256);
 
-var _reactVmessagebox = __webpack_require__(259);
+var _reactVmessagebox = __webpack_require__(258);
 
 var _2 = __webpack_require__(1);
 
-var _AddProposal = __webpack_require__(260);
+var _AddProposal = __webpack_require__(259);
 
 var _proposals = __webpack_require__(8);
 
@@ -21191,7 +20925,7 @@ var ProposalDetailsUI = exports.ProposalDetailsUI = function (_BaseComponent) {
                     return Change(newData.title = val);
                 } })), _react2.default.createElement(_reactVcomponents.Row, { mt: 5 }, "Text:"), _react2.default.createElement(_reactVcomponents.Row, { mt: 5 }, _react2.default.createElement(_reactVcomponents.Column, { style: { width: "100%" } }, enabled && _react2.default.createElement(_reactVmarkdown.MarkdownToolbar, { editor: function editor() {
                     return _this2.refs.editor;
-                } }, _react2.default.createElement(_2.Manager.Link, { to: "https://guides.github.com/features/mastering-markdown", style: { marginLeft: 10 } }, "How to add links, images, etc.")), _react2.default.createElement(_reactVmarkdown.MarkdownEditor, { ref: "editor", toolbar: false, value: newData.text || "", onChange: function onChange(val) {
+                } }, _react2.default.createElement(_2.manager.Link, { to: "https://guides.github.com/features/mastering-markdown", style: { marginLeft: 10 } }, "How to add links, images, etc.")), _react2.default.createElement(_reactVmarkdown.MarkdownEditor, { ref: "editor", toolbar: false, value: newData.text || "", onChange: function onChange(val) {
                     return Change(newData.text = val);
                 }, options: E({
                     scrollbarStyle: "overlay",
@@ -21264,7 +20998,7 @@ function ShowAddProposalDialog(userID, type) {
 }
 
 /***/ }),
-/* 257 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35909,7 +35643,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     /* 23 */
     /***/function (module, exports) {
 
-      module.exports = __webpack_require__(258);
+      module.exports = __webpack_require__(257);
 
       /***/
     }]
@@ -35919,19 +35653,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(25)(module)))
 
 /***/ }),
-/* 258 */
+/* 257 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom");
 
 /***/ }),
-/* 259 */
+/* 258 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-vmessagebox");
 
 /***/ }),
-/* 260 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36062,7 +35796,7 @@ var AddProposal = exports.AddProposal = function (_Command) {
 }(_Command2.Command);
 
 /***/ }),
-/* 261 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36071,11 +35805,9 @@ var AddProposal = exports.AddProposal = function (_Command) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.ProposalUI = undefined;
+exports.ProposalUI_Inner_NC = exports.ProposalUI_Inner = exports.ProposalUI = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _react = __webpack_require__(100);
 
@@ -36085,7 +35817,7 @@ var _reactVcomponents = __webpack_require__(248);
 
 var _reactVextensions = __webpack_require__(249);
 
-var _reactVmessagebox = __webpack_require__(259);
+var _reactVmessagebox = __webpack_require__(258);
 
 var _reactVscrollview = __webpack_require__(250);
 
@@ -36093,19 +35825,17 @@ var _General = __webpack_require__(4);
 
 var _Manager = __webpack_require__(2);
 
-var _DeleteProposal = __webpack_require__(262);
+var _DeleteProposal = __webpack_require__(261);
 
-var _UpdateProposal = __webpack_require__(263);
+var _UpdateProposal = __webpack_require__(262);
 
 var _proposals = __webpack_require__(8);
 
 var _DatabaseHelpers = __webpack_require__(10);
 
-var _FirebaseConnect = __webpack_require__(253);
+var _GlobalStyles = __webpack_require__(263);
 
-var _GlobalStyles = __webpack_require__(264);
-
-var _ProposalDetailsUI = __webpack_require__(256);
+var _ProposalDetailsUI = __webpack_require__(255);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36115,14 +35845,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-    var c = arguments.length,
-        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-        d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) {
@@ -36167,7 +35889,7 @@ var ProposalUI = exports.ProposalUI = function (_BaseComponent) {
                 proposal = _props.proposal,
                 subNavBarWidth = _props.subNavBarWidth;
 
-            var userID = _Manager.Manager.GetUserID();
+            var userID = _Manager.manager.GetUserID();
             if (proposal == null) {
                 return _react2.default.createElement("div", { style: ES({ display: "flex", alignItems: "center", justifyContent: "center", flex: 1, fontSize: "25px" }) }, "Loading proposal...");
             }
@@ -36180,16 +35902,26 @@ var ProposalUI = exports.ProposalUI = function (_BaseComponent) {
 }(_reactVextensions.BaseComponent);
 
 ProposalUI.defaultProps = { subNavBarWidth: 0 };
-var ProposalUI_Inner = function (_BaseComponent2) {
-    _inherits(ProposalUI_Inner, _BaseComponent2);
+var ProposalUI_Inner = exports.ProposalUI_Inner = void 0;
+_Manager.manager.onPopulated.then(function () {
+    exports.ProposalUI_Inner = ProposalUI_Inner = _Manager.manager.Connect(function (state, _ref) {
+        var proposal = _ref.proposal;
+        return {
+            creator: _Manager.manager.GetUser(proposal.creator)
+        };
+    })(ProposalUI_Inner_NC);
+});
 
-    function ProposalUI_Inner() {
-        _classCallCheck(this, ProposalUI_Inner);
+var ProposalUI_Inner_NC = exports.ProposalUI_Inner_NC = function (_BaseComponent2) {
+    _inherits(ProposalUI_Inner_NC, _BaseComponent2);
 
-        return _possibleConstructorReturn(this, (ProposalUI_Inner.__proto__ || Object.getPrototypeOf(ProposalUI_Inner)).apply(this, arguments));
+    function ProposalUI_Inner_NC() {
+        _classCallCheck(this, ProposalUI_Inner_NC);
+
+        return _possibleConstructorReturn(this, (ProposalUI_Inner_NC.__proto__ || Object.getPrototypeOf(ProposalUI_Inner_NC)).apply(this, arguments));
     }
 
-    _createClass(ProposalUI_Inner, [{
+    _createClass(ProposalUI_Inner_NC, [{
         key: "render",
         value: function render() {
             var _this3 = this;
@@ -36244,8 +35976,8 @@ var ProposalUI_Inner = function (_BaseComponent2) {
                         }));
                     } })));
             }
-            var creatorOrMod = (0, _General.IsUserCreatorOrMod)(_Manager.Manager.GetUserID(), proposal);
-            return _react2.default.createElement(_reactVcomponents.Row, { sel: true, style: { flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, alignItems: "initial", cursor: "auto" } }, _react2.default.createElement(_reactVcomponents.Column, { p: 10, style: ES({ flex: 1 }) }, _react2.default.createElement(_reactVcomponents.Row, { style: { width: "100%", fontSize: "18px", textAlign: "center" } }, proposal.title), _react2.default.createElement(_reactVcomponents.Row, { mt: 10, style: { width: "100%" } }, _react2.default.createElement(_Manager.Manager.MarkdownRenderer, { source: proposal.text })), _react2.default.createElement(_reactVcomponents.Row, { mt: 5 }, _react2.default.createElement("span", { style: { color: "rgba(255,255,255,.5)" } }, creator ? creator.displayName : "...", ", at ", _Manager.Manager.FormatTime(proposal.createdAt, "YYYY-MM-DD HH:mm:ss")), creatorOrMod && _react2.default.createElement(_reactVcomponents.Button, { ml: 5, text: "Edit", onClick: function onClick() {
+            var creatorOrMod = (0, _General.IsUserCreatorOrMod)(_Manager.manager.GetUserID(), proposal);
+            return _react2.default.createElement(_reactVcomponents.Row, { sel: true, style: { flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, alignItems: "initial", cursor: "auto" } }, _react2.default.createElement(_reactVcomponents.Column, { p: 10, style: ES({ flex: 1 }) }, _react2.default.createElement(_reactVcomponents.Row, { style: { width: "100%", fontSize: "18px", textAlign: "center" } }, proposal.title), _react2.default.createElement(_reactVcomponents.Row, { mt: 10, style: { width: "100%" } }, _react2.default.createElement(_Manager.manager.MarkdownRenderer, { source: proposal.text })), _react2.default.createElement(_reactVcomponents.Row, { mt: 5 }, _react2.default.createElement("span", { style: { color: "rgba(255,255,255,.5)" } }, creator ? creator.displayName : "...", ", at ", _Manager.manager.FormatTime(proposal.createdAt, "YYYY-MM-DD HH:mm:ss")), creatorOrMod && _react2.default.createElement(_reactVcomponents.Button, { ml: 5, text: "Edit", onClick: function onClick() {
                     _this3.SetState({ editing: true });
                 } }), creatorOrMod && _react2.default.createElement(_reactVcomponents.Button, { ml: 5, text: "Delete", onClick: function onClick() {
                     (0, _reactVmessagebox.ShowMessageBox)({
@@ -36269,20 +36001,14 @@ var ProposalUI_Inner = function (_BaseComponent2) {
                             }));
                         }
                     });
-                } }), proposal.editedAt && _react2.default.createElement(_reactVcomponents.Span, { ml: "auto", style: { color: "rgba(255,255,255,.5)" } }, proposal.text != null ? "edited" : "deleted", " at ", _Manager.Manager.FormatTime(proposal.editedAt, "YYYY-MM-DD HH:mm:ss")), _react2.default.createElement(_reactVcomponents.CheckBox, { ml: "auto", mr: 5, text: "Completed", checked: proposal.completedAt != null, enabled: (0, _General.IsUserAdmin)(_Manager.Manager.GetUserID()), onChange: function onChange(val) {
+                } }), proposal.editedAt && _react2.default.createElement(_reactVcomponents.Span, { ml: "auto", style: { color: "rgba(255,255,255,.5)" } }, proposal.text != null ? "edited" : "deleted", " at ", _Manager.manager.FormatTime(proposal.editedAt, "YYYY-MM-DD HH:mm:ss")), _react2.default.createElement(_reactVcomponents.CheckBox, { ml: "auto", mr: 5, text: "Completed", checked: proposal.completedAt != null, enabled: (0, _General.IsUserAdmin)(_Manager.manager.GetUserID()), onChange: function onChange(val) {
                     new _UpdateProposal.UpdateProposal({ id: proposal._id, updates: { completedAt: proposal.completedAt == null ? Date.now() : null } }).Run();
                 } }))));
         }
     }]);
 
-    return ProposalUI_Inner;
+    return ProposalUI_Inner_NC;
 }(_reactVextensions.BaseComponent);
-ProposalUI_Inner = __decorate([(0, _FirebaseConnect.Connect)(function (state, _ref) {
-    var proposal = _ref.proposal;
-    return {
-        creator: _Manager.Manager.GetUser(proposal.creator)
-    };
-})], ProposalUI_Inner);
 
 var ActionBar_Left = function (_BaseComponent3) {
     _inherits(ActionBar_Left, _BaseComponent3);
@@ -36323,7 +36049,7 @@ class DetailsDropdown extends BaseComponent<DetailsDropdownProps, {dataError: st
         let {proposal, posts} = this.props;
         let {dataError} = this.state;
         
-        let creatorOrMod = IsUserCreatorOrMod(Manager.GetUserID(), proposal);
+        let creatorOrMod = IsUserCreatorOrMod(manager.GetUserID(), proposal);
         return (
             <DropDown>
                 <DropDownTrigger>
@@ -36347,7 +36073,7 @@ class DetailsDropdown extends BaseComponent<DetailsDropdownProps, {dataError: st
                             <Column mt={10}>
                                 <Row style={{fontWeight: "bold"}}>Advanced:</Row>
                                 <Row mt={5}>
-                                    <Button text="Delete" enabled={posts.filter(a=>a.creator != Manager.GetUserID() && a.text).length <= 1} onLeftClick={async ()=> {
+                                    <Button text="Delete" enabled={posts.filter(a=>a.creator != manager.GetUserID() && a.text).length <= 1} onLeftClick={async ()=> {
                                         /*let posts = await GetAsync(()=>GetProposalPosts(proposal));
                                         if (posts.length > 1) {
                                             return void ShowMessageBox({title: `Still has posts`,
@@ -36403,7 +36129,7 @@ var ActionBar_Right = function (_BaseComponent4) {
 }(_reactVextensions.BaseComponent);
 
 /***/ }),
-/* 262 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36697,7 +36423,7 @@ var DeleteProposal = exports.DeleteProposal = function (_Command) {
 }(_Command2.Command);
 
 /***/ }),
-/* 263 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36835,7 +36561,7 @@ var UpdateProposal = exports.UpdateProposal = function (_Command) {
 }(_Command2.Command);
 
 /***/ }),
-/* 264 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36867,7 +36593,7 @@ function ES() {
 }
 
 /***/ }),
-/* 265 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
@@ -36875,7 +36601,7 @@ function ES() {
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(266));
+    mod(__webpack_require__(265));
   else {}
 })(function(CodeMirror) {
   "use strict";
@@ -37022,7 +36748,7 @@ function ES() {
 
 
 /***/ }),
-/* 266 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // CodeMirror, copyright (c) by Marijn Haverbeke and others

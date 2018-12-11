@@ -3,15 +3,22 @@ import React from "react";
 import {DragSource, DropTarget} from "react-dnd";
 import {Button, Column, Row} from "react-vcomponents";
 import {BaseComponent, GetDOM, GetInnerComp} from "react-vextensions";
-import {Manager} from "../../Manager";
+import {Manager, manager} from "../../Manager";
 import SetProposalOrder from "../../Server/Commands/SetProposalOrder";
 import {ACTProposalSelect} from "../../Store/main/proposals";
-import {Connect} from "../../Utils/Database/FirebaseConnect";
 import {GetRankingScoreToAddForUserRankingIndex} from "../Proposals";
 import {Proposal} from "./../../Store/firebase/proposals/@Proposal";
 
 export type ProposalEntryUI_Props = {index: number, last: boolean, proposal: Proposal, orderIndex?: number, rankingScore?: number, columnType: string, asDragPreview?: boolean, style?}
 	& Partial<{creator: User, /*posts: Post[]*/}>;
+
+export let ProposalEntryUI: typeof ProposalEntryUI_NC;
+manager.onPopulated.then(()=> {
+	ProposalEntryUI = manager.Connect((state, {proposal})=> ({
+		creator: proposal && manager.GetUser(proposal.creator),
+		//posts: proposal && GetProposalPosts(proposal),
+	}))(ProposalEntryUI_NC);
+});
 
 @DragSource("proposal",
 	{beginDrag: ({proposal, columnType})=>({proposal, columnType})},
@@ -32,7 +39,7 @@ export type ProposalEntryUI_Props = {index: number, last: boolean, proposal: Pro
 	},
 	drop(props, monitor, dropTarget) {
 		if (monitor.didDrop()) return;
-		if (Manager.GetUserID() == null) return void Manager.ShowSignInPopup();
+		if (manager.GetUserID() == null) return void manager.ShowSignInPopup();
 
 		var draggedItem = monitor.getItem();
 		var {proposal: dropOnProposal, columnType} = props;
@@ -41,7 +48,7 @@ export type ProposalEntryUI_Props = {index: number, last: boolean, proposal: Pro
 		let newIndex = dropBefore ? props.index : props.index + 1;
 
 		//if (draggedItem.columnType != "userRanking" && columnType == "userRanking") {
-		new SetProposalOrder({proposalID: draggedItem.proposal._id, userID: Manager.GetUserID(), index: newIndex}).Run();
+		new SetProposalOrder({proposalID: draggedItem.proposal._id, userID: manager.GetUserID(), index: newIndex}).Run();
 	}
 },
 (connect, monitor)=> {
@@ -51,12 +58,7 @@ export type ProposalEntryUI_Props = {index: number, last: boolean, proposal: Pro
 		draggedItem: monitor.getItem(),
 	};
 })
-
-@Connect((state, {proposal})=> ({
-	creator: proposal && Manager.GetUser(proposal.creator),
-	//posts: proposal && GetProposalPosts(proposal),
-}))
-export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {shouldDropBefore: boolean}> {
+export class ProposalEntryUI_NC extends BaseComponent<ProposalEntryUI_Props, {shouldDropBefore: boolean}> {
 	//newPos_midY;
 	ShouldDropBefore() {
 		//var mousePos = monitor.getClientOffset().y;
@@ -108,7 +110,7 @@ export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {shoul
 				style,
 			)}>
 				<Row>
-					<Manager.Link text={proposal.title} actions={d=>d(new ACTProposalSelect({id: proposal._id}))} style={ES({fontSize: "15px", flex: 1})}/>
+					<manager.Link text={proposal.title} actions={d=>d(new ACTProposalSelect({id: proposal._id}))} style={ES({fontSize: "15px", flex: 1})}/>
 					<span style={{float: "right"}}>
 						{columnType == "userRanking"
 							? "#" + (index + 1) + (proposal.completedAt ? " (✔️)" : ` (+${GetRankingScoreToAddForUserRankingIndex(orderIndex).RoundTo_Str(.001, null, false)})`)
@@ -116,7 +118,7 @@ export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {shoul
 					</span>
 					{columnType == "userRanking" && !asDragPreview &&
 						<Button text="X" style={{margin: "-3px 0 -3px 5px", padding: "3px 5px"}} onClick={()=> {
-							new SetProposalOrder({proposalID: proposal._id, userID: Manager.GetUserID(), index: -1}).Run();
+							new SetProposalOrder({proposalID: proposal._id, userID: manager.GetUserID(), index: -1}).Run();
 						}}/>}
 				</Row>
 			</Column>

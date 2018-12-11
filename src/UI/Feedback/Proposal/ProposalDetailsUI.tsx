@@ -4,7 +4,7 @@ import { Column, Pre, Row, RowLR, TextInput } from "react-vcomponents";
 import { BaseComponent, GetInnerComp } from "react-vextensions";
 import { MarkdownEditor, MarkdownToolbar } from "react-vmarkdown";
 import { BoxController, ShowMessageBox } from "react-vmessagebox";
-import { Manager } from "../../..";
+import { Manager, manager } from "../../..";
 import { AddProposal } from "../../../Server/Commands/AddProposal";
 import { ACTProposalSelect } from "../../../Store/main/proposals";
 import { Proposal } from "./../../../Store/firebase/proposals/@Proposal";
@@ -45,7 +45,7 @@ export class ProposalDetailsUI extends BaseComponent<ProposalDetailsUI_Props, {n
 					<Column style={{width: "100%"}}>
 						{enabled &&
 							<MarkdownToolbar editor={()=>this.refs.editor}>
-								<Manager.Link to="https://guides.github.com/features/mastering-markdown" style={{marginLeft: 10}}>How to add links, images, etc.</Manager.Link>
+								<manager.Link to="https://guides.github.com/features/mastering-markdown" style={{marginLeft: 10}}>How to add links, images, etc.</manager.Link>
 							</MarkdownToolbar>}
 						<MarkdownEditor ref="editor" toolbar={false} value={newData.text || ""} onChange={val=>Change(newData.text = val)}
 							options={E({

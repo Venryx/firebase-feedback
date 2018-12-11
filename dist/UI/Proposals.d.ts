@@ -6,7 +6,8 @@ export declare type ProposalsUI_Props = {
     proposals: Proposal[];
     selectedProposal: Proposal;
 }>;
-export declare class ProposalsUI extends BaseComponent<ProposalsUI_Props, {}> {
+export declare let ProposalsUI: typeof ProposalsUI_NC;
+export declare class ProposalsUI_NC extends BaseComponent<ProposalsUI_Props, {}> {
     static defaultProps: {
         subNavBarWidth: number;
     };
@@ -20,7 +21,8 @@ export declare type ProposalsColumn_Props = {
     userData;
     showCompleted: boolean;
 }>;
-export declare class ProposalsColumn extends BaseComponent<ProposalsColumn_Props, {}> {
+export declare let ProposalsColumn: typeof ProposalsColumn_NC;
+export declare class ProposalsColumn_NC extends BaseComponent<ProposalsColumn_Props, {}> {
     render(): JSX.Element;
 }
 export declare type ProposalsUserRankingColumn_Props = {
@@ -28,6 +30,7 @@ export declare type ProposalsUserRankingColumn_Props = {
 } & Partial<{
     proposalOrder: number[];
 }>;
-export declare class ProposalsUserRankingColumn extends BaseComponent<ProposalsUserRankingColumn_Props, {}> {
+export declare let ProposalsUserRankingColumn: typeof ProposalsUserRankingColumn_NC;
+export declare class ProposalsUserRankingColumn_NC extends BaseComponent<ProposalsUserRankingColumn_Props, {}> {
     render(): any;
 }

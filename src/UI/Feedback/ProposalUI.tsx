@@ -4,12 +4,11 @@ import { BaseComponent, GetInnerComp } from "react-vextensions";
 import { ShowMessageBox } from "react-vmessagebox";
 import { ScrollView } from "react-vscrollview";
 import { IsUserAdmin, IsUserCreatorOrMod } from "../../General";
-import { Manager } from "../../Manager";
+import { Manager, manager } from "../../Manager";
 import { DeleteProposal } from "../../Server/Commands/DeleteProposal";
 import { UpdateProposal } from "../../Server/Commands/UpdateProposal";
 import { ACTProposalSelect } from "../../Store/main/proposals";
 import { GetUpdates } from "../../Utils/Database/DatabaseHelpers";
-import { Connect } from "../../Utils/Database/FirebaseConnect";
 import { colors } from "../GlobalStyles";
 import { Proposal } from "./../../Store/firebase/proposals/@Proposal";
 import { ProposalDetailsUI } from "./Proposal/ProposalDetailsUI";
@@ -22,7 +21,7 @@ export class ProposalUI extends BaseComponent<ProposalUI_Props, {}> {
 	static defaultProps = {subNavBarWidth: 0};
 	render() {
 		let {proposal, subNavBarWidth} = this.props;
-		let userID = Manager.GetUserID();
+		let userID = manager.GetUserID();
 		
 		if (proposal == null) {
 			return <div style={ES({display: "flex", alignItems: "center", justifyContent: "center", flex: 1, fontSize: "25px"})}>Loading proposal...</div>;
@@ -51,11 +50,14 @@ export class ProposalUI extends BaseComponent<ProposalUI_Props, {}> {
 	}
 }
 
-type ProposalUI_Inner_Props = {proposal: Proposal} & Partial<{creator: User}>;
-@Connect((state, {proposal}: ProposalUI_Inner_Props)=> ({
-	creator: Manager.GetUser(proposal.creator),
-}))
-class ProposalUI_Inner extends BaseComponent<ProposalUI_Inner_Props, {editing: boolean, dataError: string}> {
+export type ProposalUI_Inner_Props = {proposal: Proposal} & Partial<{creator: User}>;
+export let ProposalUI_Inner: typeof ProposalUI_Inner_NC;
+manager.onPopulated.then(()=> {
+	ProposalUI_Inner = manager.Connect((state, {proposal}: ProposalUI_Inner_Props)=> ({
+		creator: manager.GetUser(proposal.creator),
+	}))(ProposalUI_Inner_NC);
+});
+export class ProposalUI_Inner_NC extends BaseComponent<ProposalUI_Inner_Props, {editing: boolean, dataError: string}> {
 	editorUI: ProposalDetailsUI;
 	render() {
 		let {proposal, creator} = this.props;
@@ -82,7 +84,7 @@ class ProposalUI_Inner extends BaseComponent<ProposalUI_Inner_Props, {editing: b
 			)
 		}
 
-		let creatorOrMod = IsUserCreatorOrMod(Manager.GetUserID(), proposal);
+		let creatorOrMod = IsUserCreatorOrMod(manager.GetUserID(), proposal);
 		return (
 			<Row sel style={{flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, alignItems: "initial", cursor: "auto"}}>
 				<Column p={10} style={ES({flex: 1})}>
@@ -90,10 +92,10 @@ class ProposalUI_Inner extends BaseComponent<ProposalUI_Inner_Props, {editing: b
 						{proposal.title}
 					</Row>
 					<Row mt={10} style={{width: "100%"}}>
-						<Manager.MarkdownRenderer source={proposal.text}/>
+						<manager.MarkdownRenderer source={proposal.text}/>
 					</Row>
 					<Row mt={5}>
-						<span style={{color: "rgba(255,255,255,.5)"}}>{creator ? creator.displayName : "..."}, at {Manager.FormatTime(proposal.createdAt, "YYYY-MM-DD HH:mm:ss")}</span>
+						<span style={{color: "rgba(255,255,255,.5)"}}>{creator ? creator.displayName : "..."}, at {manager.FormatTime(proposal.createdAt, "YYYY-MM-DD HH:mm:ss")}</span>
 						{creatorOrMod &&
 							<Button ml={5} text="Edit" onClick={()=> {
 								this.SetState({editing: true});
@@ -109,9 +111,9 @@ class ProposalUI_Inner extends BaseComponent<ProposalUI_Inner_Props, {editing: b
 								});
 							}}/>}
 						{proposal.editedAt && <Span ml="auto" style={{color: "rgba(255,255,255,.5)"}}>
-							{proposal.text != null ? "edited" : "deleted"} at {Manager.FormatTime(proposal.editedAt, "YYYY-MM-DD HH:mm:ss")}
+							{proposal.text != null ? "edited" : "deleted"} at {manager.FormatTime(proposal.editedAt, "YYYY-MM-DD HH:mm:ss")}
 						</Span>}
-						<CheckBox ml="auto" mr={5} text="Completed" checked={proposal.completedAt != null} enabled={IsUserAdmin(Manager.GetUserID())} onChange={val=>{
+						<CheckBox ml="auto" mr={5} text="Completed" checked={proposal.completedAt != null} enabled={IsUserAdmin(manager.GetUserID())} onChange={val=>{
 							new UpdateProposal({id: proposal._id, updates: {completedAt: proposal.completedAt == null ? Date.now() : null}}).Run();
 						}}/>
 					</Row>
@@ -155,7 +157,7 @@ class DetailsDropdown extends BaseComponent<DetailsDropdownProps, {dataError: st
 		let {proposal, posts} = this.props;
 		let {dataError} = this.state;
 		
-		let creatorOrMod = IsUserCreatorOrMod(Manager.GetUserID(), proposal);
+		let creatorOrMod = IsUserCreatorOrMod(manager.GetUserID(), proposal);
 		return (
 			<DropDown>
 				<DropDownTrigger>
@@ -179,7 +181,7 @@ class DetailsDropdown extends BaseComponent<DetailsDropdownProps, {dataError: st
 							<Column mt={10}>
 								<Row style={{fontWeight: "bold"}}>Advanced:</Row>
 								<Row mt={5}>
-									<Button text="Delete" enabled={posts.filter(a=>a.creator != Manager.GetUserID() && a.text).length <= 1} onLeftClick={async ()=> {
+									<Button text="Delete" enabled={posts.filter(a=>a.creator != manager.GetUserID() && a.text).length <= 1} onLeftClick={async ()=> {
 										/*let posts = await GetAsync(()=>GetProposalPosts(proposal));
 										if (posts.length > 1) {
 											return void ShowMessageBox({title: `Still has posts`,

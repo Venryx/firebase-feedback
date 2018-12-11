@@ -14,7 +14,8 @@ export declare type ProposalEntryUI_Props = {
 } & Partial<{
     creator: User;
 }>;
-export declare class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {
+export declare let ProposalEntryUI: typeof ProposalEntryUI_NC;
+export declare class ProposalEntryUI_NC extends BaseComponent<ProposalEntryUI_Props, {
     shouldDropBefore: boolean;
 }> {
     ShouldDropBefore(): boolean;
