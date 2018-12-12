@@ -1,11 +1,6 @@
-import {Assert, GetTreeNodesInObjTree, DeepSet} from "js-vextensions";
-import {helpers, firebaseConnect} from "react-redux-firebase";
-//import {DBPath as DBPath_} from "../../../config/DBVersion";
-import {BaseComponent, ShallowChanged} from "react-vextensions";
-import {watchEvents, unWatchEvents} from "react-redux-firebase/es/actions/query";
-import {getEventsFromInput} from "react-redux-firebase/es/utils";
-import {SplitStringBySlash_Cached} from "./StringSplitCache";
-import { Manager, manager } from "../../index";
+import { Assert, GetTreeNodesInObjTree } from "js-vextensions";
+import { manager } from "../../index";
+import { SplitStringBySlash_Cached } from "./StringSplitCache";
 //export {DBPath};
 
 export function DBPath(path = "", inVersionRoot = true) {

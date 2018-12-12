@@ -639,9 +639,9 @@ exports.GetAsync = GetAsync;
 
 var _jsVextensions = __webpack_require__(11);
 
-var _StringSplitCache = __webpack_require__(12);
-
 var _index = __webpack_require__(1);
+
+var _StringSplitCache = __webpack_require__(12);
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
@@ -20946,7 +20946,7 @@ var ProposalDetailsUI = exports.ProposalDetailsUI = function (_BaseComponent) {
     }, {
         key: "GetValidationError",
         value: function GetValidationError() {
-            return (0, _jsVextensions.GetErrorMessagesUnderElement)(GetDOM(this))[0];
+            return (0, _jsVextensions.GetErrorMessagesUnderElement)((0, _reactVextensions.GetDOM)(this))[0];
         }
     }, {
         key: "GetNewData",

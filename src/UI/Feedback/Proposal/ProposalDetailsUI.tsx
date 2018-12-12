@@ -1,7 +1,7 @@
 import { GetErrorMessagesUnderElement } from "js-vextensions";
 import React from "react";
 import { Column, Pre, Row, RowLR, TextInput } from "react-vcomponents";
-import { BaseComponent, GetInnerComp } from "react-vextensions";
+import { BaseComponent, GetInnerComp, GetDOM } from "react-vextensions";
 import { MarkdownEditor, MarkdownToolbar } from "react-vmarkdown";
 import { BoxController, ShowMessageBox } from "react-vmessagebox";
 import { Manager, manager } from "../../..";
