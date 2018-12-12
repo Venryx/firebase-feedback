@@ -4,7 +4,7 @@ import { BaseComponent, GetInnerComp, BaseComponentWithConnector } from "react-v
 import { ShowMessageBox } from "react-vmessagebox";
 import { ScrollView } from "react-vscrollview";
 import { IsUserAdmin, IsUserCreatorOrMod } from "../../General";
-import { Manager, manager } from "../../Manager";
+import { Manager, manager, OnPopulated } from "../../Manager";
 import { DeleteProposal } from "../../Server/Commands/DeleteProposal";
 import { UpdateProposal } from "../../Server/Commands/UpdateProposal";
 import { ACTProposalSelect } from "../../Store/main/proposals";
@@ -53,7 +53,7 @@ export class ProposalUI extends BaseComponent<ProposalUI_Props, {}> {
 let ProposalUI_Inner_connector = (state, {proposal}: {proposal: Proposal})=> ({
 	creator: manager.GetUser(proposal.creator),
 });
-manager.onPopulated.then(()=>(ProposalUI_Inner as any) = manager.Connect(ProposalUI_Inner_connector)(ProposalUI_Inner));
+OnPopulated(()=>(ProposalUI_Inner as any) = manager.Connect(ProposalUI_Inner_connector)(ProposalUI_Inner));
 export class ProposalUI_Inner extends BaseComponentWithConnector(ProposalUI_Inner_connector, {editing: false, dataError: null as string}) {
 	editorUI: ProposalDetailsUI;
 	render() {

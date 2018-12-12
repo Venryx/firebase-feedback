@@ -7,7 +7,7 @@ import {Button, CheckBox, Column, Row} from "react-vcomponents";
 import {ApplyBasicStyles, BaseComponent, BaseComponentWithConnector} from "react-vextensions";
 import {ScrollView} from "react-vscrollview";
 import {State} from "../General";
-import {manager} from "../Manager";
+import {manager, OnPopulated} from "../Manager";
 import SetProposalOrder from "../Server/Commands/SetProposalOrder";
 import {GetProposals} from "../Store/firebase/proposals";
 import {GetSelectedProposal} from "../Store/main/proposals";
@@ -36,15 +36,23 @@ let ProposalsUI_connector = (state, {}: {subNavBarWidth: number})=> {
 		selectedProposal: GetSelectedProposal(),
 	};
 };
-manager.onPopulated.then(()=>(ProposalsUI as any) = manager.Connect(ProposalsUI_connector)(ProposalsUI));
+let wrapped = false;
+OnPopulated(()=> {
+	(ProposalsUI as any) = manager.Connect(ProposalsUI_connector)(ProposalsUI)
+	wrapped = true;
+});
 //@DragDropContext(HTML5Backend)
 //@DragDropContext(TouchBackend({enableMouseEvents: true}))
 @DragDropContext(MouseBackend)
 export class ProposalsUI extends BaseComponentWithConnector(ProposalsUI_connector, {}) {
+	constructor(props) {
+		Assert(wrapped, "ProposalsUI is being created before the class has been wrapped by Connect()!");
+		super(props);
+	}
+	
 	static defaultProps = {subNavBarWidth: 0};
 	render() {
 		let {proposals, subNavBarWidth, selectedProposal} = this.props;
-		let userID = manager.GetUserID();
 
 		if (selectedProposal) {
 			return <ProposalUI proposal={selectedProposal} subNavBarWidth={subNavBarWidth}/>;
@@ -85,7 +93,7 @@ let ProposalsColumn_connector = (state, {type}: {proposals: Proposal[], type: st
 	userData: (GetData("userData") || {}).Props().filter(a=>a.value != null).ToMap(a=>a.name, a=>a.value),
 	showCompleted: State(`proposals/${type}s_showCompleted`),
 });
-manager.onPopulated.then(()=>(ProposalsColumn as any) = manager.Connect(ProposalsColumn_connector)(ProposalsColumn));
+OnPopulated(()=>(ProposalsColumn as any) = manager.Connect(ProposalsColumn_connector)(ProposalsColumn));
 @ApplyBasicStyles
 export class ProposalsColumn extends BaseComponentWithConnector(ProposalsColumn_connector, {}) {
 	render() {
@@ -158,7 +166,7 @@ export class ProposalsColumn extends BaseComponentWithConnector(ProposalsColumn_
 let ProposalsUserRankingColumn_connector = (state, {}: {proposals: Proposal[]})=> ({
 	proposalOrder: GetProposalOrder(manager.GetUserID()),
 });
-manager.onPopulated.then(()=>(ProposalsUserRankingColumn as any) = manager.Connect(ProposalsUserRankingColumn_connector)(ProposalsUserRankingColumn));
+OnPopulated(()=>(ProposalsUserRankingColumn as any) = manager.Connect(ProposalsUserRankingColumn_connector)(ProposalsUserRankingColumn));
 @DropTarget("proposal", {
 	canDrop(props, monitor) {
 		let draggedEntry = monitor.getItem().proposal;

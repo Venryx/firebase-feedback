@@ -207,9 +207,11 @@ __webpack_require__(264);
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.manager = exports.Manager = exports.PermissionGroupSet = undefined;
+exports.OnPopulated_listeners = exports.manager = exports.Manager = exports.PermissionGroupSet = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+exports.OnPopulated = OnPopulated;
 
 var _Logging = __webpack_require__(3);
 
@@ -221,13 +223,8 @@ var PermissionGroupSet = exports.PermissionGroupSet = function PermissionGroupSe
 
 var Manager = exports.Manager = function () {
     function Manager() {
-        var _this = this;
-
         _classCallCheck(this, Manager);
 
-        this.onPopulated = new Promise(function (resolve, reject) {
-            return _this.onPopulated_resolve = resolve;
-        });
         this.logTypes = new _Logging.LogTypes();
     }
 
@@ -235,7 +232,14 @@ var Manager = exports.Manager = function () {
         key: "Populate",
         value: function Populate(data) {
             this.Extend(data);
-            this.onPopulated_resolve();
+            OnPopulated_listeners.forEach(function (a) {
+                return a();
+            });
+        }
+    }, {
+        key: "store",
+        get: function get() {
+            return this.GetStore();
         }
     }]);
 
@@ -243,6 +247,10 @@ var Manager = exports.Manager = function () {
 }();
 
 var manager = exports.manager = new Manager();
+var OnPopulated_listeners = exports.OnPopulated_listeners = [];
+function OnPopulated(listener) {
+    OnPopulated_listeners.push(listener);
+}
 
 /***/ }),
 /* 3 */
@@ -11663,18 +11671,21 @@ var ProposalsUI_connector = function ProposalsUI_connector(state, _ref) {
         selectedProposal: (0, _proposals2.GetSelectedProposal)()
     };
 };
-_Manager.manager.onPopulated.then(function () {
-    return exports.ProposalsUI = ProposalsUI = _Manager.manager.Connect(ProposalsUI_connector)(ProposalsUI);
+var wrapped = false;
+(0, _Manager.OnPopulated)(function () {
+    exports.ProposalsUI = ProposalsUI = _Manager.manager.Connect(ProposalsUI_connector)(ProposalsUI);
+    wrapped = true;
 });
 //@DragDropContext(HTML5Backend)
 //@DragDropContext(TouchBackend({enableMouseEvents: true}))
 var ProposalsUI = function (_BaseComponentWithCon) {
     _inherits(ProposalsUI, _BaseComponentWithCon);
 
-    function ProposalsUI() {
+    function ProposalsUI(props) {
         _classCallCheck(this, ProposalsUI);
 
-        return _possibleConstructorReturn(this, (ProposalsUI.__proto__ || Object.getPrototypeOf(ProposalsUI)).apply(this, arguments));
+        Assert(wrapped, "ProposalsUI is being created before the class has been wrapped by Connect()!");
+        return _possibleConstructorReturn(this, (ProposalsUI.__proto__ || Object.getPrototypeOf(ProposalsUI)).call(this, props));
     }
 
     _createClass(ProposalsUI, [{
@@ -11685,7 +11696,6 @@ var ProposalsUI = function (_BaseComponentWithCon) {
                 subNavBarWidth = _props.subNavBarWidth,
                 selectedProposal = _props.selectedProposal;
 
-            var userID = _Manager.manager.GetUserID();
             if (selectedProposal) {
                 return _react2.default.createElement(_ProposalUI.ProposalUI, { proposal: selectedProposal, subNavBarWidth: subNavBarWidth });
             }
@@ -11730,7 +11740,7 @@ var ProposalsColumn_connector = function ProposalsColumn_connector(state, _ref2)
         showCompleted: (0, _General.State)("proposals/" + type + "s_showCompleted")
     };
 };
-_Manager.manager.onPopulated.then(function () {
+(0, _Manager.OnPopulated)(function () {
     return exports.ProposalsColumn = ProposalsColumn = _Manager.manager.Connect(ProposalsColumn_connector)(ProposalsColumn);
 });
 var ProposalsColumn = function (_BaseComponentWithCon2) {
@@ -11851,7 +11861,7 @@ var ProposalsUserRankingColumn_connector = function ProposalsUserRankingColumn_c
         proposalOrder: (0, _index.GetProposalOrder)(_Manager.manager.GetUserID())
     };
 };
-_Manager.manager.onPopulated.then(function () {
+(0, _Manager.OnPopulated)(function () {
     return exports.ProposalsUserRankingColumn = ProposalsUserRankingColumn = _Manager.manager.Connect(ProposalsUserRankingColumn_connector)(ProposalsUserRankingColumn);
 });
 var ProposalsUserRankingColumn = function (_BaseComponentWithCon3) {
@@ -20683,7 +20693,7 @@ var connector = function connector(state, _ref) {
         creator: proposal && _Manager.manager.GetUser(proposal.creator)
     };
 };
-_Manager.manager.onPopulated.then(function () {
+(0, _Manager.OnPopulated)(function () {
     return exports.ProposalEntryUI = ProposalEntryUI = _Manager.manager.Connect(connector)(ProposalEntryUI);
 });
 var ProposalEntryUI = ProposalEntryUI_1 = function (_BaseComponent) {
@@ -35917,7 +35927,7 @@ var ProposalUI_Inner_connector = function ProposalUI_Inner_connector(state, _ref
         creator: _Manager.manager.GetUser(proposal.creator)
     };
 };
-_Manager.manager.onPopulated.then(function () {
+(0, _Manager.OnPopulated)(function () {
     return exports.ProposalUI_Inner = ProposalUI_Inner = _Manager.manager.Connect(ProposalUI_Inner_connector)(ProposalUI_Inner);
 });
 

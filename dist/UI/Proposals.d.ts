@@ -7,6 +7,7 @@ declare const ProposalsUI_base: new (..._: any[]) => BaseComponent<{
     selectedProposal: Proposal;
 }>, {}>;
 export declare class ProposalsUI extends ProposalsUI_base {
+    constructor(props: any);
     static defaultProps: {
         subNavBarWidth: number;
     };

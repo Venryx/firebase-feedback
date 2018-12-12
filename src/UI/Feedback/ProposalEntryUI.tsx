@@ -3,7 +3,7 @@ import React from "react";
 import {DragSource, DropTarget} from "react-dnd";
 import {Button, Column, Row} from "react-vcomponents";
 import {BaseComponent, GetDOM, GetInnerComp} from "react-vextensions";
-import {Manager, manager} from "../../Manager";
+import {Manager, manager, OnPopulated} from "../../Manager";
 import SetProposalOrder from "../../Server/Commands/SetProposalOrder";
 import {ACTProposalSelect} from "../../Store/main/proposals";
 import {GetRankingScoreToAddForUserRankingIndex} from "../Proposals";
@@ -16,7 +16,7 @@ let connector = (state, {proposal})=> ({
 	creator: proposal && manager.GetUser(proposal.creator),
 	//posts: proposal && GetProposalPosts(proposal),
 });
-manager.onPopulated.then(()=>(ProposalEntryUI as any) = manager.Connect(connector)(ProposalEntryUI));
+OnPopulated(()=>(ProposalEntryUI as any) = manager.Connect(connector)(ProposalEntryUI));
 
 @DragSource("proposal",
 	{beginDrag: ({proposal, columnType})=>({proposal, columnType})},
