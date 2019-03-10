@@ -9,7 +9,7 @@ let MTName = "Proposal";
 WaitTillSchemaAddedThenRun(MTName, ()=> {
 	AddSchema({
 		properties: {
-			id: {type: "number"},
+			id: {type: "string"},
 			updates: Schema({
 				properties: GetSchemaJSON(MTName).properties.Including("title", "text", "completedAt"),
 			}),
@@ -19,7 +19,7 @@ WaitTillSchemaAddedThenRun(MTName, ()=> {
 });
 
 //@UserEdit
-export class UpdateProposal extends Command<{id: number, updates: Partial<_MainType>}> {
+export class UpdateProposal extends Command<{id: string, updates: Partial<_MainType>}> {
 	Validate_Early() {
 		AssertValidate(`Update${MTName}_payload`, this.payload, `Payload invalid`);
 	}

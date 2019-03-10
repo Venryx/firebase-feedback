@@ -30,7 +30,7 @@ OnPopulated(()=> {
 		const {columnType, proposal, index} = props;
 		return {
 			type: "Proposal",
-			draggableInfo: new DraggableInfo({columnType, proposalID: proposal._id}),
+			draggableInfo: new DraggableInfo({columnType, proposalID: proposal._key}),
 			index,
 		};
 	})(ProposalEntryUI);
@@ -40,7 +40,7 @@ OnPopulated(()=> {
 	const {proposal, index} = props;
 	return {
 		type: "Proposal",
-		draggableInfo: new DraggableInfo({proposalID: proposal._id}),
+		draggableInfo: new DraggableInfo({proposalID: proposal._key}),
 		index,
 	};
 })*/
@@ -58,7 +58,7 @@ export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
 							last && {borderRadius: "0 0 10px 10px"},
 							style,
 						)}>
-					<manager.Link text={proposal.title} actions={[new ACTProposalSelect({id: proposal._id})]} style={ES({fontSize: "15px", flex: 1})}/>
+					<manager.Link text={proposal.title} actions={[new ACTProposalSelect({id: proposal._key})]} style={ES({fontSize: "15px", flex: 1})}/>
 					<span style={{float: "right"}}>
 						{columnType == "userRanking"
 							? "#" + (index + 1) + (proposal.completedAt ? " (✔️)" : ` (+${GetRankingScoreToAddForUserRankingIndex(orderIndex).RoundTo_Str(.001, null, false)})`)
@@ -66,7 +66,7 @@ export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
 					</span>
 					{columnType == "userRanking" && !asDragPreview &&
 						<Button text="X" style={{margin: "-3px 0 -3px 5px", padding: "3px 5px"}} onClick={()=> {
-							new SetProposalOrder({proposalID: proposal._id, userID: manager.GetUserID(), index: -1}).Run();
+							new SetProposalOrder({proposalID: proposal._key, userID: manager.GetUserID(), index: -1}).Run();
 						}}/>}
 				</Row>
 			</div>

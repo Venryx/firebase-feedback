@@ -7,5 +7,5 @@ export declare class DroppableInfo {
 export declare class DraggableInfo {
     constructor(data: Partial<DraggableInfo>);
     columnType?: string;
-    proposalID?: number;
+    proposalID?: string;
 }

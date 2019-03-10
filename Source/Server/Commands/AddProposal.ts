@@ -3,18 +3,18 @@ import {Command, MergeDBUpdates} from "../Command";
 import { GetDataAsync } from "../../Utils/Database/DatabaseHelpers";
 import { Proposal } from "../../index";
 import {AssertValidate} from "../Server";
+import {GenerateUUID} from "../../Utils/General/KeyGenerator";
 
 export type _MainType = Proposal;
 let MTName = "Proposal";
 
 //@UserEdit
 export class AddProposal extends Command<{data: _MainType}> {
-	id: number;
+	id: string;
 	async Prepare() {
 		let {data} = this.payload;
 
-		let lastProposalID = await GetDataAsync("general", "data", ".lastProposalID") as number;
-		this.id = lastProposalID + 1;
+		this.id = GenerateUUID();
 		data.creator = this.userInfo.id;
 		data.createdAt = Date.now();
 		//thread.editedAt = thread.createdAt;
@@ -29,9 +29,8 @@ export class AddProposal extends Command<{data: _MainType}> {
 	GetDBUpdates() {
 		let {data} = this.payload;
 		let updates = {
-			"general/data/.lastProposalID": this.id,
 			[`proposals/${this.id}`]: data,
-		} as any;
+		};
 		return updates;
 	}
 }

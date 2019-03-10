@@ -29,7 +29,7 @@ export declare class ProposalsColumn extends ProposalsColumn_base {
 declare const ProposalsUserRankingColumn_base: new (..._: any[]) => BaseComponent<{
     proposals: Proposal[];
 } & Partial<{
-    proposalOrder: number[];
+    proposalOrder: string[];
 }>, {}>;
 export declare class ProposalsUserRankingColumn extends ProposalsUserRankingColumn_base {
     render(): JSX.Element;

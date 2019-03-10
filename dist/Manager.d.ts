@@ -1,5 +1,5 @@
-import { LogTypes } from "./Utils/Logging";
-import { Action } from "./Utils/Action";
+import { LogTypes } from "./Utils/General/Logging";
+import { Action } from "./Utils/General/Action";
 import { BaseComponent } from "react-vextensions";
 export declare class PermissionGroupSet {
     basic: boolean;

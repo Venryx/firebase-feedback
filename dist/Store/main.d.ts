@@ -1,4 +1,4 @@
-import { Action } from "./../Utils/Action";
+import { Action } from "../Utils/General/Action";
 import { Proposals } from "./main/proposals";
 import { RootState } from "../General";
 export declare type ACTSet_Payload = {

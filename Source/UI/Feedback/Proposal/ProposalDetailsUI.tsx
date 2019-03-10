@@ -90,7 +90,7 @@ export function ShowAddProposalDialog(userID: string, type: string) {
 			);
 		},
 		onOK: async ()=> {
-			let id = await new AddProposal({data: newEntry}).Run() as number;
+			let id = await new AddProposal({data: newEntry}).Run() as string;
 			store.dispatch(new ACTProposalSelect({id}));
 		}
 	});

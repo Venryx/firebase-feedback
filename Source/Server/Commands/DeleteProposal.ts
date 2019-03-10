@@ -4,7 +4,7 @@ import {Command, MergeDBUpdates} from "../Command";
 import {SetProposalOrder} from "./SetProposalOrder";
 
 //@UserEdit
-export class DeleteProposal extends Command<{id: number}> {
+export class DeleteProposal extends Command<{id: string}> {
 	//posts: Post[];
 	sub_removalsFromUserOrderings: SetProposalOrder[];
 	async Prepare() {

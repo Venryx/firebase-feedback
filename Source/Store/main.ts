@@ -1,4 +1,4 @@
-import {Action, IsACTSetFor} from "./../Utils/Action";
+import {Action, IsACTSetFor} from "../Utils/General/Action";
 import {combineReducers} from "redux";
 import { Manager, Proposal, GetProposal } from "./../index";
 import { State, StorePath } from "./../General";

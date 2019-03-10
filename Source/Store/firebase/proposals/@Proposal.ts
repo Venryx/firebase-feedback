@@ -5,7 +5,7 @@ export class Proposal {
 		this.Extend(initialData);
 	}
 
-	_id: number;
+	_key: string;
 	type: string;
 	title = "";
 	text = "";

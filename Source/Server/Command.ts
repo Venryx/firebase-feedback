@@ -1,5 +1,5 @@
 import { DeepSet, ToJSON } from "js-vextensions";
-import { MaybeLog } from "../Utils/Logging";
+import { MaybeLog } from "../Utils/General/Logging";
 import {Manager, manager} from "../Manager";
 import {DBPath} from "../Utils/Database/DatabaseHelpers";
 

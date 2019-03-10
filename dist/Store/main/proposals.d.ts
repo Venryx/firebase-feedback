@@ -1,14 +1,14 @@
-import { Action } from "../../Utils/Action";
+import { Action } from "../../Utils/General/Action";
 import { Proposal } from "../firebase/proposals/@Proposal";
 export declare class ACTProposalSelect extends Action<{
-    id: number;
+    id: string;
 }> {
 }
 export declare class Proposals {
-    selectedProposalID: number;
+    selectedProposalID: string;
     features_showCompleted: boolean;
     issues_showCompleted: boolean;
 }
 export declare const ProposalsReducer: any;
-export declare function GetSelectedProposalID(): number;
+export declare function GetSelectedProposalID(): string;
 export declare function GetSelectedProposal(): Proposal;

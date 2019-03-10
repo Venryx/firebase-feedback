@@ -19,5 +19,5 @@ export class DraggableInfo {
 
 	// if in ProposalsColumn or ProposalsUserRankingColumn
 	columnType?: string;
-	proposalID?: number;
+	proposalID?: string;
 }

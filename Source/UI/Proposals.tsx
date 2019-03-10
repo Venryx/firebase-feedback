@@ -65,8 +65,6 @@ export class ProposalsUI extends BaseComponentWithConnector(ProposalsUI_connecto
 		);
 	}
 	OnDragEnd = result=>{
-		console.log(`Drag result: ${ToJSON(result)}`);
-
 		const sourceDroppableInfo = FromJSON(result.source.droppableId) as DroppableInfo;
 		const sourceIndex = result.source.index as number;
 		const targetDroppableInfo = result.destination && FromJSON(result.destination.droppableId) as DroppableInfo;
@@ -95,9 +93,9 @@ export function GetRankingScoreToAddForUserRankingIndex(indexInRankingOrder: num
 	return rankingScoreToAdd;
 }
 
-function GetIncompleteProposalsInOrder(order: number[], proposals: Proposal[]) {
+function GetIncompleteProposalsInOrder(order: string[], proposals: Proposal[]) {
 	return order.filter(id=> {
-		let proposalReferencedInOrder = proposals.find(a=>a._id == id);
+		let proposalReferencedInOrder = proposals.find(a=>a._key == id);
 		// for some reason, proposalReferencedInOrder is null for a just-deleted proposal
 		return proposalReferencedInOrder && !proposalReferencedInOrder.completedAt;
 	});
@@ -117,17 +115,17 @@ export class ProposalsColumn extends BaseComponentWithConnector(ProposalsColumn_
 		let shownProposals = proposals.filter(a=>a.type == type && (!a.completedAt || showCompleted));
 
 		let proposalOrders = userData ? userData.VValues().map(a=>(a.proposalIndexes || {}).VValues(true)) : [];
-		//let proposalOrders_uncompleted = proposalOrders.map(order=>order.filter(id=>!proposals.find(a=>a._id == id).completedAt));
-		/*let deletedProposalsInOrdering = proposalOrders.filter(id=>!proposals.find(a=>a._id == id));
+		//let proposalOrders_uncompleted = proposalOrders.map(order=>order.filter(id=>!proposals.find(a=>a._key == id).completedAt));
+		/*let deletedProposalsInOrdering = proposalOrders.filter(id=>!proposals.find(a=>a._key == id));
 		Assert(deletedProposalsInOrdering <= 1, "More than one proposal in your ordering has been deleted!");
-		let proposalOrders_uncompleted = proposalOrders.Except(deletedProposalsInOrdering).map(order=>order.filter(id=>!proposals.find(a=>a._id == id).completedAt));*/
+		let proposalOrders_uncompleted = proposalOrders.Except(deletedProposalsInOrdering).map(order=>order.filter(id=>!proposals.find(a=>a._key == id).completedAt));*/
 		let proposalOrders_uncompleted = proposalOrders.map(order=>GetIncompleteProposalsInOrder(order, proposals));
 
 		let rankingScores = {};
 		for (let proposal of shownProposals) {
 			let rankingScore = 0;
 			for (let proposalOrder of proposalOrders_uncompleted) {
-				let indexInOrder = proposalOrder.indexOf(proposal._id);
+				let indexInOrder = proposalOrder.indexOf(proposal._key);
 				if (indexInOrder == -1) continue;
 				
 				rankingScore += GetRankingScoreToAddForUserRankingIndex(indexInOrder);
@@ -138,10 +136,10 @@ export class ProposalsColumn extends BaseComponentWithConnector(ProposalsColumn_
 				rankingScore = proposal.completedAt;
 			}
 
-			rankingScores[proposal._id] = rankingScore;
+			rankingScores[proposal._key] = rankingScore;
 		}
 
-		shownProposals = shownProposals.OrderByDescending(a=>rankingScores[a._id]);
+		shownProposals = shownProposals.OrderByDescending(a=>rankingScores[a._key]);
 
 		const droppableInfo = new DroppableInfo({type: "ProposalsColumn", proposalType: type});
 		return (
@@ -163,9 +161,13 @@ export class ProposalsColumn extends BaseComponentWithConnector(ProposalsColumn_
 				</Column>
 				<Droppable type="Proposal" droppableId={ToJSON(droppableInfo)}>{(provided, snapshot)=>(
 					<ScrollView ref={c=>provided.innerRef(GetDOM(c))} scrollVBarStyle={{width: 10}} style={ES({flex: 1})}>
+						{shownProposals.length == 0 && provided.placeholder == null &&
+							<Row p="7px 10px" style={{background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px"}}>
+								There are currently no {type == "feature" ? "feature proposals" : "issue reports"}.
+							</Row>}
 						{shownProposals.map((proposal, index)=> {
 							return <ProposalEntryUI key={index} index={index} last={index == shownProposals.length - 1}
-								proposal={proposal} rankingScore={rankingScores[proposal._id]} columnType={type}/>;
+								proposal={proposal} rankingScore={rankingScores[proposal._key]} columnType={type}/>;
 						})}
 						{provided.placeholder}
 					</ScrollView>
@@ -187,9 +189,9 @@ export class ProposalsUserRankingColumn extends BaseComponentWithConnector(Propo
 
 		let proposalOrder_uncompleted = GetIncompleteProposalsInOrder(proposalOrder, proposals);
 
-		proposals = proposals.filter(a=>proposalOrder.Contains(a._id)).OrderBy(a=>proposalOrder.indexOf(a._id));
+		proposals = proposals.filter(a=>proposalOrder.Contains(a._key)).OrderBy(a=>proposalOrder.indexOf(a._key));
 
-		const droppableInfo = new DroppableInfo({type: "ProposalsUserRankingColumn", userID: user ? user._id : null});
+		const droppableInfo = new DroppableInfo({type: "ProposalsUserRankingColumn", userID: user ? user._key : null});
 		return (
 			<Column style={ES({flex: 1, height: "100%"})}>
 				<Column className="clickThrough" style={{background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0"}}>
@@ -202,8 +204,12 @@ export class ProposalsUserRankingColumn extends BaseComponentWithConnector(Propo
 				</Column>
 				<Droppable type="Proposal" droppableId={ToJSON(droppableInfo)}>{(provided, snapshot)=>(
 					<ScrollView ref={c=>provided.innerRef(GetDOM(c))} scrollVBarStyle={{width: 10}} style={ES({flex: 1})}>
+						{proposals.length == 0 && provided.placeholder == null &&
+							<Row p="7px 10px" style={{background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px"}}>
+								You have not yet added any proposals to your ranking.
+							</Row>}
 						{proposals.map((proposal, index)=> {
-							return <ProposalEntryUI key={index} index={index} orderIndex={proposalOrder_uncompleted.indexOf(proposal._id)}
+							return <ProposalEntryUI key={index} index={index} orderIndex={proposalOrder_uncompleted.indexOf(proposal._key)}
 								last={index == proposals.length - 1} proposal={proposal} columnType="userRanking"/>;
 						})}
 						{provided.placeholder}

@@ -70,7 +70,7 @@ export class ProposalUI_Inner extends BaseComponentWithConnector(ProposalUI_Inne
 					<Row mt={5}>
 						<Button text="Save" enabled={dataError == null} onLeftClick={async ()=> {
 							let postUpdates = GetUpdates(proposal, this.editorUI.GetNewData());
-							await new UpdateProposal({id: proposal._id, updates: postUpdates}).Run();
+							await new UpdateProposal({id: proposal._key, updates: postUpdates}).Run();
 							this.SetState({editing: false, dataError: null});
 						}}/>
 						<Button ml={5} text="Cancel" onLeftClick={async ()=> {
@@ -103,7 +103,7 @@ export class ProposalUI_Inner extends BaseComponentWithConnector(ProposalUI_Inne
 									title: `Delete proposal`, cancelButton: true,
 									message: `Delete this proposal?`,
 									onOK: async ()=> {
-										await new DeleteProposal({id: proposal._id}).Run();
+										await new DeleteProposal({id: proposal._key}).Run();
 									}
 								});
 							}}/>}
@@ -111,7 +111,7 @@ export class ProposalUI_Inner extends BaseComponentWithConnector(ProposalUI_Inne
 							{proposal.text != null ? "edited" : "deleted"} at {manager.FormatTime(proposal.editedAt, "YYYY-MM-DD HH:mm:ss")}
 						</Span>}
 						<CheckBox ml="auto" mr={5} text="Completed" checked={proposal.completedAt != null} enabled={IsUserAdmin(manager.GetUserID())} onChange={val=>{
-							new UpdateProposal({id: proposal._id, updates: {completedAt: proposal.completedAt == null ? Date.now() : null}}).Run();
+							new UpdateProposal({id: proposal._key, updates: {completedAt: proposal.completedAt == null ? Date.now() : null}}).Run();
 						}}/>
 					</Row>
 				</Column>
@@ -171,7 +171,7 @@ class DetailsDropdown extends BaseComponent<DetailsDropdownProps, {dataError: st
 							<Row>
 								<Button mt={5} text="Save" enabled={dataError == null} onLeftClick={async ()=> {
 									let proposalUpdates = GetUpdates(proposal, this.detailsUI.GetNewData()).Excluding("posts");
-									await new UpdateProposalDetails({proposalID: proposal._id, proposalUpdates}).Run();
+									await new UpdateProposalDetails({proposalID: proposal._key, proposalUpdates}).Run();
 								}}/>
 							</Row>}
 						{creatorOrMod &&
@@ -189,7 +189,7 @@ class DetailsDropdown extends BaseComponent<DetailsDropdownProps, {dataError: st
 											title: `Delete "${proposal.title}"`, cancelButton: true,
 											message: `Delete the proposal "${proposal.title}"?`,
 											onOK: async ()=> {
-												await new DeleteProposal({proposalID: proposal._id}).Run();
+												await new DeleteProposal({proposalID: proposal._key}).Run();
 												store.dispatch(new ACTProposalSelect({id: null}));
 											}
 										});

@@ -1,7 +1,7 @@
 import { ProposalIndexSet } from "../../Store/firebase/userData";
 import { Command } from "../Command";
 export declare class SetProposalOrder extends Command<{
-    proposalID: number;
+    proposalID: string;
     userID: string;
     index: number;
 }> {

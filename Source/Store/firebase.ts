@@ -7,5 +7,5 @@ export interface FeedbackData {
 	userData: {[key: string]: UserData};
 }
 export interface FeedbackData_General {
-	data: {lastProposalID: number};
+	//data: {lastProposalID: number};
 }

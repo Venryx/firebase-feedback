@@ -1,14 +1,14 @@
 import {combineReducers} from "redux";
-import {Action} from "../../Utils/Action";
+import {Action} from "../../Utils/General/Action";
 import {GetProposal} from "../firebase/proposals";
 import {Proposal} from "../firebase/proposals/@Proposal";
 import {State} from "../../General";
 import {SimpleReducer} from "../main";
 
-export class ACTProposalSelect extends Action<{id: number}> {}
+export class ACTProposalSelect extends Action<{id: string}> {}
 
 export class Proposals {
-	selectedProposalID: number;
+	selectedProposalID: string;
 	features_showCompleted: boolean;
 	issues_showCompleted: boolean;
 }
@@ -22,7 +22,7 @@ export const ProposalsReducer = combineReducers({
 	issues_showCompleted: SimpleReducer(a=>a.proposals.issues_showCompleted),
 }) as any;
 
-export function GetSelectedProposalID(): number {
+export function GetSelectedProposalID(): string {
 	return State("proposals", "selectedProposalID");
 }
 export function GetSelectedProposal(): Proposal {

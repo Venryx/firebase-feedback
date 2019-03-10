@@ -1,8 +1,8 @@
 import { GetData } from "../../Utils/Database/DatabaseHelpers";
-import { CachedTransform } from "../../Utils/VCache";
 import { Proposal } from "./proposals/@Proposal";
+import {CachedTransform} from "js-vextensions";
 
-export function GetProposal(id: number): Proposal {
+export function GetProposal(id: string): Proposal {
 	if (id == null) return null;
 	return GetData("proposals", id);
 }

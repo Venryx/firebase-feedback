@@ -1,6 +1,6 @@
 export declare class Proposal {
     constructor(initialData: Partial<Proposal>);
-    _id: number;
+    _key: string;
     type: string;
     title: string;
     text: string;

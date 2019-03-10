@@ -4,8 +4,10 @@ export declare type _MainType = Proposal;
 export declare class AddProposal extends Command<{
     data: _MainType;
 }> {
-    id: number;
+    id: string;
     Prepare(): Promise<void>;
     Validate(): Promise<void>;
-    GetDBUpdates(): any;
+    GetDBUpdates(): {
+        [x: string]: Proposal;
+    };
 }

@@ -10,7 +10,4 @@ export interface FeedbackData {
     };
 }
 export interface FeedbackData_General {
-    data: {
-        lastProposalID: number;
-    };
 }
