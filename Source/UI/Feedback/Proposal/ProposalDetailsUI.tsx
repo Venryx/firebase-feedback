@@ -1,4 +1,4 @@
-import { GetErrorMessagesUnderElement } from "js-vextensions";
+import { GetErrorMessagesUnderElement, Clone, E } from "js-vextensions";
 import React from "react";
 import { Column, Pre, Row, RowLR, TextInput } from "react-vcomponents";
 import { BaseComponent, GetInnerComp, GetDOM } from "react-vextensions";
@@ -8,6 +8,8 @@ import { Manager, manager } from "../../..";
 import { AddProposal } from "../../../Server/Commands/AddProposal";
 import { ACTProposalSelect } from "../../../Store/main/proposals";
 import { Proposal } from "./../../../Store/firebase/proposals/@Proposal";
+
+let aa = {MarkdownEditor} as any;
 
 export type _MainType = Proposal;
 let MTName = "Proposal";
@@ -47,7 +49,7 @@ export class ProposalDetailsUI extends BaseComponent<ProposalDetailsUI_Props, {n
 							<MarkdownToolbar editor={()=>this.refs.editor}>
 								<manager.Link to="https://guides.github.com/features/mastering-markdown" style={{marginLeft: 10}}>How to add links, images, etc.</manager.Link>
 							</MarkdownToolbar>}
-						<MarkdownEditor ref="editor" toolbar={false} value={newData.text || ""} onChange={val=>Change(newData.text = val)}
+						<aa.MarkdownEditor ref="editor" toolbar={false} value={newData.text || ""} onChange={val=>Change(newData.text = val)}
 							options={E({
 								scrollbarStyle: "overlay",
 								lineWrapping: true,

@@ -1,4 +1,4 @@
-import {Timer, VURL} from "js-vextensions";
+import {Timer, VURL, E} from "js-vextensions";
 import React from "react";
 import {DragSource, DropTarget} from "react-dnd";
 import {Button, Column, Row} from "react-vcomponents";

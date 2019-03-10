@@ -32,3 +32,4 @@ declare const ProposalsUserRankingColumn_base: new (..._: any[]) => BaseComponen
 export declare class ProposalsUserRankingColumn extends ProposalsUserRankingColumn_base {
     render(): any;
 }
+export {};

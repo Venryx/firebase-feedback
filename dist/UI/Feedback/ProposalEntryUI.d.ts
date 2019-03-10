@@ -10,7 +10,7 @@ export declare type ProposalEntryUI_Props = {
     rankingScore?: number;
     columnType: string;
     asDragPreview?: boolean;
-    style?;
+    style?: any;
 } & Partial<{
     creator: User;
 }>;

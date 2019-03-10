@@ -5,7 +5,7 @@ export declare type ProposalDetailsUI_Props = {
     baseData: _MainType;
     forNew: boolean;
     enabled?: boolean;
-    style?;
+    style?: any;
     onChange?: (newData: _MainType, comp: ProposalDetailsUI) => void;
 } & Partial<{
     creator: User;

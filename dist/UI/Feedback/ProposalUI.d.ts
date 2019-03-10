@@ -23,3 +23,4 @@ export declare class ProposalUI_Inner extends ProposalUI_Inner_base {
     editorUI: ProposalDetailsUI;
     render(): JSX.Element;
 }
+export {};

@@ -26,8 +26,8 @@ export class Manager {
 	get store() { return this.GetStore(); }
 	storePath_mainData: string;
 	storePath_dbData: string;
-	Link: new ()=>BaseComponent<Link_Props, {}>;
-		//& {render: ()=>JSX.Element | null}); // temp fix for typing issue ("render" returning Element | null | false, in one version)
+	Link: new ()=>BaseComponent<Link_Props, {}>
+		& {render: ()=>JSX.Element | null}; // temp fix for typing issue ("render" returning Element | null | false, in one version)
 	FormatTime: (time: number, formatStr: string)=>string;
 
 	router_replace: (newURL: string)=>any;

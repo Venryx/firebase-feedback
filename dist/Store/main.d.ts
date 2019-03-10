@@ -3,7 +3,7 @@ import { Proposals } from "./main/proposals";
 import { RootState } from "../General";
 export declare type ACTSet_Payload = {
     path: string | ((state: RootState) => any);
-    value;
+    value: any;
 };
 export declare class ACTSet extends Action<ACTSet_Payload> {
     constructor(path: string | ((state: RootState) => any), value: any);

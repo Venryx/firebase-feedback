@@ -2,6 +2,7 @@ import React from "react";
 import {DragLayer} from "react-dnd";
 import {BaseComponent} from "react-vextensions";
 import {ProposalEntryUI} from "../Feedback/ProposalEntryUI";
+import {E} from "js-vextensions";
 
 export type DragLayerProps = {currentOffset: {x: number, y: number}};
 

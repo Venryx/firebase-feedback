@@ -18,8 +18,10 @@ import {VDragLayer} from "./@Shared/VDragLayer";
 import {ShowAddProposalDialog} from "./Feedback/Proposal/ProposalDetailsUI";
 import {ProposalEntryUI} from "./Feedback/ProposalEntryUI";
 import {ProposalUI} from "./Feedback/ProposalUI";
+import {Assert} from "js-vextensions";
 
 // temp fix for "isOver({shallow: true})"
+declare var require;
 var DragDropMonitor = require("dnd-core/lib/DragDropMonitor").default;
 DragDropMonitor.prototype.GetTargetComponents = function() {
     return this.getTargetIds().map(targetID=>this.registry.handlers[targetID].component);

@@ -6,10 +6,10 @@ export declare type DragLayerProps = {
     };
 };
 export declare class VDragLayer extends BaseComponent<{
-    item?;
-    itemType?;
-    isDragging?;
-    canDrop?;
+    item?: any;
+    itemType?: any;
+    isDragging?: any;
+    canDrop?: any;
 } & Partial<DragLayerProps>, {}> {
     render(): JSX.Element;
 }
