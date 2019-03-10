@@ -3,7 +3,7 @@ import {GetDataAsync} from "../../Utils/Database/DatabaseHelpers";
 import {Command} from "../Command";
 
 //@UserEdit
-export default class SetProposalOrder extends Command<{proposalID: number, userID: string, index: number}> {
+export class SetProposalOrder extends Command<{proposalID: number, userID: string, index: number}> {
 	newIndexes: ProposalIndexSet;
 	async Prepare() {
 		let {proposalID, userID, index} = this.payload;

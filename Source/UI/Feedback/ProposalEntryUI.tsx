@@ -1,113 +1,63 @@
 import {Timer, VURL, E} from "js-vextensions";
 import React from "react";
-import {DragSource, DropTarget} from "react-dnd";
 import {Button, Column, Row} from "react-vcomponents";
 import {BaseComponent, GetDOM, GetInnerComp} from "react-vextensions";
 import {Manager, manager, OnPopulated} from "../../Manager";
-import SetProposalOrder from "../../Server/Commands/SetProposalOrder";
+import {SetProposalOrder} from "../../Server/Commands/SetProposalOrder";
 import {ACTProposalSelect} from "../../Store/main/proposals";
 import {GetRankingScoreToAddForUserRankingIndex} from "../Proposals";
 import {Proposal} from "./../../Store/firebase/proposals/@Proposal";
+import {MakeDraggable, DragInfo} from "../../Utils/UI/DNDHelpers";
+import {DraggableInfo} from "../../Utils/UI/DragAndDropInfo";
+import ReactDOM from "react-dom";
 
-export type ProposalEntryUI_Props = {index: number, last: boolean, proposal: Proposal, orderIndex?: number, rankingScore?: number, columnType: string, asDragPreview?: boolean, style?}
+let portal: HTMLElement;
+OnPopulated(()=> {
+	portal = document.createElement('div');
+	document.body.appendChild(portal);
+});
+
+export type ProposalEntryUI_Props = {index: number, last: boolean, proposal: Proposal, orderIndex?: number, rankingScore?: number, columnType: string, style?} & {dragInfo?: DragInfo}
 	& Partial<{creator: User, /*posts: Post[]*/}>;
 
 let connector = (state, {proposal})=> ({
 	creator: proposal && manager.GetUser(proposal.creator),
 	//posts: proposal && GetProposalPosts(proposal),
 });
-OnPopulated(()=>(ProposalEntryUI as any) = manager.Connect(connector)(ProposalEntryUI));
+OnPopulated(()=> {
+	(ProposalEntryUI as any) = manager.Connect(connector)(ProposalEntryUI);
+	(ProposalEntryUI as any) = MakeDraggable((props: ProposalEntryUI_Props)=>{
+		const {columnType, proposal, index} = props;
+		return {
+			type: "Proposal",
+			draggableInfo: new DraggableInfo({columnType, proposalID: proposal._id}),
+			index,
+		};
+	})(ProposalEntryUI);
+});
 
-@DragSource("proposal",
-	{beginDrag: ({proposal, columnType})=>({proposal, columnType})},
-	(connect, monitor)=>({
-		connectDragSource: connect.dragSource(),
-		isDragging: monitor.isDragging()
-	}))
-@DropTarget("proposal", {
-	canDrop(props, monitor) {
-		let draggedEntry = monitor.getItem().proposal;
-		let {proposal: dropOnEntry, columnType} = props;
-		//if (!monitor.isOver({shallow: true})) return false;
-
-		if (dropOnEntry == draggedEntry) return false; // if we're dragging item onto itself, reject
-		//if (dropOnEntry.AncestorScripts.Contains(draggedScript)) return false; // if we're dragging an ancestor-script onto a descendent, reject
-		if (columnType != "userRanking") return false;
-		return true;
-	},
-	drop(props, monitor, dropTarget) {
-		if (monitor.didDrop()) return;
-		if (manager.GetUserID() == null) return void manager.ShowSignInPopup();
-
-		var draggedItem = monitor.getItem();
-		var {proposal: dropOnProposal, columnType} = props;
-	
-		var dropBefore = GetInnerComp(dropTarget).ShouldDropBefore();
-		let newIndex = dropBefore ? props.index : props.index + 1;
-
-		//if (draggedItem.columnType != "userRanking" && columnType == "userRanking") {
-		new SetProposalOrder({proposalID: draggedItem.proposal._id, userID: manager.GetUserID(), index: newIndex}).Run();
-	}
-},
-(connect, monitor)=> {
+/*@MakeDraggable((props: ProposalEntryUI_Props)=>{
+	const {proposal, index} = props;
 	return {
-		connectDropTarget: connect.dropTarget(),
-		isOver: monitor.isOver(), //({shallow: true}),
-		draggedItem: monitor.getItem(),
+		type: "Proposal",
+		draggableInfo: new DraggableInfo({proposalID: proposal._id}),
+		index,
 	};
-})
-export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {shouldDropBefore: boolean}> {
-	//newPos_midY;
-	ShouldDropBefore() {
-		//var mousePos = monitor.getClientOffset().y;
-		var dropTargetDOM = GetDOM(this.innerRoot);
-		if (dropTargetDOM == null) return true;
-		var newPos_midY = (dropTargetDOM.getBoundingClientRect().top + dropTargetDOM.getBoundingClientRect().bottom) / 2;
-		//var {newPos_script_midY} = this.state;
-		//var newPos_script_midY = this.newPos_midY;
-		//if (newPos_midY == null) return true;
-
-		// if over top-half of script, drop before
-		//console.log(window["mousePos"].y + ";" + newPos_midY);
-		return window["mousePos"] && window["mousePos"].y < newPos_midY;
-	}
-	updateTimer: Timer;
-	ComponentWillReceiveProps(props) {
-		// if hovering with item over our component, start auto-updating the ui (to match with place-above-or-below state)
-		if (props.isOver) {
-			this.updateTimer = new Timer(50, ()=> {
-				if (this.mounted) this.Update();
-				else if (this.updateTimer) this.updateTimer.Stop();
-			});
-			this.updateTimer.Start();
-		} else {
-			if (this.updateTimer) {
-				this.updateTimer.Stop();
-				this.updateTimer = null;
-			}
-		}
-	}
-
+})*/
+export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
 	innerRoot: Column;
 	render() {
-		let {index, last, proposal, orderIndex, rankingScore, creator, columnType, asDragPreview, style} = this.props;
-		let {connectDragSource, isDragging, connectDropTarget, isOver, draggedItem} = this.props as any; // lazy
-		let {shouldDropBefore} = this.state;
+		let {index, last, proposal, orderIndex, rankingScore, creator, columnType, style, dragInfo} = this.props;
+		const asDragPreview = dragInfo && dragInfo.snapshot.isDragging;
 
-		if (isDragging && columnType == "userRanking") return <div/>;
-		let dragPreviewUI = columnType == "userRanking" && isOver && !asDragPreview &&
-			<ProposalEntryUI proposal={draggedItem.proposal} orderIndex={orderIndex} index={index} last={false}
-				columnType={columnType} style={{opacity: .3, borderRadius: 10}} asDragPreview={true}/>;
-
-		let toURL = new VURL(null, ["proposals", proposal._id+""]);
-		return connectDragSource(connectDropTarget(<div>
-			{shouldDropBefore && dragPreviewUI}
-			<Column ref={c=>this.innerRoot = c} p="7px 10px" style={E(
-				{background: index % 2 == 0 ? "rgba(30,30,30,.7)" : "rgba(0,0,0,.7)"},
-				last && {borderRadius: "0 0 10px 10px"},
-				style,
-			)}>
-				<Row>
+		let result = (
+			<div {...(dragInfo && dragInfo.provided.draggableProps)} {...(dragInfo && dragInfo.provided.dragHandleProps)}>
+				<Row ref={c=>this.innerRoot = c}
+						p="7px 10px" style={E(
+							{background: index % 2 == 0 ? "rgba(30,30,30,.7)" : "rgba(0,0,0,.7)"},
+							last && {borderRadius: "0 0 10px 10px"},
+							style,
+						)}>
 					<manager.Link text={proposal.title} actions={[new ACTProposalSelect({id: proposal._id})]} style={ES({fontSize: "15px", flex: 1})}/>
 					<span style={{float: "right"}}>
 						{columnType == "userRanking"
@@ -119,16 +69,14 @@ export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {shoul
 							new SetProposalOrder({proposalID: proposal._id, userID: manager.GetUserID(), index: -1}).Run();
 						}}/>}
 				</Row>
-			</Column>
-			{!shouldDropBefore && dragPreviewUI}
-		</div>));
-	}
+			</div>
+		);
 
-	PostRender() {
-		/*var dropTargetDOM = GetDOM(this);
-		var newPos_midY = (dropTargetDOM.getBoundingClientRect().top + dropTargetDOM.getBoundingClientRect().bottom) / 2;
-		//this.setState({newPos_script_midY: newPos_script_midY});
-		this.newPos_midY = newPos_midY;*/
-		this.SetState({shouldDropBefore: this.ShouldDropBefore()});
+		// if drag preview, we have to put in portal, since otherwise the "filter" effect of ancestors causes the {position:fixed} style to not be relative-to-page
+		if (asDragPreview) {
+    		return ReactDOM.createPortal(result, portal);
+		}
+
+		return result;
 	}
 }

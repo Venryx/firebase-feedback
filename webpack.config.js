@@ -31,6 +31,7 @@ module.exports = {
 		"react-vscrollview": "commonjs react-vscrollview",
 		"react-vmarkdown": "commonjs react-vmarkdown",
 		"redux": "commonjs redux",
+		"react-beautiful-dnd": "commonjs react-beautiful-dnd", // needed as external, to avoid having to use string-replace to lock its redux to its local v5, instead of the CD project v6 (will fix this later)
 	},
     /*module: {
         noParse: ["react"]

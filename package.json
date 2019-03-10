@@ -36,6 +36,7 @@
     "react-vmessagebox": "0.0.1",
     "react-vscrollview": "0.0.2",
     "react-vmarkdown": "0.0.2",
+    "react-beautiful-dnd": "^10.0.4",
     "redux": "^3.6.0"
   },
   "devDependencies": {
@@ -59,6 +60,7 @@
     "react-vmarkdown": "0.0.2",
     "react-vmessagebox": "0.0.1",
     "react-vscrollview": "0.0.3",
+    "react-beautiful-dnd": "^10.0.4",
     "redux": "^4.0.1",
     "style-loader": "^0.21.0",
     "ts-loader": "^5.3.3",
@@ -71,8 +73,6 @@
     "ajv": "^6.4.0",
     "ajv-keywords": "^3.1.0",
     "classnames": "^2.2.5",
-    "codemirror": "^5.37.0",
-    "react-dnd": "^2.6.0",
-    "react-dnd-mouse-backend": "^0.1.1"
+    "codemirror": "^5.37.0"
   }
 }

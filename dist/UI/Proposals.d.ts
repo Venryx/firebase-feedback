@@ -13,6 +13,7 @@ export declare class ProposalsUI extends ProposalsUI_base {
     };
     constructor(props: any);
     render(): JSX.Element;
+    OnDragEnd: (result: any) => any;
 }
 export declare function GetRankingScoreToAddForUserRankingIndex(indexInRankingOrder: number): number;
 declare const ProposalsColumn_base: new (..._: any[]) => BaseComponent<{
@@ -31,6 +32,6 @@ declare const ProposalsUserRankingColumn_base: new (..._: any[]) => BaseComponen
     proposalOrder: number[];
 }>, {}>;
 export declare class ProposalsUserRankingColumn extends ProposalsUserRankingColumn_base {
-    render(): any;
+    render(): JSX.Element;
 }
 export {};

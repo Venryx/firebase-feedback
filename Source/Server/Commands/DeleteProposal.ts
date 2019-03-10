@@ -1,7 +1,7 @@
 import {GetProposal} from "../../Store/firebase/proposals";
 import {GetAsync, GetDataAsync} from "../../Utils/Database/DatabaseHelpers";
 import {Command, MergeDBUpdates} from "../Command";
-import SetProposalOrder from "./SetProposalOrder";
+import {SetProposalOrder} from "./SetProposalOrder";
 
 //@UserEdit
 export class DeleteProposal extends Command<{id: number}> {

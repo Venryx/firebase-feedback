@@ -1,5 +1,5 @@
 import { Command } from "../Command";
-import SetProposalOrder from "./SetProposalOrder";
+import { SetProposalOrder } from "./SetProposalOrder";
 export declare class DeleteProposal extends Command<{
     id: number;
 }> {

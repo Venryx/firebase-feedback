@@ -1,42 +1,27 @@
 import React from "react";
-import {DragDropContext, DropTarget} from "react-dnd";
-//import HTML5Backend from "react-dnd-html5-backend";
-//import TouchBackend from "react-dnd-touch-backend";
-import MouseBackend from "react-dnd-mouse-backend";
 import {Button, CheckBox, Column, Row} from "react-vcomponents";
-import {ApplyBasicStyles, BaseComponent, BaseComponentWithConnector} from "react-vextensions";
+import {ApplyBasicStyles, BaseComponent, BaseComponentWithConnector, GetDOM} from "react-vextensions";
 import {ScrollView} from "react-vscrollview";
 import {State} from "../General";
 import {manager, OnPopulated} from "../Manager";
-import SetProposalOrder from "../Server/Commands/SetProposalOrder";
+import {SetProposalOrder} from "../Server/Commands/SetProposalOrder";
 import {GetProposals} from "../Store/firebase/proposals";
 import {GetSelectedProposal} from "../Store/main/proposals";
 import {GetData} from "../Utils/Database/DatabaseHelpers";
 import {ACTSet, GetProposalOrder} from "../index";
 import {Proposal} from "./../Store/firebase/proposals/@Proposal";
-import {VDragLayer} from "./@Shared/VDragLayer";
 import {ShowAddProposalDialog} from "./Feedback/Proposal/ProposalDetailsUI";
 import {ProposalEntryUI} from "./Feedback/ProposalEntryUI";
 import {ProposalUI} from "./Feedback/ProposalUI";
-import {Assert} from "js-vextensions";
+import {Assert, ToJSON, FromJSON} from "js-vextensions";
+import {DragDropContext as DragDropContext_Beautiful, Droppable} from "react-beautiful-dnd";
+import {DroppableInfo, DraggableInfo} from "../Utils/UI/DragAndDropInfo";
 
 /*export class ProposalsUI_Outer extends BaseComponent<Props, {}> {
 	render() {
 		return <ProposalsUI
 	}
 }*/
-
-// temp fix for "isOver({shallow: true})"
-declare var require;
-var DragDropMonitor = require("dnd-core/lib/DragDropMonitor").default;
-DragDropMonitor.prototype.GetTargetComponents = function() {
-    return this.getTargetIds().map(targetID=>this.registry.handlers[targetID].component);
-};
-/*var createTargetMonitor = require("react-dnd/lib/createTargetMonitor").default;
-var TargetMonitor = createTargetMonitor({getMonitor: function() {}}).constructor;
-TargetMonitor.prototype.GetTargetComponent = function() {
-    return this.internalMonitor.registry.handlers[this.targetId].component;
-};*/
 
 type Props = {subNavBarWidth: number};
 let ProposalsUI_connector = (state, {}: Props)=> {
@@ -50,15 +35,12 @@ OnPopulated(()=> {
 	(ProposalsUI as any) = manager.Connect(ProposalsUI_connector)(ProposalsUI)
 	wrapped = true;
 });
-//@DragDropContext(HTML5Backend)
-//@DragDropContext(TouchBackend({enableMouseEvents: true}))
-@DragDropContext(MouseBackend)
 export class ProposalsUI extends BaseComponentWithConnector(ProposalsUI_connector, {}) {
 	static defaultProps = {subNavBarWidth: 0};
 	
 	constructor(props) {
-		Assert(wrapped, "ProposalsUI is being created before the class has been wrapped by Connect()!");
 		super(props);
+		Assert(wrapped, "ProposalsUI is being created before the class has been wrapped by Connect()!");
 	}
 	
 	render() {
@@ -73,14 +55,36 @@ export class ProposalsUI extends BaseComponentWithConnector(ProposalsUI_connecto
 		}
 
 		return (
-			<Row style={ES({marginTop: 10, flex: 1, padding: 10, filter: "drop-shadow(rgb(0, 0, 0) 0px 0px 10px)"})}>
-				<ProposalsColumn proposals={proposals} type="feature"/>
-				<ProposalsColumn proposals={proposals} type="issue" ml={10}/>
-				<ProposalsUserRankingColumn proposals={proposals} ml={10}/>
-				<VDragLayer/>
-			</Row>
+			<DragDropContext_Beautiful onDragEnd={this.OnDragEnd}>
+				<Row style={ES({marginTop: 10, flex: 1, padding: 10, filter: "drop-shadow(rgb(0, 0, 0) 0px 0px 10px)"})}>
+					<ProposalsColumn proposals={proposals} type="feature"/>
+					<ProposalsColumn proposals={proposals} type="issue" ml={10}/>
+					<ProposalsUserRankingColumn proposals={proposals} ml={10}/>
+				</Row>
+			</DragDropContext_Beautiful>
 		);
 	}
+	OnDragEnd = result=>{
+		console.log(`Drag result: ${ToJSON(result)}`);
+
+		const sourceDroppableInfo = FromJSON(result.source.droppableId) as DroppableInfo;
+		const sourceIndex = result.source.index as number;
+		const targetDroppableInfo = result.destination && FromJSON(result.destination.droppableId) as DroppableInfo;
+		let targetIndex = result.destination && result.destination.index as number;
+		const draggableInfo = FromJSON(result.draggableId) as DraggableInfo;
+
+		if (targetDroppableInfo == null) {
+		} else if (targetDroppableInfo.type == "ProposalsUserRankingColumn") {
+			if (manager.GetUserID() == null) return void manager.ShowSignInPopup();
+			
+			// if we're moving an item to later in the same list, increment the target-index again (since react-beautiful-dnd pre-applies target-index adjustment, unlike the rest of our code that uses SetBookEventIndex/Array.Move())
+			if (sourceDroppableInfo.type == targetDroppableInfo.type && sourceIndex < targetIndex) {
+				targetIndex++;
+			}
+
+			new SetProposalOrder({proposalID: draggableInfo.proposalID, userID: manager.GetUserID(), index: targetIndex}).Run();
+		}
+	};
 }
 
 export function GetRankingScoreToAddForUserRankingIndex(indexInRankingOrder: number) {
@@ -139,6 +143,7 @@ export class ProposalsColumn extends BaseComponentWithConnector(ProposalsColumn_
 
 		shownProposals = shownProposals.OrderByDescending(a=>rankingScores[a._id]);
 
+		const droppableInfo = new DroppableInfo({type: "ProposalsColumn", proposalType: type});
 		return (
 			<Column style={ES({flex: 1, height: "100%"})}>
 				<Column className="clickThrough" style={{height: 40, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0"}}>
@@ -156,18 +161,15 @@ export class ProposalsColumn extends BaseComponentWithConnector(ProposalsColumn_
 						}}/>
 					</Row>
 				</Column>
-				<ScrollView ref="scrollView" scrollVBarStyle={{width: 10}} style={ES({flex: 1})}>
-					<Column>
-						{shownProposals.length == 0 &&
-							<Row p="7px 10px" style={{background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px"}}>
-								There are currently no {type == "feature" ? "feature proposals" : "issue reports"}.
-							</Row>}
+				<Droppable type="Proposal" droppableId={ToJSON(droppableInfo)}>{(provided, snapshot)=>(
+					<ScrollView ref={c=>provided.innerRef(GetDOM(c))} scrollVBarStyle={{width: 10}} style={ES({flex: 1})}>
 						{shownProposals.map((proposal, index)=> {
 							return <ProposalEntryUI key={index} index={index} last={index == shownProposals.length - 1}
 								proposal={proposal} rankingScore={rankingScores[proposal._id]} columnType={type}/>;
 						})}
-					</Column>
-				</ScrollView>
+						{provided.placeholder}
+					</ScrollView>
+				)}</Droppable>
 			</Column>
 		);
 	}
@@ -177,53 +179,18 @@ let ProposalsUserRankingColumn_connector = (state, {}: {proposals: Proposal[]})=
 	proposalOrder: GetProposalOrder(manager.GetUserID()),
 });
 OnPopulated(()=>(ProposalsUserRankingColumn as any) = manager.Connect(ProposalsUserRankingColumn_connector)(ProposalsUserRankingColumn));
-@DropTarget("proposal", {
-	canDrop(props, monitor) {
-		let draggedEntry = monitor.getItem().proposal;
-		let {proposal: dropOnEntry, columnType} = props;
-		//if (!monitor.isOver({shallow: true})) return false;
-
-		return true;
-	},
-	drop(props, monitor, dropTarget) {
-		if (monitor.didDrop()) return;
-		if (manager.GetUserID() == null) return void manager.ShowSignInPopup();
-
-		var draggedItem = monitor.getItem();
-		new SetProposalOrder({proposalID: draggedItem.proposal._id, userID: manager.GetUserID(), index: Number.MAX_SAFE_INTEGER}).Run();
-	}
-},
-(connect, monitor)=> {
-	//var dropTarget = monitor.GetTargetComponent();
-	var targetComps = monitor.internalMonitor.GetTargetComponents();
-	
-	//let isOver_shallow = monitor.isOver({shallow: true});
-	let IsProposalEntry = a=>a.props.index != null && !a.props.asDragPreview;
-	let isOver_shallow = monitor.isOver() && !targetComps.Any(IsProposalEntry); // we're over this list shallowly, if not over any proposal-entries
-	//console.log(ToJSON(targetComps.map(a=>a.props.index)));
-
-	return {
-		connectDropTarget: connect.dropTarget(),
-		isOver: isOver_shallow,
-		draggedItem: monitor.getItem(),
-	};
-})
 @ApplyBasicStyles
 export class ProposalsUserRankingColumn extends BaseComponentWithConnector(ProposalsUserRankingColumn_connector, {}) {
 	render() {
 		let {proposals, proposalOrder,} = this.props;
-		let {connectDropTarget, isOver, draggedItem} = this.props as any;
 		let user = manager.GetUser(manager.GetUserID());
 
 		let proposalOrder_uncompleted = GetIncompleteProposalsInOrder(proposalOrder, proposals);
 
 		proposals = proposals.filter(a=>proposalOrder.Contains(a._id)).OrderBy(a=>proposalOrder.indexOf(a._id));
 
-		let dragPreviewUI = isOver &&
-			<ProposalEntryUI proposal={draggedItem.proposal} orderIndex={0} index={0} last={true}
-				columnType="userRanking" style={{opacity: .3, borderRadius: 10}} asDragPreview={true}/>;
-
-		return connectDropTarget(<div style={ES({flex: 1, height: "100%"})}>
+		const droppableInfo = new DroppableInfo({type: "ProposalsUserRankingColumn", userID: user ? user._id : null});
+		return (
 			<Column style={ES({flex: 1, height: "100%"})}>
 				<Column className="clickThrough" style={{background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0"}}>
 					<Row style={{position: "relative", height: 40, padding: 10}}>
@@ -233,20 +200,16 @@ export class ProposalsUserRankingColumn extends BaseComponentWithConnector(Propo
 						Drag proposals onto this list to "vote" for them. Items at the top get the highest score increase.
 					</div>
 				</Column>
-				<ScrollView ref="scrollView" scrollVBarStyle={{width: 10}} style={ES({flex: 1})}>
-					<Column>
-						{proposals.length == 0 && !dragPreviewUI &&
-							<Row p="7px 10px" style={{background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px"}}>
-								You have not yet added any proposals to your ranking.
-							</Row>}
+				<Droppable type="Proposal" droppableId={ToJSON(droppableInfo)}>{(provided, snapshot)=>(
+					<ScrollView ref={c=>provided.innerRef(GetDOM(c))} scrollVBarStyle={{width: 10}} style={ES({flex: 1})}>
 						{proposals.map((proposal, index)=> {
 							return <ProposalEntryUI key={index} index={index} orderIndex={proposalOrder_uncompleted.indexOf(proposal._id)}
 								last={index == proposals.length - 1} proposal={proposal} columnType="userRanking"/>;
 						})}
-						{dragPreviewUI}
-					</Column>
-				</ScrollView>
+						{provided.placeholder}
+					</ScrollView>
+				)}</Droppable>
 			</Column>
-		</div>);
+		);
 	}
 }

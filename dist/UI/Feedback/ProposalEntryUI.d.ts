@@ -1,7 +1,7 @@
-import { Timer } from "js-vextensions";
 import { Column } from "react-vcomponents";
 import { BaseComponent } from "react-vextensions";
 import { Proposal } from "./../../Store/firebase/proposals/@Proposal";
+import { DragInfo } from "../../Utils/UI/DNDHelpers";
 export declare type ProposalEntryUI_Props = {
     index: number;
     last: boolean;
@@ -9,18 +9,13 @@ export declare type ProposalEntryUI_Props = {
     orderIndex?: number;
     rankingScore?: number;
     columnType: string;
-    asDragPreview?: boolean;
     style?: any;
+} & {
+    dragInfo?: DragInfo;
 } & Partial<{
     creator: User;
 }>;
-export declare class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {
-    shouldDropBefore: boolean;
-}> {
-    ShouldDropBefore(): boolean;
-    updateTimer: Timer;
-    ComponentWillReceiveProps(props: any): void;
+export declare class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
     innerRoot: Column;
     render(): any;
-    PostRender(): void;
 }
