@@ -46,7 +46,7 @@ export class ProposalDetailsUI extends BaseComponent<ProposalDetailsUI_Props, {n
 				<Row mt={5} /*splitAt={splitAt} style={{width}}*/>
 					<Column style={{width: "100%"}}>
 						{enabled &&
-							<MarkdownToolbar editor={()=>this.refs.editor}>
+							<MarkdownToolbar editor={()=>this.refs.editor} /*excludeCommands={['h1', 'h2', 'h3', 'h4', 'italic', 'quote']}*/>
 								<manager.Link to="https://guides.github.com/features/mastering-markdown" style={{marginLeft: 10}}>How to add links, images, etc.</manager.Link>
 							</MarkdownToolbar>}
 						<aa.MarkdownEditor ref="editor" toolbar={false} value={newData.text || ""} onChange={val=>Change(newData.text = val)}

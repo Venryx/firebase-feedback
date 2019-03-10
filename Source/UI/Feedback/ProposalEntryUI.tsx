@@ -108,7 +108,7 @@ export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {shoul
 				style,
 			)}>
 				<Row>
-					<manager.Link text={proposal.title} actions={d=>d(new ACTProposalSelect({id: proposal._id}))} style={ES({fontSize: "15px", flex: 1})}/>
+					<manager.Link text={proposal.title} actions={[new ACTProposalSelect({id: proposal._id})]} style={ES({fontSize: "15px", flex: 1})}/>
 					<span style={{float: "right"}}>
 						{columnType == "userRanking"
 							? "#" + (index + 1) + (proposal.completedAt ? " (✔️)" : ` (+${GetRankingScoreToAddForUserRankingIndex(orderIndex).RoundTo_Str(.001, null, false)})`)

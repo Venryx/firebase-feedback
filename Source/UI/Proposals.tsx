@@ -20,6 +20,12 @@ import {ProposalEntryUI} from "./Feedback/ProposalEntryUI";
 import {ProposalUI} from "./Feedback/ProposalUI";
 import {Assert} from "js-vextensions";
 
+/*export class ProposalsUI_Outer extends BaseComponent<Props, {}> {
+	render() {
+		return <ProposalsUI
+	}
+}*/
+
 // temp fix for "isOver({shallow: true})"
 declare var require;
 var DragDropMonitor = require("dnd-core/lib/DragDropMonitor").default;
@@ -32,7 +38,8 @@ TargetMonitor.prototype.GetTargetComponent = function() {
     return this.internalMonitor.registry.handlers[this.targetId].component;
 };*/
 
-let ProposalsUI_connector = (state, {}: {subNavBarWidth: number})=> {
+type Props = {subNavBarWidth: number};
+let ProposalsUI_connector = (state, {}: Props)=> {
 	return {
 		proposals: GetProposals(),
 		selectedProposal: GetSelectedProposal(),
@@ -47,12 +54,13 @@ OnPopulated(()=> {
 //@DragDropContext(TouchBackend({enableMouseEvents: true}))
 @DragDropContext(MouseBackend)
 export class ProposalsUI extends BaseComponentWithConnector(ProposalsUI_connector, {}) {
+	static defaultProps = {subNavBarWidth: 0};
+	
 	constructor(props) {
 		Assert(wrapped, "ProposalsUI is being created before the class has been wrapped by Connect()!");
 		super(props);
 	}
 	
-	static defaultProps = {subNavBarWidth: 0};
 	render() {
 		let {proposals, subNavBarWidth, selectedProposal} = this.props;
 
@@ -92,7 +100,7 @@ function GetIncompleteProposalsInOrder(order: number[], proposals: Proposal[]) {
 }
 
 let ProposalsColumn_connector = (state, {type}: {proposals: Proposal[], type: string})=> ({
-	userData: (GetData("userData") || {}).Props().filter(a=>a.value != null).ToMap(a=>a.name, a=>a.value),
+	userData: (GetData({collection: true}, "userData") || {}).Props().filter(a=>a.value != null).ToMap(a=>a.name, a=>a.value),
 	showCompleted: State(`proposals/${type}s_showCompleted`),
 });
 OnPopulated(()=>(ProposalsColumn as any) = manager.Connect(ProposalsColumn_connector)(ProposalsColumn));

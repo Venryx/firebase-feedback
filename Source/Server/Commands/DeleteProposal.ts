@@ -12,7 +12,7 @@ export class DeleteProposal extends Command<{id: number}> {
 		let proposal = await GetAsync(()=>GetProposal(id))
 		//this.posts = await GetAsync(()=>GetProposalPosts(proposal));
 
-		let userDatas = (await GetDataAsync("userData") as Object) || {};
+		let userDatas = (await GetDataAsync({collection: true}, "userData") as Object) || {};
 		this.sub_removalsFromUserOrderings = [];
 		let userDatasWithOrderingContainingProposal = userDatas.Props(true).filter(prop=>prop.value["proposalIndexes"].VValues(true).Contains(id));
 		for (let userID of userDatasWithOrderingContainingProposal.map(prop=>prop.name)) {

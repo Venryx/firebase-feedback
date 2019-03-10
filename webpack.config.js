@@ -29,6 +29,7 @@ module.exports = {
 		"react-redux-firebase": "commonjs react-redux-firebase",
 		"react-vmessagebox": "commonjs react-vmessagebox",
 		"react-vscrollview": "commonjs react-vscrollview",
+		"react-vmarkdown": "commonjs react-vmarkdown",
 		"redux": "commonjs redux",
 	},
     /*module: {

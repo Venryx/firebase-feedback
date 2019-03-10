@@ -1,16 +1,17 @@
 import { BaseComponent } from "react-vextensions";
 import { Proposal } from "./../Store/firebase/proposals/@Proposal";
-declare const ProposalsUI_base: new (..._: any[]) => BaseComponent<{
+declare type Props = {
     subNavBarWidth: number;
-} & Partial<{
+};
+declare const ProposalsUI_base: new (..._: any[]) => BaseComponent<Props & Partial<{
     proposals: Proposal[];
     selectedProposal: Proposal;
 }>, {}>;
 export declare class ProposalsUI extends ProposalsUI_base {
-    constructor(props: any);
     static defaultProps: {
         subNavBarWidth: number;
     };
+    constructor(props: any);
     render(): JSX.Element;
 }
 export declare function GetRankingScoreToAddForUserRankingIndex(indexInRankingOrder: number): number;

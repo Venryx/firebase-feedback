@@ -14,7 +14,7 @@ export function DBPath(path = "", inVersionRoot = true) {
 	return path;
 }
 export type PathSegment = string | number;
-export function DBPathSegments(pathSegments: PathSegment[], inVersionRoot = true) {
+export function DBPathSegments(pathSegments: PathSegment[], inVersionRoot = true): PathSegment[] {
 	let result = pathSegments;
 	if (inVersionRoot) {
 		result = manager.storePath_dbData.split("/").concat(result as any);
@@ -54,6 +54,7 @@ export function GetUpdates(oldData, newData, useNullInsteadOfUndefined = true) {
 
 export class GetData_Options {
 	makeRequest? = true;
+	collection? = false;
 	useUndefinedForInProgress? = false;
 	queries?: any;
 }
@@ -70,6 +71,7 @@ export function GetData(...args) {
 }
 
 export class GetDataAsync_Options {
+	collection? = false;
 	addHelpers? = true;
 }
 
