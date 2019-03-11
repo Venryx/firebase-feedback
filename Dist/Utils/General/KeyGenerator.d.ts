@@ -1,1 +1,1 @@
-export declare function GenerateUUID(options?: any): any;
+export declare function GenerateUUID(): string;

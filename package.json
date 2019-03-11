@@ -74,6 +74,6 @@
     "ajv-keywords": "^3.1.0",
     "classnames": "^2.2.5",
     "codemirror": "^5.37.0",
-    "uuid": "^3.3.2"
+    "slugid": "^2.0.0"
   }
 }

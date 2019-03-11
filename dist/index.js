@@ -23147,11 +23147,13 @@ function (_Command) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GenerateUUID", function() { return GenerateUUID; });
-/* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(104);
-/* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid_v4__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var slugid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(116);
+/* harmony import */ var slugid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(slugid__WEBPACK_IMPORTED_MODULE_0__);
+//import uuidV4 from 'uuid/v4';
 
-function GenerateUUID(options) {
-  return uuid_v4__WEBPACK_IMPORTED_MODULE_0___default()(options);
+function GenerateUUID() {
+  //return uuidV4(options);
+  return slugid__WEBPACK_IMPORTED_MODULE_0___default.a.v4();
 }
 
 /***/ }),
@@ -24593,6 +24595,181 @@ function ES() {
 
   return result;
 }
+
+/***/ }),
+/* 116 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// The MIT License (MIT)
+//
+// Copyright (c) 2014 Jonas Finnemann Jensen
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+module.exports = __webpack_require__(117);
+
+
+/***/ }),
+/* 117 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(Buffer) {// The MIT License (MIT)
+//
+// Copyright (c) 2014 Jonas Finnemann Jensen
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+var uuidv4 = __webpack_require__(104);
+var uuidParse = __webpack_require__(118);
+
+/**
+ * Returns the given uuid as a 22 character slug. This can be a regular v4
+ * slug or a "nice" slug.
+ */
+exports.encode = function(uuid_) {
+  var bytes   = uuidParse.parse(uuid_);
+  var base64  = (new Buffer(bytes)).toString('base64');
+  var slug = base64
+              .replace(/\+/g, '-')  // Replace + with - (see RFC 4648, sec. 5)
+              .replace(/\//g, '_')  // Replace / with _ (see RFC 4648, sec. 5)
+              .substring(0, 22);    // Drop '==' padding
+  return slug;
+};
+
+/**
+ * Returns the uuid represented by the given v4 or "nice" slug
+ */
+exports.decode = function(slug) {
+  var base64 = slug
+                  .replace(/-/g, '+')
+                  .replace(/_/g, '/')
+                  + '==';
+  return uuidParse.unparse(new Buffer(base64, 'base64'));
+};
+
+/**
+ * Returns a randomly generated uuid v4 compliant slug
+ */
+exports.v4 = function() {
+  var bytes   = uuidv4(null, new Buffer(16));
+  var base64  = bytes.toString('base64');
+  var slug = base64
+              .replace(/\+/g, '-')  // Replace + with - (see RFC 4648, sec. 5)
+              .replace(/\//g, '_')  // Replace / with _ (see RFC 4648, sec. 5)
+              .substring(0, 22);    // Drop '==' padding
+  return slug;
+};
+
+/**
+ * Returns a randomly generated uuid v4 compliant slug which conforms to a set
+ * of "nice" properties, at the cost of some entropy. Currently this means one
+ * extra fixed bit (the first bit of the uuid is set to 0) which guarantees the
+ * slug will begin with [A-Za-f]. For example such slugs don't require special
+ * handling when used as command line parameters (whereas non-nice slugs may
+ * start with `-` which can confuse command line tools).
+ *
+ * Potentially other "nice" properties may be added in future to further
+ * restrict the range of potential uuids that may be generated.
+ */
+exports.nice = function() {
+  var bytes   = uuidv4(null, new Buffer(16));
+  bytes[0] = bytes[0] & 0x7f;  // unset first bit to ensure [A-Za-f] first char
+  var base64  = bytes.toString('base64');
+  var slug = base64
+              .replace(/\+/g, '-')  // Replace + with - (see RFC 4648, sec. 5)
+              .replace(/\//g, '_')  // Replace / with _ (see RFC 4648, sec. 5)
+              .substring(0, 22);    // Drop '==' padding
+  return slug;
+};
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(65).Buffer))
+
+/***/ }),
+/* 118 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// Maps for number <-> hex string conversion
+var _byteToHex = [];
+var _hexToByte = {};
+for (var i = 0; i < 256; i++) {
+  _byteToHex[i] = (i + 0x100).toString(16).substr(1);
+  _hexToByte[_byteToHex[i]] = i;
+}
+
+// **`parse()` - Parse a UUID into it's component bytes**
+function parse(s, buf, offset) {
+  var i = (buf && offset) || 0;
+  var ii = 0;
+
+  buf = buf || [];
+  s.toLowerCase().replace(/[0-9a-f]{2}/g, function(oct) {
+    if (ii < 16) { // Don't overflow!
+      buf[i + ii++] = _hexToByte[oct];
+    }
+  });
+
+  // Zero out remaining bytes if string was short
+  while (ii < 16) {
+    buf[i + ii++] = 0;
+  }
+
+  return buf;
+}
+
+// **`unparse()` - Convert UUID byte array (ala parse()) into a string**
+function unparse(buf, offset) {
+  var i = offset || 0;
+  var bth = _byteToHex;
+  return  bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]];
+}
+
+module.exports = {
+  parse: parse,
+  unparse: unparse
+};
+
 
 /***/ })
 /******/ ]);
