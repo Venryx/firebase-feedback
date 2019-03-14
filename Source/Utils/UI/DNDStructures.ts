@@ -16,7 +16,6 @@ export class DraggableInfo {
 		this.Extend(data);
 	}
 
-
 	// if in ProposalsColumn or ProposalsUserRankingColumn
 	columnType?: string;
 	proposalID?: string;

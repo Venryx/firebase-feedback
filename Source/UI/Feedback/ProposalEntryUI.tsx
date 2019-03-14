@@ -8,7 +8,7 @@ import {ACTProposalSelect} from "../../Store/main/proposals";
 import {GetRankingScoreToAddForUserRankingIndex} from "../Proposals";
 import {Proposal} from "./../../Store/firebase/proposals/@Proposal";
 import {MakeDraggable, DragInfo} from "../../Utils/UI/DNDHelpers";
-import {DraggableInfo} from "../../Utils/UI/DragAndDropInfo";
+import {DraggableInfo} from "../../Utils/UI/DNDStructures";
 import ReactDOM from "react-dom";
 
 let portal: HTMLElement;

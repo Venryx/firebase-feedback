@@ -1,14 +1,15 @@
 import { Command } from "../Command";
 import { Proposal } from "./../../Store/firebase/proposals/@Proposal";
-export declare type _MainType = Proposal;
+declare type MainType = Proposal;
 export declare class UpdateProposal extends Command<{
     id: string;
-    updates: Partial<_MainType>;
+    updates: Partial<MainType>;
 }> {
     Validate_Early(): void;
-    oldData: _MainType;
-    newData: _MainType;
+    oldData: MainType;
+    newData: MainType;
     Prepare(): Promise<void>;
     Validate(): Promise<void>;
     GetDBUpdates(): {};
 }
+export {};

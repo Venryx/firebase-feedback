@@ -3,7 +3,7 @@ import { GetDataAsync } from "../../Utils/Database/DatabaseHelpers";
 import {WaitTillSchemaAddedThenRun, GetSchemaJSON, AddSchema, Schema, AssertValidate} from "../Server";
 import {Proposal} from "./../../Store/firebase/proposals/@Proposal";
 
-export type _MainType = Proposal;
+type MainType = Proposal;
 let MTName = "Proposal";
 
 WaitTillSchemaAddedThenRun(MTName, ()=> {
@@ -19,16 +19,16 @@ WaitTillSchemaAddedThenRun(MTName, ()=> {
 });
 
 //@UserEdit
-export class UpdateProposal extends Command<{id: string, updates: Partial<_MainType>}> {
+export class UpdateProposal extends Command<{id: string, updates: Partial<MainType>}> {
 	Validate_Early() {
 		AssertValidate(`Update${MTName}_payload`, this.payload, `Payload invalid`);
 	}
 
-	oldData: _MainType;
-	newData: _MainType;
+	oldData: MainType;
+	newData: MainType;
 	async Prepare() {
 		let {id, updates} = this.payload;
-		this.oldData = await GetDataAsync({addHelpers: false}, "proposals", id) as _MainType;
+		this.oldData = await GetDataAsync({addHelpers: false}, "proposals", id) as MainType;
 		this.newData = {...this.oldData, ...updates};
 	}
 	async Validate() {

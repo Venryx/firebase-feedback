@@ -15,7 +15,7 @@ import {ProposalEntryUI} from "./Feedback/ProposalEntryUI";
 import {ProposalUI} from "./Feedback/ProposalUI";
 import {Assert, ToJSON, FromJSON} from "js-vextensions";
 import {DragDropContext as DragDropContext_Beautiful, Droppable} from "react-beautiful-dnd";
-import {DroppableInfo, DraggableInfo} from "../Utils/UI/DragAndDropInfo";
+import {DroppableInfo, DraggableInfo} from "../Utils/UI/DNDStructures";
 
 /*export class ProposalsUI_Outer extends BaseComponent<Props, {}> {
 	render() {

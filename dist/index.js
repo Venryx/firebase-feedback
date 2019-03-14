@@ -122,74 +122,64 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OnPopulated", function() { return _Manager__WEBPACK_IMPORTED_MODULE_2__["OnPopulated"]; });
 
-/* harmony import */ var _General__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RemoveDuplicates", function() { return _General__WEBPACK_IMPORTED_MODULE_3__["RemoveDuplicates"]; });
+/* harmony import */ var _Server_Commands_AddProposal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AddProposal", function() { return _Server_Commands_AddProposal__WEBPACK_IMPORTED_MODULE_3__["AddProposal"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "State", function() { return _General__WEBPACK_IMPORTED_MODULE_3__["State"]; });
+/* harmony import */ var _Server_Commands_DeleteProposal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(93);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DeleteProposal", function() { return _Server_Commands_DeleteProposal__WEBPACK_IMPORTED_MODULE_4__["DeleteProposal"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StorePath", function() { return _General__WEBPACK_IMPORTED_MODULE_3__["StorePath"]; });
+/* harmony import */ var _Server_Commands_SetProposalOrder__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(95);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SetProposalOrder", function() { return _Server_Commands_SetProposalOrder__WEBPACK_IMPORTED_MODULE_5__["SetProposalOrder"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "emptyArray", function() { return _General__WEBPACK_IMPORTED_MODULE_3__["emptyArray"]; });
+/* harmony import */ var _Server_Commands_UpdateProposal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(96);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UpdateProposal", function() { return _Server_Commands_UpdateProposal__WEBPACK_IMPORTED_MODULE_6__["UpdateProposal"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AccessLevel", function() { return _General__WEBPACK_IMPORTED_MODULE_3__["AccessLevel"]; });
+/* harmony import */ var _Store_main__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(97);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ACTSet", function() { return _Store_main__WEBPACK_IMPORTED_MODULE_7__["ACTSet"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetUserAccessLevel", function() { return _General__WEBPACK_IMPORTED_MODULE_3__["GetUserAccessLevel"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SimpleReducer", function() { return _Store_main__WEBPACK_IMPORTED_MODULE_7__["SimpleReducer"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsUserBasic", function() { return _General__WEBPACK_IMPORTED_MODULE_3__["IsUserBasic"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Feedback", function() { return _Store_main__WEBPACK_IMPORTED_MODULE_7__["Feedback"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsUserVerified", function() { return _General__WEBPACK_IMPORTED_MODULE_3__["IsUserVerified"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FeedbackReducer", function() { return _Store_main__WEBPACK_IMPORTED_MODULE_7__["FeedbackReducer"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsUserMod", function() { return _General__WEBPACK_IMPORTED_MODULE_3__["IsUserMod"]; });
+/* harmony import */ var _Store_main_proposals__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(101);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ACTProposalSelect", function() { return _Store_main_proposals__WEBPACK_IMPORTED_MODULE_8__["ACTProposalSelect"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsUserAdmin", function() { return _General__WEBPACK_IMPORTED_MODULE_3__["IsUserAdmin"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Proposals", function() { return _Store_main_proposals__WEBPACK_IMPORTED_MODULE_8__["Proposals"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsUserBasicOrAnon", function() { return _General__WEBPACK_IMPORTED_MODULE_3__["IsUserBasicOrAnon"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ProposalsReducer", function() { return _Store_main_proposals__WEBPACK_IMPORTED_MODULE_8__["ProposalsReducer"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsUserCreatorOrMod", function() { return _General__WEBPACK_IMPORTED_MODULE_3__["IsUserCreatorOrMod"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetSelectedProposalID", function() { return _Store_main_proposals__WEBPACK_IMPORTED_MODULE_8__["GetSelectedProposalID"]; });
 
-/* harmony import */ var _Store_main__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(8);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ACTSet", function() { return _Store_main__WEBPACK_IMPORTED_MODULE_4__["ACTSet"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetSelectedProposal", function() { return _Store_main_proposals__WEBPACK_IMPORTED_MODULE_8__["GetSelectedProposal"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SimpleReducer", function() { return _Store_main__WEBPACK_IMPORTED_MODULE_4__["SimpleReducer"]; });
+/* harmony import */ var _Store_firebase_proposals__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(94);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetProposal", function() { return _Store_firebase_proposals__WEBPACK_IMPORTED_MODULE_9__["GetProposal"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Feedback", function() { return _Store_main__WEBPACK_IMPORTED_MODULE_4__["Feedback"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetProposals", function() { return _Store_firebase_proposals__WEBPACK_IMPORTED_MODULE_9__["GetProposals"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FeedbackReducer", function() { return _Store_main__WEBPACK_IMPORTED_MODULE_4__["FeedbackReducer"]; });
+/* harmony import */ var _Store_firebase_proposals_Proposal__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(102);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Proposal", function() { return _Store_firebase_proposals_Proposal__WEBPACK_IMPORTED_MODULE_10__["Proposal"]; });
 
-/* harmony import */ var _Store_main_proposals__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(11);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ACTProposalSelect", function() { return _Store_main_proposals__WEBPACK_IMPORTED_MODULE_5__["ACTProposalSelect"]; });
+/* harmony import */ var _Store_firebase_userData__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(103);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetProposalIndexes", function() { return _Store_firebase_userData__WEBPACK_IMPORTED_MODULE_11__["GetProposalIndexes"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Proposals", function() { return _Store_main_proposals__WEBPACK_IMPORTED_MODULE_5__["Proposals"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetProposalOrder", function() { return _Store_firebase_userData__WEBPACK_IMPORTED_MODULE_11__["GetProposalOrder"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ProposalsReducer", function() { return _Store_main_proposals__WEBPACK_IMPORTED_MODULE_5__["ProposalsReducer"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetProposalIndex", function() { return _Store_firebase_userData__WEBPACK_IMPORTED_MODULE_11__["GetProposalIndex"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetSelectedProposalID", function() { return _Store_main_proposals__WEBPACK_IMPORTED_MODULE_5__["GetSelectedProposalID"]; });
+/* harmony import */ var _UI_Proposals__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(104);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ProposalsUI", function() { return _UI_Proposals__WEBPACK_IMPORTED_MODULE_12__["ProposalsUI"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetSelectedProposal", function() { return _Store_main_proposals__WEBPACK_IMPORTED_MODULE_5__["GetSelectedProposal"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetRankingScoreToAddForUserRankingIndex", function() { return _UI_Proposals__WEBPACK_IMPORTED_MODULE_12__["GetRankingScoreToAddForUserRankingIndex"]; });
 
-/* harmony import */ var _Store_firebase_proposals__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(12);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetProposal", function() { return _Store_firebase_proposals__WEBPACK_IMPORTED_MODULE_6__["GetProposal"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ProposalsColumn", function() { return _UI_Proposals__WEBPACK_IMPORTED_MODULE_12__["ProposalsColumn"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetProposals", function() { return _Store_firebase_proposals__WEBPACK_IMPORTED_MODULE_6__["GetProposals"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ProposalsUserRankingColumn", function() { return _UI_Proposals__WEBPACK_IMPORTED_MODULE_12__["ProposalsUserRankingColumn"]; });
 
-/* harmony import */ var _Store_firebase_proposals_Proposal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(15);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Proposal", function() { return _Store_firebase_proposals_Proposal__WEBPACK_IMPORTED_MODULE_7__["Proposal"]; });
 
-/* harmony import */ var _Store_firebase_userData__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(91);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetProposalIndexes", function() { return _Store_firebase_userData__WEBPACK_IMPORTED_MODULE_8__["GetProposalIndexes"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetProposalOrder", function() { return _Store_firebase_userData__WEBPACK_IMPORTED_MODULE_8__["GetProposalOrder"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetProposalIndex", function() { return _Store_firebase_userData__WEBPACK_IMPORTED_MODULE_8__["GetProposalIndex"]; });
-
-/* harmony import */ var _UI_Proposals__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(92);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ProposalsUI", function() { return _UI_Proposals__WEBPACK_IMPORTED_MODULE_9__["ProposalsUI"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetRankingScoreToAddForUserRankingIndex", function() { return _UI_Proposals__WEBPACK_IMPORTED_MODULE_9__["GetRankingScoreToAddForUserRankingIndex"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ProposalsColumn", function() { return _UI_Proposals__WEBPACK_IMPORTED_MODULE_9__["ProposalsColumn"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ProposalsUserRankingColumn", function() { return _UI_Proposals__WEBPACK_IMPORTED_MODULE_9__["ProposalsUserRankingColumn"]; });
 
 
 
@@ -10194,44 +10184,228 @@ function MaybeLog(shouldLogFunc, logMessageGetter) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RemoveDuplicates", function() { return RemoveDuplicates; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "State", function() { return State; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StorePath", function() { return StorePath; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emptyArray", function() { return emptyArray; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AccessLevel", function() { return AccessLevel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetUserAccessLevel", function() { return GetUserAccessLevel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IsUserBasic", function() { return IsUserBasic; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IsUserVerified", function() { return IsUserVerified; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IsUserMod", function() { return IsUserMod; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IsUserAdmin", function() { return IsUserAdmin; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IsUserBasicOrAnon", function() { return IsUserBasicOrAnon; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IsUserCreatorOrMod", function() { return IsUserCreatorOrMod; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddProposal", function() { return AddProposal; });
+/* harmony import */ var _Command__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
+/* harmony import */ var _Server__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11);
+/* harmony import */ var _Utils_General_KeyGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(86);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : new P(function (resolve) {
+        resolve(result.value);
+      }).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
+
+
+
+var MTName = "Proposal"; //@UserEdit
+
+var AddProposal =
+/*#__PURE__*/
+function (_Command) {
+  _inherits(AddProposal, _Command);
+
+  function AddProposal() {
+    _classCallCheck(this, AddProposal);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(AddProposal).apply(this, arguments));
+  }
+
+  _createClass(AddProposal, [{
+    key: "Prepare",
+    value: function Prepare() {
+      return __awaiter(this, void 0, void 0,
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee() {
+        var data;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                data = this.payload.data;
+                this.id = Object(_Utils_General_KeyGenerator__WEBPACK_IMPORTED_MODULE_2__["GenerateUUID"])();
+                data.creator = this.userInfo.id;
+                data.createdAt = Date.now(); //thread.editedAt = thread.createdAt;
+
+                this.returnData = this.id;
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+    }
+  }, {
+    key: "Validate",
+    value: function Validate() {
+      return __awaiter(this, void 0, void 0,
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee2() {
+        var data;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                data = this.payload.data;
+                Object(_Server__WEBPACK_IMPORTED_MODULE_1__["AssertValidate"])(MTName, data, "".concat(MTName, " invalid"));
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+    }
+  }, {
+    key: "GetDBUpdates",
+    value: function GetDBUpdates() {
+      var data = this.payload.data;
+
+      var updates = _defineProperty({}, "proposals/".concat(this.id), data);
+
+      return updates;
+    }
+  }]);
+
+  return AddProposal;
+}(_Command__WEBPACK_IMPORTED_MODULE_0__["Command"]);
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommandUserInfo", function() { return CommandUserInfo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Command", function() { return Command; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MergeDBUpdates", function() { return MergeDBUpdates; });
 /* harmony import */ var js_vextensions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var js_vextensions__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(js_vextensions__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Manager__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+/* harmony import */ var _Utils_General_Logging__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var _Manager__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
+/* harmony import */ var _Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(9);
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : new P(function (resolve) {
+        resolve(result.value);
+      }).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
 
 
 
-function RemoveDuplicates(items) {
-  var result = [];
+
+
+var CommandUserInfo = function CommandUserInfo() {
+  _classCallCheck(this, CommandUserInfo);
+};
+var currentCommandRun_listeners = null;
+
+function WaitTillCurrentCommandFinishes() {
+  return __awaiter(this, void 0, void 0,
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee() {
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            return _context.abrupt("return", new Promise(function (resolve, reject) {
+              currentCommandRun_listeners.push({
+                resolve: resolve,
+                reject: reject
+              });
+            }));
+
+          case 1:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+}
+
+function OnCurrentCommandFinished() {
+  var currentCommandRun_listeners_copy = currentCommandRun_listeners;
+  currentCommandRun_listeners = null;
   var _iteratorNormalCompletion = true;
   var _didIteratorError = false;
   var _iteratorError = undefined;
 
   try {
-    for (var _iterator = items[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-      var item = _step.value;
-
-      if (result.indexOf(item) == -1) {
-        result.push(item);
-      }
+    for (var _iterator = currentCommandRun_listeners_copy[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var listener = _step.value;
+      listener.resolve();
     }
   } catch (err) {
     _didIteratorError = true;
@@ -10247,309 +10421,290 @@ function RemoveDuplicates(items) {
       }
     }
   }
-
-  return result;
-}
-function State() {
-  var pathSegments; //, options = new State_Options();
-  //if (args.length == 0) return State_overrides.state || store.getState();
-
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-
-  if (args.length == 0) return store.getState();else if (typeof args[0] == "function") pathSegments = ConvertPathGetterFuncToPropChain(args[0]);else if (typeof args[0] == "string") pathSegments = args.length == 1 ? args[0].split("/") : args; // if only one string provided, assume it's the full path
-  //else [options, ...pathSegments] = args;
-  else {
-      pathSegments = args.slice(0);
-    }
-  /*if (__DEV__) {
-      Assert(pathSegments.All(segment=>segment != null), `Path-segment cannot be null. @segments(${pathSegments})`);
-      Assert(pathSegments.All(segment=>typeof segment == "number" || !segment.Contains("/")),
-          `Each string path-segment must be a plain prop-name. (ie. contain no "/" separators) @segments(${pathSegments})`);
-  }*/
-
-  /*let selectedData = DeepGet(store.getState(), manager.storePath_mainData + "/" + pathSegments.join("/"));
-  return selectedData;*/
-
-  return _Manager__WEBPACK_IMPORTED_MODULE_1__["manager"].State.apply(_Manager__WEBPACK_IMPORTED_MODULE_1__["manager"], _toConsumableArray(_Manager__WEBPACK_IMPORTED_MODULE_1__["manager"].storePath_mainData.split("/").concat(pathSegments)));
 }
 
-function ConvertPathGetterFuncToPropChain(pathGetterFunc) {
-  var pathStr = pathGetterFunc.toString().match(/return a\.(.+?);/)[1];
-  Object(js_vextensions__WEBPACK_IMPORTED_MODULE_0__["Assert"])(!pathStr.includes("["), "State-getter-func cannot contain bracket-based property-access.\n\n".concat("For variable inclusion, use multiple segments as in \"State(\"main\", \"mapViews\", mapID)\".")); //let result = pathStr.replace(/\./g, "/");
-
-  var result = pathStr.split(".");
-  return result;
-}
-
-function StorePath(pathGetterFunc) {
-  return ConvertPathGetterFuncToPropChain(pathGetterFunc).join("/");
-}
-var emptyArray = [];
-var AccessLevel;
-
-(function (AccessLevel) {
-  AccessLevel[AccessLevel["Basic"] = 10] = "Basic";
-  AccessLevel[AccessLevel["Verified"] = 20] = "Verified";
-  AccessLevel[AccessLevel["Mod"] = 30] = "Mod";
-  AccessLevel[AccessLevel["Admin"] = 40] = "Admin";
-})(AccessLevel || (AccessLevel = {}));
-/*export function GetUserPermissionGroups(userID: string): PermissionGroupSet {
-    if (userID == null) return null;
-    return GetData("userExtras", userID, "permissionGroups");
-}*/
-
-
-function GetUserAccessLevel(userID) {
-  var groups = _Manager__WEBPACK_IMPORTED_MODULE_1__["manager"].GetUserPermissionGroups(userID);
-  if (groups == null) return AccessLevel.Basic;
-  if (groups.admin) return AccessLevel.Admin;
-  if (groups.mod) return AccessLevel.Mod;
-  if (groups.verified) return AccessLevel.Verified; //if (groups.basic) return AccessLevel.Basic;
-
-  Object(js_vextensions__WEBPACK_IMPORTED_MODULE_0__["Assert"])(false);
-}
-function IsUserBasic(userID) {
-  return (_Manager__WEBPACK_IMPORTED_MODULE_1__["manager"].GetUserPermissionGroups(userID) || {}).basic;
-}
-function IsUserVerified(userID) {
-  return (_Manager__WEBPACK_IMPORTED_MODULE_1__["manager"].GetUserPermissionGroups(userID) || {}).verified;
-}
-function IsUserMod(userID) {
-  return (_Manager__WEBPACK_IMPORTED_MODULE_1__["manager"].GetUserPermissionGroups(userID) || {}).mod;
-}
-function IsUserAdmin(userID) {
-  return (_Manager__WEBPACK_IMPORTED_MODULE_1__["manager"].GetUserPermissionGroups(userID) || {}).admin;
-}
-function IsUserBasicOrAnon(userID) {
-  var permissionGroups = _Manager__WEBPACK_IMPORTED_MODULE_1__["manager"].GetUserPermissionGroups(userID);
-  return permissionGroups == null || permissionGroups.basic;
-}
-function IsUserCreatorOrMod(userID, entity) {
-  var permissionGroups = _Manager__WEBPACK_IMPORTED_MODULE_1__["manager"].GetUserPermissionGroups(userID);
-  if (permissionGroups == null) return false;
-  return entity.creator == userID && permissionGroups.basic || permissionGroups.mod;
-}
-
-/***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ACTSet", function() { return ACTSet; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SimpleReducer", function() { return SimpleReducer; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Feedback", function() { return Feedback; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FeedbackReducer", function() { return FeedbackReducer; });
-/* harmony import */ var _Utils_General_Action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(redux__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _General__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
-/* harmony import */ var _main_proposals__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-
-
-
-var ACTSet =
+var Command =
 /*#__PURE__*/
-function (_Action) {
-  _inherits(ACTSet, _Action);
+function () {
+  function Command(payload) {
+    _classCallCheck(this, Command);
 
-  function ACTSet(path, value) {
-    var _this;
+    this.userInfo = {
+      id: _Manager__WEBPACK_IMPORTED_MODULE_2__["manager"].GetUserID()
+    }; // temp
 
-    _classCallCheck(this, ACTSet);
+    this.type = this.constructor.name;
+    this.payload = payload; //this.Extend(payload);
+    //Object.setPrototypeOf(this, Object.getPrototypeOf({}));
+  } // these methods are executed on the server (well, will be later)
+  // ==========
 
-    if (typeof path == "function") path = Object(_General__WEBPACK_IMPORTED_MODULE_2__["StorePath"])(path);
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(ACTSet).call(this, {
-      path: path,
-      value: value
-    }));
-    _this.type = "ACTSetFF_" + path; //.replace(/[^a-zA-Z0-9]/g, "_"); // add path to action-type, for easier debugging in dev-tools
+  /** [sync] Validates the payload data. (ie. the validation that doesn't require accessing the database) */
 
-    return _this;
+
+  _createClass(Command, [{
+    key: "Validate_Early",
+    value: function Validate_Early() {}
+  }, {
+    key: "Run",
+
+    /** [async] Validates the data, prepares it, and executes it -- thus applying it into the database. */
+    value: function Run() {
+      return __awaiter(this, void 0, void 0,
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee2() {
+        var _this = this;
+
+        var dbUpdates;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!currentCommandRun_listeners) {
+                  _context2.next = 5;
+                  break;
+                }
+
+                _context2.next = 3;
+                return WaitTillCurrentCommandFinishes();
+
+              case 3:
+                _context2.next = 0;
+                break;
+
+              case 5:
+                currentCommandRun_listeners = [];
+                Object(_Utils_General_Logging__WEBPACK_IMPORTED_MODULE_1__["MaybeLog"])(function (a) {
+                  return a.commands;
+                }, function () {
+                  return "Running command. @type:".concat(_this.constructor.name, " @payload(").concat(Object(js_vextensions__WEBPACK_IMPORTED_MODULE_0__["ToJSON"])(_this.payload), ")");
+                });
+                _context2.prev = 7;
+                this.Validate_Early();
+                _context2.next = 11;
+                return this.Prepare();
+
+              case 11:
+                _context2.next = 13;
+                return this.Validate();
+
+              case 13:
+                dbUpdates = this.GetDBUpdates(); //FixDBUpdates(dbUpdates);
+                //await store.firebase.helpers.ref(DBPath("")).update(dbUpdates);
+
+                _context2.next = 16;
+                return _Manager__WEBPACK_IMPORTED_MODULE_2__["manager"].ApplyDBUpdates(Object(_Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_3__["DBPath"])(), dbUpdates);
+
+              case 16:
+                Object(_Utils_General_Logging__WEBPACK_IMPORTED_MODULE_1__["MaybeLog"])(function (a) {
+                  return a.commands;
+                }, function () {
+                  return "Finishing command. @type:".concat(_this.constructor.name, " @payload(").concat(Object(js_vextensions__WEBPACK_IMPORTED_MODULE_0__["ToJSON"])(_this.payload), ")");
+                });
+
+              case 17:
+                _context2.prev = 17;
+                OnCurrentCommandFinished();
+                return _context2.finish(17);
+
+              case 20:
+                return _context2.abrupt("return", this.returnData);
+
+              case 21:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[7,, 17, 20]]);
+      }));
+    }
+  }]);
+
+  return Command;
+}();
+function MergeDBUpdates(baseUpdatesMap, updatesToMergeMap) {
+  var baseUpdates = baseUpdatesMap.Props().map(function (prop) {
+    return {
+      path: prop.name,
+      data: prop.value
+    };
+  });
+  var updatesToMerge = updatesToMergeMap.Props().map(function (prop) {
+    return {
+      path: prop.name,
+      data: prop.value
+    };
+  });
+  var _iteratorNormalCompletion2 = true;
+  var _didIteratorError2 = false;
+  var _iteratorError2 = undefined;
+
+  try {
+    for (var _iterator2 = updatesToMerge[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+      var update = _step2.value;
+
+      // if an update-to-merge exists for a path, remove any base-updates starting with that path (since the to-merge ones have priority)
+      if (update.data == null) {
+        var _iteratorNormalCompletion5 = true;
+        var _didIteratorError5 = false;
+        var _iteratorError5 = undefined;
+
+        try {
+          for (var _iterator5 = baseUpdates.slice()[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+            var update2 = _step5.value;
+
+            // make copy, since Remove() seems to break iteration otherwise
+            if (update2.path.startsWith(update.path)) {
+              baseUpdates.Remove(update2);
+            }
+          }
+        } catch (err) {
+          _didIteratorError5 = true;
+          _iteratorError5 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion5 && _iterator5.return != null) {
+              _iterator5.return();
+            }
+          } finally {
+            if (_didIteratorError5) {
+              throw _iteratorError5;
+            }
+          }
+        }
+      }
+    }
+  } catch (err) {
+    _didIteratorError2 = true;
+    _iteratorError2 = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+        _iterator2.return();
+      }
+    } finally {
+      if (_didIteratorError2) {
+        throw _iteratorError2;
+      }
+    }
   }
 
-  return ACTSet;
-}(_Utils_General_Action__WEBPACK_IMPORTED_MODULE_0__["Action"]);
-function SimpleReducer(path) {
-  var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-  if (typeof path == "function") path = Object(_General__WEBPACK_IMPORTED_MODULE_2__["StorePath"])(path);
-  return function () {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultValue;
-    var action = arguments.length > 1 ? arguments[1] : undefined;
-    if (Object(_Utils_General_Action__WEBPACK_IMPORTED_MODULE_0__["IsACTSetFor"])(action, path)) return action.payload.value;
-    return state;
-  };
-}
-var Feedback = function Feedback() {
-  _classCallCheck(this, Feedback);
-};
-var FeedbackReducer = Object(redux__WEBPACK_IMPORTED_MODULE_1__["combineReducers"])({
-  proposals: _main_proposals__WEBPACK_IMPORTED_MODULE_3__["ProposalsReducer"]
-});
+  var finalUpdates = [];
+  var _iteratorNormalCompletion3 = true;
+  var _didIteratorError3 = false;
+  var _iteratorError3 = undefined;
+
+  try {
+    var _loop = function _loop() {
+      var update = _step3.value;
+      var updatesToMergeIntoThisOne = updatesToMerge.filter(function (update2) {
+        return update2.path.startsWith(update.path);
+      });
+      var _iteratorNormalCompletion6 = true;
+      var _didIteratorError6 = false;
+      var _iteratorError6 = undefined;
+
+      try {
+        for (var _iterator6 = updatesToMergeIntoThisOne[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+          var updateToMerge = _step6.value;
+          var updateToMerge_relativePath = updateToMerge.path.substr("".concat(update.path, "/").length); //if (updateToMerge.data) {
+          // assume that the update-to-merge has priority, so have it completely overwrite the data at its path
+          //update.data = u.updateIn(updateToMerge_relativePath.replace(/\//g, "."), u.constant(updateToMerge.data), update.data);
+
+          Object(js_vextensions__WEBPACK_IMPORTED_MODULE_0__["DeepSet"])(update.data, updateToMerge_relativePath, updateToMerge.data);
+          /*} else {
+              update.data = null;
+          }*/
+          // remove from updates-to-merge list (since we just merged it)
+
+          updatesToMerge.Remove(updateToMerge);
+        }
+      } catch (err) {
+        _didIteratorError6 = true;
+        _iteratorError6 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion6 && _iterator6.return != null) {
+            _iterator6.return();
+          }
+        } finally {
+          if (_didIteratorError6) {
+            throw _iteratorError6;
+          }
+        }
+      }
+
+      finalUpdates.push(update);
+    };
+
+    for (var _iterator3 = baseUpdates[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+      _loop();
+    } // for any "update to merge" which couldn't be merged into one of the base-updates, just add it as its own update (it won't clash with the others)
+
+  } catch (err) {
+    _didIteratorError3 = true;
+    _iteratorError3 = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion3 && _iterator3.return != null) {
+        _iterator3.return();
+      }
+    } finally {
+      if (_didIteratorError3) {
+        throw _iteratorError3;
+      }
+    }
+  }
+
+  var _iteratorNormalCompletion4 = true;
+  var _didIteratorError4 = false;
+  var _iteratorError4 = undefined;
+
+  try {
+    for (var _iterator4 = updatesToMerge[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+      var _update = _step4.value;
+      finalUpdates.push(_update);
+    }
+  } catch (err) {
+    _didIteratorError4 = true;
+    _iteratorError4 = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion4 && _iterator4.return != null) {
+        _iterator4.return();
+      }
+    } finally {
+      if (_didIteratorError4) {
+        throw _iteratorError4;
+      }
+    }
+  }
+
+  var finalUpdatesMap = finalUpdates.reduce(function (result, current) {
+    return result.VSet(current.path, current.data);
+  }, {});
+  return finalUpdatesMap;
+} // template
+// ==========
+
+/*
+    Validate_Early() {
+    }
+
+    async Prepare() {
+    }
+    async Validate() {
+    }
+
+    GetDBUpdates() {
+        let updates = {
+        };
+        return updates;
+    }
+*/
 
 /***/ }),
 /* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Action", function() { return Action; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IsACTSetFor", function() { return IsACTSetFor; });
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Action = function Action(payload) {
-  _classCallCheck(this, Action);
-
-  this.type = this.constructor.name;
-  this.payload = payload; //this.Extend(payload);
-
-  Object.setPrototypeOf(this, Object.getPrototypeOf({}));
-};
-/*Object.prototype._AddFunction("Is", Action.prototype.Is);
-Object.prototype._AddFunction("IsAny", Action.prototype.IsAny);*/
-
-/*export function IsACT<Props>(action, actionType: new(..._)=>Action<Props>): action is Props {
-    return action.type == actionType.name;
-    //return action instanceof actionType; // alternative
-}*/
-
-/*export function IsACT<T, Props>(action: Action<T>, actionType: new(..._)=>Action<Props>): action is Props {
-    return this.type == actionType.name;
-    //return this instanceof actionType; // alternative
-}*/
-
-function IsACTSetFor(action, path) {
-  return action.type.startsWith("ACTSetFF_") && action.payload["path"] == path;
-}
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-module.exports = require("redux");
-
-/***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ACTProposalSelect", function() { return ACTProposalSelect; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Proposals", function() { return Proposals; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProposalsReducer", function() { return ProposalsReducer; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetSelectedProposalID", function() { return GetSelectedProposalID; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetSelectedProposal", function() { return GetSelectedProposal; });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(redux__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Utils_General_Action__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9);
-/* harmony import */ var _firebase_proposals__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
-/* harmony import */ var _General__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7);
-/* harmony import */ var _main__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(8);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-
-
-
-
-var ACTProposalSelect =
-/*#__PURE__*/
-function (_Action) {
-  _inherits(ACTProposalSelect, _Action);
-
-  function ACTProposalSelect() {
-    _classCallCheck(this, ACTProposalSelect);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(ACTProposalSelect).apply(this, arguments));
-  }
-
-  return ACTProposalSelect;
-}(_Utils_General_Action__WEBPACK_IMPORTED_MODULE_1__["Action"]);
-var Proposals = function Proposals() {
-  _classCallCheck(this, Proposals);
-};
-var ProposalsReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  selectedProposalID: function selectedProposalID() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-    var action = arguments.length > 1 ? arguments[1] : undefined;
-    if (action.type == "ACTProposalSelect") return action.payload.id;
-    return state;
-  },
-  features_showCompleted: Object(_main__WEBPACK_IMPORTED_MODULE_4__["SimpleReducer"])(function (a) {
-    return a.proposals.features_showCompleted;
-  }),
-  issues_showCompleted: Object(_main__WEBPACK_IMPORTED_MODULE_4__["SimpleReducer"])(function (a) {
-    return a.proposals.issues_showCompleted;
-  })
-});
-function GetSelectedProposalID() {
-  return Object(_General__WEBPACK_IMPORTED_MODULE_3__["State"])("proposals", "selectedProposalID");
-}
-function GetSelectedProposal() {
-  var selectedID = GetSelectedProposalID();
-  return Object(_firebase_proposals__WEBPACK_IMPORTED_MODULE_2__["GetProposal"])(selectedID);
-}
-
-/***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetProposal", function() { return GetProposal; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetProposals", function() { return GetProposals; });
-/* harmony import */ var _Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13);
-/* harmony import */ var js_vextensions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-/* harmony import */ var js_vextensions__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(js_vextensions__WEBPACK_IMPORTED_MODULE_1__);
-
-
-function GetProposal(id) {
-  if (id == null) return null;
-  return Object(_Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_0__["GetData"])("proposals", id);
-}
-function GetProposals() {
-  var entryMap = Object(_Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_0__["GetData"])({
-    collection: true
-  }, "proposals"); //return CachedTransform("GetProposals", [], entryMap, ()=>entryMap ? entryMap.VValues(true) : []);
-
-  return Object(js_vextensions__WEBPACK_IMPORTED_MODULE_1__["CachedTransform"])("GetProposals", [], entryMap, function () {
-    return entryMap ? entryMap.VValues(true).filter(function (a) {
-      return a;
-    }) : [];
-  }); // filter() needed for some reason
-}
-
-/***/ }),
-/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10567,7 +10722,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var js_vextensions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var js_vextensions__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(js_vextensions__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
-/* harmony import */ var _StringSplitCache__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(14);
+/* harmony import */ var _StringSplitCache__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(10);
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -10791,7 +10946,7 @@ function GetAsync(dbGetterFunc, statsLogger) {
 }
 
 /***/ }),
-/* 14 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10804,53 +10959,7 @@ function SplitStringBySlash_Cached(str) {
 }
 
 /***/ }),
-/* 15 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Proposal", function() { return Proposal; });
-/* harmony import */ var _Server_Server__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(16);
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
-var Proposal = function Proposal(initialData) {
-  _classCallCheck(this, Proposal);
-
-  this.title = "";
-  this.text = "";
-  this.Extend(initialData);
-};
-Object(_Server_Server__WEBPACK_IMPORTED_MODULE_0__["AddSchema"])({
-  properties: {
-    type: {
-      type: "string"
-    },
-    title: {
-      type: "string"
-    },
-    text: {
-      type: "string"
-    },
-    //completed: {type: ["null", "boolean"]},
-    creator: {
-      type: "string"
-    },
-    createdAt: {
-      type: "number"
-    },
-    editedAt: {
-      type: "number"
-    },
-    completedAt: {
-      type: ["null", "number"]
-    }
-  },
-  required: ["type", "title", "text", "creator", "createdAt"]
-}, "Proposal");
-
-/***/ }),
-/* 16 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10861,9 +10970,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetSchemaJSON", function() { return GetSchemaJSON; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WaitTillSchemaAddedThenRun", function() { return WaitTillSchemaAddedThenRun; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AssertValidate", function() { return AssertValidate; });
-/* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(17);
+/* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var ajv_keywords__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(62);
+/* harmony import */ var ajv_keywords__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(57);
 /* harmony import */ var ajv_keywords__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(ajv_keywords__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var js_vextensions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
 /* harmony import */ var js_vextensions__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(js_vextensions__WEBPACK_IMPORTED_MODULE_2__);
@@ -10960,21 +11069,21 @@ function AssertValidate(schemaName, data, failureMessageOrGetter) {
 }
 
 /***/ }),
-/* 17 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var compileSchema = __webpack_require__(18)
-  , resolve = __webpack_require__(19)
-  , Cache = __webpack_require__(29)
-  , SchemaObject = __webpack_require__(24)
-  , stableStringify = __webpack_require__(27)
-  , formats = __webpack_require__(30)
-  , rules = __webpack_require__(31)
-  , $dataMetaSchema = __webpack_require__(56)
-  , util = __webpack_require__(22);
+var compileSchema = __webpack_require__(13)
+  , resolve = __webpack_require__(14)
+  , Cache = __webpack_require__(24)
+  , SchemaObject = __webpack_require__(19)
+  , stableStringify = __webpack_require__(22)
+  , formats = __webpack_require__(25)
+  , rules = __webpack_require__(26)
+  , $dataMetaSchema = __webpack_require__(51)
+  , util = __webpack_require__(17);
 
 module.exports = Ajv;
 
@@ -10991,14 +11100,14 @@ Ajv.prototype.errorsText = errorsText;
 Ajv.prototype._addSchema = _addSchema;
 Ajv.prototype._compile = _compile;
 
-Ajv.prototype.compileAsync = __webpack_require__(57);
-var customKeyword = __webpack_require__(58);
+Ajv.prototype.compileAsync = __webpack_require__(52);
+var customKeyword = __webpack_require__(53);
 Ajv.prototype.addKeyword = customKeyword.add;
 Ajv.prototype.getKeyword = customKeyword.get;
 Ajv.prototype.removeKeyword = customKeyword.remove;
 Ajv.prototype.validateKeyword = customKeyword.validate;
 
-var errorClasses = __webpack_require__(26);
+var errorClasses = __webpack_require__(21);
 Ajv.ValidationError = errorClasses.Validation;
 Ajv.MissingRefError = errorClasses.MissingRef;
 Ajv.$dataMetaSchema = $dataMetaSchema;
@@ -11406,11 +11515,11 @@ function addFormat(name, format) {
 function addDefaultMetaSchema(self) {
   var $dataSchema;
   if (self._opts.$data) {
-    $dataSchema = __webpack_require__(61);
+    $dataSchema = __webpack_require__(56);
     self.addMetaSchema($dataSchema, $dataSchema.$id, true);
   }
   if (self._opts.meta === false) return;
-  var metaSchema = __webpack_require__(60);
+  var metaSchema = __webpack_require__(55);
   if (self._opts.$data) metaSchema = $dataMetaSchema(metaSchema, META_SUPPORT_DATA);
   self.addMetaSchema(metaSchema, META_SCHEMA_ID, true);
   self._refs['http://json-schema.org/schema'] = META_SCHEMA_ID;
@@ -11464,25 +11573,25 @@ function noop() {}
 
 
 /***/ }),
-/* 18 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var resolve = __webpack_require__(19)
-  , util = __webpack_require__(22)
-  , errorClasses = __webpack_require__(26)
-  , stableStringify = __webpack_require__(27);
+var resolve = __webpack_require__(14)
+  , util = __webpack_require__(17)
+  , errorClasses = __webpack_require__(21)
+  , stableStringify = __webpack_require__(22);
 
-var validateGenerator = __webpack_require__(28);
+var validateGenerator = __webpack_require__(23);
 
 /**
  * Functions below are used inside compiled validations function
  */
 
 var ucs2length = util.ucs2length;
-var equal = __webpack_require__(21);
+var equal = __webpack_require__(16);
 
 // this error is thrown by async schemas to return validation errors via exception
 var ValidationError = errorClasses.Validation;
@@ -11858,17 +11967,17 @@ function vars(arr, statement) {
 
 
 /***/ }),
-/* 19 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var URI = __webpack_require__(20)
-  , equal = __webpack_require__(21)
-  , util = __webpack_require__(22)
-  , SchemaObject = __webpack_require__(24)
-  , traverse = __webpack_require__(25);
+var URI = __webpack_require__(15)
+  , equal = __webpack_require__(16)
+  , util = __webpack_require__(17)
+  , SchemaObject = __webpack_require__(19)
+  , traverse = __webpack_require__(20);
 
 module.exports = resolve;
 
@@ -12135,7 +12244,7 @@ function resolveIds(schema) {
 
 
 /***/ }),
-/* 20 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /** @license URI.js v4.2.1 (c) 2011 Gary Court. License: http://github.com/garycourt/uri-js */
@@ -13529,7 +13638,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 
 /***/ }),
-/* 21 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13591,7 +13700,7 @@ module.exports = function equal(a, b) {
 
 
 /***/ }),
-/* 22 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13606,8 +13715,8 @@ module.exports = {
   toHash: toHash,
   getProperty: getProperty,
   escapeQuotes: escapeQuotes,
-  equal: __webpack_require__(21),
-  ucs2length: __webpack_require__(23),
+  equal: __webpack_require__(16),
+  ucs2length: __webpack_require__(18),
   varOccurences: varOccurences,
   varReplace: varReplace,
   cleanUpCode: cleanUpCode,
@@ -13872,7 +13981,7 @@ function unescapeJsonPointer(str) {
 
 
 /***/ }),
-/* 23 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13899,13 +14008,13 @@ module.exports = function ucs2length(str) {
 
 
 /***/ }),
-/* 24 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var util = __webpack_require__(22);
+var util = __webpack_require__(17);
 
 module.exports = SchemaObject;
 
@@ -13915,7 +14024,7 @@ function SchemaObject(obj) {
 
 
 /***/ }),
-/* 25 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14011,13 +14120,13 @@ function escapeJsonPtr(str) {
 
 
 /***/ }),
-/* 26 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var resolve = __webpack_require__(19);
+var resolve = __webpack_require__(14);
 
 module.exports = {
   Validation: errorSubclass(ValidationError),
@@ -14052,7 +14161,7 @@ function errorSubclass(Subclass) {
 
 
 /***/ }),
-/* 27 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14118,7 +14227,7 @@ module.exports = function (data, opts) {
 
 
 /***/ }),
-/* 28 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14619,7 +14728,7 @@ module.exports = function generate_validate(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 29 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14652,13 +14761,13 @@ Cache.prototype.clear = function Cache_clear() {
 
 
 /***/ }),
-/* 30 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var util = __webpack_require__(22);
+var util = __webpack_require__(17);
 
 var DATE = /^(\d\d\d\d)-(\d\d)-(\d\d)$/;
 var DAYS = [0,31,28,31,30,31,30,31,31,30,31,30,31];
@@ -14808,14 +14917,14 @@ function regex(str) {
 
 
 /***/ }),
-/* 31 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var ruleModules = __webpack_require__(32)
-  , toHash = __webpack_require__(22).toHash;
+var ruleModules = __webpack_require__(27)
+  , toHash = __webpack_require__(17).toHash;
 
 module.exports = function rules() {
   var RULES = [
@@ -14881,7 +14990,7 @@ module.exports = function rules() {
 
 
 /***/ }),
-/* 32 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14889,39 +14998,39 @@ module.exports = function rules() {
 
 //all requires must be explicit because browserify won't work with dynamic requires
 module.exports = {
-  '$ref': __webpack_require__(33),
-  allOf: __webpack_require__(34),
-  anyOf: __webpack_require__(35),
-  '$comment': __webpack_require__(36),
-  const: __webpack_require__(37),
-  contains: __webpack_require__(38),
-  dependencies: __webpack_require__(39),
-  'enum': __webpack_require__(40),
-  format: __webpack_require__(41),
-  'if': __webpack_require__(42),
-  items: __webpack_require__(43),
-  maximum: __webpack_require__(44),
-  minimum: __webpack_require__(44),
-  maxItems: __webpack_require__(45),
-  minItems: __webpack_require__(45),
-  maxLength: __webpack_require__(46),
-  minLength: __webpack_require__(46),
-  maxProperties: __webpack_require__(47),
-  minProperties: __webpack_require__(47),
-  multipleOf: __webpack_require__(48),
-  not: __webpack_require__(49),
-  oneOf: __webpack_require__(50),
-  pattern: __webpack_require__(51),
-  properties: __webpack_require__(52),
-  propertyNames: __webpack_require__(53),
-  required: __webpack_require__(54),
-  uniqueItems: __webpack_require__(55),
-  validate: __webpack_require__(28)
+  '$ref': __webpack_require__(28),
+  allOf: __webpack_require__(29),
+  anyOf: __webpack_require__(30),
+  '$comment': __webpack_require__(31),
+  const: __webpack_require__(32),
+  contains: __webpack_require__(33),
+  dependencies: __webpack_require__(34),
+  'enum': __webpack_require__(35),
+  format: __webpack_require__(36),
+  'if': __webpack_require__(37),
+  items: __webpack_require__(38),
+  maximum: __webpack_require__(39),
+  minimum: __webpack_require__(39),
+  maxItems: __webpack_require__(40),
+  minItems: __webpack_require__(40),
+  maxLength: __webpack_require__(41),
+  minLength: __webpack_require__(41),
+  maxProperties: __webpack_require__(42),
+  minProperties: __webpack_require__(42),
+  multipleOf: __webpack_require__(43),
+  not: __webpack_require__(44),
+  oneOf: __webpack_require__(45),
+  pattern: __webpack_require__(46),
+  properties: __webpack_require__(47),
+  propertyNames: __webpack_require__(48),
+  required: __webpack_require__(49),
+  uniqueItems: __webpack_require__(50),
+  validate: __webpack_require__(23)
 };
 
 
 /***/ }),
-/* 33 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15052,7 +15161,7 @@ module.exports = function generate_ref(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 34 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15102,7 +15211,7 @@ module.exports = function generate_allOf(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 35 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15183,7 +15292,7 @@ module.exports = function generate_anyOf(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 36 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15204,7 +15313,7 @@ module.exports = function generate_comment(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 37 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15267,7 +15376,7 @@ module.exports = function generate_const(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 38 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15356,7 +15465,7 @@ module.exports = function generate_contains(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 39 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15531,7 +15640,7 @@ module.exports = function generate_dependencies(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 40 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15604,7 +15713,7 @@ module.exports = function generate_enum(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 41 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15761,7 +15870,7 @@ module.exports = function generate_format(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 42 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15872,7 +15981,7 @@ module.exports = function generate_if(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 43 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16020,7 +16129,7 @@ module.exports = function generate_items(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 44 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16184,7 +16293,7 @@ module.exports = function generate__limit(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 45 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16268,7 +16377,7 @@ module.exports = function generate__limitItems(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 46 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16357,7 +16466,7 @@ module.exports = function generate__limitLength(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 47 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16441,7 +16550,7 @@ module.exports = function generate__limitProperties(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 48 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16525,7 +16634,7 @@ module.exports = function generate_multipleOf(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 49 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16616,7 +16725,7 @@ module.exports = function generate_not(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 50 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16696,7 +16805,7 @@ module.exports = function generate_oneOf(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 51 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16778,7 +16887,7 @@ module.exports = function generate_pattern(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 52 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17115,7 +17224,7 @@ module.exports = function generate_properties(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 53 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17204,7 +17313,7 @@ module.exports = function generate_propertyNames(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 54 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17481,7 +17590,7 @@ module.exports = function generate_required(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 55 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17574,7 +17683,7 @@ module.exports = function generate_uniqueItems(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 56 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17630,13 +17739,13 @@ module.exports = function (metaSchema, keywordsJsonPointers) {
 
 
 /***/ }),
-/* 57 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var MissingRefError = __webpack_require__(26).MissingRef;
+var MissingRefError = __webpack_require__(21).MissingRef;
 
 module.exports = compileAsync;
 
@@ -17727,15 +17836,15 @@ function compileAsync(schema, meta, callback) {
 
 
 /***/ }),
-/* 58 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var IDENTIFIER = /^[a-z_$][a-z0-9_$-]*$/i;
-var customRuleCode = __webpack_require__(59);
-var metaSchema = __webpack_require__(60);
+var customRuleCode = __webpack_require__(54);
+var metaSchema = __webpack_require__(55);
 
 module.exports = {
   add: addKeyword,
@@ -17912,7 +18021,7 @@ function validateKeyword(definition, throwError) {
 
 
 /***/ }),
-/* 59 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18147,25 +18256,25 @@ module.exports = function generate_custom(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 60 */
+/* 55 */
 /***/ (function(module) {
 
 module.exports = {"$schema":"http://json-schema.org/draft-07/schema#","$id":"http://json-schema.org/draft-07/schema#","title":"Core schema meta-schema","definitions":{"schemaArray":{"type":"array","minItems":1,"items":{"$ref":"#"}},"nonNegativeInteger":{"type":"integer","minimum":0},"nonNegativeIntegerDefault0":{"allOf":[{"$ref":"#/definitions/nonNegativeInteger"},{"default":0}]},"simpleTypes":{"enum":["array","boolean","integer","null","number","object","string"]},"stringArray":{"type":"array","items":{"type":"string"},"uniqueItems":true,"default":[]}},"type":["object","boolean"],"properties":{"$id":{"type":"string","format":"uri-reference"},"$schema":{"type":"string","format":"uri"},"$ref":{"type":"string","format":"uri-reference"},"$comment":{"type":"string"},"title":{"type":"string"},"description":{"type":"string"},"default":true,"readOnly":{"type":"boolean","default":false},"examples":{"type":"array","items":true},"multipleOf":{"type":"number","exclusiveMinimum":0},"maximum":{"type":"number"},"exclusiveMaximum":{"type":"number"},"minimum":{"type":"number"},"exclusiveMinimum":{"type":"number"},"maxLength":{"$ref":"#/definitions/nonNegativeInteger"},"minLength":{"$ref":"#/definitions/nonNegativeIntegerDefault0"},"pattern":{"type":"string","format":"regex"},"additionalItems":{"$ref":"#"},"items":{"anyOf":[{"$ref":"#"},{"$ref":"#/definitions/schemaArray"}],"default":true},"maxItems":{"$ref":"#/definitions/nonNegativeInteger"},"minItems":{"$ref":"#/definitions/nonNegativeIntegerDefault0"},"uniqueItems":{"type":"boolean","default":false},"contains":{"$ref":"#"},"maxProperties":{"$ref":"#/definitions/nonNegativeInteger"},"minProperties":{"$ref":"#/definitions/nonNegativeIntegerDefault0"},"required":{"$ref":"#/definitions/stringArray"},"additionalProperties":{"$ref":"#"},"definitions":{"type":"object","additionalProperties":{"$ref":"#"},"default":{}},"properties":{"type":"object","additionalProperties":{"$ref":"#"},"default":{}},"patternProperties":{"type":"object","additionalProperties":{"$ref":"#"},"propertyNames":{"format":"regex"},"default":{}},"dependencies":{"type":"object","additionalProperties":{"anyOf":[{"$ref":"#"},{"$ref":"#/definitions/stringArray"}]}},"propertyNames":{"$ref":"#"},"const":true,"enum":{"type":"array","items":true,"minItems":1,"uniqueItems":true},"type":{"anyOf":[{"$ref":"#/definitions/simpleTypes"},{"type":"array","items":{"$ref":"#/definitions/simpleTypes"},"minItems":1,"uniqueItems":true}]},"format":{"type":"string"},"contentMediaType":{"type":"string"},"contentEncoding":{"type":"string"},"if":{"$ref":"#"},"then":{"$ref":"#"},"else":{"$ref":"#"},"allOf":{"$ref":"#/definitions/schemaArray"},"anyOf":{"$ref":"#/definitions/schemaArray"},"oneOf":{"$ref":"#/definitions/schemaArray"},"not":{"$ref":"#"}},"default":true};
 
 /***/ }),
-/* 61 */
+/* 56 */
 /***/ (function(module) {
 
 module.exports = {"$schema":"http://json-schema.org/draft-07/schema#","$id":"https://raw.githubusercontent.com/epoberezkin/ajv/master/lib/refs/data.json#","description":"Meta-schema for $data reference (JSON Schema extension proposal)","type":"object","required":["$data"],"properties":{"$data":{"type":"string","anyOf":[{"format":"relative-json-pointer"},{"format":"json-pointer"}]}},"additionalProperties":false};
 
 /***/ }),
-/* 62 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var KEYWORDS = __webpack_require__(63);
+var KEYWORDS = __webpack_require__(58);
 
 module.exports = defineKeywords;
 
@@ -18201,35 +18310,35 @@ function get(keyword) {
 
 
 /***/ }),
-/* 63 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = {
-  'instanceof': __webpack_require__(64),
-  range: __webpack_require__(70),
-  regexp: __webpack_require__(71),
-  'typeof': __webpack_require__(72),
-  dynamicDefaults: __webpack_require__(73),
-  allRequired: __webpack_require__(74),
-  anyRequired: __webpack_require__(75),
-  prohibited: __webpack_require__(76),
-  uniqueItemProperties: __webpack_require__(77),
-  deepProperties: __webpack_require__(78),
-  deepRequired: __webpack_require__(80),
-  formatMinimum: __webpack_require__(81),
-  formatMaximum: __webpack_require__(84),
-  patternRequired: __webpack_require__(85),
-  'switch': __webpack_require__(87),
-  select: __webpack_require__(89),
-  transform: __webpack_require__(90)
+  'instanceof': __webpack_require__(59),
+  range: __webpack_require__(65),
+  regexp: __webpack_require__(66),
+  'typeof': __webpack_require__(67),
+  dynamicDefaults: __webpack_require__(68),
+  allRequired: __webpack_require__(69),
+  anyRequired: __webpack_require__(70),
+  prohibited: __webpack_require__(71),
+  uniqueItemProperties: __webpack_require__(72),
+  deepProperties: __webpack_require__(73),
+  deepRequired: __webpack_require__(75),
+  formatMinimum: __webpack_require__(76),
+  formatMaximum: __webpack_require__(79),
+  patternRequired: __webpack_require__(80),
+  'switch': __webpack_require__(82),
+  select: __webpack_require__(84),
+  transform: __webpack_require__(85)
 };
 
 
 /***/ }),
-/* 64 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18292,10 +18401,10 @@ module.exports = function defFunc(ajv) {
   }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(65).Buffer))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(60).Buffer))
 
 /***/ }),
-/* 65 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18309,9 +18418,9 @@ module.exports = function defFunc(ajv) {
 
 
 
-var base64 = __webpack_require__(67)
-var ieee754 = __webpack_require__(68)
-var isArray = __webpack_require__(69)
+var base64 = __webpack_require__(62)
+var ieee754 = __webpack_require__(63)
+var isArray = __webpack_require__(64)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -20089,10 +20198,10 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(66)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(61)))
 
 /***/ }),
-/* 66 */
+/* 61 */
 /***/ (function(module, exports) {
 
 var g;
@@ -20118,7 +20227,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 67 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20276,7 +20385,7 @@ function fromByteArray (uint8) {
 
 
 /***/ }),
-/* 68 */
+/* 63 */
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -20366,7 +20475,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 
 /***/ }),
-/* 69 */
+/* 64 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -20377,7 +20486,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 70 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20420,7 +20529,7 @@ module.exports = function defFunc(ajv) {
 
 
 /***/ }),
-/* 71 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20463,7 +20572,7 @@ module.exports = function defFunc(ajv) {
 
 
 /***/ }),
-/* 72 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20502,7 +20611,7 @@ module.exports = function defFunc(ajv) {
 
 
 /***/ }),
-/* 73 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20581,7 +20690,7 @@ module.exports = function defFunc(ajv) {
 
 
 /***/ }),
-/* 74 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20606,7 +20715,7 @@ module.exports = function defFunc(ajv) {
 
 
 /***/ }),
-/* 75 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20637,7 +20746,7 @@ module.exports = function defFunc(ajv) {
 
 
 /***/ }),
-/* 76 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20668,7 +20777,7 @@ module.exports = function defFunc(ajv) {
 
 
 /***/ }),
-/* 77 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20707,13 +20816,13 @@ module.exports = function defFunc(ajv) {
 
 
 /***/ }),
-/* 78 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var util = __webpack_require__(79);
+var util = __webpack_require__(74);
 
 module.exports = function defFunc(ajv) {
   defFunc.definition = {
@@ -20768,7 +20877,7 @@ function unescapeJsonPointer(str) {
 
 
 /***/ }),
-/* 79 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20790,7 +20899,7 @@ function metaSchemaRef(ajv) {
 
 
 /***/ }),
-/* 80 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20854,17 +20963,17 @@ function unescapeJsonPointer(str) {
 
 
 /***/ }),
-/* 81 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(82)('Minimum');
+module.exports = __webpack_require__(77)('Minimum');
 
 
 /***/ }),
-/* 82 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20899,7 +21008,7 @@ module.exports = function (minMax) {
   return function defFunc(ajv) {
     defFunc.definition = {
       type: 'string',
-      inline: __webpack_require__(83),
+      inline: __webpack_require__(78),
       statements: true,
       errors: 'full',
       dependencies: ['format'],
@@ -20972,7 +21081,7 @@ function compareDateTime(dt1, dt2) {
 
 
 /***/ }),
-/* 83 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21157,17 +21266,17 @@ module.exports = function generate__formatLimit(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 84 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(82)('Maximum');
+module.exports = __webpack_require__(77)('Maximum');
 
 
 /***/ }),
-/* 85 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21176,7 +21285,7 @@ module.exports = __webpack_require__(82)('Maximum');
 module.exports = function defFunc(ajv) {
   defFunc.definition = {
     type: 'object',
-    inline: __webpack_require__(86),
+    inline: __webpack_require__(81),
     statements: true,
     errors: 'full',
     metaSchema: {
@@ -21195,7 +21304,7 @@ module.exports = function defFunc(ajv) {
 
 
 /***/ }),
-/* 86 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21260,13 +21369,13 @@ module.exports = function generate_patternRequired(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 87 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var util = __webpack_require__(79);
+var util = __webpack_require__(74);
 
 module.exports = function defFunc(ajv) {
   if (ajv.RULES.keywords.switch && ajv.RULES.keywords.if) return;
@@ -21274,7 +21383,7 @@ module.exports = function defFunc(ajv) {
   var metaSchemaRef = util.metaSchemaRef(ajv);
 
   defFunc.definition = {
-    inline: __webpack_require__(88),
+    inline: __webpack_require__(83),
     statements: true,
     errors: 'full',
     metaSchema: {
@@ -21305,7 +21414,7 @@ module.exports = function defFunc(ajv) {
 
 
 /***/ }),
-/* 88 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21442,13 +21551,13 @@ module.exports = function generate_switch(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 89 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var util = __webpack_require__(79);
+var util = __webpack_require__(74);
 
 module.exports = function defFunc(ajv) {
   if (!ajv._opts.$data) {
@@ -21528,7 +21637,7 @@ module.exports = function defFunc(ajv) {
 
 
 /***/ }),
-/* 90 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21615,7 +21724,1317 @@ module.exports = function defFunc (ajv) {
 
 
 /***/ }),
+/* 86 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GenerateUUID", function() { return GenerateUUID; });
+/* harmony import */ var slugid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(87);
+/* harmony import */ var slugid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(slugid__WEBPACK_IMPORTED_MODULE_0__);
+//import uuidV4 from 'uuid/v4';
+
+function GenerateUUID() {
+  //return uuidV4(options);
+  return slugid__WEBPACK_IMPORTED_MODULE_0___default.a.v4();
+}
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// The MIT License (MIT)
+//
+// Copyright (c) 2014 Jonas Finnemann Jensen
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+module.exports = __webpack_require__(88);
+
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(Buffer) {// The MIT License (MIT)
+//
+// Copyright (c) 2014 Jonas Finnemann Jensen
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+var uuidv4 = __webpack_require__(89);
+var uuidParse = __webpack_require__(92);
+
+/**
+ * Returns the given uuid as a 22 character slug. This can be a regular v4
+ * slug or a "nice" slug.
+ */
+exports.encode = function(uuid_) {
+  var bytes   = uuidParse.parse(uuid_);
+  var base64  = (new Buffer(bytes)).toString('base64');
+  var slug = base64
+              .replace(/\+/g, '-')  // Replace + with - (see RFC 4648, sec. 5)
+              .replace(/\//g, '_')  // Replace / with _ (see RFC 4648, sec. 5)
+              .substring(0, 22);    // Drop '==' padding
+  return slug;
+};
+
+/**
+ * Returns the uuid represented by the given v4 or "nice" slug
+ */
+exports.decode = function(slug) {
+  var base64 = slug
+                  .replace(/-/g, '+')
+                  .replace(/_/g, '/')
+                  + '==';
+  return uuidParse.unparse(new Buffer(base64, 'base64'));
+};
+
+/**
+ * Returns a randomly generated uuid v4 compliant slug
+ */
+exports.v4 = function() {
+  var bytes   = uuidv4(null, new Buffer(16));
+  var base64  = bytes.toString('base64');
+  var slug = base64
+              .replace(/\+/g, '-')  // Replace + with - (see RFC 4648, sec. 5)
+              .replace(/\//g, '_')  // Replace / with _ (see RFC 4648, sec. 5)
+              .substring(0, 22);    // Drop '==' padding
+  return slug;
+};
+
+/**
+ * Returns a randomly generated uuid v4 compliant slug which conforms to a set
+ * of "nice" properties, at the cost of some entropy. Currently this means one
+ * extra fixed bit (the first bit of the uuid is set to 0) which guarantees the
+ * slug will begin with [A-Za-f]. For example such slugs don't require special
+ * handling when used as command line parameters (whereas non-nice slugs may
+ * start with `-` which can confuse command line tools).
+ *
+ * Potentially other "nice" properties may be added in future to further
+ * restrict the range of potential uuids that may be generated.
+ */
+exports.nice = function() {
+  var bytes   = uuidv4(null, new Buffer(16));
+  bytes[0] = bytes[0] & 0x7f;  // unset first bit to ensure [A-Za-f] first char
+  var base64  = bytes.toString('base64');
+  var slug = base64
+              .replace(/\+/g, '-')  // Replace + with - (see RFC 4648, sec. 5)
+              .replace(/\//g, '_')  // Replace / with _ (see RFC 4648, sec. 5)
+              .substring(0, 22);    // Drop '==' padding
+  return slug;
+};
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(60).Buffer))
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var rng = __webpack_require__(90);
+var bytesToUuid = __webpack_require__(91);
+
+function v4(options, buf, offset) {
+  var i = buf && offset || 0;
+
+  if (typeof(options) == 'string') {
+    buf = options === 'binary' ? new Array(16) : null;
+    options = null;
+  }
+  options = options || {};
+
+  var rnds = options.random || (options.rng || rng)();
+
+  // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
+  rnds[6] = (rnds[6] & 0x0f) | 0x40;
+  rnds[8] = (rnds[8] & 0x3f) | 0x80;
+
+  // Copy bytes to buffer, if provided
+  if (buf) {
+    for (var ii = 0; ii < 16; ++ii) {
+      buf[i + ii] = rnds[ii];
+    }
+  }
+
+  return buf || bytesToUuid(rnds);
+}
+
+module.exports = v4;
+
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports) {
+
+// Unique ID creation requires a high quality random # generator.  In the
+// browser this is a little complicated due to unknown quality of Math.random()
+// and inconsistent support for the `crypto` API.  We do the best we can via
+// feature-detection
+
+// getRandomValues needs to be invoked in a context where "this" is a Crypto
+// implementation. Also, find the complete implementation of crypto on IE11.
+var getRandomValues = (typeof(crypto) != 'undefined' && crypto.getRandomValues && crypto.getRandomValues.bind(crypto)) ||
+                      (typeof(msCrypto) != 'undefined' && typeof window.msCrypto.getRandomValues == 'function' && msCrypto.getRandomValues.bind(msCrypto));
+
+if (getRandomValues) {
+  // WHATWG crypto RNG - http://wiki.whatwg.org/wiki/Crypto
+  var rnds8 = new Uint8Array(16); // eslint-disable-line no-undef
+
+  module.exports = function whatwgRNG() {
+    getRandomValues(rnds8);
+    return rnds8;
+  };
+} else {
+  // Math.random()-based (RNG)
+  //
+  // If all else fails, use Math.random().  It's fast, but is of unspecified
+  // quality.
+  var rnds = new Array(16);
+
+  module.exports = function mathRNG() {
+    for (var i = 0, r; i < 16; i++) {
+      if ((i & 0x03) === 0) r = Math.random() * 0x100000000;
+      rnds[i] = r >>> ((i & 0x03) << 3) & 0xff;
+    }
+
+    return rnds;
+  };
+}
+
+
+/***/ }),
 /* 91 */
+/***/ (function(module, exports) {
+
+/**
+ * Convert array of 16 byte values to UUID string format of the form:
+ * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+ */
+var byteToHex = [];
+for (var i = 0; i < 256; ++i) {
+  byteToHex[i] = (i + 0x100).toString(16).substr(1);
+}
+
+function bytesToUuid(buf, offset) {
+  var i = offset || 0;
+  var bth = byteToHex;
+  // join used to fix memory issue caused by concatenation: https://bugs.chromium.org/p/v8/issues/detail?id=3175#c4
+  return ([bth[buf[i++]], bth[buf[i++]], 
+	bth[buf[i++]], bth[buf[i++]], '-',
+	bth[buf[i++]], bth[buf[i++]], '-',
+	bth[buf[i++]], bth[buf[i++]], '-',
+	bth[buf[i++]], bth[buf[i++]], '-',
+	bth[buf[i++]], bth[buf[i++]],
+	bth[buf[i++]], bth[buf[i++]],
+	bth[buf[i++]], bth[buf[i++]]]).join('');
+}
+
+module.exports = bytesToUuid;
+
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// Maps for number <-> hex string conversion
+var _byteToHex = [];
+var _hexToByte = {};
+for (var i = 0; i < 256; i++) {
+  _byteToHex[i] = (i + 0x100).toString(16).substr(1);
+  _hexToByte[_byteToHex[i]] = i;
+}
+
+// **`parse()` - Parse a UUID into it's component bytes**
+function parse(s, buf, offset) {
+  var i = (buf && offset) || 0;
+  var ii = 0;
+
+  buf = buf || [];
+  s.toLowerCase().replace(/[0-9a-f]{2}/g, function(oct) {
+    if (ii < 16) { // Don't overflow!
+      buf[i + ii++] = _hexToByte[oct];
+    }
+  });
+
+  // Zero out remaining bytes if string was short
+  while (ii < 16) {
+    buf[i + ii++] = 0;
+  }
+
+  return buf;
+}
+
+// **`unparse()` - Convert UUID byte array (ala parse()) into a string**
+function unparse(buf, offset) {
+  var i = offset || 0;
+  var bth = _byteToHex;
+  return  bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]];
+}
+
+module.exports = {
+  parse: parse,
+  unparse: unparse
+};
+
+
+/***/ }),
+/* 93 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DeleteProposal", function() { return DeleteProposal; });
+/* harmony import */ var _Store_firebase_proposals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(94);
+/* harmony import */ var _Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9);
+/* harmony import */ var _Command__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
+/* harmony import */ var _SetProposalOrder__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(95);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : new P(function (resolve) {
+        resolve(result.value);
+      }).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
+
+
+
+ //@UserEdit
+
+var DeleteProposal =
+/*#__PURE__*/
+function (_Command) {
+  _inherits(DeleteProposal, _Command);
+
+  function DeleteProposal() {
+    _classCallCheck(this, DeleteProposal);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(DeleteProposal).apply(this, arguments));
+  }
+
+  _createClass(DeleteProposal, [{
+    key: "Prepare",
+    value: function Prepare() {
+      return __awaiter(this, void 0, void 0,
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee() {
+        var id, proposal, userDatas, userDatasWithOrderingContainingProposal, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, userID, subcommand;
+
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                id = this.payload.id;
+                _context.next = 3;
+                return Object(_Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_1__["GetAsync"])(function () {
+                  return Object(_Store_firebase_proposals__WEBPACK_IMPORTED_MODULE_0__["GetProposal"])(id);
+                });
+
+              case 3:
+                proposal = _context.sent;
+                _context.next = 6;
+                return Object(_Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_1__["GetDataAsync"])({
+                  collection: true
+                }, "userData");
+
+              case 6:
+                _context.t0 = _context.sent;
+
+                if (_context.t0) {
+                  _context.next = 9;
+                  break;
+                }
+
+                _context.t0 = {};
+
+              case 9:
+                userDatas = _context.t0;
+                this.sub_removalsFromUserOrderings = [];
+                userDatasWithOrderingContainingProposal = userDatas.Props(true).filter(function (prop) {
+                  return prop.value["proposalIndexes"].VValues(true).Contains(id);
+                });
+                _iteratorNormalCompletion = true;
+                _didIteratorError = false;
+                _iteratorError = undefined;
+                _context.prev = 15;
+                _iterator = userDatasWithOrderingContainingProposal.map(function (prop) {
+                  return prop.name;
+                })[Symbol.iterator]();
+
+              case 17:
+                if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
+                  _context.next = 27;
+                  break;
+                }
+
+                userID = _step.value;
+                subcommand = new _SetProposalOrder__WEBPACK_IMPORTED_MODULE_3__["SetProposalOrder"]({
+                  proposalID: id,
+                  userID: userID,
+                  index: -1
+                });
+                subcommand.Validate_Early();
+                _context.next = 23;
+                return subcommand.Prepare();
+
+              case 23:
+                this.sub_removalsFromUserOrderings.push(subcommand);
+
+              case 24:
+                _iteratorNormalCompletion = true;
+                _context.next = 17;
+                break;
+
+              case 27:
+                _context.next = 33;
+                break;
+
+              case 29:
+                _context.prev = 29;
+                _context.t1 = _context["catch"](15);
+                _didIteratorError = true;
+                _iteratorError = _context.t1;
+
+              case 33:
+                _context.prev = 33;
+                _context.prev = 34;
+
+                if (!_iteratorNormalCompletion && _iterator.return != null) {
+                  _iterator.return();
+                }
+
+              case 36:
+                _context.prev = 36;
+
+                if (!_didIteratorError) {
+                  _context.next = 39;
+                  break;
+                }
+
+                throw _iteratorError;
+
+              case 39:
+                return _context.finish(36);
+
+              case 40:
+                return _context.finish(33);
+
+              case 41:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[15, 29, 33, 41], [34,, 36, 40]]);
+      }));
+    }
+  }, {
+    key: "Validate",
+    value: function Validate() {
+      return __awaiter(this, void 0, void 0,
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee2() {
+        var _iteratorNormalCompletion2, _didIteratorError2, _iteratorError2, _iterator2, _step2, subcommand;
+
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                /*if (this.posts.filter(a=>a.creator != this.userInfo.id && a.text).length) {
+                    throw new Error(`Proposals with responses by other people cannot be deleted.`);
+                }*/
+                _iteratorNormalCompletion2 = true;
+                _didIteratorError2 = false;
+                _iteratorError2 = undefined;
+                _context2.prev = 3;
+                _iterator2 = this.sub_removalsFromUserOrderings[Symbol.iterator]();
+
+              case 5:
+                if (_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done) {
+                  _context2.next = 12;
+                  break;
+                }
+
+                subcommand = _step2.value;
+                _context2.next = 9;
+                return subcommand.Validate();
+
+              case 9:
+                _iteratorNormalCompletion2 = true;
+                _context2.next = 5;
+                break;
+
+              case 12:
+                _context2.next = 18;
+                break;
+
+              case 14:
+                _context2.prev = 14;
+                _context2.t0 = _context2["catch"](3);
+                _didIteratorError2 = true;
+                _iteratorError2 = _context2.t0;
+
+              case 18:
+                _context2.prev = 18;
+                _context2.prev = 19;
+
+                if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+                  _iterator2.return();
+                }
+
+              case 21:
+                _context2.prev = 21;
+
+                if (!_didIteratorError2) {
+                  _context2.next = 24;
+                  break;
+                }
+
+                throw _iteratorError2;
+
+              case 24:
+                return _context2.finish(21);
+
+              case 25:
+                return _context2.finish(18);
+
+              case 26:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[3, 14, 18, 26], [19,, 21, 25]]);
+      }));
+    }
+  }, {
+    key: "GetDBUpdates",
+    value: function GetDBUpdates() {
+      var id = this.payload.id;
+      var updates = {};
+      updates["proposals/".concat(id)] = null;
+      /*for (let post of this.posts) {
+          updates[`posts/${post._id}`] = null;
+      }*/
+
+      var _iteratorNormalCompletion3 = true;
+      var _didIteratorError3 = false;
+      var _iteratorError3 = undefined;
+
+      try {
+        for (var _iterator3 = this.sub_removalsFromUserOrderings[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          var subcommand = _step3.value;
+          updates = Object(_Command__WEBPACK_IMPORTED_MODULE_2__["MergeDBUpdates"])(updates, subcommand.GetDBUpdates());
+        }
+      } catch (err) {
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion3 && _iterator3.return != null) {
+            _iterator3.return();
+          }
+        } finally {
+          if (_didIteratorError3) {
+            throw _iteratorError3;
+          }
+        }
+      }
+
+      return updates;
+    }
+  }]);
+
+  return DeleteProposal;
+}(_Command__WEBPACK_IMPORTED_MODULE_2__["Command"]);
+
+/***/ }),
+/* 94 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetProposal", function() { return GetProposal; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetProposals", function() { return GetProposals; });
+/* harmony import */ var _Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
+/* harmony import */ var js_vextensions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var js_vextensions__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(js_vextensions__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function GetProposal(id) {
+  if (id == null) return null;
+  return Object(_Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_0__["GetData"])("proposals", id);
+}
+function GetProposals() {
+  var entryMap = Object(_Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_0__["GetData"])({
+    collection: true
+  }, "proposals"); //return CachedTransform("GetProposals", [], entryMap, ()=>entryMap ? entryMap.VValues(true) : []);
+
+  return Object(js_vextensions__WEBPACK_IMPORTED_MODULE_1__["CachedTransform"])("GetProposals", [], entryMap, function () {
+    return entryMap ? entryMap.VValues(true).filter(function (a) {
+      return a;
+    }) : [];
+  }); // filter() needed for some reason
+}
+
+/***/ }),
+/* 95 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetProposalOrder", function() { return SetProposalOrder; });
+/* harmony import */ var _Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
+/* harmony import */ var _Command__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : new P(function (resolve) {
+        resolve(result.value);
+      }).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
+
+ //@UserEdit
+
+var SetProposalOrder =
+/*#__PURE__*/
+function (_Command) {
+  _inherits(SetProposalOrder, _Command);
+
+  function SetProposalOrder() {
+    _classCallCheck(this, SetProposalOrder);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(SetProposalOrder).apply(this, arguments));
+  }
+
+  _createClass(SetProposalOrder, [{
+    key: "Prepare",
+    value: function Prepare() {
+      return __awaiter(this, void 0, void 0,
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee() {
+        var _this$payload, proposalID, userID, index, oldIndexes, idsOrdered, oldIndex;
+
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this$payload = this.payload, proposalID = _this$payload.proposalID, userID = _this$payload.userID, index = _this$payload.index;
+                _context.next = 3;
+                return Object(_Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_0__["GetDataAsync"])("userData", userID, ".proposalIndexes");
+
+              case 3:
+                _context.t0 = _context.sent;
+
+                if (_context.t0) {
+                  _context.next = 6;
+                  break;
+                }
+
+                _context.t0 = {};
+
+              case 6:
+                oldIndexes = _context.t0;
+                idsOrdered = oldIndexes.VValues(true);
+                oldIndex = idsOrdered.indexOf(proposalID);
+
+                if (index != -1) {
+                  idsOrdered.Move(proposalID, index, true);
+                } else {
+                  idsOrdered.Remove(proposalID);
+                }
+
+                this.newIndexes = idsOrdered; //.ToMap();
+
+              case 11:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+    }
+  }, {
+    key: "Validate",
+    value: function Validate() {
+      return __awaiter(this, void 0, void 0,
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee2() {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+    }
+  }, {
+    key: "GetDBUpdates",
+    value: function GetDBUpdates() {
+      var _this$payload2 = this.payload,
+          userID = _this$payload2.userID,
+          proposalID = _this$payload2.proposalID;
+      var updates = {};
+      updates["userData/".concat(userID, "/.proposalIndexes")] = this.newIndexes;
+      return updates;
+    }
+  }]);
+
+  return SetProposalOrder;
+}(_Command__WEBPACK_IMPORTED_MODULE_1__["Command"]);
+
+/***/ }),
+/* 96 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateProposal", function() { return UpdateProposal; });
+/* harmony import */ var _Command__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
+/* harmony import */ var _Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9);
+/* harmony import */ var _Server__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : new P(function (resolve) {
+        resolve(result.value);
+      }).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
+
+
+
+var MTName = "Proposal";
+Object(_Server__WEBPACK_IMPORTED_MODULE_2__["WaitTillSchemaAddedThenRun"])(MTName, function () {
+  Object(_Server__WEBPACK_IMPORTED_MODULE_2__["AddSchema"])({
+    properties: {
+      id: {
+        type: "string"
+      },
+      updates: Object(_Server__WEBPACK_IMPORTED_MODULE_2__["Schema"])({
+        properties: Object(_Server__WEBPACK_IMPORTED_MODULE_2__["GetSchemaJSON"])(MTName).properties.Including("title", "text", "completedAt")
+      })
+    },
+    required: ["id", "updates"]
+  }, "Update".concat(MTName, "_payload"));
+}); //@UserEdit
+
+var UpdateProposal =
+/*#__PURE__*/
+function (_Command) {
+  _inherits(UpdateProposal, _Command);
+
+  function UpdateProposal() {
+    _classCallCheck(this, UpdateProposal);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(UpdateProposal).apply(this, arguments));
+  }
+
+  _createClass(UpdateProposal, [{
+    key: "Validate_Early",
+    value: function Validate_Early() {
+      Object(_Server__WEBPACK_IMPORTED_MODULE_2__["AssertValidate"])("Update".concat(MTName, "_payload"), this.payload, "Payload invalid");
+    }
+  }, {
+    key: "Prepare",
+    value: function Prepare() {
+      return __awaiter(this, void 0, void 0,
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee() {
+        var _this$payload, id, updates;
+
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this$payload = this.payload, id = _this$payload.id, updates = _this$payload.updates;
+                _context.next = 3;
+                return Object(_Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_1__["GetDataAsync"])({
+                  addHelpers: false
+                }, "proposals", id);
+
+              case 3:
+                this.oldData = _context.sent;
+                this.newData = Object.assign({}, this.oldData, updates);
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+    }
+  }, {
+    key: "Validate",
+    value: function Validate() {
+      return __awaiter(this, void 0, void 0,
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee2() {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                Object(_Server__WEBPACK_IMPORTED_MODULE_2__["AssertValidate"])(MTName, this.newData, "New ".concat(MTName.toLowerCase(), "-data invalid"));
+
+              case 1:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+    }
+  }, {
+    key: "GetDBUpdates",
+    value: function GetDBUpdates() {
+      var id = this.payload.id;
+      var updates = {};
+      updates["proposals/".concat(id)] = this.newData;
+      return updates;
+    }
+  }]);
+
+  return UpdateProposal;
+}(_Command__WEBPACK_IMPORTED_MODULE_0__["Command"]);
+
+/***/ }),
+/* 97 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ACTSet", function() { return ACTSet; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SimpleReducer", function() { return SimpleReducer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Feedback", function() { return Feedback; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FeedbackReducer", function() { return FeedbackReducer; });
+/* harmony import */ var _Utils_General_Action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(98);
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(99);
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(redux__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _General__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(100);
+/* harmony import */ var _main_proposals__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(101);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+var ACTSet =
+/*#__PURE__*/
+function (_Action) {
+  _inherits(ACTSet, _Action);
+
+  function ACTSet(path, value) {
+    var _this;
+
+    _classCallCheck(this, ACTSet);
+
+    if (typeof path == "function") path = Object(_General__WEBPACK_IMPORTED_MODULE_2__["StorePath"])(path);
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ACTSet).call(this, {
+      path: path,
+      value: value
+    }));
+    _this.type = "ACTSetFF_" + path; //.replace(/[^a-zA-Z0-9]/g, "_"); // add path to action-type, for easier debugging in dev-tools
+
+    return _this;
+  }
+
+  return ACTSet;
+}(_Utils_General_Action__WEBPACK_IMPORTED_MODULE_0__["Action"]);
+function SimpleReducer(path) {
+  var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  if (typeof path == "function") path = Object(_General__WEBPACK_IMPORTED_MODULE_2__["StorePath"])(path);
+  return function () {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultValue;
+    var action = arguments.length > 1 ? arguments[1] : undefined;
+    if (Object(_Utils_General_Action__WEBPACK_IMPORTED_MODULE_0__["IsACTSetFor"])(action, path)) return action.payload.value;
+    return state;
+  };
+}
+var Feedback = function Feedback() {
+  _classCallCheck(this, Feedback);
+};
+var FeedbackReducer = Object(redux__WEBPACK_IMPORTED_MODULE_1__["combineReducers"])({
+  proposals: _main_proposals__WEBPACK_IMPORTED_MODULE_3__["ProposalsReducer"]
+});
+
+/***/ }),
+/* 98 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Action", function() { return Action; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IsACTSetFor", function() { return IsACTSetFor; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Action = function Action(payload) {
+  _classCallCheck(this, Action);
+
+  this.type = this.constructor.name;
+  this.payload = payload; //this.Extend(payload);
+
+  Object.setPrototypeOf(this, Object.getPrototypeOf({}));
+};
+/*Object.prototype._AddFunction("Is", Action.prototype.Is);
+Object.prototype._AddFunction("IsAny", Action.prototype.IsAny);*/
+
+/*export function IsACT<Props>(action, actionType: new(..._)=>Action<Props>): action is Props {
+    return action.type == actionType.name;
+    //return action instanceof actionType; // alternative
+}*/
+
+/*export function IsACT<T, Props>(action: Action<T>, actionType: new(..._)=>Action<Props>): action is Props {
+    return this.type == actionType.name;
+    //return this instanceof actionType; // alternative
+}*/
+
+function IsACTSetFor(action, path) {
+  return action.type.startsWith("ACTSetFF_") && action.payload["path"] == path;
+}
+
+/***/ }),
+/* 99 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux");
+
+/***/ }),
+/* 100 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RemoveDuplicates", function() { return RemoveDuplicates; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "State", function() { return State; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StorePath", function() { return StorePath; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emptyArray", function() { return emptyArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AccessLevel", function() { return AccessLevel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetUserAccessLevel", function() { return GetUserAccessLevel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IsUserBasic", function() { return IsUserBasic; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IsUserVerified", function() { return IsUserVerified; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IsUserMod", function() { return IsUserMod; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IsUserAdmin", function() { return IsUserAdmin; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IsUserBasicOrAnon", function() { return IsUserBasicOrAnon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IsUserCreatorOrMod", function() { return IsUserCreatorOrMod; });
+/* harmony import */ var js_vextensions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var js_vextensions__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(js_vextensions__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Manager__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+
+
+function RemoveDuplicates(items) {
+  var result = [];
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = items[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var item = _step.value;
+
+      if (result.indexOf(item) == -1) {
+        result.push(item);
+      }
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return != null) {
+        _iterator.return();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
+
+  return result;
+}
+function State() {
+  var pathSegments; //, options = new State_Options();
+  //if (args.length == 0) return State_overrides.state || store.getState();
+
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+
+  if (args.length == 0) return store.getState();else if (typeof args[0] == "function") pathSegments = ConvertPathGetterFuncToPropChain(args[0]);else if (typeof args[0] == "string") pathSegments = args.length == 1 ? args[0].split("/") : args; // if only one string provided, assume it's the full path
+  //else [options, ...pathSegments] = args;
+  else {
+      pathSegments = args.slice(0);
+    }
+  /*if (__DEV__) {
+      Assert(pathSegments.All(segment=>segment != null), `Path-segment cannot be null. @segments(${pathSegments})`);
+      Assert(pathSegments.All(segment=>typeof segment == "number" || !segment.Contains("/")),
+          `Each string path-segment must be a plain prop-name. (ie. contain no "/" separators) @segments(${pathSegments})`);
+  }*/
+
+  /*let selectedData = DeepGet(store.getState(), manager.storePath_mainData + "/" + pathSegments.join("/"));
+  return selectedData;*/
+
+  return _Manager__WEBPACK_IMPORTED_MODULE_1__["manager"].State.apply(_Manager__WEBPACK_IMPORTED_MODULE_1__["manager"], _toConsumableArray(_Manager__WEBPACK_IMPORTED_MODULE_1__["manager"].storePath_mainData.split("/").concat(pathSegments)));
+}
+
+function ConvertPathGetterFuncToPropChain(pathGetterFunc) {
+  var pathStr = pathGetterFunc.toString().match(/return a\.(.+?);/)[1];
+  Object(js_vextensions__WEBPACK_IMPORTED_MODULE_0__["Assert"])(!pathStr.includes("["), "State-getter-func cannot contain bracket-based property-access.\n\n".concat("For variable inclusion, use multiple segments as in \"State(\"main\", \"mapViews\", mapID)\".")); //let result = pathStr.replace(/\./g, "/");
+
+  var result = pathStr.split(".");
+  return result;
+}
+
+function StorePath(pathGetterFunc) {
+  return ConvertPathGetterFuncToPropChain(pathGetterFunc).join("/");
+}
+var emptyArray = [];
+var AccessLevel;
+
+(function (AccessLevel) {
+  AccessLevel[AccessLevel["Basic"] = 10] = "Basic";
+  AccessLevel[AccessLevel["Verified"] = 20] = "Verified";
+  AccessLevel[AccessLevel["Mod"] = 30] = "Mod";
+  AccessLevel[AccessLevel["Admin"] = 40] = "Admin";
+})(AccessLevel || (AccessLevel = {}));
+/*export function GetUserPermissionGroups(userID: string): PermissionGroupSet {
+    if (userID == null) return null;
+    return GetData("userExtras", userID, "permissionGroups");
+}*/
+
+
+function GetUserAccessLevel(userID) {
+  var groups = _Manager__WEBPACK_IMPORTED_MODULE_1__["manager"].GetUserPermissionGroups(userID);
+  if (groups == null) return AccessLevel.Basic;
+  if (groups.admin) return AccessLevel.Admin;
+  if (groups.mod) return AccessLevel.Mod;
+  if (groups.verified) return AccessLevel.Verified; //if (groups.basic) return AccessLevel.Basic;
+
+  Object(js_vextensions__WEBPACK_IMPORTED_MODULE_0__["Assert"])(false);
+}
+function IsUserBasic(userID) {
+  return (_Manager__WEBPACK_IMPORTED_MODULE_1__["manager"].GetUserPermissionGroups(userID) || {}).basic;
+}
+function IsUserVerified(userID) {
+  return (_Manager__WEBPACK_IMPORTED_MODULE_1__["manager"].GetUserPermissionGroups(userID) || {}).verified;
+}
+function IsUserMod(userID) {
+  return (_Manager__WEBPACK_IMPORTED_MODULE_1__["manager"].GetUserPermissionGroups(userID) || {}).mod;
+}
+function IsUserAdmin(userID) {
+  return (_Manager__WEBPACK_IMPORTED_MODULE_1__["manager"].GetUserPermissionGroups(userID) || {}).admin;
+}
+function IsUserBasicOrAnon(userID) {
+  var permissionGroups = _Manager__WEBPACK_IMPORTED_MODULE_1__["manager"].GetUserPermissionGroups(userID);
+  return permissionGroups == null || permissionGroups.basic;
+}
+function IsUserCreatorOrMod(userID, entity) {
+  var permissionGroups = _Manager__WEBPACK_IMPORTED_MODULE_1__["manager"].GetUserPermissionGroups(userID);
+  if (permissionGroups == null) return false;
+  return entity.creator == userID && permissionGroups.basic || permissionGroups.mod;
+}
+
+/***/ }),
+/* 101 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ACTProposalSelect", function() { return ACTProposalSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Proposals", function() { return Proposals; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProposalsReducer", function() { return ProposalsReducer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetSelectedProposalID", function() { return GetSelectedProposalID; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetSelectedProposal", function() { return GetSelectedProposal; });
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(99);
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(redux__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Utils_General_Action__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(98);
+/* harmony import */ var _firebase_proposals__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(94);
+/* harmony import */ var _General__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(100);
+/* harmony import */ var _main__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(97);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+var ACTProposalSelect =
+/*#__PURE__*/
+function (_Action) {
+  _inherits(ACTProposalSelect, _Action);
+
+  function ACTProposalSelect() {
+    _classCallCheck(this, ACTProposalSelect);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(ACTProposalSelect).apply(this, arguments));
+  }
+
+  return ACTProposalSelect;
+}(_Utils_General_Action__WEBPACK_IMPORTED_MODULE_1__["Action"]);
+var Proposals = function Proposals() {
+  _classCallCheck(this, Proposals);
+};
+var ProposalsReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
+  selectedProposalID: function selectedProposalID() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+    var action = arguments.length > 1 ? arguments[1] : undefined;
+    if (action.type == "ACTProposalSelect") return action.payload.id;
+    return state;
+  },
+  features_showCompleted: Object(_main__WEBPACK_IMPORTED_MODULE_4__["SimpleReducer"])(function (a) {
+    return a.proposals.features_showCompleted;
+  }),
+  issues_showCompleted: Object(_main__WEBPACK_IMPORTED_MODULE_4__["SimpleReducer"])(function (a) {
+    return a.proposals.issues_showCompleted;
+  })
+});
+function GetSelectedProposalID() {
+  return Object(_General__WEBPACK_IMPORTED_MODULE_3__["State"])("proposals", "selectedProposalID");
+}
+function GetSelectedProposal() {
+  var selectedID = GetSelectedProposalID();
+  return Object(_firebase_proposals__WEBPACK_IMPORTED_MODULE_2__["GetProposal"])(selectedID);
+}
+
+/***/ }),
+/* 102 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Proposal", function() { return Proposal; });
+/* harmony import */ var _Server_Server__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+var Proposal = function Proposal(initialData) {
+  _classCallCheck(this, Proposal);
+
+  this.title = "";
+  this.text = "";
+  this.Extend(initialData);
+};
+Object(_Server_Server__WEBPACK_IMPORTED_MODULE_0__["AddSchema"])({
+  properties: {
+    type: {
+      type: "string"
+    },
+    title: {
+      type: "string"
+    },
+    text: {
+      type: "string"
+    },
+    //completed: {type: ["null", "boolean"]},
+    creator: {
+      type: "string"
+    },
+    createdAt: {
+      type: "number"
+    },
+    editedAt: {
+      type: "number"
+    },
+    completedAt: {
+      type: ["null", "number"]
+    }
+  },
+  required: ["type", "title", "text", "creator", "createdAt"]
+}, "Proposal");
+
+/***/ }),
+/* 103 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21623,8 +23042,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetProposalIndexes", function() { return GetProposalIndexes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetProposalOrder", function() { return GetProposalOrder; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetProposalIndex", function() { return GetProposalIndex; });
-/* harmony import */ var _Server_Server__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(16);
-/* harmony import */ var _Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var _Server_Server__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
+/* harmony import */ var _Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9);
 
 
 Object(_Server_Server__WEBPACK_IMPORTED_MODULE_0__["AddSchema"])({
@@ -21651,7 +23070,7 @@ function GetProposalIndex(userID, proposalID) {
 }
 
 /***/ }),
-/* 92 */
+/* 104 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21660,29 +23079,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetRankingScoreToAddForUserRankingIndex", function() { return GetRankingScoreToAddForUserRankingIndex; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProposalsColumn", function() { return ProposalsColumn; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProposalsUserRankingColumn", function() { return ProposalsUserRankingColumn; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(93);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(105);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_vcomponents__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(94);
+/* harmony import */ var react_vcomponents__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(106);
 /* harmony import */ var react_vcomponents__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_vcomponents__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_vextensions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(95);
+/* harmony import */ var react_vextensions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(107);
 /* harmony import */ var react_vextensions__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_vextensions__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_vscrollview__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(96);
+/* harmony import */ var react_vscrollview__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(108);
 /* harmony import */ var react_vscrollview__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_vscrollview__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _General__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(7);
+/* harmony import */ var _General__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(100);
 /* harmony import */ var _Manager__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5);
-/* harmony import */ var _Server_Commands_SetProposalOrder__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(97);
-/* harmony import */ var _Store_firebase_proposals__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(12);
-/* harmony import */ var _Store_main_proposals__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(11);
-/* harmony import */ var _Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(13);
+/* harmony import */ var _Server_Commands_SetProposalOrder__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(95);
+/* harmony import */ var _Store_firebase_proposals__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(94);
+/* harmony import */ var _Store_main_proposals__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(101);
+/* harmony import */ var _Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(9);
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(1);
-/* harmony import */ var _Feedback_Proposal_ProposalDetailsUI__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(99);
-/* harmony import */ var _Feedback_ProposalEntryUI__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(107);
-/* harmony import */ var _Feedback_ProposalUI__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(112);
+/* harmony import */ var _Feedback_Proposal_ProposalDetailsUI__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(109);
+/* harmony import */ var _Feedback_ProposalEntryUI__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(112);
+/* harmony import */ var _Feedback_ProposalUI__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(117);
 /* harmony import */ var js_vextensions__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(2);
 /* harmony import */ var js_vextensions__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(js_vextensions__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(109);
+/* harmony import */ var react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(114);
 /* harmony import */ var react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var _Utils_UI_DragAndDropInfo__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(110);
+/* harmony import */ var _Utils_UI_DNDStructures__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(115);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -21972,7 +23391,7 @@ function (_BaseComponentWithCon2) {
       shownProposals = shownProposals.OrderByDescending(function (a) {
         return rankingScores[a._key];
       });
-      var droppableInfo = new _Utils_UI_DragAndDropInfo__WEBPACK_IMPORTED_MODULE_16__["DroppableInfo"]({
+      var droppableInfo = new _Utils_UI_DNDStructures__WEBPACK_IMPORTED_MODULE_16__["DroppableInfo"]({
         type: "ProposalsColumn",
         proposalType: type
       });
@@ -22093,7 +23512,7 @@ function (_BaseComponentWithCon3) {
       }).OrderBy(function (a) {
         return proposalOrder.indexOf(a._key);
       });
-      var droppableInfo = new _Utils_UI_DragAndDropInfo__WEBPACK_IMPORTED_MODULE_16__["DroppableInfo"]({
+      var droppableInfo = new _Utils_UI_DNDStructures__WEBPACK_IMPORTED_MODULE_16__["DroppableInfo"]({
         type: "ProposalsUserRankingColumn",
         userID: user ? user._key : null
       });
@@ -22170,568 +23589,31 @@ ProposalsUserRankingColumn = __decorate([react_vextensions__WEBPACK_IMPORTED_MOD
 
 
 /***/ }),
-/* 93 */
+/* 105 */
 /***/ (function(module, exports) {
 
 module.exports = require("react");
 
 /***/ }),
-/* 94 */
+/* 106 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-vcomponents");
 
 /***/ }),
-/* 95 */
+/* 107 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-vextensions");
 
 /***/ }),
-/* 96 */
+/* 108 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-vscrollview");
 
 /***/ }),
-/* 97 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetProposalOrder", function() { return SetProposalOrder; });
-/* harmony import */ var _Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13);
-/* harmony import */ var _Command__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(98);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
-  return new (P || (P = Promise))(function (resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-
-    function step(result) {
-      result.done ? resolve(result.value) : new P(function (resolve) {
-        resolve(result.value);
-      }).then(fulfilled, rejected);
-    }
-
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-
-
- //@UserEdit
-
-var SetProposalOrder =
-/*#__PURE__*/
-function (_Command) {
-  _inherits(SetProposalOrder, _Command);
-
-  function SetProposalOrder() {
-    _classCallCheck(this, SetProposalOrder);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(SetProposalOrder).apply(this, arguments));
-  }
-
-  _createClass(SetProposalOrder, [{
-    key: "Prepare",
-    value: function Prepare() {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee() {
-        var _this$payload, proposalID, userID, index, oldIndexes, idsOrdered, oldIndex;
-
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _this$payload = this.payload, proposalID = _this$payload.proposalID, userID = _this$payload.userID, index = _this$payload.index;
-                _context.next = 3;
-                return Object(_Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_0__["GetDataAsync"])("userData", userID, ".proposalIndexes");
-
-              case 3:
-                _context.t0 = _context.sent;
-
-                if (_context.t0) {
-                  _context.next = 6;
-                  break;
-                }
-
-                _context.t0 = {};
-
-              case 6:
-                oldIndexes = _context.t0;
-                idsOrdered = oldIndexes.VValues(true);
-                oldIndex = idsOrdered.indexOf(proposalID);
-
-                if (index != -1) {
-                  idsOrdered.Move(proposalID, index, true);
-                } else {
-                  idsOrdered.Remove(proposalID);
-                }
-
-                this.newIndexes = idsOrdered; //.ToMap();
-
-              case 11:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-    }
-  }, {
-    key: "Validate",
-    value: function Validate() {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee2() {
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }));
-    }
-  }, {
-    key: "GetDBUpdates",
-    value: function GetDBUpdates() {
-      var _this$payload2 = this.payload,
-          userID = _this$payload2.userID,
-          proposalID = _this$payload2.proposalID;
-      var updates = {};
-      updates["userData/".concat(userID, "/.proposalIndexes")] = this.newIndexes;
-      return updates;
-    }
-  }]);
-
-  return SetProposalOrder;
-}(_Command__WEBPACK_IMPORTED_MODULE_1__["Command"]);
-
-/***/ }),
-/* 98 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommandUserInfo", function() { return CommandUserInfo; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Command", function() { return Command; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MergeDBUpdates", function() { return MergeDBUpdates; });
-/* harmony import */ var js_vextensions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var js_vextensions__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(js_vextensions__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Utils_General_Logging__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
-/* harmony import */ var _Manager__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
-/* harmony import */ var _Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(13);
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
-  return new (P || (P = Promise))(function (resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-
-    function step(result) {
-      result.done ? resolve(result.value) : new P(function (resolve) {
-        resolve(result.value);
-      }).then(fulfilled, rejected);
-    }
-
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-
-
-
-
-
-var CommandUserInfo = function CommandUserInfo() {
-  _classCallCheck(this, CommandUserInfo);
-};
-var currentCommandRun_listeners = null;
-
-function WaitTillCurrentCommandFinishes() {
-  return __awaiter(this, void 0, void 0,
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee() {
-    return regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            return _context.abrupt("return", new Promise(function (resolve, reject) {
-              currentCommandRun_listeners.push({
-                resolve: resolve,
-                reject: reject
-              });
-            }));
-
-          case 1:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-}
-
-function OnCurrentCommandFinished() {
-  var currentCommandRun_listeners_copy = currentCommandRun_listeners;
-  currentCommandRun_listeners = null;
-  var _iteratorNormalCompletion = true;
-  var _didIteratorError = false;
-  var _iteratorError = undefined;
-
-  try {
-    for (var _iterator = currentCommandRun_listeners_copy[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-      var listener = _step.value;
-      listener.resolve();
-    }
-  } catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
-  } finally {
-    try {
-      if (!_iteratorNormalCompletion && _iterator.return != null) {
-        _iterator.return();
-      }
-    } finally {
-      if (_didIteratorError) {
-        throw _iteratorError;
-      }
-    }
-  }
-}
-
-var Command =
-/*#__PURE__*/
-function () {
-  function Command(payload) {
-    _classCallCheck(this, Command);
-
-    this.userInfo = {
-      id: _Manager__WEBPACK_IMPORTED_MODULE_2__["manager"].GetUserID()
-    }; // temp
-
-    this.type = this.constructor.name;
-    this.payload = payload; //this.Extend(payload);
-    //Object.setPrototypeOf(this, Object.getPrototypeOf({}));
-  } // these methods are executed on the server (well, will be later)
-  // ==========
-
-  /** [sync] Validates the payload data. (ie. the validation that doesn't require accessing the database) */
-
-
-  _createClass(Command, [{
-    key: "Validate_Early",
-    value: function Validate_Early() {}
-  }, {
-    key: "Run",
-
-    /** [async] Validates the data, prepares it, and executes it -- thus applying it into the database. */
-    value: function Run() {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee2() {
-        var _this = this;
-
-        var dbUpdates;
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                if (!currentCommandRun_listeners) {
-                  _context2.next = 5;
-                  break;
-                }
-
-                _context2.next = 3;
-                return WaitTillCurrentCommandFinishes();
-
-              case 3:
-                _context2.next = 0;
-                break;
-
-              case 5:
-                currentCommandRun_listeners = [];
-                Object(_Utils_General_Logging__WEBPACK_IMPORTED_MODULE_1__["MaybeLog"])(function (a) {
-                  return a.commands;
-                }, function () {
-                  return "Running command. @type:".concat(_this.constructor.name, " @payload(").concat(Object(js_vextensions__WEBPACK_IMPORTED_MODULE_0__["ToJSON"])(_this.payload), ")");
-                });
-                _context2.prev = 7;
-                this.Validate_Early();
-                _context2.next = 11;
-                return this.Prepare();
-
-              case 11:
-                _context2.next = 13;
-                return this.Validate();
-
-              case 13:
-                dbUpdates = this.GetDBUpdates(); //FixDBUpdates(dbUpdates);
-                //await store.firebase.helpers.ref(DBPath("")).update(dbUpdates);
-
-                _context2.next = 16;
-                return _Manager__WEBPACK_IMPORTED_MODULE_2__["manager"].ApplyDBUpdates(Object(_Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_3__["DBPath"])(), dbUpdates);
-
-              case 16:
-                Object(_Utils_General_Logging__WEBPACK_IMPORTED_MODULE_1__["MaybeLog"])(function (a) {
-                  return a.commands;
-                }, function () {
-                  return "Finishing command. @type:".concat(_this.constructor.name, " @payload(").concat(Object(js_vextensions__WEBPACK_IMPORTED_MODULE_0__["ToJSON"])(_this.payload), ")");
-                });
-
-              case 17:
-                _context2.prev = 17;
-                OnCurrentCommandFinished();
-                return _context2.finish(17);
-
-              case 20:
-                return _context2.abrupt("return", this.returnData);
-
-              case 21:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this, [[7,, 17, 20]]);
-      }));
-    }
-  }]);
-
-  return Command;
-}();
-function MergeDBUpdates(baseUpdatesMap, updatesToMergeMap) {
-  var baseUpdates = baseUpdatesMap.Props().map(function (prop) {
-    return {
-      path: prop.name,
-      data: prop.value
-    };
-  });
-  var updatesToMerge = updatesToMergeMap.Props().map(function (prop) {
-    return {
-      path: prop.name,
-      data: prop.value
-    };
-  });
-  var _iteratorNormalCompletion2 = true;
-  var _didIteratorError2 = false;
-  var _iteratorError2 = undefined;
-
-  try {
-    for (var _iterator2 = updatesToMerge[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-      var update = _step2.value;
-
-      // if an update-to-merge exists for a path, remove any base-updates starting with that path (since the to-merge ones have priority)
-      if (update.data == null) {
-        var _iteratorNormalCompletion5 = true;
-        var _didIteratorError5 = false;
-        var _iteratorError5 = undefined;
-
-        try {
-          for (var _iterator5 = baseUpdates.slice()[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-            var update2 = _step5.value;
-
-            // make copy, since Remove() seems to break iteration otherwise
-            if (update2.path.startsWith(update.path)) {
-              baseUpdates.Remove(update2);
-            }
-          }
-        } catch (err) {
-          _didIteratorError5 = true;
-          _iteratorError5 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion5 && _iterator5.return != null) {
-              _iterator5.return();
-            }
-          } finally {
-            if (_didIteratorError5) {
-              throw _iteratorError5;
-            }
-          }
-        }
-      }
-    }
-  } catch (err) {
-    _didIteratorError2 = true;
-    _iteratorError2 = err;
-  } finally {
-    try {
-      if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
-        _iterator2.return();
-      }
-    } finally {
-      if (_didIteratorError2) {
-        throw _iteratorError2;
-      }
-    }
-  }
-
-  var finalUpdates = [];
-  var _iteratorNormalCompletion3 = true;
-  var _didIteratorError3 = false;
-  var _iteratorError3 = undefined;
-
-  try {
-    var _loop = function _loop() {
-      var update = _step3.value;
-      var updatesToMergeIntoThisOne = updatesToMerge.filter(function (update2) {
-        return update2.path.startsWith(update.path);
-      });
-      var _iteratorNormalCompletion6 = true;
-      var _didIteratorError6 = false;
-      var _iteratorError6 = undefined;
-
-      try {
-        for (var _iterator6 = updatesToMergeIntoThisOne[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
-          var updateToMerge = _step6.value;
-          var updateToMerge_relativePath = updateToMerge.path.substr("".concat(update.path, "/").length); //if (updateToMerge.data) {
-          // assume that the update-to-merge has priority, so have it completely overwrite the data at its path
-          //update.data = u.updateIn(updateToMerge_relativePath.replace(/\//g, "."), u.constant(updateToMerge.data), update.data);
-
-          Object(js_vextensions__WEBPACK_IMPORTED_MODULE_0__["DeepSet"])(update.data, updateToMerge_relativePath, updateToMerge.data);
-          /*} else {
-              update.data = null;
-          }*/
-          // remove from updates-to-merge list (since we just merged it)
-
-          updatesToMerge.Remove(updateToMerge);
-        }
-      } catch (err) {
-        _didIteratorError6 = true;
-        _iteratorError6 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion6 && _iterator6.return != null) {
-            _iterator6.return();
-          }
-        } finally {
-          if (_didIteratorError6) {
-            throw _iteratorError6;
-          }
-        }
-      }
-
-      finalUpdates.push(update);
-    };
-
-    for (var _iterator3 = baseUpdates[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-      _loop();
-    } // for any "update to merge" which couldn't be merged into one of the base-updates, just add it as its own update (it won't clash with the others)
-
-  } catch (err) {
-    _didIteratorError3 = true;
-    _iteratorError3 = err;
-  } finally {
-    try {
-      if (!_iteratorNormalCompletion3 && _iterator3.return != null) {
-        _iterator3.return();
-      }
-    } finally {
-      if (_didIteratorError3) {
-        throw _iteratorError3;
-      }
-    }
-  }
-
-  var _iteratorNormalCompletion4 = true;
-  var _didIteratorError4 = false;
-  var _iteratorError4 = undefined;
-
-  try {
-    for (var _iterator4 = updatesToMerge[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-      var _update = _step4.value;
-      finalUpdates.push(_update);
-    }
-  } catch (err) {
-    _didIteratorError4 = true;
-    _iteratorError4 = err;
-  } finally {
-    try {
-      if (!_iteratorNormalCompletion4 && _iterator4.return != null) {
-        _iterator4.return();
-      }
-    } finally {
-      if (_didIteratorError4) {
-        throw _iteratorError4;
-      }
-    }
-  }
-
-  var finalUpdatesMap = finalUpdates.reduce(function (result, current) {
-    return result.VSet(current.path, current.data);
-  }, {});
-  return finalUpdatesMap;
-} // template
-// ==========
-
-/*
-    Validate_Early() {
-    }
-
-    async Prepare() {
-    }
-    async Validate() {
-    }
-
-    GetDBUpdates() {
-        let updates = {
-        };
-        return updates;
-    }
-*/
-
-/***/ }),
-/* 99 */
+/* 109 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -22740,20 +23622,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShowAddProposalDialog", function() { return ShowAddProposalDialog; });
 /* harmony import */ var js_vextensions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var js_vextensions__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(js_vextensions__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(93);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(105);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_vcomponents__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(94);
+/* harmony import */ var react_vcomponents__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(106);
 /* harmony import */ var react_vcomponents__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_vcomponents__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_vextensions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(95);
+/* harmony import */ var react_vextensions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(107);
 /* harmony import */ var react_vextensions__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_vextensions__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_vmarkdown__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(100);
+/* harmony import */ var react_vmarkdown__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(110);
 /* harmony import */ var react_vmarkdown__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_vmarkdown__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var react_vmessagebox__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(101);
+/* harmony import */ var react_vmessagebox__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(111);
 /* harmony import */ var react_vmessagebox__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_vmessagebox__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var ___WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(1);
-/* harmony import */ var _Server_Commands_AddProposal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(102);
-/* harmony import */ var _Store_main_proposals__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(11);
-/* harmony import */ var _Store_firebase_proposals_Proposal__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(15);
+/* harmony import */ var _Server_Commands_AddProposal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(7);
+/* harmony import */ var _Store_main_proposals__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(101);
+/* harmony import */ var _Store_firebase_proposals_Proposal__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(102);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22993,276 +23875,19 @@ function ShowAddProposalDialog(userID, type) {
 }
 
 /***/ }),
-/* 100 */
+/* 110 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-vmarkdown");
 
 /***/ }),
-/* 101 */
+/* 111 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-vmessagebox");
 
 /***/ }),
-/* 102 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddProposal", function() { return AddProposal; });
-/* harmony import */ var _Command__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(98);
-/* harmony import */ var _Server__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(16);
-/* harmony import */ var _Utils_General_KeyGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(103);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
-  return new (P || (P = Promise))(function (resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-
-    function step(result) {
-      result.done ? resolve(result.value) : new P(function (resolve) {
-        resolve(result.value);
-      }).then(fulfilled, rejected);
-    }
-
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-
-
-
-
-var MTName = "Proposal"; //@UserEdit
-
-var AddProposal =
-/*#__PURE__*/
-function (_Command) {
-  _inherits(AddProposal, _Command);
-
-  function AddProposal() {
-    _classCallCheck(this, AddProposal);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(AddProposal).apply(this, arguments));
-  }
-
-  _createClass(AddProposal, [{
-    key: "Prepare",
-    value: function Prepare() {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee() {
-        var data;
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                data = this.payload.data;
-                this.id = Object(_Utils_General_KeyGenerator__WEBPACK_IMPORTED_MODULE_2__["GenerateUUID"])();
-                data.creator = this.userInfo.id;
-                data.createdAt = Date.now(); //thread.editedAt = thread.createdAt;
-
-                this.returnData = this.id;
-
-              case 5:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-    }
-  }, {
-    key: "Validate",
-    value: function Validate() {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee2() {
-        var data;
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                data = this.payload.data;
-                Object(_Server__WEBPACK_IMPORTED_MODULE_1__["AssertValidate"])(MTName, data, "".concat(MTName, " invalid"));
-
-              case 2:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this);
-      }));
-    }
-  }, {
-    key: "GetDBUpdates",
-    value: function GetDBUpdates() {
-      var data = this.payload.data;
-
-      var updates = _defineProperty({}, "proposals/".concat(this.id), data);
-
-      return updates;
-    }
-  }]);
-
-  return AddProposal;
-}(_Command__WEBPACK_IMPORTED_MODULE_0__["Command"]);
-
-/***/ }),
-/* 103 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GenerateUUID", function() { return GenerateUUID; });
-/* harmony import */ var slugid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(116);
-/* harmony import */ var slugid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(slugid__WEBPACK_IMPORTED_MODULE_0__);
-//import uuidV4 from 'uuid/v4';
-
-function GenerateUUID() {
-  //return uuidV4(options);
-  return slugid__WEBPACK_IMPORTED_MODULE_0___default.a.v4();
-}
-
-/***/ }),
-/* 104 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var rng = __webpack_require__(105);
-var bytesToUuid = __webpack_require__(106);
-
-function v4(options, buf, offset) {
-  var i = buf && offset || 0;
-
-  if (typeof(options) == 'string') {
-    buf = options === 'binary' ? new Array(16) : null;
-    options = null;
-  }
-  options = options || {};
-
-  var rnds = options.random || (options.rng || rng)();
-
-  // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
-  rnds[6] = (rnds[6] & 0x0f) | 0x40;
-  rnds[8] = (rnds[8] & 0x3f) | 0x80;
-
-  // Copy bytes to buffer, if provided
-  if (buf) {
-    for (var ii = 0; ii < 16; ++ii) {
-      buf[i + ii] = rnds[ii];
-    }
-  }
-
-  return buf || bytesToUuid(rnds);
-}
-
-module.exports = v4;
-
-
-/***/ }),
-/* 105 */
-/***/ (function(module, exports) {
-
-// Unique ID creation requires a high quality random # generator.  In the
-// browser this is a little complicated due to unknown quality of Math.random()
-// and inconsistent support for the `crypto` API.  We do the best we can via
-// feature-detection
-
-// getRandomValues needs to be invoked in a context where "this" is a Crypto
-// implementation. Also, find the complete implementation of crypto on IE11.
-var getRandomValues = (typeof(crypto) != 'undefined' && crypto.getRandomValues && crypto.getRandomValues.bind(crypto)) ||
-                      (typeof(msCrypto) != 'undefined' && typeof window.msCrypto.getRandomValues == 'function' && msCrypto.getRandomValues.bind(msCrypto));
-
-if (getRandomValues) {
-  // WHATWG crypto RNG - http://wiki.whatwg.org/wiki/Crypto
-  var rnds8 = new Uint8Array(16); // eslint-disable-line no-undef
-
-  module.exports = function whatwgRNG() {
-    getRandomValues(rnds8);
-    return rnds8;
-  };
-} else {
-  // Math.random()-based (RNG)
-  //
-  // If all else fails, use Math.random().  It's fast, but is of unspecified
-  // quality.
-  var rnds = new Array(16);
-
-  module.exports = function mathRNG() {
-    for (var i = 0, r; i < 16; i++) {
-      if ((i & 0x03) === 0) r = Math.random() * 0x100000000;
-      rnds[i] = r >>> ((i & 0x03) << 3) & 0xff;
-    }
-
-    return rnds;
-  };
-}
-
-
-/***/ }),
-/* 106 */
-/***/ (function(module, exports) {
-
-/**
- * Convert array of 16 byte values to UUID string format of the form:
- * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
- */
-var byteToHex = [];
-for (var i = 0; i < 256; ++i) {
-  byteToHex[i] = (i + 0x100).toString(16).substr(1);
-}
-
-function bytesToUuid(buf, offset) {
-  var i = offset || 0;
-  var bth = byteToHex;
-  // join used to fix memory issue caused by concatenation: https://bugs.chromium.org/p/v8/issues/detail?id=3175#c4
-  return ([bth[buf[i++]], bth[buf[i++]], 
-	bth[buf[i++]], bth[buf[i++]], '-',
-	bth[buf[i++]], bth[buf[i++]], '-',
-	bth[buf[i++]], bth[buf[i++]], '-',
-	bth[buf[i++]], bth[buf[i++]], '-',
-	bth[buf[i++]], bth[buf[i++]],
-	bth[buf[i++]], bth[buf[i++]],
-	bth[buf[i++]], bth[buf[i++]]]).join('');
-}
-
-module.exports = bytesToUuid;
-
-
-/***/ }),
-/* 107 */
+/* 112 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23270,19 +23895,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProposalEntryUI", function() { return ProposalEntryUI; });
 /* harmony import */ var js_vextensions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var js_vextensions__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(js_vextensions__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(93);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(105);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_vcomponents__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(94);
+/* harmony import */ var react_vcomponents__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(106);
 /* harmony import */ var react_vcomponents__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_vcomponents__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_vextensions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(95);
+/* harmony import */ var react_vextensions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(107);
 /* harmony import */ var react_vextensions__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_vextensions__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _Manager__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5);
-/* harmony import */ var _Server_Commands_SetProposalOrder__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(97);
-/* harmony import */ var _Store_main_proposals__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(11);
-/* harmony import */ var _Proposals__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(92);
-/* harmony import */ var _Utils_UI_DNDHelpers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(108);
-/* harmony import */ var _Utils_UI_DragAndDropInfo__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(110);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(111);
+/* harmony import */ var _Server_Commands_SetProposalOrder__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(95);
+/* harmony import */ var _Store_main_proposals__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(101);
+/* harmony import */ var _Proposals__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(104);
+/* harmony import */ var _Utils_UI_DNDHelpers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(113);
+/* harmony import */ var _Utils_UI_DNDStructures__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(115);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(116);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_10__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -23334,7 +23959,7 @@ Object(_Manager__WEBPACK_IMPORTED_MODULE_4__["OnPopulated"])(function () {
         index = props.index;
     return {
       type: "Proposal",
-      draggableInfo: new _Utils_UI_DragAndDropInfo__WEBPACK_IMPORTED_MODULE_9__["DraggableInfo"]({
+      draggableInfo: new _Utils_UI_DNDStructures__WEBPACK_IMPORTED_MODULE_9__["DraggableInfo"]({
         columnType: columnType,
         proposalID: proposal._key
       }),
@@ -23428,17 +24053,17 @@ function (_BaseComponent) {
 }(react_vextensions__WEBPACK_IMPORTED_MODULE_3__["BaseComponent"]);
 
 /***/ }),
-/* 108 */
+/* 113 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MakeDraggable", function() { return MakeDraggable; });
-/* harmony import */ var react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(109);
+/* harmony import */ var react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(114);
 /* harmony import */ var react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_vextensions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(95);
+/* harmony import */ var react_vextensions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(107);
 /* harmony import */ var react_vextensions__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_vextensions__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(93);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(105);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var js_vextensions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2);
 /* harmony import */ var js_vextensions__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(js_vextensions__WEBPACK_IMPORTED_MODULE_3__);
@@ -23533,13 +24158,13 @@ function MakeDraggable(getDraggableCompProps) {
 }
 
 /***/ }),
-/* 109 */
+/* 114 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-beautiful-dnd");
 
 /***/ }),
-/* 110 */
+/* 115 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23560,37 +24185,37 @@ var DraggableInfo = function DraggableInfo(data) {
 };
 
 /***/ }),
-/* 111 */
+/* 116 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom");
 
 /***/ }),
-/* 112 */
+/* 117 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProposalUI", function() { return ProposalUI; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProposalUI_Inner", function() { return ProposalUI_Inner; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(93);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(105);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_vcomponents__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(94);
+/* harmony import */ var react_vcomponents__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(106);
 /* harmony import */ var react_vcomponents__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_vcomponents__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_vextensions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(95);
+/* harmony import */ var react_vextensions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(107);
 /* harmony import */ var react_vextensions__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_vextensions__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_vmessagebox__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(101);
+/* harmony import */ var react_vmessagebox__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(111);
 /* harmony import */ var react_vmessagebox__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_vmessagebox__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_vscrollview__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(96);
+/* harmony import */ var react_vscrollview__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(108);
 /* harmony import */ var react_vscrollview__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_vscrollview__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _General__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(7);
+/* harmony import */ var _General__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(100);
 /* harmony import */ var _Manager__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(5);
-/* harmony import */ var _Server_Commands_DeleteProposal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(113);
-/* harmony import */ var _Server_Commands_UpdateProposal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(114);
-/* harmony import */ var _Store_main_proposals__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(11);
-/* harmony import */ var _Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(13);
-/* harmony import */ var _GlobalStyles__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(115);
-/* harmony import */ var _Proposal_ProposalDetailsUI__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(99);
+/* harmony import */ var _Server_Commands_DeleteProposal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(93);
+/* harmony import */ var _Server_Commands_UpdateProposal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(96);
+/* harmony import */ var _Store_main_proposals__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(101);
+/* harmony import */ var _Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(9);
+/* harmony import */ var _GlobalStyles__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(118);
+/* harmony import */ var _Proposal_ProposalDetailsUI__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(109);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24095,467 +24720,7 @@ function (_BaseComponent3) {
 }(react_vextensions__WEBPACK_IMPORTED_MODULE_2__["BaseComponent"]);
 
 /***/ }),
-/* 113 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DeleteProposal", function() { return DeleteProposal; });
-/* harmony import */ var _Store_firebase_proposals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
-/* harmony import */ var _Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
-/* harmony import */ var _Command__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(98);
-/* harmony import */ var _SetProposalOrder__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(97);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
-  return new (P || (P = Promise))(function (resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-
-    function step(result) {
-      result.done ? resolve(result.value) : new P(function (resolve) {
-        resolve(result.value);
-      }).then(fulfilled, rejected);
-    }
-
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-
-
-
-
- //@UserEdit
-
-var DeleteProposal =
-/*#__PURE__*/
-function (_Command) {
-  _inherits(DeleteProposal, _Command);
-
-  function DeleteProposal() {
-    _classCallCheck(this, DeleteProposal);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(DeleteProposal).apply(this, arguments));
-  }
-
-  _createClass(DeleteProposal, [{
-    key: "Prepare",
-    value: function Prepare() {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee() {
-        var id, proposal, userDatas, userDatasWithOrderingContainingProposal, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, userID, subcommand;
-
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                id = this.payload.id;
-                _context.next = 3;
-                return Object(_Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_1__["GetAsync"])(function () {
-                  return Object(_Store_firebase_proposals__WEBPACK_IMPORTED_MODULE_0__["GetProposal"])(id);
-                });
-
-              case 3:
-                proposal = _context.sent;
-                _context.next = 6;
-                return Object(_Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_1__["GetDataAsync"])({
-                  collection: true
-                }, "userData");
-
-              case 6:
-                _context.t0 = _context.sent;
-
-                if (_context.t0) {
-                  _context.next = 9;
-                  break;
-                }
-
-                _context.t0 = {};
-
-              case 9:
-                userDatas = _context.t0;
-                this.sub_removalsFromUserOrderings = [];
-                userDatasWithOrderingContainingProposal = userDatas.Props(true).filter(function (prop) {
-                  return prop.value["proposalIndexes"].VValues(true).Contains(id);
-                });
-                _iteratorNormalCompletion = true;
-                _didIteratorError = false;
-                _iteratorError = undefined;
-                _context.prev = 15;
-                _iterator = userDatasWithOrderingContainingProposal.map(function (prop) {
-                  return prop.name;
-                })[Symbol.iterator]();
-
-              case 17:
-                if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
-                  _context.next = 27;
-                  break;
-                }
-
-                userID = _step.value;
-                subcommand = new _SetProposalOrder__WEBPACK_IMPORTED_MODULE_3__["SetProposalOrder"]({
-                  proposalID: id,
-                  userID: userID,
-                  index: -1
-                });
-                subcommand.Validate_Early();
-                _context.next = 23;
-                return subcommand.Prepare();
-
-              case 23:
-                this.sub_removalsFromUserOrderings.push(subcommand);
-
-              case 24:
-                _iteratorNormalCompletion = true;
-                _context.next = 17;
-                break;
-
-              case 27:
-                _context.next = 33;
-                break;
-
-              case 29:
-                _context.prev = 29;
-                _context.t1 = _context["catch"](15);
-                _didIteratorError = true;
-                _iteratorError = _context.t1;
-
-              case 33:
-                _context.prev = 33;
-                _context.prev = 34;
-
-                if (!_iteratorNormalCompletion && _iterator.return != null) {
-                  _iterator.return();
-                }
-
-              case 36:
-                _context.prev = 36;
-
-                if (!_didIteratorError) {
-                  _context.next = 39;
-                  break;
-                }
-
-                throw _iteratorError;
-
-              case 39:
-                return _context.finish(36);
-
-              case 40:
-                return _context.finish(33);
-
-              case 41:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this, [[15, 29, 33, 41], [34,, 36, 40]]);
-      }));
-    }
-  }, {
-    key: "Validate",
-    value: function Validate() {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee2() {
-        var _iteratorNormalCompletion2, _didIteratorError2, _iteratorError2, _iterator2, _step2, subcommand;
-
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                /*if (this.posts.filter(a=>a.creator != this.userInfo.id && a.text).length) {
-                    throw new Error(`Proposals with responses by other people cannot be deleted.`);
-                }*/
-                _iteratorNormalCompletion2 = true;
-                _didIteratorError2 = false;
-                _iteratorError2 = undefined;
-                _context2.prev = 3;
-                _iterator2 = this.sub_removalsFromUserOrderings[Symbol.iterator]();
-
-              case 5:
-                if (_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done) {
-                  _context2.next = 12;
-                  break;
-                }
-
-                subcommand = _step2.value;
-                _context2.next = 9;
-                return subcommand.Validate();
-
-              case 9:
-                _iteratorNormalCompletion2 = true;
-                _context2.next = 5;
-                break;
-
-              case 12:
-                _context2.next = 18;
-                break;
-
-              case 14:
-                _context2.prev = 14;
-                _context2.t0 = _context2["catch"](3);
-                _didIteratorError2 = true;
-                _iteratorError2 = _context2.t0;
-
-              case 18:
-                _context2.prev = 18;
-                _context2.prev = 19;
-
-                if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
-                  _iterator2.return();
-                }
-
-              case 21:
-                _context2.prev = 21;
-
-                if (!_didIteratorError2) {
-                  _context2.next = 24;
-                  break;
-                }
-
-                throw _iteratorError2;
-
-              case 24:
-                return _context2.finish(21);
-
-              case 25:
-                return _context2.finish(18);
-
-              case 26:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this, [[3, 14, 18, 26], [19,, 21, 25]]);
-      }));
-    }
-  }, {
-    key: "GetDBUpdates",
-    value: function GetDBUpdates() {
-      var id = this.payload.id;
-      var updates = {};
-      updates["proposals/".concat(id)] = null;
-      /*for (let post of this.posts) {
-          updates[`posts/${post._id}`] = null;
-      }*/
-
-      var _iteratorNormalCompletion3 = true;
-      var _didIteratorError3 = false;
-      var _iteratorError3 = undefined;
-
-      try {
-        for (var _iterator3 = this.sub_removalsFromUserOrderings[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-          var subcommand = _step3.value;
-          updates = Object(_Command__WEBPACK_IMPORTED_MODULE_2__["MergeDBUpdates"])(updates, subcommand.GetDBUpdates());
-        }
-      } catch (err) {
-        _didIteratorError3 = true;
-        _iteratorError3 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion3 && _iterator3.return != null) {
-            _iterator3.return();
-          }
-        } finally {
-          if (_didIteratorError3) {
-            throw _iteratorError3;
-          }
-        }
-      }
-
-      return updates;
-    }
-  }]);
-
-  return DeleteProposal;
-}(_Command__WEBPACK_IMPORTED_MODULE_2__["Command"]);
-
-/***/ }),
-/* 114 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateProposal", function() { return UpdateProposal; });
-/* harmony import */ var _Command__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(98);
-/* harmony import */ var _Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
-/* harmony import */ var _Server__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
-  return new (P || (P = Promise))(function (resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-
-    function step(result) {
-      result.done ? resolve(result.value) : new P(function (resolve) {
-        resolve(result.value);
-      }).then(fulfilled, rejected);
-    }
-
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-
-
-
-
-var MTName = "Proposal";
-Object(_Server__WEBPACK_IMPORTED_MODULE_2__["WaitTillSchemaAddedThenRun"])(MTName, function () {
-  Object(_Server__WEBPACK_IMPORTED_MODULE_2__["AddSchema"])({
-    properties: {
-      id: {
-        type: "string"
-      },
-      updates: Object(_Server__WEBPACK_IMPORTED_MODULE_2__["Schema"])({
-        properties: Object(_Server__WEBPACK_IMPORTED_MODULE_2__["GetSchemaJSON"])(MTName).properties.Including("title", "text", "completedAt")
-      })
-    },
-    required: ["id", "updates"]
-  }, "Update".concat(MTName, "_payload"));
-}); //@UserEdit
-
-var UpdateProposal =
-/*#__PURE__*/
-function (_Command) {
-  _inherits(UpdateProposal, _Command);
-
-  function UpdateProposal() {
-    _classCallCheck(this, UpdateProposal);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(UpdateProposal).apply(this, arguments));
-  }
-
-  _createClass(UpdateProposal, [{
-    key: "Validate_Early",
-    value: function Validate_Early() {
-      Object(_Server__WEBPACK_IMPORTED_MODULE_2__["AssertValidate"])("Update".concat(MTName, "_payload"), this.payload, "Payload invalid");
-    }
-  }, {
-    key: "Prepare",
-    value: function Prepare() {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee() {
-        var _this$payload, id, updates;
-
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _this$payload = this.payload, id = _this$payload.id, updates = _this$payload.updates;
-                _context.next = 3;
-                return Object(_Utils_Database_DatabaseHelpers__WEBPACK_IMPORTED_MODULE_1__["GetDataAsync"])({
-                  addHelpers: false
-                }, "proposals", id);
-
-              case 3:
-                this.oldData = _context.sent;
-                this.newData = Object.assign({}, this.oldData, updates);
-
-              case 5:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-    }
-  }, {
-    key: "Validate",
-    value: function Validate() {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee2() {
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                Object(_Server__WEBPACK_IMPORTED_MODULE_2__["AssertValidate"])(MTName, this.newData, "New ".concat(MTName.toLowerCase(), "-data invalid"));
-
-              case 1:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this);
-      }));
-    }
-  }, {
-    key: "GetDBUpdates",
-    value: function GetDBUpdates() {
-      var id = this.payload.id;
-      var updates = {};
-      updates["proposals/".concat(id)] = this.newData;
-      return updates;
-    }
-  }]);
-
-  return UpdateProposal;
-}(_Command__WEBPACK_IMPORTED_MODULE_0__["Command"]);
-
-/***/ }),
-/* 115 */
+/* 118 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24595,181 +24760,6 @@ function ES() {
 
   return result;
 }
-
-/***/ }),
-/* 116 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// The MIT License (MIT)
-//
-// Copyright (c) 2014 Jonas Finnemann Jensen
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-
-module.exports = __webpack_require__(117);
-
-
-/***/ }),
-/* 117 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(Buffer) {// The MIT License (MIT)
-//
-// Copyright (c) 2014 Jonas Finnemann Jensen
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-
-var uuidv4 = __webpack_require__(104);
-var uuidParse = __webpack_require__(118);
-
-/**
- * Returns the given uuid as a 22 character slug. This can be a regular v4
- * slug or a "nice" slug.
- */
-exports.encode = function(uuid_) {
-  var bytes   = uuidParse.parse(uuid_);
-  var base64  = (new Buffer(bytes)).toString('base64');
-  var slug = base64
-              .replace(/\+/g, '-')  // Replace + with - (see RFC 4648, sec. 5)
-              .replace(/\//g, '_')  // Replace / with _ (see RFC 4648, sec. 5)
-              .substring(0, 22);    // Drop '==' padding
-  return slug;
-};
-
-/**
- * Returns the uuid represented by the given v4 or "nice" slug
- */
-exports.decode = function(slug) {
-  var base64 = slug
-                  .replace(/-/g, '+')
-                  .replace(/_/g, '/')
-                  + '==';
-  return uuidParse.unparse(new Buffer(base64, 'base64'));
-};
-
-/**
- * Returns a randomly generated uuid v4 compliant slug
- */
-exports.v4 = function() {
-  var bytes   = uuidv4(null, new Buffer(16));
-  var base64  = bytes.toString('base64');
-  var slug = base64
-              .replace(/\+/g, '-')  // Replace + with - (see RFC 4648, sec. 5)
-              .replace(/\//g, '_')  // Replace / with _ (see RFC 4648, sec. 5)
-              .substring(0, 22);    // Drop '==' padding
-  return slug;
-};
-
-/**
- * Returns a randomly generated uuid v4 compliant slug which conforms to a set
- * of "nice" properties, at the cost of some entropy. Currently this means one
- * extra fixed bit (the first bit of the uuid is set to 0) which guarantees the
- * slug will begin with [A-Za-f]. For example such slugs don't require special
- * handling when used as command line parameters (whereas non-nice slugs may
- * start with `-` which can confuse command line tools).
- *
- * Potentially other "nice" properties may be added in future to further
- * restrict the range of potential uuids that may be generated.
- */
-exports.nice = function() {
-  var bytes   = uuidv4(null, new Buffer(16));
-  bytes[0] = bytes[0] & 0x7f;  // unset first bit to ensure [A-Za-f] first char
-  var base64  = bytes.toString('base64');
-  var slug = base64
-              .replace(/\+/g, '-')  // Replace + with - (see RFC 4648, sec. 5)
-              .replace(/\//g, '_')  // Replace / with _ (see RFC 4648, sec. 5)
-              .substring(0, 22);    // Drop '==' padding
-  return slug;
-};
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(65).Buffer))
-
-/***/ }),
-/* 118 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-// Maps for number <-> hex string conversion
-var _byteToHex = [];
-var _hexToByte = {};
-for (var i = 0; i < 256; i++) {
-  _byteToHex[i] = (i + 0x100).toString(16).substr(1);
-  _hexToByte[_byteToHex[i]] = i;
-}
-
-// **`parse()` - Parse a UUID into it's component bytes**
-function parse(s, buf, offset) {
-  var i = (buf && offset) || 0;
-  var ii = 0;
-
-  buf = buf || [];
-  s.toLowerCase().replace(/[0-9a-f]{2}/g, function(oct) {
-    if (ii < 16) { // Don't overflow!
-      buf[i + ii++] = _hexToByte[oct];
-    }
-  });
-
-  // Zero out remaining bytes if string was short
-  while (ii < 16) {
-    buf[i + ii++] = 0;
-  }
-
-  return buf;
-}
-
-// **`unparse()` - Convert UUID byte array (ala parse()) into a string**
-function unparse(buf, offset) {
-  var i = offset || 0;
-  var bth = _byteToHex;
-  return  bth[buf[i++]] + bth[buf[i++]] +
-          bth[buf[i++]] + bth[buf[i++]] + '-' +
-          bth[buf[i++]] + bth[buf[i++]] + '-' +
-          bth[buf[i++]] + bth[buf[i++]] + '-' +
-          bth[buf[i++]] + bth[buf[i++]] + '-' +
-          bth[buf[i++]] + bth[buf[i++]] +
-          bth[buf[i++]] + bth[buf[i++]] +
-          bth[buf[i++]] + bth[buf[i++]];
-}
-
-module.exports = {
-  parse: parse,
-  unparse: unparse
-};
-
 
 /***/ })
 /******/ ]);
