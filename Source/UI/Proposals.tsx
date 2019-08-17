@@ -56,7 +56,7 @@ export class ProposalsUI extends BaseComponentWithConnector(ProposalsUI_connecto
 
 		return (
 			<DragDropContext_Beautiful onDragEnd={this.OnDragEnd}>
-				<Row style={ES({marginTop: 10, flex: 1, padding: 10, filter: "drop-shadow(rgb(0, 0, 0) 0px 0px 10px)"})}>
+				<Row style={ES({marginTop: 10, height: "calc(100% - 10px)", flex: 1, padding: 10, filter: "drop-shadow(rgb(0, 0, 0) 0px 0px 10px)"})}>
 					<ProposalsColumn proposals={proposals} type="feature"/>
 					<ProposalsColumn proposals={proposals} type="issue" ml={10}/>
 					<ProposalsUserRankingColumn proposals={proposals} ml={10}/>

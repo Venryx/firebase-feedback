@@ -23234,6 +23234,7 @@ function (_BaseComponentWithCon) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_vcomponents__WEBPACK_IMPORTED_MODULE_1__["Row"], {
         style: ES({
           marginTop: 10,
+          height: "calc(100% - 10px)",
           flex: 1,
           padding: 10,
           filter: "drop-shadow(rgb(0, 0, 0) 0px 0px 10px)"
