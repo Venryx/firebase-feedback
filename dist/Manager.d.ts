@@ -17,11 +17,6 @@ export declare type Link_Props = {
     replace?: boolean;
     actions?: Action<any>[];
 } & React.HTMLProps<HTMLAnchorElement>;
-export declare type Omit<T, K extends keyof T> = Pick<T, ({
-    [P in keyof T]: P;
-} & {
-    [P in K]: never;
-})[keyof T]>;
 export declare class Manager {
     Populate(data: Omit<Manager, "Populate" | "store">): void;
     GetStore: () => any;
