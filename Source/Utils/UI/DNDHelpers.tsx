@@ -14,7 +14,7 @@ export function MakeDraggable(getDraggableCompProps: (props: Object)=>{type: str
 	return WrappedComponent=>{
 		class WrapperComponent extends React.Component {
 			static WrappedComponent = WrappedComponent;
-			static displayName = WrapperComponent.displayName;
+			static displayName = WrappedComponent.displayName;
 
 			UNSAFE_componentWillMount() {
 				this.UpdateDraggableCompProps(this.props);

@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { BaseComponent } from "react-vextensions";
 import { Proposal } from "./../../Store/firebase/proposals/@Proposal";
 import { ProposalDetailsUI } from "./Proposal/ProposalDetailsUI";
@@ -11,14 +12,17 @@ export declare class ProposalUI extends BaseComponent<ProposalUI_Props, {}> {
     };
     render(): JSX.Element;
 }
-declare const ProposalUI_Inner_base: new (..._: any[]) => BaseComponent<{
+declare const ProposalUI_Inner_base: (new (..._: any[]) => BaseComponent<{
     proposal: Proposal;
 } & Partial<{
     creator: any;
 }>, {
     editing: boolean;
     dataError: string;
-}>;
+}, {}>) & {
+    renderCount: number;
+    lastRenderTime: number;
+};
 export declare class ProposalUI_Inner extends ProposalUI_Inner_base {
     editorUI: ProposalDetailsUI;
     render(): JSX.Element;

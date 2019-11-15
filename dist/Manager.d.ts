@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { LogTypes } from "./Utils/General/Logging";
 import { Action } from "./Utils/General/Action";
 import { BaseComponent } from "react-vextensions";
@@ -24,7 +25,7 @@ export declare type Omit<T, K extends keyof T> = Pick<T, ({
 export declare class Manager {
     Populate(data: Omit<Manager, "Populate" | "store">): void;
     GetStore: () => any;
-    readonly store: any;
+    get store(): any;
     storePath_mainData: string;
     storePath_dbData: string;
     Link: new () => BaseComponent<Link_Props, {}> & {
