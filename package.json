@@ -1,6 +1,6 @@
 {
   "name": "firebase-feedback",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Feedback (proposals + issues + roadmap) solution built using ReactJS, MobX, and Firebase.",
   "main": "Dist/index.js",
   "typings": "Dist/index.d.ts",
