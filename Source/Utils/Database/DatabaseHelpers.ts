@@ -1,4 +1,4 @@
-import { Assert, GetTreeNodesInObjTree, E, IsString } from "js-vextensions";
+import { Assert, GetTreeNodesInObjTree, E, IsString, CE } from "js-vextensions";
 import { manager } from "../../index";
 import { SplitStringBySlash_Cached } from "./StringSplitCache";
 //export {DBPath};
@@ -34,7 +34,7 @@ let helperProps = ["_key", "_id"];
 export function RemoveHelpers(data) {
 	var treeNodes = GetTreeNodesInObjTree(data, true);
 	for (let treeNode of treeNodes) {
-		if (helperProps.Contains(treeNode.prop))
+		if (CE(helperProps).Contains(treeNode.prop))
 			delete treeNode.obj[treeNode.prop];
 	}
 	return data;

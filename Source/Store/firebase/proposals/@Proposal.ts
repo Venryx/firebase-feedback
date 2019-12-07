@@ -1,8 +1,9 @@
 import {AddSchema} from "../../../Server/Server";
+import {CE} from "js-vextensions";
 
 export class Proposal {
 	constructor(initialData: Partial<Proposal>) {
-		this.Extend(initialData);
+		CE(this).Extend(initialData);
 	}
 
 	_key: string;

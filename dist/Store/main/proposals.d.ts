@@ -9,6 +9,5 @@ export declare class Proposals {
     features_showCompleted: boolean;
     issues_showCompleted: boolean;
 }
-export declare const ProposalsReducer: any;
 export declare function GetSelectedProposalID(): string;
 export declare function GetSelectedProposal(): Proposal;

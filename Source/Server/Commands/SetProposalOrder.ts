@@ -1,6 +1,7 @@
 import {ProposalIndexSet} from "../../Store/firebase/userData";
 import {GetDataAsync} from "../../Utils/Database/DatabaseHelpers";
 import {Command} from "../Command";
+import {CE} from "js-vextensions";
 
 //@UserEdit
 export class SetProposalOrder extends Command<{proposalID: string, userID: string, index: number}> {
@@ -9,12 +10,12 @@ export class SetProposalOrder extends Command<{proposalID: string, userID: strin
 		let {proposalID, userID, index} = this.payload;
 
 		let oldIndexes = await GetDataAsync("userData", userID, ".proposalIndexes") as ProposalIndexSet || {};
-		let idsOrdered = oldIndexes.VValues(true);
+		let idsOrdered = CE(oldIndexes).VValues(true);
 		let oldIndex = idsOrdered.indexOf(proposalID);
 		if (index != -1) {
-			idsOrdered.Move(proposalID, index, true);
+			CE(idsOrdered).Move(proposalID, index, true);
 		} else {
-			idsOrdered.Remove(proposalID);
+			CE(idsOrdered).Remove(proposalID);
 		}
 		this.newIndexes = idsOrdered; //.ToMap();
 	}

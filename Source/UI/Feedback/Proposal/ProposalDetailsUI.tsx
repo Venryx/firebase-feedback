@@ -4,10 +4,11 @@ import { Column, Pre, Row, RowLR, TextInput } from "react-vcomponents";
 import { BaseComponent, GetInnerComp, GetDOM } from "react-vextensions";
 import { MarkdownEditor, MarkdownToolbar } from "react-vmarkdown";
 import { BoxController, ShowMessageBox } from "react-vmessagebox";
-import { Manager, manager } from "../../..";
+import { Manager, manager, User } from "../../..";
 import { AddProposal } from "../../../Server/Commands/AddProposal";
 import { ACTProposalSelect } from "../../../Store/main/proposals";
 import { Proposal } from "./../../../Store/firebase/proposals/@Proposal";
+import {store} from "../../../Store";
 
 let aa = {MarkdownEditor} as any;
 
@@ -91,7 +92,7 @@ export function ShowAddProposalDialog(userID: string, type: string) {
 		},
 		onOK: async ()=> {
 			let id = await new AddProposal({data: newEntry}).Run() as string;
-			store.dispatch(new ACTProposalSelect({id}));
+			store.main.proposals.selectedProposalID = id;
 		}
 	});
 }

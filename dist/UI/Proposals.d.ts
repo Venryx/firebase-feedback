@@ -23,10 +23,7 @@ export declare function GetRankingScoreToAddForUserRankingIndex(indexInRankingOr
 declare const ProposalsColumn_base: (new (..._: any[]) => BaseComponent<{
     proposals: Proposal[];
     type: string;
-} & Partial<{
-    userData: any;
-    showCompleted: any;
-}>, {}, {}>) & {
+}, {}, unknown>) & {
     renderCount: number;
     lastRenderTime: number;
 };

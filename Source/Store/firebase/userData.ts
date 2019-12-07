@@ -1,5 +1,6 @@
 import {AddSchema} from "../../Server/Server";
 import {GetData} from "../../Utils/Database/DatabaseHelpers";
+import {CE} from "js-vextensions";
 
 export interface UserData {
 	proposalIndexes: ProposalIndexSet;
@@ -13,11 +14,11 @@ export function GetProposalIndexes(userID: string): ProposalIndexSet {
 	return GetData("userData", userID, ".proposalIndexes") || {};
 }
 export function GetProposalOrder(userID: string): string[] {
-	return GetProposalIndexes(userID).VValues(true);
+	return CE(GetProposalIndexes(userID)).VValues(true) as string[];
 }
 export function GetProposalIndex(userID: string, proposalID: string) {
 	if (userID == null || proposalID == null) return null;
-	let proposalIndexEntry = GetProposalIndexes(userID).Props().find(a=>a.value == proposalID);
+	let proposalIndexEntry = CE(GetProposalIndexes(userID)).Pairs().find(a=>a.value == proposalID);
 	if (proposalIndexEntry == null) return null;
-	return proposalIndexEntry.name.ToInt();
+	return CE(proposalIndexEntry.key).ToInt();
 }

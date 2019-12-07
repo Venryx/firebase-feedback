@@ -1,8 +1,8 @@
-import {Timer, VURL, E} from "js-vextensions";
+import {Timer, VURL, E, CE} from "js-vextensions";
 import React from "react";
 import {Button, Column, Row} from "react-vcomponents";
 import {BaseComponent, GetDOM, GetInnerComp} from "react-vextensions";
-import {Manager, manager, OnPopulated} from "../../Manager";
+import {Manager, manager, OnPopulated, User} from "../../Manager";
 import {SetProposalOrder} from "../../Server/Commands/SetProposalOrder";
 import {ACTProposalSelect} from "../../Store/main/proposals";
 import {GetRankingScoreToAddForUserRankingIndex} from "../Proposals";
@@ -61,8 +61,8 @@ export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
 					<manager.Link text={proposal.title} actions={[new ACTProposalSelect({id: proposal._key})]} style={ES({fontSize: "15px", flex: 1})}/>
 					<span style={{float: "right"}}>
 						{columnType == "userRanking"
-							? "#" + (index + 1) + (proposal.completedAt ? " (✔️)" : ` (+${GetRankingScoreToAddForUserRankingIndex(orderIndex).RoundTo_Str(.001, null, false)})`)
-							: (proposal.completedAt ? "✔️" : rankingScore ? rankingScore.RoundTo_Str(.001, null, false) : "")}
+							? "#" + (index + 1) + (proposal.completedAt ? " (✔️)" : ` (+${CE(GetRankingScoreToAddForUserRankingIndex(orderIndex)).RoundTo_Str(.001, null, false)})`)
+							: (proposal.completedAt ? "✔️" : rankingScore ? CE(rankingScore).RoundTo_Str(.001, null, false) : "")}
 					</span>
 					{columnType == "userRanking" && !asDragPreview &&
 						<Button text="X" style={{margin: "-3px 0 -3px 5px", padding: "3px 5px"}} onClick={()=> {

@@ -1,4 +1,4 @@
-import { DeepSet, ToJSON } from "js-vextensions";
+import { DeepSet, ToJSON, CE } from "js-vextensions";
 import { MaybeLog } from "../Utils/General/Logging";
 import {Manager, manager} from "../Manager";
 import {DBPath} from "../Utils/Database/DatabaseHelpers";
@@ -100,7 +100,7 @@ export function MergeDBUpdates(baseUpdatesMap, updatesToMergeMap) {
 		if (update.data == null) {
 			for (let update2 of baseUpdates.slice()) { // make copy, since Remove() seems to break iteration otherwise
 				if (update2.path.startsWith(update.path)) {
-					baseUpdates.Remove(update2);
+					CE(baseUpdates).Remove(update2);
 				}
 			}
 		}
@@ -123,7 +123,7 @@ export function MergeDBUpdates(baseUpdatesMap, updatesToMergeMap) {
 			}*/
 
 			// remove from updates-to-merge list (since we just merged it)
-			updatesToMerge.Remove(updateToMerge);
+			CE(updatesToMerge).Remove(updateToMerge);
 		}
 
 		finalUpdates.push(update);
@@ -134,7 +134,7 @@ export function MergeDBUpdates(baseUpdatesMap, updatesToMergeMap) {
 		finalUpdates.push(update);
 	}
 
-	let finalUpdatesMap = finalUpdates.reduce((result, current)=>result.VSet(current.path, current.data), {});
+	let finalUpdatesMap = finalUpdates.reduce((result, current)=>CE(result).VSet(current.path, current.data), {});
 	return finalUpdatesMap;
 }
 

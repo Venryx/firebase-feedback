@@ -12,6 +12,7 @@ import { GetUpdates } from "../../Utils/Database/DatabaseHelpers";
 import { colors } from "../GlobalStyles";
 import { Proposal } from "./../../Store/firebase/proposals/@Proposal";
 import { ProposalDetailsUI } from "./Proposal/ProposalDetailsUI";
+import {store} from "../../Store";
 
 export type ProposalUI_Props = {proposal: Proposal, subNavBarWidth?: number} & Partial<{/*permissions: PermissionGroupSet, posts: Post[]*/}>;
 /*@Connect((state, {proposal}: ProposalUI_Props)=> ({
@@ -135,7 +136,7 @@ class ActionBar_Left extends BaseComponent<ActionBar_LeftProps, {}> {
 					width: "100%", height: 30, borderRadius: "0 0 10px 0",
 				}}>
 					<Button text="Back" onClick={()=> {
-						store.dispatch(new ACTProposalSelect({id: null}));
+						store.main.proposals.selectedProposalID = null;
 					}}/>
 					{/*<DetailsDropdown proposal={proposal}/>*/}
 				</Row>

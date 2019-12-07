@@ -17,6 +17,20 @@ export declare type Link_Props = {
     replace?: boolean;
     actions?: Action<any>[];
 } & React.HTMLProps<HTMLAnchorElement>;
+export declare type User = {
+    _key?: string;
+    avatarUrl: string;
+    displayName: string;
+    email: string;
+    providerData: UserInfo[];
+};
+export declare type UserInfo = {
+    displayName: string;
+    email: string;
+    photoURL: string;
+    providerId: string;
+    uid: string;
+};
 export declare class Manager {
     Populate(data: Omit<Manager, "Populate" | "store">): void;
     GetStore: () => any;
@@ -37,7 +51,7 @@ export declare class Manager {
     GetAsync: (dbGetterFunc: any, statsLogger: any) => Promise<any>;
     ShowSignInPopup: () => void;
     GetUserID: () => string;
-    GetUser: (id: string) => any;
+    GetUser: (id: string) => User;
     GetUserPermissionGroups: (userID: string) => PermissionGroupSet;
     ApplyDBUpdates: (rootPath: string, dbUpdates: any) => void;
     MarkdownRenderer: any;

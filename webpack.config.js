@@ -15,7 +15,11 @@ module.exports = {
 	resolve: {
 		//root: paths.client(),
 		//root: "Source",
-		extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
+		extensions: [
+			'.js', '.jsx', '.json',
+			'.ts', '.tsx',
+			'.mjs', // needed for mobx-sync
+		],
 	},
 	externals: {
 		// use external version of React (ie, don't bundle react, since any app using this library will already have it available)
@@ -25,12 +29,9 @@ module.exports = {
 		"js-vextensions": "commonjs js-vextensions",
 		"react-vextensions": "commonjs react-vextensions",
 		"react-vcomponents": "commonjs react-vcomponents",
-		"react-redux": "commonjs react-redux",
-		"react-redux-firebase": "commonjs react-redux-firebase",
 		"react-vmessagebox": "commonjs react-vmessagebox",
 		"react-vscrollview": "commonjs react-vscrollview",
 		"react-vmarkdown": "commonjs react-vmarkdown",
-		"redux": "commonjs redux",
 		"react-beautiful-dnd": "commonjs react-beautiful-dnd", // needed as external, to avoid having to use string-replace to lock its redux to its local v5, instead of the CD project v6 (will fix this later)
 	},
     /*module: {
@@ -47,6 +48,8 @@ module.exports = {
 				}
 			},
 			{test: /\.tsx?$/, loader: "ts-loader"},
+			// for mobx-sync
+			{ test: /\.mjs$/, type: 'javascript/auto' },
 		]
 	},
 	plugins: [

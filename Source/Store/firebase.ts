@@ -1,7 +1,7 @@
 import {Proposal} from "./firebase/proposals/@Proposal";
 import {UserData} from "./firebase/userData";
 
-export interface FeedbackData {
+export interface Feedback_FirebaseDBShape {
 	general: FeedbackData_General;
 	proposals: {[key: number]: Proposal};
 	userData: {[key: string]: UserData};

@@ -1,21 +1,22 @@
 import React from "react";
 import {Button, CheckBox, Column, Row} from "react-vcomponents";
-import {ApplyBasicStyles, BaseComponent, BaseComponentWithConnector, GetDOM} from "react-vextensions";
+import {ApplyBasicStyles, BaseComponent, BaseComponentWithConnector, GetDOM, BaseComponentPlus} from "react-vextensions";
 import {ScrollView} from "react-vscrollview";
-import {State} from "../General";
 import {manager, OnPopulated} from "../Manager";
 import {SetProposalOrder} from "../Server/Commands/SetProposalOrder";
 import {GetProposals} from "../Store/firebase/proposals";
 import {GetSelectedProposal} from "../Store/main/proposals";
 import {GetData} from "../Utils/Database/DatabaseHelpers";
-import {ACTSet, GetProposalOrder} from "../index";
+import {GetProposalOrder} from "../index";
 import {Proposal} from "./../Store/firebase/proposals/@Proposal";
 import {ShowAddProposalDialog} from "./Feedback/Proposal/ProposalDetailsUI";
 import {ProposalEntryUI} from "./Feedback/ProposalEntryUI";
 import {ProposalUI} from "./Feedback/ProposalUI";
-import {Assert, ToJSON, FromJSON} from "js-vextensions";
+import {Assert, ToJSON, FromJSON, CE} from "js-vextensions";
 import {DragDropContext as DragDropContext_Beautiful, Droppable} from "react-beautiful-dnd";
 import {DroppableInfo, DraggableInfo} from "../Utils/UI/DNDStructures";
+import {store} from "../Store";
+import {observer} from "mobx-react";
 
 /*export class ProposalsUI_Outer extends BaseComponent<Props, {}> {
 	render() {
@@ -101,16 +102,15 @@ function GetIncompleteProposalsInOrder(order: string[], proposals: Proposal[]) {
 	});
 }
 
-let ProposalsColumn_connector = (state, {type}: {proposals: Proposal[], type: string})=> ({
-	userData: (GetData({collection: true}, "userData") || {}).Props().filter(a=>a.value != null).ToMap(a=>a.name, a=>a.value),
-	showCompleted: State(`proposals/${type}s_showCompleted`),
-});
-OnPopulated(()=>(ProposalsColumn as any) = manager.Connect(ProposalsColumn_connector)(ProposalsColumn));
 @ApplyBasicStyles
-export class ProposalsColumn extends BaseComponentWithConnector(ProposalsColumn_connector, {}) {
+@observer
+export class ProposalsColumn extends BaseComponentPlus({} as {proposals: Proposal[], type: string}, {}) {
 	render() {
-		let {proposals, type, userData, showCompleted} = this.props;
+		let {proposals, type} = this.props;
 		let userID = manager.GetUserID();
+
+		const userData = (GetData({collection: true}, "userData") || {}).Props().filter(a=>a.value != null).ToMap(a=>a.name, a=>a.value);
+		const showCompleted = store.main.proposals[`${type}s_showCompleted`];
 
 		let shownProposals = proposals.filter(a=>a.type == type && (!a.completedAt || showCompleted));
 
@@ -139,7 +139,7 @@ export class ProposalsColumn extends BaseComponentWithConnector(ProposalsColumn_
 			rankingScores[proposal._key] = rankingScore;
 		}
 
-		shownProposals = shownProposals.OrderByDescending(a=>rankingScores[a._key]);
+		shownProposals = CE(shownProposals).OrderByDescending(a=>rankingScores[a._key]);
 
 		const droppableInfo = new DroppableInfo({type: "ProposalsColumn", proposalType: type});
 		return (
@@ -148,7 +148,7 @@ export class ProposalsColumn extends BaseComponentWithConnector(ProposalsColumn_
 					<Row style={{position: "relative", height: 40, padding: 10}}>
 						{/*<Pre>Show: </Pre>*/}
 						<CheckBox ml={5} text="Show completed" checked={showCompleted} onChange={val=>{
-							store.dispatch(new ACTSet(`proposals/${type}s_showCompleted`, val));
+							store.main.proposals[`${type}s_showCompleted`] = val;
 						}}/>
 						<span style={{position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: "18px"}}>
 							{type.replace(/^(.)/, (m,s0)=>s0.toUpperCase())}s
@@ -189,7 +189,7 @@ export class ProposalsUserRankingColumn extends BaseComponentWithConnector(Propo
 
 		let proposalOrder_uncompleted = GetIncompleteProposalsInOrder(proposalOrder, proposals);
 
-		proposals = proposals.filter(a=>proposalOrder.Contains(a._key)).OrderBy(a=>proposalOrder.indexOf(a._key));
+		proposals = CE(proposals.filter(a=>CE(proposalOrder).Contains(a._key))).OrderBy(a=>proposalOrder.indexOf(a._key));
 
 		const droppableInfo = new DroppableInfo({type: "ProposalsUserRankingColumn", userID: user ? user._key : null});
 		return (

@@ -1,6 +1,8 @@
+import {CE} from "js-vextensions";
+
 export class DroppableInfo {
 	constructor(data: Partial<DroppableInfo>) {
-		this.Extend(data);
+		CE(this).Extend(data);
 	}
 	type: "ProposalsColumn" | "ProposalsUserRankingColumn";
 	
@@ -13,7 +15,7 @@ export class DroppableInfo {
 }
 export class DraggableInfo {
 	constructor(data: Partial<DraggableInfo>) {
-		this.Extend(data);
+		CE(this).Extend(data);
 	}
 
 	// if in ProposalsColumn or ProposalsUserRankingColumn

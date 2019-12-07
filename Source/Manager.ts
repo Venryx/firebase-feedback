@@ -1,6 +1,7 @@
 import { LogTypes } from "./Utils/General/Logging";
 import {Action} from "./Utils/General/Action";
 import {BaseComponent} from "react-vextensions";
+import {CE} from "js-vextensions";
 
 export class PermissionGroupSet {
 	basic: boolean;
@@ -15,9 +16,24 @@ export type Link_Props = {
 	actions?: Action<any>[], //updateURLOnActions?: boolean, // action-based
 } & React.HTMLProps<HTMLAnchorElement>;
 
+export type User = {
+	_key?: string;
+	avatarUrl: string;
+	displayName: string;
+	email: string;
+	providerData: UserInfo[];
+};
+export type UserInfo = {
+	displayName: string;
+	email: string;
+	photoURL: string;
+	providerId: string;
+	uid: string;
+};
+
 export class Manager {
 	Populate(data: Omit<Manager, "Populate" | "store">) {
-		this.Extend(data);
+		CE(this).Extend(data);
 		OnPopulated_listeners.forEach(a=>a());
 	}
 
@@ -41,7 +57,7 @@ export class Manager {
 	GetAsync: (dbGetterFunc, statsLogger)=>Promise<any>;
 	ShowSignInPopup: ()=>void;
 	GetUserID: ()=>string;
-	GetUser: (id: string)=>any;
+	GetUser: (id: string)=>User;
 	GetUserPermissionGroups: (userID: string)=>PermissionGroupSet;
 
 	ApplyDBUpdates: (rootPath: string, dbUpdates)=>void;
