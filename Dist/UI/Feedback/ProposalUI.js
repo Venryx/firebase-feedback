@@ -1,19 +1,10 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import React from "react";
 import { Button, CheckBox, Column, Row, Span } from "react-vcomponents";
-import { BaseComponent, BaseComponentWithConnector } from "react-vextensions";
+import { BaseComponent, BaseComponentPlus } from "react-vextensions";
 import { ShowMessageBox } from "react-vmessagebox";
 import { ScrollView } from "react-vscrollview";
 import { IsUserAdmin, IsUserCreatorOrMod } from "../../General";
-import { manager, OnPopulated } from "../../Manager";
+import { manager } from "../../Manager";
 import { DeleteProposal } from "../../Server/Commands/DeleteProposal";
 import { UpdateProposal } from "../../Server/Commands/UpdateProposal";
 import { GetUpdates } from "../../Utils/Database/DatabaseHelpers";
@@ -41,13 +32,10 @@ export class ProposalUI extends BaseComponent {
     }
 }
 ProposalUI.defaultProps = { subNavBarWidth: 0 };
-let ProposalUI_Inner_connector = (state, { proposal }) => ({
-    creator: manager.GetUser(proposal.creator),
-});
-OnPopulated(() => ProposalUI_Inner = manager.Connect(ProposalUI_Inner_connector)(ProposalUI_Inner));
-export class ProposalUI_Inner extends BaseComponentWithConnector(ProposalUI_Inner_connector, { editing: false, dataError: null }) {
+export class ProposalUI_Inner extends BaseComponentPlus({}, { editing: false, dataError: null }) {
     render() {
-        let { proposal, creator } = this.props;
+        let { proposal } = this.props;
+        const creator = manager.GetUser(proposal.creator);
         let { editing, dataError } = this.state;
         if (editing) {
             return (React.createElement(Column, { sel: true, style: { flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, padding: 10, alignItems: "flex-start", cursor: "auto" } },
@@ -55,14 +43,14 @@ export class ProposalUI_Inner extends BaseComponentWithConnector(ProposalUI_Inne
                         this.SetState({ dataError: comp.GetValidationError() });
                     } }),
                 React.createElement(Row, { mt: 5 },
-                    React.createElement(Button, { text: "Save", enabled: dataError == null, onLeftClick: () => __awaiter(this, void 0, void 0, function* () {
+                    React.createElement(Button, { text: "Save", enabled: dataError == null, onLeftClick: async () => {
                             let postUpdates = GetUpdates(proposal, this.editorUI.GetNewData());
-                            yield new UpdateProposal({ id: proposal._key, updates: postUpdates }).Run();
+                            await new UpdateProposal({ id: proposal._key, updates: postUpdates }).Run();
                             this.SetState({ editing: false, dataError: null });
-                        }) }),
-                    React.createElement(Button, { ml: 5, text: "Cancel", onLeftClick: () => __awaiter(this, void 0, void 0, function* () {
+                        } }),
+                    React.createElement(Button, { ml: 5, text: "Cancel", onLeftClick: async () => {
                             this.SetState({ editing: false, dataError: null });
-                        }) }))));
+                        } }))));
         }
         let creatorOrMod = IsUserCreatorOrMod(manager.GetUserID(), proposal);
         return (React.createElement(Row, { sel: true, style: { flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, alignItems: "initial", cursor: "auto" } },
@@ -84,9 +72,9 @@ export class ProposalUI_Inner extends BaseComponentWithConnector(ProposalUI_Inne
                                 ShowMessageBox({
                                     title: `Delete proposal`, cancelButton: true,
                                     message: `Delete this proposal?`,
-                                    onOK: () => __awaiter(this, void 0, void 0, function* () {
-                                        yield new DeleteProposal({ id: proposal._key }).Run();
-                                    })
+                                    onOK: async () => {
+                                        await new DeleteProposal({ id: proposal._key }).Run();
+                                    }
                                 });
                             } }),
                     proposal.editedAt && React.createElement(Span, { ml: "auto", style: { color: "rgba(255,255,255,.5)" } },

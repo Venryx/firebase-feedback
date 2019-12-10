@@ -1,12 +1,3 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import { DeepSet, ToJSON, CE } from "js-vextensions";
 import { MaybeLog } from "../Utils/General/Logging";
 import { manager } from "../Manager";
@@ -14,11 +5,9 @@ import { DBPath } from "../Utils/Database/DatabaseHelpers";
 export class CommandUserInfo {
 }
 let currentCommandRun_listeners = null;
-function WaitTillCurrentCommandFinishes() {
-    return __awaiter(this, void 0, void 0, function* () {
-        return new Promise((resolve, reject) => {
-            currentCommandRun_listeners.push({ resolve, reject });
-        });
+async function WaitTillCurrentCommandFinishes() {
+    return new Promise((resolve, reject) => {
+        currentCommandRun_listeners.push({ resolve, reject });
     });
 }
 function OnCurrentCommandFinished() {
@@ -42,29 +31,27 @@ export class Command {
     Validate_Early() { }
     ;
     /** [async] Validates the data, prepares it, and executes it -- thus applying it into the database. */
-    Run() {
-        return __awaiter(this, void 0, void 0, function* () {
-            while (currentCommandRun_listeners) {
-                yield WaitTillCurrentCommandFinishes();
-            }
-            currentCommandRun_listeners = [];
-            MaybeLog(a => a.commands, () => `Running command. @type:${this.constructor.name} @payload(${ToJSON(this.payload)})`);
-            try {
-                this.Validate_Early();
-                yield this.Prepare();
-                yield this.Validate();
-                let dbUpdates = this.GetDBUpdates();
-                //FixDBUpdates(dbUpdates);
-                //await store.firebase.helpers.ref(DBPath("")).update(dbUpdates);
-                yield manager.ApplyDBUpdates(DBPath(), dbUpdates);
-                MaybeLog(a => a.commands, () => `Finishing command. @type:${this.constructor.name} @payload(${ToJSON(this.payload)})`);
-            }
-            finally {
-                OnCurrentCommandFinished();
-            }
-            // later on (once set up on server), this will send the data back to the client, rather than return it
-            return this.returnData;
-        });
+    async Run() {
+        while (currentCommandRun_listeners) {
+            await WaitTillCurrentCommandFinishes();
+        }
+        currentCommandRun_listeners = [];
+        MaybeLog(a => a.commands, () => `Running command. @type:${this.constructor.name} @payload(${ToJSON(this.payload)})`);
+        try {
+            this.Validate_Early();
+            await this.Prepare();
+            await this.Validate();
+            let dbUpdates = this.GetDBUpdates();
+            //FixDBUpdates(dbUpdates);
+            //await store.firebase.helpers.ref(DBPath("")).update(dbUpdates);
+            await manager.ApplyDBUpdates(DBPath(), dbUpdates);
+            MaybeLog(a => a.commands, () => `Finishing command. @type:${this.constructor.name} @payload(${ToJSON(this.payload)})`);
+        }
+        finally {
+            OnCurrentCommandFinished();
+        }
+        // later on (once set up on server), this will send the data back to the client, rather than return it
+        return this.returnData;
     }
 }
 export function MergeDBUpdates(baseUpdatesMap, updatesToMergeMap) {

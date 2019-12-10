@@ -1,7 +1,7 @@
 import {Timer, VURL, E, CE} from "js-vextensions";
 import React from "react";
 import {Button, Column, Row} from "react-vcomponents";
-import {BaseComponent, GetDOM, GetInnerComp} from "react-vextensions";
+import {BaseComponent, GetDOM, GetInnerComp, BaseComponentPlus} from "react-vextensions";
 import {Manager, manager, OnPopulated, User} from "../../Manager";
 import {SetProposalOrder} from "../../Server/Commands/SetProposalOrder";
 import {ACTProposalSelect} from "../../Store/main/proposals";
@@ -10,6 +10,7 @@ import {Proposal} from "./../../Store/firebase/proposals/@Proposal";
 import {MakeDraggable, DragInfo} from "../../Utils/UI/DNDHelpers";
 import {DraggableInfo} from "../../Utils/UI/DNDStructures";
 import ReactDOM from "react-dom";
+import {observer} from "mobx-react";
 
 let portal: HTMLElement;
 OnPopulated(()=> {
@@ -17,15 +18,9 @@ OnPopulated(()=> {
 	document.body.appendChild(portal);
 });
 
-export type ProposalEntryUI_Props = {index: number, last: boolean, proposal: Proposal, orderIndex?: number, rankingScore?: number, columnType: string, style?} & {dragInfo?: DragInfo}
-	& Partial<{creator: User, /*posts: Post[]*/}>;
+export type ProposalEntryUI_Props = {index: number, last: boolean, proposal: Proposal, orderIndex?: number, rankingScore?: number, columnType: string, style?} & {dragInfo?: DragInfo};
 
-let connector = (state, {proposal})=> ({
-	creator: proposal && manager.GetUser(proposal.creator),
-	//posts: proposal && GetProposalPosts(proposal),
-});
 OnPopulated(()=> {
-	(ProposalEntryUI as any) = manager.Connect(connector)(ProposalEntryUI);
 	(ProposalEntryUI as any) = MakeDraggable((props: ProposalEntryUI_Props)=>{
 		const {columnType, proposal, index} = props;
 		return {
@@ -44,10 +39,13 @@ OnPopulated(()=> {
 		index,
 	};
 })*/
-export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
+@observer
+export class ProposalEntryUI extends BaseComponentPlus({} as ProposalEntryUI_Props, {}) {
 	innerRoot: Column;
 	render() {
-		let {index, last, proposal, orderIndex, rankingScore, creator, columnType, style, dragInfo} = this.props;
+		let {index, last, proposal, orderIndex, rankingScore, columnType, style, dragInfo} = this.props;
+		const creator = proposal && manager.GetUser(proposal.creator);
+		//posts: proposal && GetProposalPosts(proposal),
 		const asDragPreview = dragInfo && dragInfo.snapshot.isDragging;
 
 		let result = (

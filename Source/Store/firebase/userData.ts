@@ -1,6 +1,7 @@
 import {AddSchema} from "../../Server/Server";
-import {GetData} from "../../Utils/Database/DatabaseHelpers";
 import {CE} from "js-vextensions";
+import {StoreAccessor, GetDoc} from "mobx-firelink";
+import {fire} from "../../Utils/Database/Firelink";
 
 export interface UserData {
 	proposalIndexes: ProposalIndexSet;
@@ -9,16 +10,16 @@ export interface UserData {
 export type ProposalIndexSet = { [key: number]: string; }; // index -> proposalID
 AddSchema({patternProperties: {"^[0-9]+$": {type: "number"}}}, "ProposalIndexSet");
 
-export function GetProposalIndexes(userID: string): ProposalIndexSet {
+export const GetProposalIndexes = StoreAccessor({fire}, s=>(userID: string): ProposalIndexSet => {
 	if (userID == null) return {};
-	return GetData("userData", userID, ".proposalIndexes") || {};
-}
-export function GetProposalOrder(userID: string): string[] {
-	return CE(GetProposalIndexes(userID)).VValues(true) as string[];
-}
-export function GetProposalIndex(userID: string, proposalID: string) {
+	return GetDoc({fire}, a=>a.userData.get(userID))?.proposalIndexes || {};
+});
+export const GetProposalOrder = StoreAccessor({fire}, s=>(userID: string): string[] => {
+	return CE(GetProposalIndexes(userID)).VValues(true);
+});
+export const GetProposalIndex = StoreAccessor({fire}, s=> (userID: string, proposalID: string) => {
 	if (userID == null || proposalID == null) return null;
 	let proposalIndexEntry = CE(GetProposalIndexes(userID)).Pairs().find(a=>a.value == proposalID);
 	if (proposalIndexEntry == null) return null;
 	return CE(proposalIndexEntry.key).ToInt();
-}
+});

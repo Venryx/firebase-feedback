@@ -1,13 +1,7 @@
 import { Proposal } from "./firebase/proposals/@Proposal";
 import { UserData } from "./firebase/userData";
+import { Collection } from "mobx-firelink";
 export interface Feedback_FirebaseDBShape {
-    general: FeedbackData_General;
-    proposals: {
-        [key: number]: Proposal;
-    };
-    userData: {
-        [key: string]: UserData;
-    };
-}
-export interface FeedbackData_General {
+    proposals: Collection<Proposal>;
+    userData: Collection<UserData>;
 }

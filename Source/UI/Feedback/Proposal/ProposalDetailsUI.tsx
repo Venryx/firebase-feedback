@@ -91,7 +91,7 @@ export function ShowAddProposalDialog(userID: string, type: string) {
 			);
 		},
 		onOK: async ()=> {
-			let id = await new AddProposal({data: newEntry}).Run() as string;
+			let id = await new AddProposal({data: newEntry}).Run();
 			store.main.proposals.selectedProposalID = id;
 		}
 	});

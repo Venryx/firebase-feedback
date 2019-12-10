@@ -1,15 +1,14 @@
 import {Assert} from "js-vextensions";
-import {Command, MergeDBUpdates} from "../Command";
-import { GetDataAsync } from "../../Utils/Database/DatabaseHelpers";
 import { Proposal } from "../../index";
 import {AssertValidate} from "../Server";
 import {GenerateUUID} from "../../Utils/General/KeyGenerator";
+import {Command} from "mobx-firelink";
 
 export type _MainType = Proposal;
 let MTName = "Proposal";
 
 //@UserEdit
-export class AddProposal extends Command<{data: _MainType}> {
+export class AddProposal extends Command<{data: _MainType}, string> {
 	id: string;
 	async Prepare() {
 		let {data} = this.payload;

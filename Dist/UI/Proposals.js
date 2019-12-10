@@ -6,36 +6,30 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import React from "react";
 import { Button, CheckBox, Column, Row } from "react-vcomponents";
-import { ApplyBasicStyles, BaseComponentWithConnector, GetDOM, BaseComponentPlus } from "react-vextensions";
+import { ApplyBasicStyles, GetDOM, BaseComponentPlus } from "react-vextensions";
 import { ScrollView } from "react-vscrollview";
-import { manager, OnPopulated } from "../Manager";
+import { manager } from "../Manager";
 import { SetProposalOrder } from "../Server/Commands/SetProposalOrder";
-import { GetProposals } from "../Store/firebase/proposals";
 import { GetSelectedProposal } from "../Store/main/proposals";
-import { GetData } from "../Utils/Database/DatabaseHelpers";
-import { GetProposalOrder } from "../index";
+import { GetProposalOrder, GetProposals } from "../index";
 import { ShowAddProposalDialog } from "./Feedback/Proposal/ProposalDetailsUI";
 import { ProposalEntryUI } from "./Feedback/ProposalEntryUI";
 import { ProposalUI } from "./Feedback/ProposalUI";
-import { Assert, ToJSON, FromJSON, CE } from "js-vextensions";
+import { ToJSON, FromJSON, CE } from "js-vextensions";
 import { DragDropContext as DragDropContext_Beautiful, Droppable } from "react-beautiful-dnd";
 import { DroppableInfo } from "../Utils/UI/DNDStructures";
 import { store } from "../Store";
 import { observer } from "mobx-react";
-let ProposalsUI_connector = (state, {}) => {
-    return {
-        proposals: GetProposals(),
-        selectedProposal: GetSelectedProposal(),
-    };
-};
-let wrapped = false;
-OnPopulated(() => {
-    ProposalsUI = manager.Connect(ProposalsUI_connector)(ProposalsUI);
-    wrapped = true;
-});
-export class ProposalsUI extends BaseComponentWithConnector(ProposalsUI_connector, {}) {
-    constructor(props) {
-        super(props);
+import { fire } from "../Utils/Database/Firelink";
+import { GetDocs } from "mobx-firelink";
+/*export class ProposalsUI_Outer extends BaseComponent<Props, {}> {
+    render() {
+        return <ProposalsUI
+    }
+}*/
+let ProposalsUI = class ProposalsUI extends BaseComponentPlus({ subNavBarWidth: 0 }, {}) {
+    constructor() {
+        super(...arguments);
         this.OnDragEnd = result => {
             const sourceDroppableInfo = FromJSON(result.source.droppableId);
             const sourceIndex = result.source.index;
@@ -54,10 +48,15 @@ export class ProposalsUI extends BaseComponentWithConnector(ProposalsUI_connecto
                 new SetProposalOrder({ proposalID: draggableInfo.proposalID, userID: manager.GetUserID(), index: targetIndex }).Run();
             }
         };
-        Assert(wrapped, "ProposalsUI is being created before the class has been wrapped by Connect()!");
     }
+    /*constructor(props) {
+        super(props);
+        Assert(wrapped, "ProposalsUI is being created before the class has been wrapped by Connect()!");
+    }*/
     render() {
-        let { proposals, subNavBarWidth, selectedProposal } = this.props;
+        let { subNavBarWidth } = this.props;
+        const proposals = GetProposals();
+        const selectedProposal = GetSelectedProposal();
         if (selectedProposal) {
             return React.createElement(ProposalUI, { proposal: selectedProposal, subNavBarWidth: subNavBarWidth });
         }
@@ -70,8 +69,12 @@ export class ProposalsUI extends BaseComponentWithConnector(ProposalsUI_connecto
                 React.createElement(ProposalsColumn, { proposals: proposals, type: "issue", ml: 10 }),
                 React.createElement(ProposalsUserRankingColumn, { proposals: proposals, ml: 10 }))));
     }
-}
+};
 ProposalsUI.defaultProps = { subNavBarWidth: 0 };
+ProposalsUI = __decorate([
+    observer
+], ProposalsUI);
+export { ProposalsUI };
 export function GetRankingScoreToAddForUserRankingIndex(indexInRankingOrder) {
     let rankingScoreToAdd = 1;
     for (var i = 0; i < indexInRankingOrder; i++) {
@@ -90,10 +93,10 @@ let ProposalsColumn = class ProposalsColumn extends BaseComponentPlus({}, {}) {
     render() {
         let { proposals, type } = this.props;
         let userID = manager.GetUserID();
-        const userData = (GetData({ collection: true }, "userData") || {}).Props().filter(a => a.value != null).ToMap(a => a.name, a => a.value);
+        const userData = CE(GetDocs({ fire: fire }, a => a.userData)).ToMap(a => a["_key"], a => a);
         const showCompleted = store.main.proposals[`${type}s_showCompleted`];
         let shownProposals = proposals.filter(a => a.type == type && (!a.completedAt || showCompleted));
-        let proposalOrders = userData ? userData.VValues().map(a => (a.proposalIndexes || {}).VValues(true)) : [];
+        let proposalOrders = userData ? CE(userData).VValues().map(a => CE(a.proposalIndexes || {}).VValues(true)) : [];
         //let proposalOrders_uncompleted = proposalOrders.map(order=>order.filter(id=>!proposals.find(a=>a._key == id).completedAt));
         /*let deletedProposalsInOrdering = proposalOrders.filter(id=>!proposals.find(a=>a._key == id));
         Assert(deletedProposalsInOrdering <= 1, "More than one proposal in your ordering has been deleted!");
@@ -147,13 +150,10 @@ ProposalsColumn = __decorate([
     observer
 ], ProposalsColumn);
 export { ProposalsColumn };
-let ProposalsUserRankingColumn_connector = (state, {}) => ({
-    proposalOrder: GetProposalOrder(manager.GetUserID()),
-});
-OnPopulated(() => ProposalsUserRankingColumn = manager.Connect(ProposalsUserRankingColumn_connector)(ProposalsUserRankingColumn));
-let ProposalsUserRankingColumn = class ProposalsUserRankingColumn extends BaseComponentWithConnector(ProposalsUserRankingColumn_connector, {}) {
+let ProposalsUserRankingColumn = class ProposalsUserRankingColumn extends BaseComponentPlus({}, {}) {
     render() {
-        let { proposals, proposalOrder, } = this.props;
+        let { proposals } = this.props;
+        const proposalOrder = GetProposalOrder(manager.GetUserID());
         let user = manager.GetUser(manager.GetUserID());
         let proposalOrder_uncompleted = GetIncompleteProposalsInOrder(proposalOrder, proposals);
         proposals = CE(proposals.filter(a => CE(proposalOrder).Contains(a._key))).OrderBy(a => proposalOrder.indexOf(a._key));
@@ -173,7 +173,8 @@ let ProposalsUserRankingColumn = class ProposalsUserRankingColumn extends BaseCo
     }
 };
 ProposalsUserRankingColumn = __decorate([
-    ApplyBasicStyles
+    ApplyBasicStyles,
+    observer
 ], ProposalsUserRankingColumn);
 export { ProposalsUserRankingColumn };
 //# sourceMappingURL=Proposals.js.map

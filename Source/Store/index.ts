@@ -9,7 +9,7 @@ import {Feedback_FirebaseDBShape} from "./firebase";
 
 export class RootState {
 	@observable main = new Feedback_MainState();
-	@observable @ignore firelink: Firelink<Feedback_FirebaseDBShape>;
+	@observable @ignore firelink: Firelink<RootState, Feedback_FirebaseDBShape>;
 }
 
 export const store = new RootState();

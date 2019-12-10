@@ -39,28 +39,19 @@ export class Manager {
 
 	GetStore: ()=>any;
 	get store() { return this.GetStore(); }
-	storePath_mainData: string;
-	storePath_dbData: string;
+	dbPath: string;
+	/*storePath_mainData: string;
+	storePath_dbData: string;*/
 	Link: new ()=>BaseComponent<Link_Props, {}>
 		& {render: ()=>JSX.Element | null}; // temp fix for typing issue ("render" returning Element | null | false, in one version)
 	FormatTime: (time: number, formatStr: string)=>string;
 
-	router_replace: (newURL: string)=>any;
-	router_push: (newURL: string)=>any;
-	
 	logTypes = new LogTypes();
 
-	Connect: (func: Function)=>any;
-	State: (...props)=>any;
-	GetData: (..._)=>any;
-	GetDataAsync: (..._)=>any;
-	GetAsync: (dbGetterFunc, statsLogger)=>Promise<any>;
 	ShowSignInPopup: ()=>void;
 	GetUserID: ()=>string;
 	GetUser: (id: string)=>User;
 	GetUserPermissionGroups: (userID: string)=>PermissionGroupSet;
-
-	ApplyDBUpdates: (rootPath: string, dbUpdates)=>void;
 
 	MarkdownRenderer: any; //(...props: any[])=>JSX.Element;
 }

@@ -1,7 +1,7 @@
 import {ProposalIndexSet} from "../../Store/firebase/userData";
-import {GetDataAsync} from "../../Utils/Database/DatabaseHelpers";
-import {Command} from "../Command";
 import {CE} from "js-vextensions";
+import {GetAsync, GetDoc, Command} from "mobx-firelink";
+import {fire} from "../../Utils/Database/Firelink";
 
 //@UserEdit
 export class SetProposalOrder extends Command<{proposalID: string, userID: string, index: number}> {
@@ -9,7 +9,7 @@ export class SetProposalOrder extends Command<{proposalID: string, userID: strin
 	async Prepare() {
 		let {proposalID, userID, index} = this.payload;
 
-		let oldIndexes = await GetDataAsync("userData", userID, ".proposalIndexes") as ProposalIndexSet || {};
+		let oldIndexes = (await GetAsync(()=>GetDoc({fire}, a=>a.userData.get(userID))))?.proposalIndexes || {};
 		let idsOrdered = CE(oldIndexes).VValues(true);
 		let oldIndex = idsOrdered.indexOf(proposalID);
 		if (index != -1) {

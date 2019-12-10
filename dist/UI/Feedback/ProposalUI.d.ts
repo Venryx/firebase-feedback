@@ -14,12 +14,10 @@ export declare class ProposalUI extends BaseComponent<ProposalUI_Props, {}> {
 }
 declare const ProposalUI_Inner_base: (new (..._: any[]) => BaseComponent<{
     proposal: Proposal;
-} & Partial<{
-    creator: import("../../Manager").User;
-}>, {
+}, {
     editing: boolean;
     dataError: string;
-}, {}>) & {
+}, unknown>) & {
     renderCount: number;
     lastRenderTime: number;
 };

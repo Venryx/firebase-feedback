@@ -4,10 +4,8 @@ import {ApplyBasicStyles, BaseComponent, BaseComponentWithConnector, GetDOM, Bas
 import {ScrollView} from "react-vscrollview";
 import {manager, OnPopulated} from "../Manager";
 import {SetProposalOrder} from "../Server/Commands/SetProposalOrder";
-import {GetProposals} from "../Store/firebase/proposals";
 import {GetSelectedProposal} from "../Store/main/proposals";
-import {GetData} from "../Utils/Database/DatabaseHelpers";
-import {GetProposalOrder} from "../index";
+import {GetProposalOrder, GetProposals} from "../index";
 import {Proposal} from "./../Store/firebase/proposals/@Proposal";
 import {ShowAddProposalDialog} from "./Feedback/Proposal/ProposalDetailsUI";
 import {ProposalEntryUI} from "./Feedback/ProposalEntryUI";
@@ -17,6 +15,8 @@ import {DragDropContext as DragDropContext_Beautiful, Droppable} from "react-bea
 import {DroppableInfo, DraggableInfo} from "../Utils/UI/DNDStructures";
 import {store} from "../Store";
 import {observer} from "mobx-react";
+import {fire} from "../Utils/Database/Firelink";
+import {GetDocs} from "mobx-firelink";
 
 /*export class ProposalsUI_Outer extends BaseComponent<Props, {}> {
 	render() {
@@ -24,28 +24,19 @@ import {observer} from "mobx-react";
 	}
 }*/
 
-type Props = {subNavBarWidth: number};
-let ProposalsUI_connector = (state, {}: Props)=> {
-	return {
-		proposals: GetProposals(),
-		selectedProposal: GetSelectedProposal(),
-	};
-};
-let wrapped = false;
-OnPopulated(()=> {
-	(ProposalsUI as any) = manager.Connect(ProposalsUI_connector)(ProposalsUI)
-	wrapped = true;
-});
-export class ProposalsUI extends BaseComponentWithConnector(ProposalsUI_connector, {}) {
+@observer
+export class ProposalsUI extends BaseComponentPlus({subNavBarWidth: 0} as {subNavBarWidth: number}, {}) {
 	static defaultProps = {subNavBarWidth: 0};
 	
-	constructor(props) {
+	/*constructor(props) {
 		super(props);
 		Assert(wrapped, "ProposalsUI is being created before the class has been wrapped by Connect()!");
-	}
+	}*/
 	
 	render() {
-		let {proposals, subNavBarWidth, selectedProposal} = this.props;
+		let {subNavBarWidth} = this.props;
+		const proposals = GetProposals();
+		const selectedProposal = GetSelectedProposal();
 
 		if (selectedProposal) {
 			return <ProposalUI proposal={selectedProposal} subNavBarWidth={subNavBarWidth}/>;
@@ -109,12 +100,12 @@ export class ProposalsColumn extends BaseComponentPlus({} as {proposals: Proposa
 		let {proposals, type} = this.props;
 		let userID = manager.GetUserID();
 
-		const userData = (GetData({collection: true}, "userData") || {}).Props().filter(a=>a.value != null).ToMap(a=>a.name, a=>a.value);
+		const userData = CE(GetDocs({fire: fire}, a=>a.userData)).ToMap(a=>a["_key"], a=>a);
 		const showCompleted = store.main.proposals[`${type}s_showCompleted`];
 
 		let shownProposals = proposals.filter(a=>a.type == type && (!a.completedAt || showCompleted));
 
-		let proposalOrders = userData ? userData.VValues().map(a=>(a.proposalIndexes || {}).VValues(true)) : [];
+		let proposalOrders = userData ? CE(userData).VValues().map(a=>CE(a.proposalIndexes || {}).VValues(true)) : [];
 		//let proposalOrders_uncompleted = proposalOrders.map(order=>order.filter(id=>!proposals.find(a=>a._key == id).completedAt));
 		/*let deletedProposalsInOrdering = proposalOrders.filter(id=>!proposals.find(a=>a._key == id));
 		Assert(deletedProposalsInOrdering <= 1, "More than one proposal in your ordering has been deleted!");
@@ -177,14 +168,12 @@ export class ProposalsColumn extends BaseComponentPlus({} as {proposals: Proposa
 	}
 }
 
-let ProposalsUserRankingColumn_connector = (state, {}: {proposals: Proposal[]})=> ({
-	proposalOrder: GetProposalOrder(manager.GetUserID()),
-});
-OnPopulated(()=>(ProposalsUserRankingColumn as any) = manager.Connect(ProposalsUserRankingColumn_connector)(ProposalsUserRankingColumn));
 @ApplyBasicStyles
-export class ProposalsUserRankingColumn extends BaseComponentWithConnector(ProposalsUserRankingColumn_connector, {}) {
+@observer
+export class ProposalsUserRankingColumn extends BaseComponentPlus({} as {proposals: Proposal[]}, {}) {
 	render() {
-		let {proposals, proposalOrder,} = this.props;
+		let {proposals} = this.props;
+		const proposalOrder = GetProposalOrder(manager.GetUserID());
 		let user = manager.GetUser(manager.GetUserID());
 
 		let proposalOrder_uncompleted = GetIncompleteProposalsInOrder(proposalOrder, proposals);

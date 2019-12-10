@@ -1,13 +1,9 @@
 /// <reference types="react" />
 import { BaseComponent } from "react-vextensions";
 import { Proposal } from "./../Store/firebase/proposals/@Proposal";
-declare type Props = {
+declare const ProposalsUI_base: (new (..._: any[]) => BaseComponent<{
     subNavBarWidth: number;
-};
-declare const ProposalsUI_base: (new (..._: any[]) => BaseComponent<Props & Partial<{
-    proposals: Proposal[];
-    selectedProposal: Proposal;
-}>, {}, {}>) & {
+}, {}, unknown>) & {
     renderCount: number;
     lastRenderTime: number;
 };
@@ -15,7 +11,6 @@ export declare class ProposalsUI extends ProposalsUI_base {
     static defaultProps: {
         subNavBarWidth: number;
     };
-    constructor(props: any);
     render(): JSX.Element;
     OnDragEnd: (result: any) => any;
 }
@@ -32,9 +27,7 @@ export declare class ProposalsColumn extends ProposalsColumn_base {
 }
 declare const ProposalsUserRankingColumn_base: (new (..._: any[]) => BaseComponent<{
     proposals: Proposal[];
-} & Partial<{
-    proposalOrder: string[];
-}>, {}, {}>) & {
+}, {}, unknown>) & {
     renderCount: number;
     lastRenderTime: number;
 };

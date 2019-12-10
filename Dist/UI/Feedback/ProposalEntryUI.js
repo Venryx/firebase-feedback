@@ -1,7 +1,13 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 import { E, CE } from "js-vextensions";
 import React from "react";
 import { Button, Row } from "react-vcomponents";
-import { BaseComponent } from "react-vextensions";
+import { BaseComponentPlus } from "react-vextensions";
 import { manager, OnPopulated } from "../../Manager";
 import { SetProposalOrder } from "../../Server/Commands/SetProposalOrder";
 import { ACTProposalSelect } from "../../Store/main/proposals";
@@ -9,16 +15,13 @@ import { GetRankingScoreToAddForUserRankingIndex } from "../Proposals";
 import { MakeDraggable } from "../../Utils/UI/DNDHelpers";
 import { DraggableInfo } from "../../Utils/UI/DNDStructures";
 import ReactDOM from "react-dom";
+import { observer } from "mobx-react";
 let portal;
 OnPopulated(() => {
     portal = document.createElement('div');
     document.body.appendChild(portal);
 });
-let connector = (state, { proposal }) => ({
-    creator: proposal && manager.GetUser(proposal.creator),
-});
 OnPopulated(() => {
-    ProposalEntryUI = manager.Connect(connector)(ProposalEntryUI);
     ProposalEntryUI = MakeDraggable((props) => {
         const { columnType, proposal, index } = props;
         return {
@@ -36,9 +39,11 @@ OnPopulated(() => {
         index,
     };
 })*/
-export class ProposalEntryUI extends BaseComponent {
+let ProposalEntryUI = class ProposalEntryUI extends BaseComponentPlus({}, {}) {
     render() {
-        let { index, last, proposal, orderIndex, rankingScore, creator, columnType, style, dragInfo } = this.props;
+        let { index, last, proposal, orderIndex, rankingScore, columnType, style, dragInfo } = this.props;
+        const creator = proposal && manager.GetUser(proposal.creator);
+        //posts: proposal && GetProposalPosts(proposal),
         const asDragPreview = dragInfo && dragInfo.snapshot.isDragging;
         let result = (React.createElement("div", Object.assign({}, (dragInfo && dragInfo.provided.draggableProps), (dragInfo && dragInfo.provided.dragHandleProps)),
             React.createElement(Row, { ref: c => this.innerRoot = c, p: "7px 10px", style: E({ background: index % 2 == 0 ? "rgba(30,30,30,.7)" : "rgba(0,0,0,.7)" }, last && { borderRadius: "0 0 10px 10px" }, style) },
@@ -56,5 +61,9 @@ export class ProposalEntryUI extends BaseComponent {
         }
         return result;
     }
-}
+};
+ProposalEntryUI = __decorate([
+    observer
+], ProposalEntryUI);
+export { ProposalEntryUI };
 //# sourceMappingURL=ProposalEntryUI.js.map

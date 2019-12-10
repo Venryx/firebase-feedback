@@ -1,8 +1,8 @@
 import {GetProposal} from "../../Store/firebase/proposals";
-import {GetAsync, GetDataAsync} from "../../Utils/Database/DatabaseHelpers";
-import {Command, MergeDBUpdates} from "../Command";
 import {SetProposalOrder} from "./SetProposalOrder";
 import {CE} from "js-vextensions";
+import {GetAsync, GetDocs, Command, MergeDBUpdates} from "mobx-firelink";
+import {fire} from "../../Utils/Database/Firelink";
 
 //@UserEdit
 export class DeleteProposal extends Command<{id: string}> {
@@ -13,10 +13,10 @@ export class DeleteProposal extends Command<{id: string}> {
 		let proposal = await GetAsync(()=>GetProposal(id))
 		//this.posts = await GetAsync(()=>GetProposalPosts(proposal));
 
-		let userDatas = (await GetDataAsync({collection: true}, "userData") as Object) || {};
+		let userDatas = await GetAsync(()=>GetDocs({fire}, a=>a.userData));
 		this.sub_removalsFromUserOrderings = [];
-		let userDatasWithOrderingContainingProposal = CE(userDatas).Pairs(true).filter(prop=>prop.value["proposalIndexes"].VValues(true).Contains(id));
-		for (let userID of userDatasWithOrderingContainingProposal.map(prop=>prop.key)) {
+		let userDatasWithOrderingContainingProposal = userDatas.filter(userData=>CE(CE(userData.proposalIndexes).VValues(true)).Contains(id));
+		for (let userID of userDatasWithOrderingContainingProposal.map(userData=>userData["_key"])) {
 			let subcommand = new SetProposalOrder({proposalID: id, userID, index: -1});
 			subcommand.Validate_Early();
 			await subcommand.Prepare();

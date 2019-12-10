@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, CheckBox, Column, Row, Span } from "react-vcomponents";
-import { BaseComponent, GetInnerComp, BaseComponentWithConnector } from "react-vextensions";
+import { BaseComponent, GetInnerComp, BaseComponentWithConnector, BaseComponentPlus } from "react-vextensions";
 import { ShowMessageBox } from "react-vmessagebox";
 import { ScrollView } from "react-vscrollview";
 import { IsUserAdmin, IsUserCreatorOrMod } from "../../General";
@@ -51,14 +51,11 @@ export class ProposalUI extends BaseComponent<ProposalUI_Props, {}> {
 	}
 }
 
-let ProposalUI_Inner_connector = (state, {proposal}: {proposal: Proposal})=> ({
-	creator: manager.GetUser(proposal.creator),
-});
-OnPopulated(()=>(ProposalUI_Inner as any) = manager.Connect(ProposalUI_Inner_connector)(ProposalUI_Inner));
-export class ProposalUI_Inner extends BaseComponentWithConnector(ProposalUI_Inner_connector, {editing: false, dataError: null as string}) {
+export class ProposalUI_Inner extends BaseComponentPlus({} as {proposal: Proposal}, {editing: false, dataError: null as string}) {
 	editorUI: ProposalDetailsUI;
 	render() {
-		let {proposal, creator} = this.props;
+		let {proposal} = this.props;
+		const creator = manager.GetUser(proposal.creator);
 		let {editing, dataError} = this.state;
 
 		if (editing) {

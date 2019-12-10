@@ -1,5 +1,5 @@
 import { ProposalIndexSet } from "../../Store/firebase/userData";
-import { Command } from "../Command";
+import { Command } from "mobx-firelink";
 export declare class SetProposalOrder extends Command<{
     proposalID: string;
     userID: string;

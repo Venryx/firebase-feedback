@@ -1,7 +1,7 @@
-import {Command} from "../Command";
-import { GetDataAsync } from "../../Utils/Database/DatabaseHelpers";
 import {WaitTillSchemaAddedThenRun, GetSchemaJSON, AddSchema, Schema, AssertValidate} from "../Server";
 import {Proposal} from "./../../Store/firebase/proposals/@Proposal";
+import {GetAsync, GetDoc, Command} from "mobx-firelink";
+import {fire} from "../../Utils/Database/Firelink";
 
 type MainType = Proposal;
 let MTName = "Proposal";
@@ -28,7 +28,9 @@ export class UpdateProposal extends Command<{id: string, updates: Partial<MainTy
 	newData: MainType;
 	async Prepare() {
 		let {id, updates} = this.payload;
-		this.oldData = await GetDataAsync({addHelpers: false}, "proposals", id) as MainType;
+		//this.oldData = await GetAsync(()=>GetDoc({fire, addHelpers: false}, a=>a.proposals.get(id)));
+		//this.oldData = WithoutHelpers(await GetAsync(()=>GetDoc({fire}, a=>a.proposals.get(id))));
+		this.oldData = await GetAsync(()=>GetDoc({fire}, a=>a.proposals.get(id)));
 		this.newData = {...this.oldData, ...updates};
 	}
 	async Validate() {
