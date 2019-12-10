@@ -1,12 +1,14 @@
 {
   "name": "firebase-feedback",
-  "version": "0.0.6",
   "description": "Feedback (proposals + issues + roadmap) solution built using ReactJS, MobX, and Firebase.",
+  "version": "0.0.6",
   "main": "Dist/index.js",
   "typings": "Dist/index.d.ts",
-  "scripts": {
-    "dev": "webpack-cli --config webpack.config.js --colors --progress --watch",
-    "dist": "babel Source/index.jsx -u -o Dist/index.js --stage 1 --presets react"
+  "license": "MIT",
+  "author": {
+    "name": "Venryx",
+    "email": "venryx@gmail.com",
+    "url": "http://venryx.com"
   },
   "repository": {
     "type": "git",
@@ -15,16 +17,10 @@
   "keywords": [
     "react"
   ],
-  "author": {
-    "name": "Venryx",
-    "email": "venryx@gmail.com",
-    "url": "http://venryx.com"
+  "scripts": {
+    "dev": "tsc --watch",
+    "dist": "tsc"
   },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Venryx/firebase-feedback/issues"
-  },
-  "homepage": "https://github.com/Venryx/firebase-feedback",
   "peerDependencies": {
     "js-vextensions": "^0.0.1",
     "mobx": "^5.0.0",
@@ -46,7 +42,7 @@
     "babel-cli": "^6.4.5",
     "babel-loader": "^8.0.4",
     "firebase": "^7.5.2",
-    "js-vextensions": "0.0.38",
+    "js-vextensions": "0.0.43",
     "json-loader": "^0.5.7",
     "mobx": "^5.15.0",
     "react": "^16.12.0",
@@ -55,14 +51,11 @@
     "react-vcomponents": "^1.0.3",
     "react-vextensions": "^1.0.1",
     "react-vmarkdown": "0.0.3",
-    "react-vmessagebox": "0.0.4",
+    "react-vmessagebox": "0.0.5",
     "react-vscrollview": "0.0.4",
     "style-loader": "^1.0.1",
     "ts-loader": "^6.2.1",
-    "typescript": "^3.7.2",
-    "webpack": "^4.6.0",
-    "webpack-cli": "^3.2.3",
-    "webpack-dev-server": "^3.9.0"
+    "typescript": "^3.7.2"
   },
   "dependencies": {
     "ajv": "^6.4.0",

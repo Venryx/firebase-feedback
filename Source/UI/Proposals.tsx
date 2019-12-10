@@ -139,7 +139,7 @@ export class ProposalsColumn extends BaseComponentPlus({} as {proposals: Proposa
 			rankingScores[proposal._key] = rankingScore;
 		}
 
-		shownProposals = CE(shownProposals).OrderByDescending(a=>rankingScores[a._key]);
+		shownProposals = CE(shownProposals).OrderByDescending(a=>rankingScores[a._key]) as Proposal[];
 
 		const droppableInfo = new DroppableInfo({type: "ProposalsColumn", proposalType: type});
 		return (
