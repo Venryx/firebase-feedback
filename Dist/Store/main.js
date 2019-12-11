@@ -6,12 +6,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { observable } from "mobx";
 import { Proposals } from "./main/proposals";
-export class Feedback_MainState {
+export class MainState {
     constructor() {
         this.proposals = new Proposals();
     }
 }
 __decorate([
     observable
-], Feedback_MainState.prototype, "proposals", void 0);
+], MainState.prototype, "proposals", void 0);
 //# sourceMappingURL=main.js.map

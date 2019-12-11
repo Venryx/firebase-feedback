@@ -1,11 +1,13 @@
 import "js-vextensions";
 import "codemirror/addon/scroll/simplescrollbars";
 export * from "./Manager";
+//export {Manager as Feedback_Manager} from "./Manager";
 export * from "./Server/Commands/AddProposal";
 export * from "./Server/Commands/DeleteProposal";
 export * from "./Server/Commands/SetProposalOrder";
 export * from "./Server/Commands/UpdateProposal";
-export * from "./Store/main";
+export { RootState as Feedback_RootState, store as Feedback_store } from "./Store";
+export { MainState as Feedback_MainState } from "./Store/main";
 export * from "./Store/main/proposals";
 export * from "./Store/firebase/proposals";
 export * from "./Store/firebase/proposals/@Proposal";

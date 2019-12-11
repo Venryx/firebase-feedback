@@ -5,13 +5,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { observable } from "mobx";
-import { Feedback_MainState } from "./main";
+import { MainState } from "./main";
 import { ignore } from "mobx-sync";
 // configure({ enforceActions: 'always' });
 //configure({ enforceActions: 'observed' });
 export class RootState {
     constructor() {
-        this.main = new Feedback_MainState();
+        this.main = new MainState();
     }
 }
 __decorate([

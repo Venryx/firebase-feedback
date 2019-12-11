@@ -1,8 +1,8 @@
-import { Feedback_MainState } from "./main";
+import { MainState } from "./main";
 import { Firelink } from "mobx-firelink";
-import { Feedback_FirebaseDBShape } from "./firebase";
+import { FirebaseDBShape } from "./firebase";
 export declare class RootState {
-    main: Feedback_MainState;
-    firelink: Firelink<RootState, Feedback_FirebaseDBShape>;
+    main: MainState;
+    firelink: Firelink<RootState, FirebaseDBShape>;
 }
 export declare const store: RootState;

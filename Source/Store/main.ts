@@ -1,6 +1,6 @@
 import {observable} from "mobx";
 import {Proposals} from "./main/proposals";
 
-export class Feedback_MainState {
+export class MainState {
 	@observable proposals = new Proposals();
 }
