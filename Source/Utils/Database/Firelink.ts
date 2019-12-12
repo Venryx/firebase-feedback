@@ -2,7 +2,6 @@ import { Firelink, GetDoc, SetDefaultFireOptions, PathOrPathGetterToPathSegments
 import {manager, OnPopulated} from '../../Manager';
 import {FirebaseDBShape} from '../../Store/firebase';
 import {RootState, store} from '../../Store';
-import {RootStoreShape} from 'mobx-firelink/Dist/UserTypes';
 
 /*export let fire: Firelink<RootState, FirebaseDBShape>;
 OnPopulated(()=> {

@@ -1,3 +1,12 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 import React from "react";
 import { Button, CheckBox, Column, Row, Span } from "react-vcomponents";
 import { BaseComponent, BaseComponentPlus } from "react-vextensions";
@@ -43,14 +52,14 @@ export class ProposalUI_Inner extends BaseComponentPlus({}, { editing: false, da
                         this.SetState({ dataError: comp.GetValidationError() });
                     } }),
                 React.createElement(Row, { mt: 5 },
-                    React.createElement(Button, { text: "Save", enabled: dataError == null, onLeftClick: async () => {
+                    React.createElement(Button, { text: "Save", enabled: dataError == null, onLeftClick: () => __awaiter(this, void 0, void 0, function* () {
                             let postUpdates = GetUpdates(proposal, this.editorUI.GetNewData());
-                            await new UpdateProposal({ id: proposal._key, updates: postUpdates }).Run();
+                            yield new UpdateProposal({ id: proposal._key, updates: postUpdates }).Run();
                             this.SetState({ editing: false, dataError: null });
-                        } }),
-                    React.createElement(Button, { ml: 5, text: "Cancel", onLeftClick: async () => {
+                        }) }),
+                    React.createElement(Button, { ml: 5, text: "Cancel", onLeftClick: () => __awaiter(this, void 0, void 0, function* () {
                             this.SetState({ editing: false, dataError: null });
-                        } }))));
+                        }) }))));
         }
         let creatorOrMod = IsUserCreatorOrMod(manager.GetUserID(), proposal);
         return (React.createElement(Row, { sel: true, style: { flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, alignItems: "initial", cursor: "auto" } },
@@ -72,9 +81,9 @@ export class ProposalUI_Inner extends BaseComponentPlus({}, { editing: false, da
                                 ShowMessageBox({
                                     title: `Delete proposal`, cancelButton: true,
                                     message: `Delete this proposal?`,
-                                    onOK: async () => {
-                                        await new DeleteProposal({ id: proposal._key }).Run();
-                                    }
+                                    onOK: () => __awaiter(this, void 0, void 0, function* () {
+                                        yield new DeleteProposal({ id: proposal._key }).Run();
+                                    })
                                 });
                             } }),
                     proposal.editedAt && React.createElement(Span, { ml: "auto", style: { color: "rgba(255,255,255,.5)" } },

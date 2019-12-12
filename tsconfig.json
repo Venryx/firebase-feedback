@@ -14,8 +14,8 @@
 		//"maxNodeModulesJsDepth": 1,
 
 		// compiler options
-		//"target": "es2015",
-		"target": "es2017",
+		"target": "es2015",
+		//"target": "es2017",
 		//"allowJs": true,
 		"jsx": "react",
 		"noImplicitAny": false,
