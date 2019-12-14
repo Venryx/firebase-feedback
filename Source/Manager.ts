@@ -1,7 +1,8 @@
 import { LogTypes } from "./Utils/General/Logging";
-import {Action} from "./Utils/General/Action";
 import {BaseComponent} from "react-vextensions";
 import {CE} from "js-vextensions";
+import {RootState} from "./Store";
+import {RootStoreShape} from "mobx-firelink/Dist/UserTypes";
 
 export class PermissionGroupSet {
 	basic: boolean;
@@ -10,10 +11,11 @@ export class PermissionGroupSet {
 	admin: boolean;
 }
 
+export type ActionFunc<StoreType> = (store: StoreType)=>void;
 export type Link_Props = {
 	onClick?, style?,
 	text?: string, to?: string, target?: string, replace?: boolean, // url-based
-	actions?: Action<any>[], //updateURLOnActions?: boolean, // action-based
+	actionFunc?: ActionFunc<RootState>, // new approach, for mobx/mst store
 } & React.HTMLProps<HTMLAnchorElement>;
 
 export type User = {
@@ -42,8 +44,6 @@ export class Manager {
 	dbPath: string;
 	/*storePath_mainData: string;
 	storePath_dbData: string;*/
-	Link: new ()=>BaseComponent<Link_Props, {}>
-		& {render: ()=>JSX.Element | null}; // temp fix for typing issue ("render" returning Element | null | false, in one version)
 	FormatTime: (time: number, formatStr: string)=>string;
 
 	logTypes = new LogTypes();
@@ -52,6 +52,8 @@ export class Manager {
 	GetUserID: ()=>string;
 	GetUser: (id: string)=>User;
 	GetUserPermissionGroups: (userID: string)=>PermissionGroupSet;
+
+	GetNewURLForStoreChanges: (actionFunc: ActionFunc<RootState>)=>string;
 
 	MarkdownRenderer: any; //(...props: any[])=>JSX.Element;
 }

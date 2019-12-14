@@ -4,13 +4,14 @@ import {Button, Column, Row} from "react-vcomponents";
 import {BaseComponent, GetDOM, GetInnerComp, BaseComponentPlus} from "react-vextensions";
 import {Manager, manager, OnPopulated, User} from "../../Manager";
 import {SetProposalOrder} from "../../Server/Commands/SetProposalOrder";
-import {ACTProposalSelect} from "../../Store/main/proposals";
 import {GetRankingScoreToAddForUserRankingIndex} from "../Proposals";
 import {Proposal} from "./../../Store/firebase/proposals/@Proposal";
 import {MakeDraggable, DragInfo} from "../../Utils/UI/DNDHelpers";
 import {DraggableInfo} from "../../Utils/UI/DNDStructures";
 import ReactDOM from "react-dom";
 import {observer} from "mobx-react";
+import {fire} from "../../Utils/Database/Firelink";
+import {Link} from "../../Utils/ReactComponents/Link";
 
 let portal: HTMLElement;
 OnPopulated(()=> {
@@ -56,7 +57,7 @@ export class ProposalEntryUI extends BaseComponentPlus({} as ProposalEntryUI_Pro
 							last && {borderRadius: "0 0 10px 10px"},
 							style,
 						)}>
-					<manager.Link text={proposal.title} actions={[new ACTProposalSelect({id: proposal._key})]} style={ES({fontSize: "15px", flex: 1})}/>
+					<Link text={proposal.title} actionFunc={s=>s.main.proposals.selectedProposalID = proposal._key} style={ES({fontSize: "15px", flex: 1})}/>
 					<span style={{float: "right"}}>
 						{columnType == "userRanking"
 							? "#" + (index + 1) + (proposal.completedAt ? " (✔️)" : ` (+${CE(GetRankingScoreToAddForUserRankingIndex(orderIndex)).RoundTo_Str(.001, null, false)})`)
@@ -64,7 +65,7 @@ export class ProposalEntryUI extends BaseComponentPlus({} as ProposalEntryUI_Pro
 					</span>
 					{columnType == "userRanking" && !asDragPreview &&
 						<Button text="X" style={{margin: "-3px 0 -3px 5px", padding: "3px 5px"}} onClick={()=> {
-							new SetProposalOrder({proposalID: proposal._key, userID: manager.GetUserID(), index: -1}).Run();
+							new SetProposalOrder({fire}, {proposalID: proposal._key, userID: manager.GetUserID(), index: -1}).Run();
 						}}/>}
 				</Row>
 			</div>

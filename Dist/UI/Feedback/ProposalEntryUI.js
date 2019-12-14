@@ -10,12 +10,13 @@ import { Button, Row } from "react-vcomponents";
 import { BaseComponentPlus } from "react-vextensions";
 import { manager, OnPopulated } from "../../Manager";
 import { SetProposalOrder } from "../../Server/Commands/SetProposalOrder";
-import { ACTProposalSelect } from "../../Store/main/proposals";
 import { GetRankingScoreToAddForUserRankingIndex } from "../Proposals";
 import { MakeDraggable } from "../../Utils/UI/DNDHelpers";
 import { DraggableInfo } from "../../Utils/UI/DNDStructures";
 import ReactDOM from "react-dom";
 import { observer } from "mobx-react";
+import { fire } from "../../Utils/Database/Firelink";
+import { Link } from "../../Utils/ReactComponents/Link";
 let portal;
 OnPopulated(() => {
     portal = document.createElement('div');
@@ -47,13 +48,13 @@ let ProposalEntryUI = class ProposalEntryUI extends BaseComponentPlus({}, {}) {
         const asDragPreview = dragInfo && dragInfo.snapshot.isDragging;
         let result = (React.createElement("div", Object.assign({}, (dragInfo && dragInfo.provided.draggableProps), (dragInfo && dragInfo.provided.dragHandleProps)),
             React.createElement(Row, { ref: c => this.innerRoot = c, p: "7px 10px", style: E({ background: index % 2 == 0 ? "rgba(30,30,30,.7)" : "rgba(0,0,0,.7)" }, last && { borderRadius: "0 0 10px 10px" }, style) },
-                React.createElement(manager.Link, { text: proposal.title, actions: [new ACTProposalSelect({ id: proposal._key })], style: ES({ fontSize: "15px", flex: 1 }) }),
+                React.createElement(Link, { text: proposal.title, actionFunc: s => s.main.proposals.selectedProposalID = proposal._key, style: ES({ fontSize: "15px", flex: 1 }) }),
                 React.createElement("span", { style: { float: "right" } }, columnType == "userRanking"
                     ? "#" + (index + 1) + (proposal.completedAt ? " (✔️)" : ` (+${CE(GetRankingScoreToAddForUserRankingIndex(orderIndex)).RoundTo_Str(.001, null, false)})`)
                     : (proposal.completedAt ? "✔️" : rankingScore ? CE(rankingScore).RoundTo_Str(.001, null, false) : "")),
                 columnType == "userRanking" && !asDragPreview &&
                     React.createElement(Button, { text: "X", style: { margin: "-3px 0 -3px 5px", padding: "3px 5px" }, onClick: () => {
-                            new SetProposalOrder({ proposalID: proposal._key, userID: manager.GetUserID(), index: -1 }).Run();
+                            new SetProposalOrder({ fire }, { proposalID: proposal._key, userID: manager.GetUserID(), index: -1 }).Run();
                         } }))));
         // if drag preview, we have to put in portal, since otherwise the "filter" effect of ancestors causes the {position:fixed} style to not be relative-to-page
         if (asDragPreview) {

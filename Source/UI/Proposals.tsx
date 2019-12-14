@@ -5,7 +5,7 @@ import {ScrollView} from "react-vscrollview";
 import {manager, OnPopulated} from "../Manager";
 import {SetProposalOrder} from "../Server/Commands/SetProposalOrder";
 import {GetSelectedProposal} from "../Store/main/proposals";
-import {GetProposalOrder, GetProposals} from "../index";
+import {GetProposalsOrder, GetProposals} from "../index";
 import {Proposal} from "./../Store/firebase/proposals/@Proposal";
 import {ShowAddProposalDialog} from "./Feedback/Proposal/ProposalDetailsUI";
 import {ProposalEntryUI} from "./Feedback/ProposalEntryUI";
@@ -17,6 +17,7 @@ import {store} from "../Store";
 import {observer} from "mobx-react";
 import {fire} from "../Utils/Database/Firelink";
 import {GetDocs} from "mobx-firelink";
+import {runInAction} from "mobx";
 
 /*export class ProposalsUI_Outer extends BaseComponent<Props, {}> {
 	render() {
@@ -72,7 +73,7 @@ export class ProposalsUI extends BaseComponentPlus({subNavBarWidth: 0} as {subNa
 				targetIndex++;
 			}
 
-			new SetProposalOrder({proposalID: draggableInfo.proposalID, userID: manager.GetUserID(), index: targetIndex}).Run();
+			new SetProposalOrder({fire}, {proposalID: draggableInfo.proposalID, userID: manager.GetUserID(), index: targetIndex}).Run();
 		}
 	};
 }
@@ -93,8 +94,8 @@ function GetIncompleteProposalsInOrder(order: string[], proposals: Proposal[]) {
 	});
 }
 
-@ApplyBasicStyles
 @observer
+@ApplyBasicStyles
 export class ProposalsColumn extends BaseComponentPlus({} as {proposals: Proposal[], type: string}, {}) {
 	render() {
 		let {proposals, type} = this.props;
@@ -105,18 +106,22 @@ export class ProposalsColumn extends BaseComponentPlus({} as {proposals: Proposa
 
 		let shownProposals = proposals.filter(a=>a.type == type && (!a.completedAt || showCompleted));
 
-		let proposalOrders = userData ? CE(userData).VValues().map(a=>CE(a.proposalIndexes || {}).VValues(true)) : [];
+		//let proposalsOrder = GetProposalsOrder(userID);
+		//let proposalOrders = userData ? CE(userData).VValues().map(a=>CE(a.proposalIndexes || {}).VValues(true)) : [];
+		let proposalsOrders_perUser = userData ? CE(userData).VValues().map(a=>a.proposalsOrder || []) : [];
+
+		//let proposalsOrder_uncompleted = GetIncompleteProposalsInOrder(proposalsOrder, proposals);
 		//let proposalOrders_uncompleted = proposalOrders.map(order=>order.filter(id=>!proposals.find(a=>a._key == id).completedAt));
 		/*let deletedProposalsInOrdering = proposalOrders.filter(id=>!proposals.find(a=>a._key == id));
 		Assert(deletedProposalsInOrdering <= 1, "More than one proposal in your ordering has been deleted!");
 		let proposalOrders_uncompleted = proposalOrders.Except(deletedProposalsInOrdering).map(order=>order.filter(id=>!proposals.find(a=>a._key == id).completedAt));*/
-		let proposalOrders_uncompleted = proposalOrders.map(order=>GetIncompleteProposalsInOrder(order, proposals));
+		let proposalsOrder_uncompleted_perUser = proposalsOrders_perUser.map(order=>GetIncompleteProposalsInOrder(order, proposals));
 
 		let rankingScores = {};
 		for (let proposal of shownProposals) {
 			let rankingScore = 0;
-			for (let proposalOrder of proposalOrders_uncompleted) {
-				let indexInOrder = proposalOrder.indexOf(proposal._key);
+			for (let proposalsOrder of proposalsOrder_uncompleted_perUser) {
+				let indexInOrder = proposalsOrder.indexOf(proposal._key);
 				if (indexInOrder == -1) continue;
 				
 				rankingScore += GetRankingScoreToAddForUserRankingIndex(indexInOrder);
@@ -132,6 +137,12 @@ export class ProposalsColumn extends BaseComponentPlus({} as {proposals: Proposa
 
 		shownProposals = CE(shownProposals).OrderByDescending(a=>rankingScores[a._key]) as Proposal[];
 
+		// calc here, so mobx sees usage
+		let proposalEntryUIs = shownProposals.map((proposal, index)=> {
+			return <ProposalEntryUI key={index} index={index} last={index == shownProposals.length - 1}
+				proposal={proposal} rankingScore={rankingScores[proposal._key]} columnType={type}/>;
+		});
+
 		const droppableInfo = new DroppableInfo({type: "ProposalsColumn", proposalType: type});
 		return (
 			<Column style={ES({flex: 1, height: "100%"})}>
@@ -139,7 +150,7 @@ export class ProposalsColumn extends BaseComponentPlus({} as {proposals: Proposa
 					<Row style={{position: "relative", height: 40, padding: 10}}>
 						{/*<Pre>Show: </Pre>*/}
 						<CheckBox ml={5} text="Show completed" checked={showCompleted} onChange={val=>{
-							store.main.proposals[`${type}s_showCompleted`] = val;
+							runInAction("ProposalsColumn.showCompleted.onChange", ()=>store.main.proposals[`${type}s_showCompleted`] = val);
 						}}/>
 						<span style={{position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: "18px"}}>
 							{type.replace(/^(.)/, (m,s0)=>s0.toUpperCase())}s
@@ -156,10 +167,7 @@ export class ProposalsColumn extends BaseComponentPlus({} as {proposals: Proposa
 							<Row p="7px 10px" style={{background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px"}}>
 								There are currently no {type == "feature" ? "feature proposals" : "issue reports"}.
 							</Row>}
-						{shownProposals.map((proposal, index)=> {
-							return <ProposalEntryUI key={index} index={index} last={index == shownProposals.length - 1}
-								proposal={proposal} rankingScore={rankingScores[proposal._key]} columnType={type}/>;
-						})}
+						{proposalEntryUIs}
 						{provided.placeholder}
 					</ScrollView>
 				)}</Droppable>
@@ -168,17 +176,23 @@ export class ProposalsColumn extends BaseComponentPlus({} as {proposals: Proposa
 	}
 }
 
-@ApplyBasicStyles
 @observer
+@ApplyBasicStyles
 export class ProposalsUserRankingColumn extends BaseComponentPlus({} as {proposals: Proposal[]}, {}) {
 	render() {
 		let {proposals} = this.props;
-		const proposalOrder = GetProposalOrder(manager.GetUserID());
+		const proposalOrder = GetProposalsOrder(manager.GetUserID());
 		let user = manager.GetUser(manager.GetUserID());
 
 		let proposalOrder_uncompleted = GetIncompleteProposalsInOrder(proposalOrder, proposals);
 
 		proposals = CE(proposals.filter(a=>CE(proposalOrder).Contains(a._key))).OrderBy(a=>proposalOrder.indexOf(a._key));
+
+		// calculate it here (outside of Droppable render-func), because otherwise mobx doesn't know we're watching this data
+		let proposalUIs = proposals.map((proposal, index)=> {
+			return <ProposalEntryUI key={index} index={index} orderIndex={proposalOrder_uncompleted.indexOf(proposal._key)}
+				last={index == proposals.length - 1} proposal={proposal} columnType="userRanking"/>;
+		});
 
 		const droppableInfo = new DroppableInfo({type: "ProposalsUserRankingColumn", userID: user ? user._key : null});
 		return (
@@ -197,10 +211,7 @@ export class ProposalsUserRankingColumn extends BaseComponentPlus({} as {proposa
 							<Row p="7px 10px" style={{background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px"}}>
 								You have not yet added any proposals to your ranking.
 							</Row>}
-						{proposals.map((proposal, index)=> {
-							return <ProposalEntryUI key={index} index={index} orderIndex={proposalOrder_uncompleted.indexOf(proposal._key)}
-								last={index == proposals.length - 1} proposal={proposal} columnType="userRanking"/>;
-						})}
+						{proposalUIs}
 						{provided.placeholder}
 					</ScrollView>
 				)}</Droppable>

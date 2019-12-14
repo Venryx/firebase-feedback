@@ -11,7 +11,7 @@ import { ScrollView } from "react-vscrollview";
 import { manager } from "../Manager";
 import { SetProposalOrder } from "../Server/Commands/SetProposalOrder";
 import { GetSelectedProposal } from "../Store/main/proposals";
-import { GetProposalOrder, GetProposals } from "../index";
+import { GetProposalsOrder, GetProposals } from "../index";
 import { ShowAddProposalDialog } from "./Feedback/Proposal/ProposalDetailsUI";
 import { ProposalEntryUI } from "./Feedback/ProposalEntryUI";
 import { ProposalUI } from "./Feedback/ProposalUI";
@@ -22,6 +22,7 @@ import { store } from "../Store";
 import { observer } from "mobx-react";
 import { fire } from "../Utils/Database/Firelink";
 import { GetDocs } from "mobx-firelink";
+import { runInAction } from "mobx";
 /*export class ProposalsUI_Outer extends BaseComponent<Props, {}> {
     render() {
         return <ProposalsUI
@@ -45,7 +46,7 @@ let ProposalsUI = class ProposalsUI extends BaseComponentPlus({ subNavBarWidth: 
                 if (sourceDroppableInfo.type == targetDroppableInfo.type && sourceIndex < targetIndex) {
                     targetIndex++;
                 }
-                new SetProposalOrder({ proposalID: draggableInfo.proposalID, userID: manager.GetUserID(), index: targetIndex }).Run();
+                new SetProposalOrder({ fire }, { proposalID: draggableInfo.proposalID, userID: manager.GetUserID(), index: targetIndex }).Run();
             }
         };
     }
@@ -96,17 +97,20 @@ let ProposalsColumn = class ProposalsColumn extends BaseComponentPlus({}, {}) {
         const userData = CE(GetDocs({ fire: fire }, a => a.userData)).ToMap(a => a["_key"], a => a);
         const showCompleted = store.main.proposals[`${type}s_showCompleted`];
         let shownProposals = proposals.filter(a => a.type == type && (!a.completedAt || showCompleted));
-        let proposalOrders = userData ? CE(userData).VValues().map(a => CE(a.proposalIndexes || {}).VValues(true)) : [];
+        //let proposalsOrder = GetProposalsOrder(userID);
+        //let proposalOrders = userData ? CE(userData).VValues().map(a=>CE(a.proposalIndexes || {}).VValues(true)) : [];
+        let proposalsOrders_perUser = userData ? CE(userData).VValues().map(a => a.proposalsOrder || []) : [];
+        //let proposalsOrder_uncompleted = GetIncompleteProposalsInOrder(proposalsOrder, proposals);
         //let proposalOrders_uncompleted = proposalOrders.map(order=>order.filter(id=>!proposals.find(a=>a._key == id).completedAt));
         /*let deletedProposalsInOrdering = proposalOrders.filter(id=>!proposals.find(a=>a._key == id));
         Assert(deletedProposalsInOrdering <= 1, "More than one proposal in your ordering has been deleted!");
         let proposalOrders_uncompleted = proposalOrders.Except(deletedProposalsInOrdering).map(order=>order.filter(id=>!proposals.find(a=>a._key == id).completedAt));*/
-        let proposalOrders_uncompleted = proposalOrders.map(order => GetIncompleteProposalsInOrder(order, proposals));
+        let proposalsOrder_uncompleted_perUser = proposalsOrders_perUser.map(order => GetIncompleteProposalsInOrder(order, proposals));
         let rankingScores = {};
         for (let proposal of shownProposals) {
             let rankingScore = 0;
-            for (let proposalOrder of proposalOrders_uncompleted) {
-                let indexInOrder = proposalOrder.indexOf(proposal._key);
+            for (let proposalsOrder of proposalsOrder_uncompleted_perUser) {
+                let indexInOrder = proposalsOrder.indexOf(proposal._key);
                 if (indexInOrder == -1)
                     continue;
                 rankingScore += GetRankingScoreToAddForUserRankingIndex(indexInOrder);
@@ -118,12 +122,16 @@ let ProposalsColumn = class ProposalsColumn extends BaseComponentPlus({}, {}) {
             rankingScores[proposal._key] = rankingScore;
         }
         shownProposals = CE(shownProposals).OrderByDescending(a => rankingScores[a._key]);
+        // calc here, so mobx sees usage
+        let proposalEntryUIs = shownProposals.map((proposal, index) => {
+            return React.createElement(ProposalEntryUI, { key: index, index: index, last: index == shownProposals.length - 1, proposal: proposal, rankingScore: rankingScores[proposal._key], columnType: type });
+        });
         const droppableInfo = new DroppableInfo({ type: "ProposalsColumn", proposalType: type });
         return (React.createElement(Column, { style: ES({ flex: 1, height: "100%" }) },
             React.createElement(Column, { className: "clickThrough", style: { height: 40, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } },
                 React.createElement(Row, { style: { position: "relative", height: 40, padding: 10 } },
                     React.createElement(CheckBox, { ml: 5, text: "Show completed", checked: showCompleted, onChange: val => {
-                            store.main.proposals[`${type}s_showCompleted`] = val;
+                            runInAction("ProposalsColumn.showCompleted.onChange", () => store.main.proposals[`${type}s_showCompleted`] = val);
                         } }),
                     React.createElement("span", { style: { position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: "18px" } },
                         type.replace(/^(.)/, (m, s0) => s0.toUpperCase()),
@@ -139,24 +147,26 @@ let ProposalsColumn = class ProposalsColumn extends BaseComponentPlus({}, {}) {
                         "There are currently no ",
                         type == "feature" ? "feature proposals" : "issue reports",
                         "."),
-                shownProposals.map((proposal, index) => {
-                    return React.createElement(ProposalEntryUI, { key: index, index: index, last: index == shownProposals.length - 1, proposal: proposal, rankingScore: rankingScores[proposal._key], columnType: type });
-                }),
+                proposalEntryUIs,
                 provided.placeholder)))));
     }
 };
 ProposalsColumn = __decorate([
-    ApplyBasicStyles,
-    observer
+    observer,
+    ApplyBasicStyles
 ], ProposalsColumn);
 export { ProposalsColumn };
 let ProposalsUserRankingColumn = class ProposalsUserRankingColumn extends BaseComponentPlus({}, {}) {
     render() {
         let { proposals } = this.props;
-        const proposalOrder = GetProposalOrder(manager.GetUserID());
+        const proposalOrder = GetProposalsOrder(manager.GetUserID());
         let user = manager.GetUser(manager.GetUserID());
         let proposalOrder_uncompleted = GetIncompleteProposalsInOrder(proposalOrder, proposals);
         proposals = CE(proposals.filter(a => CE(proposalOrder).Contains(a._key))).OrderBy(a => proposalOrder.indexOf(a._key));
+        // calculate it here (outside of Droppable render-func), because otherwise mobx doesn't know we're watching this data
+        let proposalUIs = proposals.map((proposal, index) => {
+            return React.createElement(ProposalEntryUI, { key: index, index: index, orderIndex: proposalOrder_uncompleted.indexOf(proposal._key), last: index == proposals.length - 1, proposal: proposal, columnType: "userRanking" });
+        });
         const droppableInfo = new DroppableInfo({ type: "ProposalsUserRankingColumn", userID: user ? user._key : null });
         return (React.createElement(Column, { style: ES({ flex: 1, height: "100%" }) },
             React.createElement(Column, { className: "clickThrough", style: { background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0" } },
@@ -166,15 +176,13 @@ let ProposalsUserRankingColumn = class ProposalsUserRankingColumn extends BaseCo
             React.createElement(Droppable, { type: "Proposal", droppableId: ToJSON(droppableInfo) }, (provided, snapshot) => (React.createElement(ScrollView, { ref: c => provided.innerRef(GetDOM(c)), scrollVBarStyle: { width: 10 }, style: ES({ flex: 1 }) },
                 proposals.length == 0 && provided.placeholder == null &&
                     React.createElement(Row, { p: "7px 10px", style: { background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px" } }, "You have not yet added any proposals to your ranking."),
-                proposals.map((proposal, index) => {
-                    return React.createElement(ProposalEntryUI, { key: index, index: index, orderIndex: proposalOrder_uncompleted.indexOf(proposal._key), last: index == proposals.length - 1, proposal: proposal, columnType: "userRanking" });
-                }),
+                proposalUIs,
                 provided.placeholder)))));
     }
 };
 ProposalsUserRankingColumn = __decorate([
-    ApplyBasicStyles,
-    observer
+    observer,
+    ApplyBasicStyles
 ], ProposalsUserRankingColumn);
 export { ProposalsUserRankingColumn };
 //# sourceMappingURL=Proposals.js.map

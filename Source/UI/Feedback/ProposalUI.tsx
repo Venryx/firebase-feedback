@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, CheckBox, Column, Row, Span } from "react-vcomponents";
+import { Button, CheckBox, Column, Row, Span, Text } from "react-vcomponents";
 import { BaseComponent, GetInnerComp, BaseComponentWithConnector, BaseComponentPlus } from "react-vextensions";
 import { ShowMessageBox } from "react-vmessagebox";
 import { ScrollView } from "react-vscrollview";
@@ -7,17 +7,18 @@ import { IsUserAdmin, IsUserCreatorOrMod } from "../../General";
 import { Manager, manager, OnPopulated } from "../../Manager";
 import { DeleteProposal } from "../../Server/Commands/DeleteProposal";
 import { UpdateProposal } from "../../Server/Commands/UpdateProposal";
-import { ACTProposalSelect } from "../../Store/main/proposals";
 import { GetUpdates } from "../../Utils/Database/DatabaseHelpers";
 import { colors } from "../GlobalStyles";
 import { Proposal } from "./../../Store/firebase/proposals/@Proposal";
 import { ProposalDetailsUI } from "./Proposal/ProposalDetailsUI";
 import {store} from "../../Store";
+import {fire} from "../../Utils/Database/Firelink";
+import {runInAction} from "mobx";
+import {Link} from "../../Utils/ReactComponents/Link";
+import {observer} from "mobx-react";
 
-export type ProposalUI_Props = {proposal: Proposal, subNavBarWidth?: number} & Partial<{/*permissions: PermissionGroupSet, posts: Post[]*/}>;
-/*@Connect((state, {proposal}: ProposalUI_Props)=> ({
-	posts: GetProposalPosts(proposal),
-}))*/
+export type ProposalUI_Props = {proposal: Proposal, subNavBarWidth?: number};
+@observer
 export class ProposalUI extends BaseComponent<ProposalUI_Props, {}> {
 	static defaultProps = {subNavBarWidth: 0};
 	render() {
@@ -51,6 +52,7 @@ export class ProposalUI extends BaseComponent<ProposalUI_Props, {}> {
 	}
 }
 
+@observer
 export class ProposalUI_Inner extends BaseComponentPlus({} as {proposal: Proposal}, {editing: false, dataError: null as string}) {
 	editorUI: ProposalDetailsUI;
 	render() {
@@ -68,7 +70,7 @@ export class ProposalUI_Inner extends BaseComponentPlus({} as {proposal: Proposa
 					<Row mt={5}>
 						<Button text="Save" enabled={dataError == null} onLeftClick={async ()=> {
 							let postUpdates = GetUpdates(proposal, this.editorUI.GetNewData());
-							await new UpdateProposal({id: proposal._key, updates: postUpdates}).Run();
+							await new UpdateProposal({fire}, {id: proposal._key, updates: postUpdates}).Run();
 							this.SetState({editing: false, dataError: null});
 						}}/>
 						<Button ml={5} text="Cancel" onLeftClick={async ()=> {
@@ -83,14 +85,14 @@ export class ProposalUI_Inner extends BaseComponentPlus({} as {proposal: Proposa
 		return (
 			<Row sel style={{flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, alignItems: "initial", cursor: "auto"}}>
 				<Column p={10} style={ES({flex: 1})}>
-					<Row style={{width: "100%", fontSize: "18px", textAlign: "center"}}>
+					<Text style={{fontSize: "18px", /*width: "100%", textAlign: "center"*/}}>
 						{proposal.title}
-					</Row>
+					</Text>
 					<Row mt={10} style={{width: "100%"}}>
 						<manager.MarkdownRenderer source={proposal.text}/>
 					</Row>
 					<Row mt={5}>
-						<span style={{color: "rgba(255,255,255,.5)"}}>{creator ? creator.displayName : "..."}, at {manager.FormatTime(proposal.createdAt, "YYYY-MM-DD HH:mm:ss")}</span>
+						<Text style={{color: "rgba(255,255,255,.5)"}}>{creator ? creator.displayName : "..."}, at {manager.FormatTime(proposal.createdAt, "YYYY-MM-DD HH:mm:ss")}</Text>
 						{creatorOrMod &&
 							<Button ml={5} text="Edit" onClick={()=> {
 								this.SetState({editing: true});
@@ -101,7 +103,7 @@ export class ProposalUI_Inner extends BaseComponentPlus({} as {proposal: Proposa
 									title: `Delete proposal`, cancelButton: true,
 									message: `Delete this proposal?`,
 									onOK: async ()=> {
-										await new DeleteProposal({id: proposal._key}).Run();
+										await new DeleteProposal({fire}, {id: proposal._key}).Run();
 									}
 								});
 							}}/>}
@@ -109,7 +111,7 @@ export class ProposalUI_Inner extends BaseComponentPlus({} as {proposal: Proposa
 							{proposal.text != null ? "edited" : "deleted"} at {manager.FormatTime(proposal.editedAt, "YYYY-MM-DD HH:mm:ss")}
 						</Span>}
 						<CheckBox ml="auto" mr={5} text="Completed" checked={proposal.completedAt != null} enabled={IsUserAdmin(manager.GetUserID())} onChange={val=>{
-							new UpdateProposal({id: proposal._key, updates: {completedAt: proposal.completedAt == null ? Date.now() : null}}).Run();
+							new UpdateProposal({fire}, {id: proposal._key, updates: {completedAt: proposal.completedAt == null ? Date.now() : null}}).Run();
 						}}/>
 					</Row>
 				</Column>
@@ -132,9 +134,15 @@ class ActionBar_Left extends BaseComponent<ActionBar_LeftProps, {}> {
 					justifyContent: "flex-start", background: "rgba(0,0,0,.7)", boxShadow: colors.navBarBoxShadow,
 					width: "100%", height: 30, borderRadius: "0 0 10px 0",
 				}}>
-					<Button text="Back" onClick={()=> {
-						store.main.proposals.selectedProposalID = null;
-					}}/>
+					{/*<Button text="Back" onClick={()=> {
+						runInAction("ActionBar_Left.Back.onClick", ()=>store.main.proposals.selectedProposalID = null);
+					}}/>*/}
+					<Link actionFunc={s=> {
+						//runInAction("ActionBar_Left.Back.onClick", ()=>store.main.proposals.selectedProposalID = null);
+						s.main.proposals.selectedProposalID = null;
+					}}>
+						<Button text="Back"/>
+					</Link>
 					{/*<DetailsDropdown proposal={proposal}/>*/}
 				</Row>
 			</nav>

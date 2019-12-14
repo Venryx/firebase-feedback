@@ -21,9 +21,10 @@ export class DeleteProposal extends Command {
             //this.posts = await GetAsync(()=>GetProposalPosts(proposal));
             let userDatas = yield GetAsync(() => GetDocs({ fire }, a => a.userData));
             this.sub_removalsFromUserOrderings = [];
-            let userDatasWithOrderingContainingProposal = userDatas.filter(userData => CE(CE(userData.proposalIndexes).VValues(true)).Contains(id));
+            //let userDatasWithOrderingContainingProposal = userDatas.filter(userData=>CE(CE(userData.proposalIndexes).VValues(true)).Contains(id));
+            let userDatasWithOrderingContainingProposal = userDatas.filter(userData => CE(userData.proposalsOrder).Contains(id));
             for (let userID of userDatasWithOrderingContainingProposal.map(userData => userData["_key"])) {
-                let subcommand = new SetProposalOrder({ proposalID: id, userID, index: -1 });
+                let subcommand = new SetProposalOrder({ fire }, { proposalID: id, userID, index: -1 });
                 subcommand.Validate_Early();
                 yield subcommand.Prepare();
                 this.sub_removalsFromUserOrderings.push(subcommand);

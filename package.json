@@ -3,12 +3,13 @@
   "description": "Feedback (proposals + issues + roadmap) solution built using ReactJS, MobX, and Firebase.",
   "version": "0.0.7",
   "main": "Dist/index.js",
+  "type": "module",
   "typings": "Dist/index.d.ts",
   "license": "MIT",
   "author": {
     "name": "Venryx",
     "email": "venryx@gmail.com",
-    "url": "http://venryx.com"
+    "url": "https://venryx.com"
   },
   "repository": {
     "type": "git",

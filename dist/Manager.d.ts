@@ -1,13 +1,13 @@
 /// <reference types="react" />
 import { LogTypes } from "./Utils/General/Logging";
-import { Action } from "./Utils/General/Action";
-import { BaseComponent } from "react-vextensions";
+import { RootState } from "./Store";
 export declare class PermissionGroupSet {
     basic: boolean;
     verified: boolean;
     mod: boolean;
     admin: boolean;
 }
+export declare type ActionFunc<StoreType> = (store: StoreType) => void;
 export declare type Link_Props = {
     onClick?: any;
     style?: any;
@@ -15,7 +15,7 @@ export declare type Link_Props = {
     to?: string;
     target?: string;
     replace?: boolean;
-    actions?: Action<any>[];
+    actionFunc?: ActionFunc<RootState>;
 } & React.HTMLProps<HTMLAnchorElement>;
 export declare type User = {
     _key?: string;
@@ -36,15 +36,13 @@ export declare class Manager {
     GetStore: () => any;
     get store(): any;
     dbPath: string;
-    Link: new () => BaseComponent<Link_Props, {}> & {
-        render: () => JSX.Element | null;
-    };
     FormatTime: (time: number, formatStr: string) => string;
     logTypes: LogTypes;
     ShowSignInPopup: () => void;
     GetUserID: () => string;
     GetUser: (id: string) => User;
     GetUserPermissionGroups: (userID: string) => PermissionGroupSet;
+    GetNewURLForStoreChanges: (actionFunc: ActionFunc<RootState>) => string;
     MarkdownRenderer: any;
 }
 export declare const manager: Manager;

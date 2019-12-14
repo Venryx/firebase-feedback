@@ -8,24 +8,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { CE } from "js-vextensions";
-import { GetAsync, GetDoc, Command } from "mobx-firelink";
-import { fire } from "../../Utils/Database/Firelink";
+import { GetAsync, Command } from "mobx-firelink";
+import { GetProposalsOrder } from "../../Store/firebase/userData";
 //@UserEdit
 export class SetProposalOrder extends Command {
     Prepare() {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             let { proposalID, userID, index } = this.payload;
-            let oldIndexes = ((_a = (yield GetAsync(() => GetDoc({ fire }, a => a.userData.get(userID))))) === null || _a === void 0 ? void 0 : _a.proposalIndexes) || {};
-            let idsOrdered = CE(oldIndexes).VValues(true);
-            let oldIndex = idsOrdered.indexOf(proposalID);
+            //let oldIndexes = (await GetAsync(()=>GetDoc({fire}, a=>a.userData.get(userID))))?.proposalOrder || {};
+            let oldOrder = yield GetAsync(() => GetProposalsOrder(userID));
+            //let idsOrdered = CE(oldIndexes).VValues(true);
+            //let newOrder = oldOrder.slice();
+            this.newOrder = oldOrder.slice();
+            //let oldIndex = oldOrder.indexOf(proposalID);
             if (index != -1) {
-                CE(idsOrdered).Move(proposalID, index, true);
+                CE(this.newOrder).Move(proposalID, index, true);
             }
             else {
-                CE(idsOrdered).Remove(proposalID);
+                CE(this.newOrder).Remove(proposalID);
             }
-            this.newIndexes = idsOrdered; //.ToMap();
+            //this.newOrder = newOrder; //.ToMap();
         });
     }
     Validate() {
@@ -37,7 +39,7 @@ export class SetProposalOrder extends Command {
     GetDBUpdates() {
         let { userID, proposalID } = this.payload;
         let updates = {};
-        updates[`userData/${userID}/.proposalIndexes`] = this.newIndexes;
+        updates[`userData/${userID}/.proposalsOrder`] = this.newOrder;
         return updates;
     }
 }

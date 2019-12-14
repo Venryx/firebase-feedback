@@ -5,7 +5,7 @@ import { ProposalDetailsUI } from "./Proposal/ProposalDetailsUI";
 export declare type ProposalUI_Props = {
     proposal: Proposal;
     subNavBarWidth?: number;
-} & Partial<{}>;
+};
 export declare class ProposalUI extends BaseComponent<ProposalUI_Props, {}> {
     static defaultProps: {
         subNavBarWidth: number;

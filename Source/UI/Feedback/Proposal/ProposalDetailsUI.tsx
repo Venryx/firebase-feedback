@@ -6,17 +6,18 @@ import { MarkdownEditor, MarkdownToolbar } from "react-vmarkdown";
 import { BoxController, ShowMessageBox } from "react-vmessagebox";
 import { Manager, manager, User } from "../../..";
 import { AddProposal } from "../../../Server/Commands/AddProposal";
-import { ACTProposalSelect } from "../../../Store/main/proposals";
 import { Proposal } from "./../../../Store/firebase/proposals/@Proposal";
 import {store} from "../../../Store";
+import {runInAction} from "mobx";
+import {fire} from "../../../Utils/Database/Firelink";
+import {Link} from "../../../Utils/ReactComponents/Link";
 
 let aa = {MarkdownEditor} as any;
 
 export type _MainType = Proposal;
 let MTName = "Proposal";
 
-export type ProposalDetailsUI_Props = {baseData: _MainType, forNew: boolean, enabled?: boolean, style?, onChange?: (newData: _MainType, comp: ProposalDetailsUI)=>void}
-	& Partial<{creator: User}>;
+export type ProposalDetailsUI_Props = {baseData: _MainType, forNew: boolean, enabled?: boolean, style?, onChange?: (newData: _MainType, comp: ProposalDetailsUI)=>void};
 export class ProposalDetailsUI extends BaseComponent<ProposalDetailsUI_Props, {newData: _MainType}> {
 	static defaultProps = {enabled: true};
 	ComponentWillMountOrReceiveProps(props, forMount) {
@@ -26,7 +27,7 @@ export class ProposalDetailsUI extends BaseComponent<ProposalDetailsUI_Props, {n
 	}
 
 	render() {
-		let {forNew, enabled, style, onChange, creator} = this.props;
+		let {forNew, enabled, style, onChange} = this.props;
 		let {newData} = this.state;
 		let Change = _=> {
 			if (onChange)
@@ -48,7 +49,7 @@ export class ProposalDetailsUI extends BaseComponent<ProposalDetailsUI_Props, {n
 					<Column style={{width: "100%"}}>
 						{enabled &&
 							<MarkdownToolbar editor={()=>this.refs.editor} /*excludeCommands={['h1', 'h2', 'h3', 'h4', 'italic', 'quote']}*/>
-								<manager.Link to="https://guides.github.com/features/mastering-markdown" style={{marginLeft: 10}}>How to add links, images, etc.</manager.Link>
+								<Link to="https://guides.github.com/features/mastering-markdown" style={{marginLeft: 10}}>How to add links, images, etc.</Link>
 							</MarkdownToolbar>}
 						<aa.MarkdownEditor ref="editor" toolbar={false} value={newData.text || ""} onChange={val=>Change(newData.text = val)}
 							options={E({
@@ -91,8 +92,8 @@ export function ShowAddProposalDialog(userID: string, type: string) {
 			);
 		},
 		onOK: async ()=> {
-			let id = await new AddProposal({data: newEntry}).Run();
-			store.main.proposals.selectedProposalID = id;
+			let id = await new AddProposal({fire}, {data: newEntry}).Run();
+			runInAction("ShowAddProposalDialog.onOK", ()=>store.main.proposals.selectedProposalID = id);
 		}
 	});
 }

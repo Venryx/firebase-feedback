@@ -1,3 +1,9 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,7 +14,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import React from "react";
-import { Button, CheckBox, Column, Row, Span } from "react-vcomponents";
+import { Button, CheckBox, Column, Row, Span, Text } from "react-vcomponents";
 import { BaseComponent, BaseComponentPlus } from "react-vextensions";
 import { ShowMessageBox } from "react-vmessagebox";
 import { ScrollView } from "react-vscrollview";
@@ -19,11 +25,10 @@ import { UpdateProposal } from "../../Server/Commands/UpdateProposal";
 import { GetUpdates } from "../../Utils/Database/DatabaseHelpers";
 import { colors } from "../GlobalStyles";
 import { ProposalDetailsUI } from "./Proposal/ProposalDetailsUI";
-import { store } from "../../Store";
-/*@Connect((state, {proposal}: ProposalUI_Props)=> ({
-    posts: GetProposalPosts(proposal),
-}))*/
-export class ProposalUI extends BaseComponent {
+import { fire } from "../../Utils/Database/Firelink";
+import { Link } from "../../Utils/ReactComponents/Link";
+import { observer } from "mobx-react";
+let ProposalUI = class ProposalUI extends BaseComponent {
     render() {
         let { proposal, subNavBarWidth } = this.props;
         let userID = manager.GetUserID();
@@ -39,9 +44,13 @@ export class ProposalUI extends BaseComponent {
                     React.createElement(ProposalUI_Inner, { proposal: proposal }),
                     React.createElement(Column, null)))));
     }
-}
+};
 ProposalUI.defaultProps = { subNavBarWidth: 0 };
-export class ProposalUI_Inner extends BaseComponentPlus({}, { editing: false, dataError: null }) {
+ProposalUI = __decorate([
+    observer
+], ProposalUI);
+export { ProposalUI };
+let ProposalUI_Inner = class ProposalUI_Inner extends BaseComponentPlus({}, { editing: false, dataError: null }) {
     render() {
         let { proposal } = this.props;
         const creator = manager.GetUser(proposal.creator);
@@ -54,7 +63,7 @@ export class ProposalUI_Inner extends BaseComponentPlus({}, { editing: false, da
                 React.createElement(Row, { mt: 5 },
                     React.createElement(Button, { text: "Save", enabled: dataError == null, onLeftClick: () => __awaiter(this, void 0, void 0, function* () {
                             let postUpdates = GetUpdates(proposal, this.editorUI.GetNewData());
-                            yield new UpdateProposal({ id: proposal._key, updates: postUpdates }).Run();
+                            yield new UpdateProposal({ fire }, { id: proposal._key, updates: postUpdates }).Run();
                             this.SetState({ editing: false, dataError: null });
                         }) }),
                     React.createElement(Button, { ml: 5, text: "Cancel", onLeftClick: () => __awaiter(this, void 0, void 0, function* () {
@@ -64,11 +73,11 @@ export class ProposalUI_Inner extends BaseComponentPlus({}, { editing: false, da
         let creatorOrMod = IsUserCreatorOrMod(manager.GetUserID(), proposal);
         return (React.createElement(Row, { sel: true, style: { flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, alignItems: "initial", cursor: "auto" } },
             React.createElement(Column, { p: 10, style: ES({ flex: 1 }) },
-                React.createElement(Row, { style: { width: "100%", fontSize: "18px", textAlign: "center" } }, proposal.title),
+                React.createElement(Text, { style: { fontSize: "18px", } }, proposal.title),
                 React.createElement(Row, { mt: 10, style: { width: "100%" } },
                     React.createElement(manager.MarkdownRenderer, { source: proposal.text })),
                 React.createElement(Row, { mt: 5 },
-                    React.createElement("span", { style: { color: "rgba(255,255,255,.5)" } },
+                    React.createElement(Text, { style: { color: "rgba(255,255,255,.5)" } },
                         creator ? creator.displayName : "...",
                         ", at ",
                         manager.FormatTime(proposal.createdAt, "YYYY-MM-DD HH:mm:ss")),
@@ -82,7 +91,7 @@ export class ProposalUI_Inner extends BaseComponentPlus({}, { editing: false, da
                                     title: `Delete proposal`, cancelButton: true,
                                     message: `Delete this proposal?`,
                                     onOK: () => __awaiter(this, void 0, void 0, function* () {
-                                        yield new DeleteProposal({ id: proposal._key }).Run();
+                                        yield new DeleteProposal({ fire }, { id: proposal._key }).Run();
                                     })
                                 });
                             } }),
@@ -91,10 +100,14 @@ export class ProposalUI_Inner extends BaseComponentPlus({}, { editing: false, da
                         " at ",
                         manager.FormatTime(proposal.editedAt, "YYYY-MM-DD HH:mm:ss")),
                     React.createElement(CheckBox, { ml: "auto", mr: 5, text: "Completed", checked: proposal.completedAt != null, enabled: IsUserAdmin(manager.GetUserID()), onChange: val => {
-                            new UpdateProposal({ id: proposal._key, updates: { completedAt: proposal.completedAt == null ? Date.now() : null } }).Run();
+                            new UpdateProposal({ fire }, { id: proposal._key, updates: { completedAt: proposal.completedAt == null ? Date.now() : null } }).Run();
                         } })))));
     }
-}
+};
+ProposalUI_Inner = __decorate([
+    observer
+], ProposalUI_Inner);
+export { ProposalUI_Inner };
 class ActionBar_Left extends BaseComponent {
     render() {
         let { proposal, subNavBarWidth } = this.props;
@@ -105,9 +118,11 @@ class ActionBar_Left extends BaseComponent {
                     justifyContent: "flex-start", background: "rgba(0,0,0,.7)", boxShadow: colors.navBarBoxShadow,
                     width: "100%", height: 30, borderRadius: "0 0 10px 0",
                 } },
-                React.createElement(Button, { text: "Back", onClick: () => {
-                        store.main.proposals.selectedProposalID = null;
-                    } }))));
+                React.createElement(Link, { actionFunc: s => {
+                        //runInAction("ActionBar_Left.Back.onClick", ()=>store.main.proposals.selectedProposalID = null);
+                        s.main.proposals.selectedProposalID = null;
+                    } },
+                    React.createElement(Button, { text: "Back" })))));
     }
 }
 /*type DetailsDropdownProps = {proposal: Proposal} & Partial<{posts: Post[]}>;

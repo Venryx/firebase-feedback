@@ -4,12 +4,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-import { Action } from "../../Utils/General/Action";
 import { GetProposal } from "../firebase/proposals";
 import { observable } from "mobx";
-import { store } from "..";
-export class ACTProposalSelect extends Action {
-}
+import { StoreAccessor } from "mobx-firelink";
+import { fire } from "../../Utils/Database/Firelink";
 export class Proposals {
 }
 __decorate([
@@ -21,11 +19,11 @@ __decorate([
 __decorate([
     observable
 ], Proposals.prototype, "issues_showCompleted", void 0);
-export function GetSelectedProposalID() {
-    return store.main.proposals.selectedProposalID;
-}
-export function GetSelectedProposal() {
+export const GetSelectedProposalID = StoreAccessor({ fire }, s => () => {
+    return s.main.proposals.selectedProposalID;
+});
+export const GetSelectedProposal = StoreAccessor({ fire }, s => () => {
     let selectedID = GetSelectedProposalID();
     return GetProposal(selectedID);
-}
+});
 //# sourceMappingURL=proposals.js.map

@@ -1,23 +1,27 @@
-import {ProposalIndexSet} from "../../Store/firebase/userData";
 import {CE} from "js-vextensions";
 import {GetAsync, GetDoc, Command} from "mobx-firelink";
 import {fire} from "../../Utils/Database/Firelink";
+import {GetProposalsOrder} from "../../Store/firebase/userData";
 
 //@UserEdit
 export class SetProposalOrder extends Command<{proposalID: string, userID: string, index: number}> {
-	newIndexes: ProposalIndexSet;
+	newOrder: string[];
 	async Prepare() {
 		let {proposalID, userID, index} = this.payload;
 
-		let oldIndexes = (await GetAsync(()=>GetDoc({fire}, a=>a.userData.get(userID))))?.proposalIndexes || {};
-		let idsOrdered = CE(oldIndexes).VValues(true);
-		let oldIndex = idsOrdered.indexOf(proposalID);
+		//let oldIndexes = (await GetAsync(()=>GetDoc({fire}, a=>a.userData.get(userID))))?.proposalOrder || {};
+		let oldOrder = await GetAsync(()=>GetProposalsOrder(userID));
+		//let idsOrdered = CE(oldIndexes).VValues(true);
+		//let newOrder = oldOrder.slice();
+		this.newOrder = oldOrder.slice();
+		
+		//let oldIndex = oldOrder.indexOf(proposalID);
 		if (index != -1) {
-			CE(idsOrdered).Move(proposalID, index, true);
+			CE(this.newOrder).Move(proposalID, index, true);
 		} else {
-			CE(idsOrdered).Remove(proposalID);
+			CE(this.newOrder).Remove(proposalID);
 		}
-		this.newIndexes = idsOrdered; //.ToMap();
+		//this.newOrder = newOrder; //.ToMap();
 	}
 	async Validate() {
 		/*let {event} = this.payload;
@@ -28,7 +32,7 @@ export class SetProposalOrder extends Command<{proposalID: string, userID: strin
 		let {userID, proposalID} = this.payload;
 
 		let updates = {};
-		updates[`userData/${userID}/.proposalIndexes`] = this.newIndexes;
+		updates[`userData/${userID}/.proposalsOrder`] = this.newOrder;
 		return updates;
 	}
 }

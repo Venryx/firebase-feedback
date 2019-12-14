@@ -13,10 +13,12 @@ import { Column, Pre, Row, RowLR, TextInput } from "react-vcomponents";
 import { BaseComponent, GetDOM } from "react-vextensions";
 import { MarkdownEditor, MarkdownToolbar } from "react-vmarkdown";
 import { ShowMessageBox } from "react-vmessagebox";
-import { manager } from "../../..";
 import { AddProposal } from "../../../Server/Commands/AddProposal";
 import { Proposal } from "./../../../Store/firebase/proposals/@Proposal";
 import { store } from "../../../Store";
+import { runInAction } from "mobx";
+import { fire } from "../../../Utils/Database/Firelink";
+import { Link } from "../../../Utils/ReactComponents/Link";
 let aa = { MarkdownEditor };
 let MTName = "Proposal";
 export class ProposalDetailsUI extends BaseComponent {
@@ -26,7 +28,7 @@ export class ProposalDetailsUI extends BaseComponent {
         }
     }
     render() {
-        let { forNew, enabled, style, onChange, creator } = this.props;
+        let { forNew, enabled, style, onChange } = this.props;
         let { newData } = this.state;
         let Change = _ => {
             if (onChange)
@@ -43,7 +45,7 @@ export class ProposalDetailsUI extends BaseComponent {
                 React.createElement(Column, { style: { width: "100%" } },
                     enabled &&
                         React.createElement(MarkdownToolbar, { editor: () => this.refs.editor },
-                            React.createElement(manager.Link, { to: "https://guides.github.com/features/mastering-markdown", style: { marginLeft: 10 } }, "How to add links, images, etc.")),
+                            React.createElement(Link, { to: "https://guides.github.com/features/mastering-markdown", style: { marginLeft: 10 } }, "How to add links, images, etc.")),
                     React.createElement(aa.MarkdownEditor, { ref: "editor", toolbar: false, value: newData.text || "", onChange: val => Change(newData.text = val), options: E({
                             scrollbarStyle: "overlay",
                             lineWrapping: true,
@@ -74,8 +76,8 @@ export function ShowAddProposalDialog(userID, type) {
                 error && error != "Please fill out this field." && React.createElement(Row, { mt: 5, style: { color: "rgba(200,70,70,1)" } }, error)));
         },
         onOK: () => __awaiter(this, void 0, void 0, function* () {
-            let id = yield new AddProposal({ data: newEntry }).Run();
-            store.main.proposals.selectedProposalID = id;
+            let id = yield new AddProposal({ fire }, { data: newEntry }).Run();
+            runInAction("ShowAddProposalDialog.onOK", () => store.main.proposals.selectedProposalID = id);
         })
     });
 }

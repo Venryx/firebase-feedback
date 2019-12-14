@@ -4,22 +4,28 @@ import {StoreAccessor, GetDoc} from "mobx-firelink";
 import {fire} from "../../Utils/Database/Firelink";
 
 export interface UserData {
-	proposalIndexes: ProposalIndexSet;
+	//proposalIndexes: ProposalIndexSet;
+	proposalsOrder: string[];
 }
 
-export type ProposalIndexSet = { [key: number]: string; }; // index -> proposalID
-AddSchema({patternProperties: {"^[0-9]+$": {type: "number"}}}, "ProposalIndexSet");
+/*export type ProposalIndexSet = { [key: number]: string; }; // index -> proposalID
+AddSchema({patternProperties: {"^[0-9]+$": {type: "number"}}}, "ProposalIndexSet");*/
 
-export const GetProposalIndexes = StoreAccessor({fire}, s=>(userID: string): ProposalIndexSet => {
+/*export const GetProposalIndexes = StoreAccessor({fire}, s=>(userID: string): ProposalIndexSet => {
 	if (userID == null) return {};
 	return GetDoc({fire}, a=>a.userData.get(userID))?.proposalIndexes || {};
 });
 export const GetProposalOrder = StoreAccessor({fire}, s=>(userID: string): string[] => {
 	return CE(GetProposalIndexes(userID)).VValues(true);
+});*/
+export const GetProposalsOrder = StoreAccessor({fire}, s=>(userID: string): string[] => {
+	if (userID == null) return [];
+	return GetDoc({fire}, a=>a.userData.get(userID))?.proposalsOrder || [];
 });
 export const GetProposalIndex = StoreAccessor({fire}, s=> (userID: string, proposalID: string) => {
 	if (userID == null || proposalID == null) return null;
-	let proposalIndexEntry = CE(GetProposalIndexes(userID)).Pairs().find(a=>a.value == proposalID);
+	/*let proposalIndexEntry = CE(GetProposalIndexes(userID)).Pairs().find(a=>a.value == proposalID);
 	if (proposalIndexEntry == null) return null;
-	return CE(proposalIndexEntry.key).ToInt();
+	return CE(proposalIndexEntry.key).ToInt();*/
+	return GetProposalsOrder(userID).findIndex(id=>id == proposalID);
 });
