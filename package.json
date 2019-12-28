@@ -63,7 +63,7 @@
     "ajv-keywords": "^3.4.1",
     "classnames": "^2.2.5",
     "codemirror": "^5.37.0",
-    "mobx-firelink": "^1.0.6",
+    "mobx-firelink": "^1.0.27",
     "mobx-react": "^6.1.4",
     "mobx-sync": "^2.1.2",
     "slugid": "^2.0.0"
