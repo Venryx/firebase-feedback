@@ -12,15 +12,7 @@ export declare class ProposalUI extends BaseComponent<ProposalUI_Props, {}> {
     };
     render(): JSX.Element;
 }
-declare const ProposalUI_Inner_base: (new (..._: any[]) => BaseComponent<{
-    proposal: Proposal;
-}, {
-    editing: boolean;
-    dataError: string;
-}, unknown>) & {
-    renderCount: number;
-    lastRenderTime: number;
-};
+declare const ProposalUI_Inner_base: any;
 export declare class ProposalUI_Inner extends ProposalUI_Inner_base {
     editorUI: ProposalDetailsUI;
     render(): JSX.Element;

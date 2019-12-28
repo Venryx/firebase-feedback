@@ -1,7 +1,8 @@
 import {WaitTillSchemaAddedThenRun, GetSchemaJSON, AddSchema, Schema, AssertValidate} from "../Server";
 import {Proposal} from "./../../Store/firebase/proposals/@Proposal";
-import {GetAsync, GetDoc, Command} from "mobx-firelink";
+import {GetAsync, GetDoc, Command, AssertV} from "mobx-firelink";
 import {fire} from "../../Utils/Database/Firelink";
+import {GetProposal} from "../../Store/firebase/proposals";
 
 type MainType = Proposal;
 let MTName = "Proposal";
@@ -20,20 +21,15 @@ WaitTillSchemaAddedThenRun(MTName, ()=> {
 
 //@UserEdit
 export class UpdateProposal extends Command<{id: string, updates: Partial<MainType>}> {
-	Validate_Early() {
-		AssertValidate(`Update${MTName}_payload`, this.payload, `Payload invalid`);
-	}
-
 	oldData: MainType;
 	newData: MainType;
-	async Prepare() {
+	Validate() {
+		AssertValidate(`Update${MTName}_payload`, this.payload, `Payload invalid`);
+
 		let {id, updates} = this.payload;
-		//this.oldData = await GetAsync(()=>GetDoc({fire, addHelpers: false}, a=>a.proposals.get(id)));
-		//this.oldData = WithoutHelpers(await GetAsync(()=>GetDoc({fire}, a=>a.proposals.get(id))));
-		this.oldData = await GetAsync(()=>GetDoc({fire}, a=>a.proposals.get(id)));
+		this.oldData = GetProposal(id);
+		AssertV(this.oldData, "oldData is null");
 		this.newData = {...this.oldData, ...updates};
-	}
-	async Validate() {
 		AssertValidate(MTName, this.newData, `New ${MTName.toLowerCase()}-data invalid`);
 	}
 	

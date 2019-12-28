@@ -10,18 +10,15 @@ let MTName = "Proposal";
 //@UserEdit
 export class AddProposal extends Command<{data: _MainType}, string> {
 	id: string;
-	async Prepare() {
+	Validate() {
 		let {data} = this.payload;
 
-		this.id = GenerateUUID();
+		this.id = this.id ?? GenerateUUID();
 		data.creator = this.userInfo.id;
 		data.createdAt = Date.now();
 		//thread.editedAt = thread.createdAt;
 
 		this.returnData = this.id;
-	}
-	async Validate() {
-		let {data} = this.payload;
 		AssertValidate(MTName, data, `${MTName} invalid`);
 	}
 	

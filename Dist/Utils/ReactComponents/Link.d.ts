@@ -1,8 +1,6 @@
-import { VURL } from "js-vextensions";
 import React from "react";
-import { BaseComponent } from "react-vextensions";
 import { RootState } from "../../Store";
-export declare function GetCurrentURL(): VURL;
+export declare function GetCurrentURL(): any;
 export declare type ActionFunc<StoreType> = (store: StoreType) => void;
 export declare type Link_Props = {
     onClick?: any;
@@ -13,10 +11,7 @@ export declare type Link_Props = {
     replace?: boolean;
     actionFunc?: ActionFunc<RootState>;
 } & Omit<React.HTMLProps<HTMLAnchorElement>, "href">;
-declare const Link_base: (new (..._: any[]) => BaseComponent<Link_Props, {}, unknown>) & {
-    renderCount: number;
-    lastRenderTime: number;
-};
+declare const Link_base: any;
 export declare class Link extends Link_base {
     static ValidateProps(props: Link_Props): void;
     handleClick(event: any): void;

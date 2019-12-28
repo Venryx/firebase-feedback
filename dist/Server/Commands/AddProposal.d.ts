@@ -5,8 +5,7 @@ export declare class AddProposal extends Command<{
     data: _MainType;
 }, string> {
     id: string;
-    Prepare(): Promise<void>;
-    Validate(): Promise<void>;
+    Validate(): void;
     GetDBUpdates(): {
         [x: string]: Proposal;
     };

@@ -1,12 +1,5 @@
 /// <reference types="react" />
-import { BaseComponent } from "react-vextensions";
-import { Proposal } from "./../Store/firebase/proposals/@Proposal";
-declare const ProposalsUI_base: (new (..._: any[]) => BaseComponent<{
-    subNavBarWidth: number;
-}, {}, unknown>) & {
-    renderCount: number;
-    lastRenderTime: number;
-};
+declare const ProposalsUI_base: any;
 export declare class ProposalsUI extends ProposalsUI_base {
     static defaultProps: {
         subNavBarWidth: number;
@@ -15,22 +8,11 @@ export declare class ProposalsUI extends ProposalsUI_base {
     OnDragEnd: (result: any) => any;
 }
 export declare function GetRankingScoreToAddForUserRankingIndex(indexInRankingOrder: number): number;
-declare const ProposalsColumn_base: (new (..._: any[]) => BaseComponent<{
-    proposals: Proposal[];
-    type: string;
-}, {}, unknown>) & {
-    renderCount: number;
-    lastRenderTime: number;
-};
+declare const ProposalsColumn_base: any;
 export declare class ProposalsColumn extends ProposalsColumn_base {
     render(): JSX.Element;
 }
-declare const ProposalsUserRankingColumn_base: (new (..._: any[]) => BaseComponent<{
-    proposals: Proposal[];
-}, {}, unknown>) & {
-    renderCount: number;
-    lastRenderTime: number;
-};
+declare const ProposalsUserRankingColumn_base: any;
 export declare class ProposalsUserRankingColumn extends ProposalsUserRankingColumn_base {
     render(): JSX.Element;
 }

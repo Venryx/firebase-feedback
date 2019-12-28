@@ -9,11 +9,14 @@ AddSchema({patternProperties: {"^[0-9]+$": {type: "number"}}}, "ProposalIndexSet
 export const GetProposalOrder = StoreAccessor({fire}, s=>(userID: string): string[] => {
     return CE(GetProposalIndexes(userID)).VValues(true);
 });*/
-export const GetProposalsOrder = StoreAccessor({ fire }, s => (userID) => {
+export const GetProposalsOrder = StoreAccessor({ fire }, s => (userID, undefinedForLoading = false) => {
     var _a;
     if (userID == null)
         return [];
-    return ((_a = GetDoc({ fire }, a => a.userData.get(userID))) === null || _a === void 0 ? void 0 : _a.proposalsOrder) || [];
+    let userData = GetDoc({ fire, undefinedForLoading }, a => a.userData.get(userID));
+    if (undefinedForLoading && userData === undefined)
+        return undefined;
+    return ((_a = userData) === null || _a === void 0 ? void 0 : _a.proposalsOrder) || [];
 });
 export const GetProposalIndex = StoreAccessor({ fire }, s => (userID, proposalID) => {
     if (userID == null || proposalID == null)

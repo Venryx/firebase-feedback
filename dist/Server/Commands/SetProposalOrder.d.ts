@@ -5,7 +5,6 @@ export declare class SetProposalOrder extends Command<{
     index: number;
 }> {
     newOrder: string[];
-    Prepare(): Promise<void>;
-    Validate(): Promise<void>;
+    Validate(): void;
     GetDBUpdates(): {};
 }
