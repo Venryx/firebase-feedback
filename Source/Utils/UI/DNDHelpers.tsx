@@ -1,16 +1,26 @@
 import {Draggable} from "react-beautiful-dnd";
-import {GetDOM} from "react-vextensions";
-import React from "react";
+import {GetDOM, ShallowChanged} from "react-vextensions";
 import {ToJSON} from "js-vextensions";
-import {DraggableInfo} from "./DNDStructures";
+import React from "react";
 
 // So why do we have a MakeDraggable decorator but not a MakeDroppable one?
 // Basically, it's just that <Droppable> sections are usually not the root of a component, whereas <Draggable> sections almost always are.
 // Thus, a MakeDroppable decorator just wouldn't be very useful. (ie. it would have few components using)
 
-export type DragInfo = {provided, snapshot};
+//type DraggableCompProps = {type: string, draggableInfo: DraggableInfo, index: number, enabled: boolean};
+type DraggableCompProps = {type: string, draggableInfo: DraggableInfo, index: number};
 
-export function MakeDraggable(getDraggableCompProps: (props: Object)=>{type: string, draggableInfo: DraggableInfo, index: number}) {
+export type DropProvided = {innerRef: (element: HTMLElement)=>any, placeholder?: React.ReactElement<any>, droppableProps: any}; // todo: get from @types/react-beautiful-dnd
+export type DropSnapshot = {isDraggingOver: boolean, draggingOverWith?: string}; // todo: get from @types/react-beautiful-dnd
+export type DropInfo = {provided: DropProvided, snapshot: DropSnapshot};
+
+export type DragProvided = {draggableProps: any, dragHandleProps: any}; // todo: get from @types/react-beautiful-dnd
+export type DragSnapshot = {isDragging: boolean}; // todo: get from @types/react-beautiful-dnd
+export type DragInfo = {provided: DragProvided, snapshot: DragSnapshot};
+
+type DraggableInfo = any; // this is up to the parent project
+
+export function MakeDraggable(getDraggableCompProps: (props: Object)=>DraggableCompProps) {
 	return WrappedComponent=>{
 		class WrapperComponent extends React.Component {
 			static WrappedComponent = WrappedComponent;
@@ -23,22 +33,53 @@ export function MakeDraggable(getDraggableCompProps: (props: Object)=>{type: str
 				this.UpdateDraggableCompProps(props);
 			}
 
-			type: string;
+			compProps: DraggableCompProps;
+			/*type: string;
 			draggableInfo: DraggableInfo;
-			index: number;
+			index: number;*/
 			UpdateDraggableCompProps(props) {
-				const {type, draggableInfo, index} = getDraggableCompProps(props);
+				/*const {type, draggableInfo, index} = getDraggableCompProps(props);
 				this.type = type;
 				this.draggableInfo = draggableInfo;
-				this.index = index;
+				this.index = index;*/
+				//this.compProps = E({enabled: true}, getDraggableCompProps(props));
+				this.compProps = getDraggableCompProps(props);
+				//this.firstDragInfoForCurrentData = {} as DragInfo; // not sure if this is needed
 			}
 
+			firstDragInfoForCurrentData = {} as DragInfo;
 			render() {
+				//if (this.compProps == null || !this.compProps.enabled) {
+				if (this.compProps == null) {
+					return <WrappedComponent {...this.props} dragInfo={null}/>;
+				}
+
+				const draggableID = ToJSON(this.compProps.draggableInfo);
 				return (
-					<Draggable type={this.type} draggableId={ToJSON(this.draggableInfo)} index={this.index}>
+					<Draggable type={this.compProps.type} key={draggableID} draggableId={draggableID} index={this.compProps.index}>
 						{(provided, snapshot)=>{
-							const dragInfo = {provided, snapshot};
-							return <WrappedComponent {...this.props} ref={c=>provided.innerRef(GetDOM(c))} dragInfo={dragInfo}/>;
+							let dragInfo = {provided, snapshot} as DragInfo;
+							// if drag-info data actually changed, store ref to first object with that data
+							if (ShallowChanged(dragInfo, this.firstDragInfoForCurrentData)) {
+							//if (ToJSON(dragInfo) != ToJSON(this.firstDragInfoForCurrentData)) {
+								this.firstDragInfoForCurrentData = dragInfo;
+							} else {
+								// if drag-info *hasn't* changed data-wise, use the stable-ref object we stored (so we don't cause unneeded re-render)
+								dragInfo = this.firstDragInfoForCurrentData;
+							}
+							return <WrappedComponent {...this.props} ref={c=>provided.innerRef(GetDOM(c) as any)} dragInfo={dragInfo}/>;
+							// test
+							/*return (
+								<div ref={c=>provided.innerRef(c as any)}
+										{...(dragInfo && dragInfo.provided.draggableProps)}
+										{...(dragInfo && dragInfo.provided.dragHandleProps)}
+										style={E(
+											{width: 350, background: HSLA(0, 0, 0, .5), whiteSpace: "normal"},
+											dragInfo && dragInfo.provided.draggableProps.style,
+										)}>
+									{ToJSON(dragInfo).substr(0, 30)}
+								</div>
+							);*/
 						}}
 					</Draggable>
 				);
