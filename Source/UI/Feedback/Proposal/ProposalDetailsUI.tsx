@@ -4,7 +4,6 @@ import { Column, Pre, Row, RowLR, TextInput } from "react-vcomponents";
 import { BaseComponent, GetInnerComp, GetDOM } from "react-vextensions";
 import { MarkdownEditor, MarkdownToolbar } from "react-vmarkdown";
 import { BoxController, ShowMessageBox } from "react-vmessagebox";
-import { Manager, manager, User } from "../../..";
 import { AddProposal } from "../../../Server/Commands/AddProposal";
 import { Proposal } from "./../../../Store/firebase/proposals/@Proposal";
 import {store} from "../../../Store";

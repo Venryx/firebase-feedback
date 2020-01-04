@@ -20,17 +20,8 @@ export type Link_Props = {
 
 export type User = {
 	_key?: string;
+	displayName: string;
 	avatarUrl: string;
-	displayName: string;
-	email: string;
-	providerData: UserInfo[];
-};
-export type UserInfo = {
-	displayName: string;
-	email: string;
-	photoURL: string;
-	providerId: string;
-	uid: string;
 };
 
 export class Manager {

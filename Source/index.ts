@@ -1,8 +1,8 @@
 import "js-vextensions";
 import "codemirror/addon/scroll/simplescrollbars";
 
-export * from "./Manager";
-//export {Manager as Feedback_Manager} from "./Manager";
+//export * from "./Manager";
+export {Manager as Feedback_Manager} from "./Manager";
 
 export * from "./Server/Commands/AddProposal";
 export * from "./Server/Commands/DeleteProposal";

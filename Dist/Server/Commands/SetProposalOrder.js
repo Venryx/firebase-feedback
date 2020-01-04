@@ -7,7 +7,7 @@ export class SetProposalOrder extends Command {
         let { proposalID, userID, index } = this.payload;
         //let oldIndexes = (await GetAsync(()=>GetDoc({fire}, a=>a.userData.get(userID))))?.proposalOrder || {};
         let oldOrder = GetProposalsOrder(userID, true);
-        AssertV(oldOrder, "oldOrder is still loading.");
+        AssertV(oldOrder !== undefined, "oldOrder is still loading.");
         //let idsOrdered = CE(oldIndexes).VValues(true);
         //let newOrder = oldOrder.slice();
         this.newOrder = oldOrder.slice();

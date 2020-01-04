@@ -19,17 +19,8 @@ export declare type Link_Props = {
 } & React.HTMLProps<HTMLAnchorElement>;
 export declare type User = {
     _key?: string;
+    displayName: string;
     avatarUrl: string;
-    displayName: string;
-    email: string;
-    providerData: UserInfo[];
-};
-export declare type UserInfo = {
-    displayName: string;
-    email: string;
-    photoURL: string;
-    providerId: string;
-    uid: string;
 };
 export declare class Manager {
     Populate(data: Omit<Manager, "Populate" | "store">): void;
