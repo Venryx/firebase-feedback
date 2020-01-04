@@ -20,7 +20,6 @@ export declare type Link_Props = {
 export declare type User = {
     _key?: string;
     displayName: string;
-    avatarUrl: string;
 };
 export declare class Manager {
     Populate(data: Omit<Manager, "Populate" | "store">): void;

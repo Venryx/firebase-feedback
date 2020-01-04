@@ -21,7 +21,7 @@ export type Link_Props = {
 export type User = {
 	_key?: string;
 	displayName: string;
-	avatarUrl: string;
+	//photoURL: string;
 };
 
 export class Manager {
