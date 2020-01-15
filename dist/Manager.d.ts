@@ -34,6 +34,7 @@ export declare class Manager {
     GetUserPermissionGroups: (userID: string) => PermissionGroupSet;
     GetNewURLForStoreChanges: (actionFunc: ActionFunc<RootState>) => string;
     MarkdownRenderer: any;
+    actionBarZIndex?: number;
 }
 export declare const manager: Manager;
 export declare let OnPopulated_listeners: any[];

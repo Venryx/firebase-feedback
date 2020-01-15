@@ -5,6 +5,7 @@ export class PermissionGroupSet {
 export class Manager {
     constructor() {
         this.logTypes = new LogTypes();
+        this.actionBarZIndex = 11;
     }
     Populate(data) {
         CE(this).Extend(data);

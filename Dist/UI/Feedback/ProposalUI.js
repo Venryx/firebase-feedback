@@ -36,7 +36,11 @@ let ProposalUI = class ProposalUI extends BaseComponent {
             return React.createElement("div", { style: ES({ display: "flex", alignItems: "center", justifyContent: "center", flex: 1, fontSize: "25px" }) }, "Loading proposal...");
         }
         //let firstPostWritten = posts.length > 1 || posts[0].text != firstPostPlaceholderText;
-        return (React.createElement(Column, { style: ES({ flex: 1 }) },
+        return (React.createElement(Column, { style: ES({
+                flex: 1, borderRadius: 10,
+                //marginTop: 30, height: "calc(100% - 30px)",
+                height: "100%",
+            }) },
             React.createElement(ActionBar_Left, { proposal: proposal, subNavBarWidth: subNavBarWidth }),
             React.createElement(ActionBar_Right, { proposal: proposal, subNavBarWidth: subNavBarWidth }),
             React.createElement(ScrollView, { ref: "scrollView", scrollVBarStyle: { width: 10 }, style: ES({ flex: 1 } /*styles.fillParent_abs*/) },
@@ -112,7 +116,7 @@ class ActionBar_Left extends BaseComponent {
     render() {
         let { proposal, subNavBarWidth } = this.props;
         return (React.createElement("nav", { style: {
-                position: "absolute", zIndex: 1, left: 0, width: `calc(50% - ${subNavBarWidth / 2}px)`, top: 0, textAlign: "center",
+                position: "absolute", zIndex: manager.actionBarZIndex, left: 0, width: `calc(50% - ${subNavBarWidth / 2}px)`, top: 0, textAlign: "center",
             } },
             React.createElement(Row, { style: {
                     justifyContent: "flex-start", background: "rgba(0,0,0,.7)", boxShadow: colors.navBarBoxShadow,
@@ -188,7 +192,7 @@ class ActionBar_Right extends BaseComponent {
     render() {
         let { proposal, subNavBarWidth } = this.props;
         return (React.createElement("nav", { style: {
-                position: "absolute", zIndex: 1, left: `calc(50% + ${subNavBarWidth / 2}px)`, right: 0, top: 0, textAlign: "center",
+                position: "absolute", zIndex: manager.actionBarZIndex, left: `calc(50% + ${subNavBarWidth / 2}px)`, right: 0, top: 0, textAlign: "center",
             } },
             React.createElement(Row, { style: {
                     justifyContent: "flex-end", background: "rgba(0,0,0,.7)", boxShadow: colors.navBarBoxShadow,

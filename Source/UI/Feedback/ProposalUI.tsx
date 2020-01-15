@@ -32,7 +32,11 @@ export class ProposalUI extends BaseComponent<ProposalUI_Props, {}> {
 		//let firstPostWritten = posts.length > 1 || posts[0].text != firstPostPlaceholderText;
 
 		return (
-			<Column style={ES({flex: 1})}>
+			<Column style={ES({
+				flex: 1, borderRadius: 10,
+				//marginTop: 30, height: "calc(100% - 30px)",
+				height: "100%", // scroll-bar overlays action-bar-right, but I guess that's better than sub-nav-bar not showing text behind it
+			})}>
 				<ActionBar_Left proposal={proposal} subNavBarWidth={subNavBarWidth}/>
 				<ActionBar_Right proposal={proposal} subNavBarWidth={subNavBarWidth}/>
 				<ScrollView ref="scrollView" scrollVBarStyle={{width: 10}} style={ES({flex: 1}/*styles.fillParent_abs*/)}>
@@ -127,7 +131,7 @@ class ActionBar_Left extends BaseComponent<ActionBar_LeftProps, {}> {
 
 		return (
 			<nav style={{
-				position: "absolute", zIndex: 1, left: 0, width: `calc(50% - ${subNavBarWidth / 2}px)`, top: 0, textAlign: "center",
+				position: "absolute", zIndex: manager.actionBarZIndex, left: 0, width: `calc(50% - ${subNavBarWidth / 2}px)`, top: 0, textAlign: "center",
 				//background: "rgba(0,0,0,.5)", boxShadow: "3px 3px 7px rgba(0,0,0,.07)",
 			}}>
 				<Row style={{
@@ -215,7 +219,7 @@ class ActionBar_Right extends BaseComponent<{proposal: Proposal, subNavBarWidth:
 		let {proposal, subNavBarWidth} = this.props;
 		return (
 			<nav style={{
-				position: "absolute", zIndex: 1, left: `calc(50% + ${subNavBarWidth / 2}px)`, right: 0, top: 0, textAlign: "center",
+				position: "absolute", zIndex: manager.actionBarZIndex, left: `calc(50% + ${subNavBarWidth / 2}px)`, right: 0, top: 0, textAlign: "center",
 				//background: "rgba(0,0,0,.5)", boxShadow: "3px 3px 7px rgba(0,0,0,.07)",
 			}}>
 				<Row style={{

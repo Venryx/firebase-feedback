@@ -47,6 +47,7 @@ export class Manager {
 	GetNewURLForStoreChanges: (actionFunc: ActionFunc<RootState>)=>string;
 
 	MarkdownRenderer: any; //(...props: any[])=>JSX.Element;
+	actionBarZIndex? = 11;
 }
 export const manager = new Manager();
 
