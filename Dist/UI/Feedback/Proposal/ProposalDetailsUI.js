@@ -70,7 +70,7 @@ export function ShowAddProposalDialog(userID, type) {
     let boxController = ShowMessageBox({
         title: type == "feature" ? "Propose feature" : "Report issue", cancelButton: true,
         message: () => {
-            boxController.options.okButtonClickable = error == null;
+            boxController.options.okButtonProps = { enabled: error == null, title: error };
             return (React.createElement(Column, { style: { width: 600 } },
                 React.createElement(ProposalDetailsUI, { ref: c => detailsUI = c, baseData: newEntry, forNew: true, onChange: val => Change(newEntry = val, error = detailsUI.GetValidationError()) }),
                 error && error != "Please fill out this field." && React.createElement(Row, { mt: 5, style: { color: "rgba(200,70,70,1)" } }, error)));

@@ -1,5 +1,6 @@
 import { StoreAccessor, GetDoc } from "mobx-firelink";
 import { fire } from "../../Utils/Database/Firelink";
+import { emptyArray } from "../../General";
 /*export type ProposalIndexSet = { [key: number]: string; }; // index -> proposalID
 AddSchema({patternProperties: {"^[0-9]+$": {type: "number"}}}, "ProposalIndexSet");*/
 /*export const GetProposalIndexes = StoreAccessor({fire}, s=>(userID: string): ProposalIndexSet => {
@@ -13,10 +14,10 @@ export const GetProposalsOrder = StoreAccessor({ fire }, s => (userID, undefined
     var _a;
     if (userID == null)
         return [];
-    let userData = GetDoc({ fire, undefinedForLoading }, a => a.userData.get(userID));
+    let userData = GetDoc({ fire }, a => a.userData.get(userID));
     if (undefinedForLoading && userData === undefined)
-        return undefined;
-    return ((_a = userData) === null || _a === void 0 ? void 0 : _a.proposalsOrder) || [];
+        return undefined; // undefined from mobx-firelink means still loading
+    return ((_a = userData) === null || _a === void 0 ? void 0 : _a.proposalsOrder) || emptyArray;
 });
 export const GetProposalIndex = StoreAccessor({ fire }, s => (userID, proposalID) => {
     if (userID == null || proposalID == null)

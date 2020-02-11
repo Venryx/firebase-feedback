@@ -81,7 +81,7 @@ export function ShowAddProposalDialog(userID: string, type: string) {
 	let boxController: BoxController = ShowMessageBox({
 		title: type == "feature" ? "Propose feature" : "Report issue", cancelButton: true,
 		message: ()=> {
-			boxController.options.okButtonClickable = error == null;
+			boxController.options.okButtonProps = {enabled: error == null, title: error};
 			return (
 				<Column style={{width: 600}}>
 					<ProposalDetailsUI ref={c=>detailsUI = c} baseData={newEntry} forNew={true}

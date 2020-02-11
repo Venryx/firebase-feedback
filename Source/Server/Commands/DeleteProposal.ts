@@ -1,6 +1,6 @@
 import {GetProposal} from "../../Store/firebase/proposals";
 import {SetProposalOrder} from "./SetProposalOrder";
-import {CE} from "js-vextensions";
+import {CE, emptyArray_forLoading} from "js-vextensions";
 import {GetAsync, GetDocs, Command, MergeDBUpdates, AssertV} from "mobx-firelink";
 import {fire} from "../../Utils/Database/Firelink";
 
@@ -14,8 +14,8 @@ export class DeleteProposal extends Command<{id: string}> {
 		AssertV(proposal, "proposal is null.");
 		//this.posts = await GetAsync(()=>GetProposalPosts(proposal));
 
-		let userDatas = GetDocs({fire, undefinedForLoading: true}, a=>a.userData);
-		AssertV(userDatas, "userDatas is still loading.");
+		let userDatas = GetDocs({fire}, a=>a.userData);
+		AssertV(userDatas != emptyArray_forLoading, "userDatas is still loading.");
 		this.sub_removalsFromUserOrderings = [];
 		//let userDatasWithOrderingContainingProposal = userDatas.filter(userData=>CE(CE(userData.proposalIndexes).VValues(true)).Contains(id));
 		let userDatasWithOrderingContainingProposal = userDatas.filter(userData=>CE(userData.proposalsOrder).Contains(id));

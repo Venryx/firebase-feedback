@@ -4,5 +4,9 @@ export declare class Proposals {
     features_showCompleted: boolean;
     issues_showCompleted: boolean;
 }
-export declare const GetSelectedProposalID: () => string;
-export declare const GetSelectedProposal: () => Proposal;
+export declare const GetSelectedProposalID: (() => string) & {
+    Wait: () => string;
+};
+export declare const GetSelectedProposal: (() => Proposal) & {
+    Wait: () => Proposal;
+};
