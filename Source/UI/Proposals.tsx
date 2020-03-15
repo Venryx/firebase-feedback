@@ -149,7 +149,7 @@ export class ProposalsColumn extends BaseComponentPlus({} as {proposals: Proposa
 				<Column className="clickThrough" style={{height: 40, background: "rgba(0,0,0,.7)", borderRadius: "10px 10px 0 0"}}>
 					<Row style={{position: "relative", height: 40, padding: 10}}>
 						{/*<Pre>Show: </Pre>*/}
-						<CheckBox ml={5} text="Show completed" checked={showCompleted} onChange={val=>{
+						<CheckBox ml={5} text="Show completed" value={showCompleted} onChange={val=>{
 							runInAction("ProposalsColumn.showCompleted.onChange", ()=>store.main.proposals[`${type}s_showCompleted`] = val);
 						}}/>
 						<span style={{position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: "18px"}}>

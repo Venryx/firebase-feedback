@@ -2,7 +2,6 @@ import { LogTypes } from "./Utils/General/Logging";
 import {BaseComponent} from "react-vextensions";
 import {CE} from "js-vextensions";
 import {RootState} from "./Store";
-import {RootStoreShape} from "mobx-firelink/Dist/UserTypes";
 
 export class PermissionGroupSet {
 	basic: boolean;

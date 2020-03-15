@@ -1,5 +1,5 @@
 import { CE } from "js-vextensions";
-import { Command, AssertV } from "mobx-firelink";
+import { Command, AssertV, WrapDBValue } from "mobx-firelink";
 import { GetProposalsOrder } from "../../Store/firebase/userData";
 //@UserEdit
 export class SetProposalOrder extends Command {
@@ -24,7 +24,7 @@ export class SetProposalOrder extends Command {
     GetDBUpdates() {
         let { userID, proposalID } = this.payload;
         let updates = {};
-        updates[`userData/${userID}/.proposalsOrder`] = this.newOrder;
+        updates[`userData/${userID}/.proposalsOrder`] = WrapDBValue(this.newOrder, { merge: true });
         return updates;
     }
 }

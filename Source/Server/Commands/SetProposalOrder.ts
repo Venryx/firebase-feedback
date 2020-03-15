@@ -1,5 +1,5 @@
 import {CE} from "js-vextensions";
-import {GetAsync, GetDoc, Command, AssertV} from "mobx-firelink";
+import {GetAsync, GetDoc, Command, AssertV, WrapDBValue} from "mobx-firelink";
 import {fire} from "../../Utils/Database/Firelink";
 import {GetProposalsOrder} from "../../Store/firebase/userData";
 
@@ -30,7 +30,7 @@ export class SetProposalOrder extends Command<{proposalID: string, userID: strin
 		let {userID, proposalID} = this.payload;
 
 		let updates = {};
-		updates[`userData/${userID}/.proposalsOrder`] = this.newOrder;
+		updates[`userData/${userID}/.proposalsOrder`] = WrapDBValue(this.newOrder, {merge: true});
 		return updates;
 	}
 }
