@@ -34,10 +34,10 @@ export class ProposalDetailsUI extends BaseComponent<ProposalDetailsUI_Props, {n
 			this.Update();
 		};
 
-		let splitAt = 50, width = 600;
+		let splitAt = 50;
 		return (
-			<Column style={style}>
-				<RowLR splitAt={splitAt} style={{width}}>
+			<Column style={E({width: "100%", style})}>
+				<RowLR splitAt={splitAt}>
 					<Pre>Title: </Pre>
 					<TextInput required
 						enabled={enabled} style={{width: "100%"}}
@@ -55,7 +55,7 @@ export class ProposalDetailsUI extends BaseComponent<ProposalDetailsUI_Props, {n
 								scrollbarStyle: "overlay",
 								lineWrapping: true,
 								readOnly: !enabled,
-								placeholder: "Write your reply..."
+								placeholder: "Write your reply...",
 							}, /*options*/)}/>
 					</Column>
 				</Row>

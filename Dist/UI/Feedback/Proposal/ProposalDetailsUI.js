@@ -35,9 +35,9 @@ export class ProposalDetailsUI extends BaseComponent {
                 onChange(this.GetNewData(), this);
             this.Update();
         };
-        let splitAt = 50, width = 600;
-        return (React.createElement(Column, { style: style },
-            React.createElement(RowLR, { splitAt: splitAt, style: { width } },
+        let splitAt = 50;
+        return (React.createElement(Column, { style: E({ width: "100%", style }) },
+            React.createElement(RowLR, { splitAt: splitAt },
                 React.createElement(Pre, null, "Title: "),
                 React.createElement(TextInput, { required: true, enabled: enabled, style: { width: "100%" }, value: newData.title, onChange: val => Change(newData.title = val) })),
             React.createElement(Row, { mt: 5 }, "Text:"),
@@ -50,7 +50,7 @@ export class ProposalDetailsUI extends BaseComponent {
                             scrollbarStyle: "overlay",
                             lineWrapping: true,
                             readOnly: !enabled,
-                            placeholder: "Write your reply..."
+                            placeholder: "Write your reply...",
                         }) })))));
     }
     GetValidationError() {
