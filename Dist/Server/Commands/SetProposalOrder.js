@@ -1,7 +1,6 @@
 import { CE } from "js-vextensions";
 import { Command, AssertV, WrapDBValue } from "mobx-firelink";
 import { GetProposalsOrder } from "../../Store/firebase/userData";
-//@UserEdit
 export class SetProposalOrder extends Command {
     Validate() {
         let { proposalID, userID, index } = this.payload;

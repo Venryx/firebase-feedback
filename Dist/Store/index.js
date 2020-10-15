@@ -18,7 +18,8 @@ __decorate([
     observable
 ], RootState.prototype, "main", void 0);
 __decorate([
-    observable, ignore
+    observable,
+    ignore
 ], RootState.prototype, "firelink", void 0);
 export const store = new RootState();
 //# sourceMappingURL=index.js.map
