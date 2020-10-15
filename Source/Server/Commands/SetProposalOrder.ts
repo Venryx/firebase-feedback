@@ -3,7 +3,6 @@ import {GetAsync, GetDoc, Command, AssertV, WrapDBValue} from "mobx-firelink";
 import {fire} from "../../Utils/Database/Firelink";
 import {GetProposalsOrder} from "../../Store/firebase/userData";
 
-//@UserEdit
 export class SetProposalOrder extends Command<{proposalID: string, userID: string, index: number}> {
 	newOrder: string[];
 	Validate() {

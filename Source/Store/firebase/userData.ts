@@ -20,7 +20,7 @@ export const GetProposalOrder = StoreAccessor({fire}, s=>(userID: string): strin
 	return CE(GetProposalIndexes(userID)).VValues(true);
 });*/
 export const GetProposalsOrder = StoreAccessor({fire}, s=>(userID: string, undefinedForLoading = false): string[] => {
-	if (userID == null) return [];
+	if (userID == null) return emptyArray;
 	let userData = GetDoc({fire}, a=>a.userData.get(userID));
 	if (undefinedForLoading && userData === undefined) return undefined; // undefined from mobx-firelink means still loading
 	return userData?.proposalsOrder || emptyArray;
@@ -30,5 +30,6 @@ export const GetProposalIndex = StoreAccessor({fire}, s=> (userID: string, propo
 	/*let proposalIndexEntry = CE(GetProposalIndexes(userID)).Pairs().find(a=>a.value == proposalID);
 	if (proposalIndexEntry == null) return null;
 	return CE(proposalIndexEntry.key).ToInt();*/
-	return GetProposalsOrder(userID).findIndex(id=>id == proposalID);
+	//return GetProposalsOrder(userID).findIndex(id=>id == proposalID);
+	return GetProposalsOrder(userID).indexOf(proposalID);
 });

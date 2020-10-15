@@ -41,7 +41,7 @@
     "@types/react": "^16.9.11",
     "babel-cli": "^6.4.5",
     "babel-loader": "^8.0.4",
-    "firebase": "^7.6.1",
+    "firebase": "^7.23.0",
     "js-vextensions": "^1.0.31",
     "json-loader": "^0.5.7",
     "mobx": "^5.15.0",
