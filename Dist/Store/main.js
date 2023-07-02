@@ -5,7 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { observable } from "mobx";
-import { Proposals } from "./main/proposals";
+import { Proposals } from "./main/proposals.js";
 export class MainState {
     constructor() {
         this.proposals = new Proposals();

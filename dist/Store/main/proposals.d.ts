@@ -1,4 +1,4 @@
-import { Proposal } from "../firebase/proposals/@Proposal";
+import { Proposal } from "../firebase/proposals/@Proposal.js";
 export declare class Proposals {
     selectedProposalID: string;
     features_showCompleted: boolean;

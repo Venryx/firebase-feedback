@@ -1,6 +1,6 @@
-import { WaitTillSchemaAddedThenRun, GetSchemaJSON, AddSchema, Schema, AssertValidate } from "../Server";
+import { WaitTillSchemaAddedThenRun, GetSchemaJSON, AddSchema, Schema, AssertValidate } from "../Server.js";
 import { Command, AssertV } from "mobx-firelink";
-import { GetProposal } from "../../Store/firebase/proposals";
+import { GetProposal } from "../../Store/firebase/proposals.js";
 let MTName = "Proposal";
 WaitTillSchemaAddedThenRun(MTName, () => {
     AddSchema({

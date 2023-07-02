@@ -1,5 +1,5 @@
-import { AssertValidate } from "../Server";
-import { GenerateUUID } from "../../Utils/General/KeyGenerator";
+import { AssertValidate } from "../Server.js";
+import { GenerateUUID } from "../../Utils/General/KeyGenerator.js";
 import { Command } from "mobx-firelink";
 let MTName = "Proposal";
 //@UserEdit

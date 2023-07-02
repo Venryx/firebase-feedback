@@ -1,6 +1,6 @@
-import { OnPopulated, manager } from "../../Manager";
-import { store } from "../../Store";
-import { fire } from "./Firelink";
+import { OnPopulated, manager } from "../../Manager.js";
+import { store } from "../../Store/index.js";
+import { fire } from "./Firelink.js";
 OnPopulated(() => {
     store.firelink = fire;
     // now that manager.dbPath is populated, we can initialize the Firelink

@@ -1,7 +1,7 @@
 import {Assert} from "js-vextensions";
-import { Proposal } from "../../index";
-import {AssertValidate} from "../Server";
-import {GenerateUUID} from "../../Utils/General/KeyGenerator";
+import { Proposal } from "../../index.js";
+import {AssertValidate} from "../Server.js";
+import {GenerateUUID} from "../../Utils/General/KeyGenerator.js";
 import {Command} from "mobx-firelink";
 
 export type _MainType = Proposal;

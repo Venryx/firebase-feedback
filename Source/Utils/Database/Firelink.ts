@@ -1,6 +1,6 @@
-import { Firelink, GetDoc, SetDefaultFireOptions, PathOrPathGetterToPathSegments } from 'mobx-firelink';
-import {FirebaseDBShape} from '../../Store/firebase';
-import {RootState} from '../../Store';
+import { Firelink, GetDoc, SetDefaultFireOptions, PathOrPathGetterToPathSegments } from "mobx-firelink";
+import {FirebaseDBShape} from "../../Store/firebase.js";
+import {RootState} from "../../Store/index.js";
 
 /*export let fire: Firelink<RootState, FirebaseDBShape>;
 OnPopulated(()=> {
@@ -13,4 +13,4 @@ OnPopulated(()=> {
 export let fire = new Firelink<RootState, FirebaseDBShape>();
 
 // do this last, so that fire instance is created before Firebase_Init imports the store-accessors (which require the fire instance)
-require('./Firelink_Init');
+require("./Firelink_Init");

@@ -18,15 +18,15 @@ import { Button, CheckBox, Column, Row, Span, Text } from "react-vcomponents";
 import { BaseComponent } from "react-vextensions";
 import { ShowMessageBox } from "react-vmessagebox";
 import { ScrollView } from "react-vscrollview";
-import { IsUserAdmin, IsUserCreatorOrMod } from "../../General";
-import { manager } from "../../Manager";
-import { DeleteProposal } from "../../Server/Commands/DeleteProposal";
-import { UpdateProposal } from "../../Server/Commands/UpdateProposal";
-import { GetUpdates } from "../../Utils/Database/DatabaseHelpers";
-import { colors } from "../GlobalStyles";
-import { ProposalDetailsUI } from "./Proposal/ProposalDetailsUI";
-import { fire } from "../../Utils/Database/Firelink";
-import { Link } from "../../Utils/ReactComponents/Link";
+import { IsUserAdmin, IsUserCreatorOrMod } from "../../General.js";
+import { manager } from "../../Manager.js";
+import { DeleteProposal } from "../../Server/Commands/DeleteProposal.js";
+import { UpdateProposal } from "../../Server/Commands/UpdateProposal.js";
+import { GetUpdates } from "../../Utils/Database/DatabaseHelpers.js";
+import { colors } from "../GlobalStyles.js";
+import { ProposalDetailsUI } from "./Proposal/ProposalDetailsUI.js";
+import { fire } from "../../Utils/Database/Firelink.js";
+import { Link } from "../../Utils/ReactComponents/Link.js";
 import { observer } from "mobx-react";
 let ProposalUI = class ProposalUI extends BaseComponent {
     render() {

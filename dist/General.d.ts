@@ -1,4 +1,4 @@
-import { Proposal } from "./index";
+import { Proposal } from "./index.js";
 export declare function RemoveDuplicates(items: any): any[];
 export declare var emptyArray: any[];
 export declare enum AccessLevel {

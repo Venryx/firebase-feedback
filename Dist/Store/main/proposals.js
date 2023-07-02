@@ -4,10 +4,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-import { GetProposal } from "../firebase/proposals";
+import { GetProposal } from "../firebase/proposals.js";
 import { observable } from "mobx";
 import { StoreAccessor } from "mobx-firelink";
-import { fire } from "../../Utils/Database/Firelink";
+import { fire } from "../../Utils/Database/Firelink.js";
 export class Proposals {
 }
 __decorate([

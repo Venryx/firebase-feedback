@@ -1,8 +1,8 @@
 import {observable} from "mobx";
-import {MainState} from "./main";
+import {MainState} from "./main.js";
 import {ignore} from "mobx-sync";
 import {Firelink} from "mobx-firelink";
-import {FirebaseDBShape} from "./firebase";
+import {FirebaseDBShape} from "./firebase.js";
 
 // configure({ enforceActions: 'always' });
 //configure({ enforceActions: 'observed' });

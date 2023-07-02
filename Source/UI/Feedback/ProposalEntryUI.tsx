@@ -2,16 +2,16 @@ import {Timer, VURL, E, CE} from "js-vextensions";
 import React from "react";
 import {Button, Column, Row} from "react-vcomponents";
 import {BaseComponent, GetDOM, GetInnerComp, BaseComponentPlus} from "react-vextensions";
-import {Manager, manager, OnPopulated, User} from "../../Manager";
-import {SetProposalOrder} from "../../Server/Commands/SetProposalOrder";
-import {GetRankingScoreToAddForUserRankingIndex} from "../Proposals";
-import {Proposal} from "./../../Store/firebase/proposals/@Proposal";
-import {MakeDraggable, DragInfo} from "../../Utils/UI/DNDHelpers";
-import {DraggableInfo} from "../../Utils/UI/DNDStructures";
+import {Manager, manager, OnPopulated, User} from "../../Manager.js";
+import {SetProposalOrder} from "../../Server/Commands/SetProposalOrder.js";
+import {GetRankingScoreToAddForUserRankingIndex} from "../Proposals.js";
+import {Proposal} from "./../../Store/firebase/proposals/@Proposal.js";
+import {MakeDraggable, DragInfo} from "../../Utils/UI/DNDHelpers.js";
+import {DraggableInfo} from "../../Utils/UI/DNDStructures.js";
 import ReactDOM from "react-dom";
 import {observer} from "mobx-react";
-import {fire} from "../../Utils/Database/Firelink";
-import {Link} from "../../Utils/ReactComponents/Link";
+import {fire} from "../../Utils/Database/Firelink.js";
+import {Link} from "../../Utils/ReactComponents/Link.js";
 
 let portal: HTMLElement;
 OnPopulated(()=> {

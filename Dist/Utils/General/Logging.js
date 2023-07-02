@@ -1,4 +1,4 @@
-import { manager } from "../../Manager";
+import { manager } from "../../Manager.js";
 export class LogTypes {
     constructor() {
         this.commands = false;

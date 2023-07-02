@@ -8,21 +8,21 @@ import React from "react";
 import { Button, CheckBox, Column, Row } from "react-vcomponents";
 import { ApplyBasicStyles, BaseComponent, GetDOM } from "react-vextensions";
 import { ScrollView } from "react-vscrollview";
-import { manager } from "../Manager";
-import { SetProposalOrder } from "../Server/Commands/SetProposalOrder";
-import { GetSelectedProposal } from "../Store/main/proposals";
-import { GetProposalsOrder, GetProposals } from "../index";
-import { ShowAddProposalDialog } from "./Feedback/Proposal/ProposalDetailsUI";
-import { ProposalEntryUI } from "./Feedback/ProposalEntryUI";
-import { ProposalUI } from "./Feedback/ProposalUI";
+import { manager } from "../Manager.js";
+import { SetProposalOrder } from "../Server/Commands/SetProposalOrder.js";
+import { GetSelectedProposal } from "../Store/main/proposals.js";
+import { GetProposalsOrder, GetProposals } from "../index.js";
+import { ShowAddProposalDialog } from "./Feedback/Proposal/ProposalDetailsUI.js";
+import { ProposalEntryUI } from "./Feedback/ProposalEntryUI.js";
+import { ProposalUI } from "./Feedback/ProposalUI.js";
 import { ToJSON, FromJSON, CE } from "js-vextensions";
 import { DragDropContext as DragDropContext_Beautiful, Droppable } from "react-beautiful-dnd";
-import { DroppableInfo } from "../Utils/UI/DNDStructures";
-import { store } from "../Store";
+import { DroppableInfo } from "../Utils/UI/DNDStructures.js";
+import { store } from "../Store/index.js";
 import { observer } from "mobx-react";
-import { fire } from "../Utils/Database/Firelink";
+import { fire } from "../Utils/Database/Firelink.js";
 import { GetDocs } from "mobx-firelink";
-import { RunInAction } from "react-vmessagebox/Dist/General";
+import { RunInAction } from "react-vmessagebox/Dist/General.js";
 /*export class ProposalsUI_Outer extends BaseComponent<Props, {}> {
     render() {
         return <ProposalsUI

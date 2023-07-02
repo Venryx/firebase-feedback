@@ -1,3 +1,4 @@
+import Ajv from "ajv";
 import AJV from "ajv";
 import AJVKeywords from "ajv-keywords";
 import {IsString, ToJSON, Assert, E} from "js-vextensions";
@@ -41,14 +42,14 @@ export function WaitTillSchemaAddedThenRun(schemaName: string, callback: ()=>voi
 	schemaAddListeners[schemaName] = (schemaAddListeners[schemaName] || []).concat(callback);
 }
 
-export type AJV_Extended = AJV.Ajv & {
+export type AJV_Extended = Ajv & {
 	//AddSchema(schema, name: string): void;
 	FullErrorsText(): string;
 };
 /*AJV.prototype.AddSchema = function(this: AJV_Extended, schema, name: string) {
 	return `${this.errorsText()} (${ToJSON(this.errors)})`;
 };*/
-AJV.prototype.FullErrorsText = function(this: AJV_Extended) {
+Ajv.prototype["FullErrorsText"] = function(this: AJV_Extended) {
 	return `${this.errorsText()}
 
 Details: ${ToJSON(this.errors, null, 3)}

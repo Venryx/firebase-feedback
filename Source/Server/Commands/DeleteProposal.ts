@@ -1,8 +1,8 @@
-import {GetProposal} from "../../Store/firebase/proposals";
-import {SetProposalOrder} from "./SetProposalOrder";
+import {GetProposal} from "../../Store/firebase/proposals.js";
+import {SetProposalOrder} from "./SetProposalOrder.js";
 import {CE, emptyArray_forLoading} from "js-vextensions";
 import {GetAsync, GetDocs, Command, MergeDBUpdates, AssertV} from "mobx-firelink";
-import {fire} from "../../Utils/Database/Firelink";
+import {fire} from "../../Utils/Database/Firelink.js";
 
 //@UserEdit
 export class DeleteProposal extends Command<{id: string}> {

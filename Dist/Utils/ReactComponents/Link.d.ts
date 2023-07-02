@@ -1,7 +1,7 @@
 import { VURL } from "js-vextensions";
 import React from "react";
 import { BaseComponent } from "react-vextensions";
-import { RootState } from "../../Store";
+import { RootState } from "../../Store/index.js";
 export declare function GetCurrentURL(): VURL;
 export type ActionFunc<StoreType> = (store: StoreType) => void;
 export type Link_Props = {

@@ -1,7 +1,7 @@
 import {CE} from "js-vextensions";
 import {GetAsync, GetDoc, Command, AssertV, WrapDBValue} from "mobx-firelink";
-import {fire} from "../../Utils/Database/Firelink";
-import {GetProposalsOrder} from "../../Store/firebase/userData";
+import {fire} from "../../Utils/Database/Firelink.js";
+import {GetProposalsOrder} from "../../Store/firebase/userData.js";
 
 export class SetProposalOrder extends Command<{proposalID: string, userID: string, index: number}> {
 	newOrder: string[];
@@ -17,7 +17,7 @@ export class SetProposalOrder extends Command<{proposalID: string, userID: strin
 		
 		//let oldIndex = oldOrder.indexOf(proposalID);
 		if (index != -1) {
-			CE(this.newOrder).Move(proposalID, index, true);
+			CE(this.newOrder).Move(proposalID, index, "final-index");
 		} else {
 			CE(this.newOrder).Remove(proposalID);
 		}

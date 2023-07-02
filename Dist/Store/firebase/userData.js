@@ -1,6 +1,6 @@
 import { StoreAccessor, GetDoc } from "mobx-firelink";
-import { fire } from "../../Utils/Database/Firelink";
-import { emptyArray } from "../../General";
+import { fire } from "../../Utils/Database/Firelink.js";
+import { emptyArray } from "../../General.js";
 /*export type ProposalIndexSet = { [key: number]: string; }; // index -> proposalID
 AddSchema({patternProperties: {"^[0-9]+$": {type: "number"}}}, "ProposalIndexSet");*/
 /*export const GetProposalIndexes = StoreAccessor({fire}, s=>(userID: string): ProposalIndexSet => {

@@ -1,7 +1,7 @@
-import { LogTypes } from "./Utils/General/Logging";
+import { LogTypes } from "./Utils/General/Logging.js";
 import {BaseComponent} from "react-vextensions";
 import {CE} from "js-vextensions";
-import {RootState} from "./Store";
+import {RootState} from "./Store/index.js";
 
 export class PermissionGroupSet {
 	basic: boolean;

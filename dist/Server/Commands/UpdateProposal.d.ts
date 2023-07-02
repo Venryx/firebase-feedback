@@ -1,4 +1,4 @@
-import { Proposal } from "./../../Store/firebase/proposals/@Proposal";
+import { Proposal } from "./../../Store/firebase/proposals/@Proposal.js";
 import { Command } from "mobx-firelink";
 type MainType = Proposal;
 export declare class UpdateProposal extends Command<{

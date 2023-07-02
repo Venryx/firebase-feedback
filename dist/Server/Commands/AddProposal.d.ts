@@ -1,4 +1,4 @@
-import { Proposal } from "../../index";
+import { Proposal } from "../../index.js";
 import { Command } from "mobx-firelink";
 export type _MainType = Proposal;
 export declare class AddProposal extends Command<{

@@ -1,8 +1,8 @@
-import {AddSchema} from "../../Server/Server";
+import {AddSchema} from "../../Server/Server.js";
 import {CE} from "js-vextensions";
 import {StoreAccessor, GetDoc} from "mobx-firelink";
-import {fire} from "../../Utils/Database/Firelink";
-import {emptyArray} from "../../General";
+import {fire} from "../../Utils/Database/Firelink.js";
+import {emptyArray} from "../../General.js";
 
 export interface UserData {
 	//proposalIndexes: ProposalIndexSet;

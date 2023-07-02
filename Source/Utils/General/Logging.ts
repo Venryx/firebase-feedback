@@ -1,4 +1,4 @@
-import {Manager, manager} from "../../Manager";
+import {Manager, manager} from "../../Manager.js";
 
 export class LogTypes {
 	commands = false;

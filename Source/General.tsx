@@ -1,6 +1,6 @@
 import {Assert} from "js-vextensions";
-import {Proposal} from "./index";
-import {manager} from "./Manager";
+import {Proposal} from "./index.js";
+import {manager} from "./Manager.js";
 
 export function RemoveDuplicates(items: any) {
 	var result = [];

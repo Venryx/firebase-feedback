@@ -1,4 +1,4 @@
-import { AddSchema } from "../../../Server/Server";
+import { AddSchema } from "../../../Server/Server.js";
 import { CE } from "js-vextensions";
 export class Proposal {
     constructor(initialData) {

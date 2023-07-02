@@ -12,9 +12,9 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { VURL, Assert, GetCurrentURLString } from "js-vextensions";
 import React from "react";
 import { BaseComponent, FilterOutUnrecognizedProps } from "react-vextensions";
-import { store } from "../../Store";
-import { manager } from "../../Manager";
-import { RunInAction } from "react-vmessagebox/Dist/General";
+import { store } from "../../Store/index.js";
+import { manager } from "../../Manager.js";
+import { RunInAction } from "react-vmessagebox/Dist/General.js";
 export function GetCurrentURL() {
     return VURL.Parse(GetCurrentURLString());
 }

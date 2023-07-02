@@ -1,4 +1,4 @@
-import { LogTypes } from "./Utils/General/Logging";
+import { LogTypes } from "./Utils/General/Logging.js";
 import { CE } from "js-vextensions";
 export class PermissionGroupSet {
 }

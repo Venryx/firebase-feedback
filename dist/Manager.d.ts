@@ -1,6 +1,6 @@
 /// <reference types="react" />
-import { LogTypes } from "./Utils/General/Logging";
-import { RootState } from "./Store";
+import { LogTypes } from "./Utils/General/Logging.js";
+import { RootState } from "./Store/index.js";
 export declare class PermissionGroupSet {
     basic: boolean;
     verified: boolean;

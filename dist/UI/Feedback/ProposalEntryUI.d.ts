@@ -1,7 +1,7 @@
 import { Column } from "react-vcomponents";
 import { BaseComponent } from "react-vextensions";
-import { Proposal } from "./../../Store/firebase/proposals/@Proposal";
-import { DragInfo } from "../../Utils/UI/DNDHelpers";
+import { Proposal } from "./../../Store/firebase/proposals/@Proposal.js";
+import { DragInfo } from "../../Utils/UI/DNDHelpers.js";
 export type ProposalEntryUI_Props = {
     index: number;
     last: boolean;

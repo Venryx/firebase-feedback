@@ -1,8 +1,8 @@
-import {GetProposal} from "../firebase/proposals";
-import {Proposal} from "../firebase/proposals/@Proposal";
+import {GetProposal} from "../firebase/proposals.js";
+import {Proposal} from "../firebase/proposals/@Proposal.js";
 import {observable} from "mobx";
 import {StoreAccessor} from "mobx-firelink";
-import {fire} from "../../Utils/Database/Firelink";
+import {fire} from "../../Utils/Database/Firelink.js";
 
 export class Proposals {
 	@observable selectedProposalID: string;

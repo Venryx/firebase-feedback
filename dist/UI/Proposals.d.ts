@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { BaseComponent } from "react-vextensions";
-import { Proposal } from "./../Store/firebase/proposals/@Proposal";
+import { Proposal } from "./../Store/firebase/proposals/@Proposal.js";
 export declare class ProposalsUI extends BaseComponent<{
     subNavBarWidth: number;
 }, {}> {

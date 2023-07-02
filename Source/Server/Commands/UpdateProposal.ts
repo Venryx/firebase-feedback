@@ -1,8 +1,8 @@
-import {WaitTillSchemaAddedThenRun, GetSchemaJSON, AddSchema, Schema, AssertValidate} from "../Server";
-import {Proposal} from "./../../Store/firebase/proposals/@Proposal";
+import {WaitTillSchemaAddedThenRun, GetSchemaJSON, AddSchema, Schema, AssertValidate} from "../Server.js";
+import {Proposal} from "./../../Store/firebase/proposals/@Proposal.js";
 import {GetAsync, GetDoc, Command, AssertV} from "mobx-firelink";
-import {fire} from "../../Utils/Database/Firelink";
-import {GetProposal} from "../../Store/firebase/proposals";
+import {fire} from "../../Utils/Database/Firelink.js";
+import {GetProposal} from "../../Store/firebase/proposals.js";
 
 type MainType = Proposal;
 let MTName = "Proposal";

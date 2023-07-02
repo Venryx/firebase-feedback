@@ -1,5 +1,5 @@
 import { Assert } from "js-vextensions";
-import { manager } from "./Manager";
+import { manager } from "./Manager.js";
 export function RemoveDuplicates(items) {
     var result = [];
     for (let item of items) {
