@@ -11,7 +11,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { VURL, Assert, GetCurrentURLString } from "js-vextensions";
 import React from "react";
-import { FilterOutUnrecognizedProps, BaseComponentPlus } from "react-vextensions";
+import { BaseComponent, FilterOutUnrecognizedProps } from "react-vextensions";
 import { store } from "../../Store";
 import { manager } from "../../Manager";
 import { RunInAction } from "react-vmessagebox/Dist/General";
@@ -21,7 +21,7 @@ export function GetCurrentURL() {
 function isModifiedEvent(event) {
     return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
 }
-export class Link extends BaseComponentPlus({}, {}) {
+export class Link extends BaseComponent {
     static ValidateProps(props) {
         /*const {actionFunc, to} = props;
         Assert(actionFunc != null || to != null, `Must supply the Link component with either an "actionFunc" or "to" property.`);*/

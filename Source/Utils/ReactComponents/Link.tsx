@@ -24,7 +24,7 @@ export type Link_Props = {
 	actionFunc?: ActionFunc<RootState>, // new approach, for mobx/mst store
 	//updateURLOnActions?: boolean, // action-based
 } & Omit<React.HTMLProps<HTMLAnchorElement>, "href">;
-export class Link extends BaseComponentPlus({} as Link_Props, {}) {
+export class Link extends BaseComponent<Link_Props, {}> {
 	static ValidateProps(props: Link_Props) {
 		/*const {actionFunc, to} = props;
 		Assert(actionFunc != null || to != null, `Must supply the Link component with either an "actionFunc" or "to" property.`);*/

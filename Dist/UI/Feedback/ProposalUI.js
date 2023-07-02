@@ -15,7 +15,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import React from "react";
 import { Button, CheckBox, Column, Row, Span, Text } from "react-vcomponents";
-import { BaseComponent, BaseComponentPlus } from "react-vextensions";
+import { BaseComponent } from "react-vextensions";
 import { ShowMessageBox } from "react-vmessagebox";
 import { ScrollView } from "react-vscrollview";
 import { IsUserAdmin, IsUserCreatorOrMod } from "../../General";
@@ -54,7 +54,7 @@ ProposalUI = __decorate([
     observer
 ], ProposalUI);
 export { ProposalUI };
-let ProposalUI_Inner = class ProposalUI_Inner extends BaseComponentPlus({}, { editing: false, dataError: null }) {
+let ProposalUI_Inner = class ProposalUI_Inner extends BaseComponent {
     render() {
         let { proposal } = this.props;
         const creator = manager.GetUser(proposal.creator);
@@ -108,6 +108,7 @@ let ProposalUI_Inner = class ProposalUI_Inner extends BaseComponentPlus({}, { ed
                         } })))));
     }
 };
+ProposalUI_Inner.initialState = { editing: false };
 ProposalUI_Inner = __decorate([
     observer
 ], ProposalUI_Inner);

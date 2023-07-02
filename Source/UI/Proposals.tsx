@@ -27,7 +27,7 @@ import {RunInAction} from "react-vmessagebox/Dist/General";
 }*/
 
 @observer
-export class ProposalsUI extends BaseComponentPlus({subNavBarWidth: 0} as {subNavBarWidth: number}, {}) {
+export class ProposalsUI extends BaseComponent<{subNavBarWidth: number}, {}> {
 	static defaultProps = {subNavBarWidth: 0};
 	
 	/*constructor(props) {
@@ -97,7 +97,7 @@ function GetIncompleteProposalsInOrder(order: string[], proposals: Proposal[]) {
 
 @observer
 @ApplyBasicStyles
-export class ProposalsColumn extends BaseComponentPlus({} as {proposals: Proposal[], type: string}, {}) {
+export class ProposalsColumn extends BaseComponent<{proposals: Proposal[], type: string}, {}> {
 	render() {
 		let {proposals, type} = this.props;
 		let userID = manager.GetUserID();
@@ -179,7 +179,7 @@ export class ProposalsColumn extends BaseComponentPlus({} as {proposals: Proposa
 
 @observer
 @ApplyBasicStyles
-export class ProposalsUserRankingColumn extends BaseComponentPlus({} as {proposals: Proposal[]}, {}) {
+export class ProposalsUserRankingColumn extends BaseComponent<{proposals: Proposal[]}, {}> {
 	render() {
 		let {proposals} = this.props;
 		const proposalOrder = GetProposalsOrder(manager.GetUserID());

@@ -57,7 +57,9 @@ export class ProposalUI extends BaseComponent<ProposalUI_Props, {}> {
 }
 
 @observer
-export class ProposalUI_Inner extends BaseComponentPlus({} as {proposal: Proposal}, {editing: false, dataError: null as string}) {
+export class ProposalUI_Inner extends BaseComponent<{proposal: Proposal}, {editing: boolean, dataError: string}> {
+	static initialState = {editing: false};
+	
 	editorUI: ProposalDetailsUI;
 	render() {
 		let {proposal} = this.props;

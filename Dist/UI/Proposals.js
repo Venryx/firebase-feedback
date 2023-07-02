@@ -6,7 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import React from "react";
 import { Button, CheckBox, Column, Row } from "react-vcomponents";
-import { ApplyBasicStyles, GetDOM, BaseComponentPlus } from "react-vextensions";
+import { ApplyBasicStyles, BaseComponent, GetDOM } from "react-vextensions";
 import { ScrollView } from "react-vscrollview";
 import { manager } from "../Manager";
 import { SetProposalOrder } from "../Server/Commands/SetProposalOrder";
@@ -28,7 +28,7 @@ import { RunInAction } from "react-vmessagebox/Dist/General";
         return <ProposalsUI
     }
 }*/
-let ProposalsUI = class ProposalsUI extends BaseComponentPlus({ subNavBarWidth: 0 }, {}) {
+let ProposalsUI = class ProposalsUI extends BaseComponent {
     constructor() {
         super(...arguments);
         this.OnDragEnd = result => {
@@ -90,7 +90,7 @@ function GetIncompleteProposalsInOrder(order, proposals) {
         return proposalReferencedInOrder && !proposalReferencedInOrder.completedAt;
     });
 }
-let ProposalsColumn = class ProposalsColumn extends BaseComponentPlus({}, {}) {
+let ProposalsColumn = class ProposalsColumn extends BaseComponent {
     render() {
         let { proposals, type } = this.props;
         let userID = manager.GetUserID();
@@ -156,7 +156,7 @@ ProposalsColumn = __decorate([
     ApplyBasicStyles
 ], ProposalsColumn);
 export { ProposalsColumn };
-let ProposalsUserRankingColumn = class ProposalsUserRankingColumn extends BaseComponentPlus({}, {}) {
+let ProposalsUserRankingColumn = class ProposalsUserRankingColumn extends BaseComponent {
     render() {
         let { proposals } = this.props;
         const proposalOrder = GetProposalsOrder(manager.GetUserID());

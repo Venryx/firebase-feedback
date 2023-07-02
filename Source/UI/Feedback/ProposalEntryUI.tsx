@@ -41,7 +41,7 @@ OnPopulated(()=> {
 	};
 })*/
 @observer
-export class ProposalEntryUI extends BaseComponentPlus({} as ProposalEntryUI_Props, {}) {
+export class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
 	innerRoot: Column;
 	render() {
 		let {index, last, proposal, orderIndex, rankingScore, columnType, style, dragInfo} = this.props;

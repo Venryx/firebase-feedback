@@ -13,13 +13,8 @@ export type Link_Props = {
     replace?: boolean;
     actionFunc?: ActionFunc<RootState>;
 } & Omit<React.HTMLProps<HTMLAnchorElement>, "href">;
-declare const Link_base: (new (..._: any[]) => BaseComponent<Link_Props, {}, object>) & {
-    renderCount: number;
-    lastRenderTime: number;
-};
-export declare class Link extends Link_base {
+export declare class Link extends BaseComponent<Link_Props, {}> {
     static ValidateProps(props: Link_Props): void;
     handleClick(event: any): void;
-    render(): React.JSX.Element;
+    render(): JSX.Element;
 }
-export {};

@@ -13,12 +13,7 @@ export type ProposalEntryUI_Props = {
 } & {
     dragInfo?: DragInfo;
 };
-declare const ProposalEntryUI_base: (new (..._: any[]) => BaseComponent<ProposalEntryUI_Props, {}, object>) & {
-    renderCount: number;
-    lastRenderTime: number;
-};
-export declare class ProposalEntryUI extends ProposalEntryUI_base {
+export declare class ProposalEntryUI extends BaseComponent<ProposalEntryUI_Props, {}> {
     innerRoot: Column;
     render(): any;
 }
-export {};

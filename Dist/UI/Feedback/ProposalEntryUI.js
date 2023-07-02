@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { E, CE } from "js-vextensions";
 import React from "react";
 import { Button, Row } from "react-vcomponents";
-import { BaseComponentPlus } from "react-vextensions";
+import { BaseComponent } from "react-vextensions";
 import { manager, OnPopulated } from "../../Manager";
 import { SetProposalOrder } from "../../Server/Commands/SetProposalOrder";
 import { GetRankingScoreToAddForUserRankingIndex } from "../Proposals";
@@ -40,7 +40,7 @@ OnPopulated(() => {
         index,
     };
 })*/
-let ProposalEntryUI = class ProposalEntryUI extends BaseComponentPlus({}, {}) {
+let ProposalEntryUI = class ProposalEntryUI extends BaseComponent {
     render() {
         let { index, last, proposal, orderIndex, rankingScore, columnType, style, dragInfo } = this.props;
         const creator = proposal && manager.GetUser(proposal.creator);
