@@ -2,6 +2,15 @@ import { CE } from "js-vextensions";
 import { Command, AssertV, WrapDBValue } from "mobx-firelink";
 import { GetProposalsOrder } from "../../Store/firebase/userData.js";
 export class SetProposalOrder extends Command {
+    constructor() {
+        super(...arguments);
+        Object.defineProperty(this, "newOrder", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+    }
     Validate() {
         let { proposalID, userID, index } = this.payload;
         //let oldIndexes = (await GetAsync(()=>GetDoc({fire}, a=>a.userData.get(userID))))?.proposalOrder || {};

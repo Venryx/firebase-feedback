@@ -5,10 +5,31 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { GetProposal } from "../firebase/proposals.js";
-import { observable } from "mobx";
+import { makeObservable, observable } from "mobx";
 import { StoreAccessor } from "mobx-firelink";
 import { fire } from "../../Utils/Database/Firelink.js";
 export class Proposals {
+    constructor() {
+        Object.defineProperty(this, "selectedProposalID", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+        Object.defineProperty(this, "features_showCompleted", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+        Object.defineProperty(this, "issues_showCompleted", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+        makeObservable(this);
+    }
 }
 __decorate([
     observable
@@ -20,6 +41,7 @@ __decorate([
     observable
 ], Proposals.prototype, "issues_showCompleted", void 0);
 export const GetSelectedProposalID = StoreAccessor({ fire }, s => () => {
+    //console.log("NewVal:", s.main.proposals.selectedProposalID);
     return s.main.proposals.selectedProposalID;
 });
 export const GetSelectedProposal = StoreAccessor({ fire }, s => () => {

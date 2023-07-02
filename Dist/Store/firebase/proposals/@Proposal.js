@@ -2,8 +2,55 @@ import { AddSchema } from "../../../Server/Server.js";
 import { CE } from "js-vextensions";
 export class Proposal {
     constructor(initialData) {
-        this.title = "";
-        this.text = "";
+        Object.defineProperty(this, "_key", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+        Object.defineProperty(this, "type", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+        Object.defineProperty(this, "title", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: ""
+        });
+        Object.defineProperty(this, "text", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: ""
+        });
+        //completed: boolean;
+        Object.defineProperty(this, "creator", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+        Object.defineProperty(this, "createdAt", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+        Object.defineProperty(this, "editedAt", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+        Object.defineProperty(this, "completedAt", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
         CE(this).Extend(initialData);
     }
 }

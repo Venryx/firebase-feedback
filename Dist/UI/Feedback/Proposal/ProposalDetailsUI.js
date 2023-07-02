@@ -18,7 +18,7 @@ import { Proposal } from "./../../../Store/firebase/proposals/@Proposal.js";
 import { store } from "../../../Store/index.js";
 import { fire } from "../../../Utils/Database/Firelink.js";
 import { Link } from "../../../Utils/ReactComponents/Link.js";
-import { RunInAction } from "react-vmessagebox/Dist/General.js";
+import { RunInAction } from "../../../Utils/General/General.js";
 let aa = { MarkdownEditor };
 let MTName = "Proposal";
 export class ProposalDetailsUI extends BaseComponent {
@@ -61,7 +61,12 @@ export class ProposalDetailsUI extends BaseComponent {
         return Clone(newData);
     }
 }
-ProposalDetailsUI.defaultProps = { enabled: true };
+Object.defineProperty(ProposalDetailsUI, "defaultProps", {
+    enumerable: true,
+    configurable: true,
+    writable: true,
+    value: { enabled: true }
+});
 export function ShowAddProposalDialog(userID, type) {
     let newEntry = new Proposal({ type });
     let detailsUI;

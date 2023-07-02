@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { LogTypes } from "./Utils/General/Logging.js";
-import { RootState } from "./Store/index.js";
+import { Lib_RootState } from "./Store/index.js";
 export declare class PermissionGroupSet {
     basic: boolean;
     verified: boolean;
@@ -15,7 +15,7 @@ export type Link_Props = {
     to?: string;
     target?: string;
     replace?: boolean;
-    actionFunc?: ActionFunc<RootState>;
+    actionFunc?: ActionFunc<Lib_RootState>;
 } & React.HTMLProps<HTMLAnchorElement>;
 export type User = {
     _key?: string;
@@ -32,7 +32,7 @@ export declare class Manager {
     GetUserID: () => string;
     GetUser: (id: string) => User;
     GetUserPermissionGroups: (userID: string) => PermissionGroupSet;
-    GetNewURLForStoreChanges: (actionFunc: ActionFunc<RootState>) => string;
+    GetNewURLForStoreChanges: (actionFunc: ActionFunc<Lib_RootState>) => string;
     MarkdownRenderer: any;
     actionBarZIndex?: number;
 }

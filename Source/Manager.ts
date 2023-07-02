@@ -1,7 +1,7 @@
 import { LogTypes } from "./Utils/General/Logging.js";
 import {BaseComponent} from "react-vextensions";
 import {CE} from "js-vextensions";
-import {RootState} from "./Store/index.js";
+import {Lib_RootState} from "./Store/index.js";
 
 export class PermissionGroupSet {
 	basic: boolean;
@@ -14,7 +14,7 @@ export type ActionFunc<StoreType> = (store: StoreType)=>void;
 export type Link_Props = {
 	onClick?, style?,
 	text?: string, to?: string, target?: string, replace?: boolean, // url-based
-	actionFunc?: ActionFunc<RootState>, // new approach, for mobx/mst store
+	actionFunc?: ActionFunc<Lib_RootState>, // new approach, for mobx/mst store
 } & React.HTMLProps<HTMLAnchorElement>;
 
 export type User = {
@@ -43,7 +43,7 @@ export class Manager {
 	GetUser: (id: string)=>User;
 	GetUserPermissionGroups: (userID: string)=>PermissionGroupSet;
 
-	GetNewURLForStoreChanges: (actionFunc: ActionFunc<RootState>)=>string;
+	GetNewURLForStoreChanges: (actionFunc: ActionFunc<Lib_RootState>)=>string;
 
 	MarkdownRenderer: any; //(...props: any[])=>JSX.Element;
 	actionBarZIndex? = 11;

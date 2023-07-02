@@ -4,6 +4,15 @@ import { Command } from "mobx-firelink";
 let MTName = "Proposal";
 //@UserEdit
 export class AddProposal extends Command {
+    constructor() {
+        super(...arguments);
+        Object.defineProperty(this, "id", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+    }
     Validate() {
         var _a;
         let { data } = this.payload;

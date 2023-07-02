@@ -41,6 +41,15 @@ OnPopulated(() => {
     };
 })*/
 let ProposalEntryUI = class ProposalEntryUI extends BaseComponent {
+    constructor() {
+        super(...arguments);
+        Object.defineProperty(this, "innerRoot", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+    }
     render() {
         let { index, last, proposal, orderIndex, rankingScore, columnType, style, dragInfo } = this.props;
         const creator = proposal && manager.GetUser(proposal.creator);

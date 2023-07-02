@@ -5,6 +5,16 @@ import { GetDocs, Command, MergeDBUpdates, AssertV } from "mobx-firelink";
 import { fire } from "../../Utils/Database/Firelink.js";
 //@UserEdit
 export class DeleteProposal extends Command {
+    constructor() {
+        super(...arguments);
+        //posts: Post[];
+        Object.defineProperty(this, "sub_removalsFromUserOrderings", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+    }
     Validate() {
         let { id } = this.payload;
         let proposal = GetProposal(id);

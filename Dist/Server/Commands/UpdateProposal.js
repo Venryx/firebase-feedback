@@ -16,6 +16,21 @@ WaitTillSchemaAddedThenRun(MTName, () => {
 });
 //@UserEdit
 export class UpdateProposal extends Command {
+    constructor() {
+        super(...arguments);
+        Object.defineProperty(this, "oldData", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+        Object.defineProperty(this, "newData", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+    }
     Validate() {
         AssertValidate(`Update${MTName}_payload`, this.payload, `Payload invalid`);
         let { id, updates } = this.payload;

@@ -49,12 +49,26 @@ let ProposalUI = class ProposalUI extends BaseComponent {
                     React.createElement(Column, null)))));
     }
 };
-ProposalUI.defaultProps = { subNavBarWidth: 0 };
+Object.defineProperty(ProposalUI, "defaultProps", {
+    enumerable: true,
+    configurable: true,
+    writable: true,
+    value: { subNavBarWidth: 0 }
+});
 ProposalUI = __decorate([
     observer
 ], ProposalUI);
 export { ProposalUI };
 let ProposalUI_Inner = class ProposalUI_Inner extends BaseComponent {
+    constructor() {
+        super(...arguments);
+        Object.defineProperty(this, "editorUI", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+    }
     render() {
         let { proposal } = this.props;
         const creator = manager.GetUser(proposal.creator);
@@ -108,7 +122,12 @@ let ProposalUI_Inner = class ProposalUI_Inner extends BaseComponent {
                         } })))));
     }
 };
-ProposalUI_Inner.initialState = { editing: false };
+Object.defineProperty(ProposalUI_Inner, "initialState", {
+    enumerable: true,
+    configurable: true,
+    writable: true,
+    value: { editing: false }
+});
 ProposalUI_Inner = __decorate([
     observer
 ], ProposalUI_Inner);

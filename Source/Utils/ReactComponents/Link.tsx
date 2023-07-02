@@ -3,9 +3,9 @@ import React from "react";
 import {BaseComponent, FilterOutUnrecognizedProps, BaseComponentPlus} from "react-vextensions";
 import {WithStore} from "mobx-firelink";
 import {runInAction} from "mobx";
-import {RootState, store} from "../../Store/index.js";
+import {Lib_RootState, store} from "../../Store/index.js";
 import {manager} from "../../Manager.js";
-import {RunInAction} from "react-vmessagebox/Dist/General.js";
+import {RunInAction} from "../General/General.js";
 
 export function GetCurrentURL() {
 	return VURL.Parse(GetCurrentURLString());
@@ -21,7 +21,7 @@ export type Link_Props = {
 	onClick?, style?,
 	text?: string, to?: string, target?: string, replace?: boolean, // url-based
 	//actions?: (dispatch: Function)=>void,
-	actionFunc?: ActionFunc<RootState>, // new approach, for mobx/mst store
+	actionFunc?: ActionFunc<Lib_RootState>, // new approach, for mobx/mst store
 	//updateURLOnActions?: boolean, // action-based
 } & Omit<React.HTMLProps<HTMLAnchorElement>, "href">;
 export class Link extends BaseComponent<Link_Props, {}> {

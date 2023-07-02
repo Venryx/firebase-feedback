@@ -10,7 +10,7 @@ import {store} from "../../../Store/index.js";
 import {runInAction} from "mobx";
 import {fire} from "../../../Utils/Database/Firelink.js";
 import {Link} from "../../../Utils/ReactComponents/Link.js";
-import {RunInAction} from "react-vmessagebox/Dist/General.js";
+import {RunInAction} from "../../../Utils/General/General.js";
 
 let aa = {MarkdownEditor} as any;
 

@@ -1,7 +1,12 @@
 import { manager } from "../../Manager.js";
 export class LogTypes {
     constructor() {
-        this.commands = false;
+        Object.defineProperty(this, "commands", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: false
+        });
     }
 }
 export function ShouldLog(shouldLogFunc) {

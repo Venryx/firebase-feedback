@@ -1,7 +1,7 @@
 {
   "name": "firebase-feedback",
   "description": "Feedback (proposals + issues + roadmap) solution built using ReactJS, MobX, and Firebase.",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "main": "Dist/index.js",
   "type": "module",
   "typings": "Dist/index.d.ts",
@@ -24,7 +24,7 @@
   },
   "peerDependencies": {
     "js-vextensions": "^1.0.0",
-    "mobx": "^5.0.0",
+    "mobx": "^6.0.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-vextensions": "^1.0.0",
@@ -66,6 +66,6 @@
     "mobx-react": "^7.2.0",
     "mobx-sync": "^3.0.0",
     "react-vmarkdown": "^1.0.4",
-    "slugid": "^2.0.0"
+    "slugid": "^3.2.0"
   }
 }

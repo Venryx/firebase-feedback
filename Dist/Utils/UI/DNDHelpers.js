@@ -7,7 +7,18 @@ export function MakeDraggable(getDraggableCompProps) {
         class WrapperComponent extends React.Component {
             constructor() {
                 super(...arguments);
-                this.firstDragInfoForCurrentData = {};
+                Object.defineProperty(this, "compProps", {
+                    enumerable: true,
+                    configurable: true,
+                    writable: true,
+                    value: void 0
+                });
+                Object.defineProperty(this, "firstDragInfoForCurrentData", {
+                    enumerable: true,
+                    configurable: true,
+                    writable: true,
+                    value: {}
+                });
             }
             UNSAFE_componentWillMount() {
                 this.UpdateDraggableCompProps(this.props);
@@ -60,8 +71,18 @@ export function MakeDraggable(getDraggableCompProps) {
                 }));
             }
         }
-        WrapperComponent.WrappedComponent = WrappedComponent;
-        WrapperComponent.displayName = WrappedComponent.displayName;
+        Object.defineProperty(WrapperComponent, "WrappedComponent", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: WrappedComponent
+        });
+        Object.defineProperty(WrapperComponent, "displayName", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: WrappedComponent.displayName
+        });
         return WrapperComponent;
     };
 }

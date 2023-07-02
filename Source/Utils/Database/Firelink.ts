@@ -1,5 +1,5 @@
 import {Firelink} from "mobx-firelink";
-import type {RootState} from "../../Store";
+import type {Lib_RootState} from "../../Store";
 import type {FirebaseDBShape} from "../../Store/firebase";
 //import {firelink_instance_internal_do_not_import} from "./Firelink_Instance.js";
 
@@ -11,7 +11,7 @@ OnPopulated(()=> {
 
 //export let fire = new Firelink<RootState, FirebaseDBShape>(manager.dbPath, store);
 // at import time, since manager.dbPath not yet populated, init firelink with dbPath of null (we need this instance created at import-time, so it can be sent as an argument in StoreAccessor calls)
-export let fire = new Firelink<RootState, FirebaseDBShape>();
+export let fire = new Firelink<Lib_RootState, FirebaseDBShape>();
 /*console.log("TestA.1");
 export let fire = firelink_instance_internal_do_not_import;
 console.log("TestA.2");*/

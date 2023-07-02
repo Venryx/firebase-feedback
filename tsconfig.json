@@ -11,10 +11,15 @@
 		"experimentalDecorators": true,
 		"allowSyntheticDefaultImports": true, // doesn't modify output, *or* own import code (it's just for type-checking)
 		//"esModuleInterop": true, // doesn't modify output, only code for the stuff we import
+		"useDefineForClassFields": true, // needed for mobx @observable
 		"alwaysStrict": true,
 		"outDir": "Dist",
 		"declaration": true,
 		"declarationDir": "Dist"
+
+		// todo: uncomment these
+		//"alwaysStrict": true,
+		//"strictNullChecks": true
 	},
 	"include": [
 		"Typings/**/*.d.ts",

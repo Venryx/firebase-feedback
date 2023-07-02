@@ -18,7 +18,7 @@ import {observer} from "mobx-react";
 import {fire} from "../Utils/Database/Firelink.js";
 import {GetDocs} from "mobx-firelink";
 import {runInAction} from "mobx";
-import {RunInAction} from "react-vmessagebox/Dist/General.js";
+import {RunInAction} from "../Utils/General/General.js";
 
 /*export class ProposalsUI_Outer extends BaseComponent<Props, {}> {
 	render() {

@@ -22,7 +22,7 @@ import { store } from "../Store/index.js";
 import { observer } from "mobx-react";
 import { fire } from "../Utils/Database/Firelink.js";
 import { GetDocs } from "mobx-firelink";
-import { RunInAction } from "react-vmessagebox/Dist/General.js";
+import { RunInAction } from "../Utils/General/General.js";
 /*export class ProposalsUI_Outer extends BaseComponent<Props, {}> {
     render() {
         return <ProposalsUI
@@ -31,24 +31,29 @@ import { RunInAction } from "react-vmessagebox/Dist/General.js";
 let ProposalsUI = class ProposalsUI extends BaseComponent {
     constructor() {
         super(...arguments);
-        this.OnDragEnd = result => {
-            const sourceDroppableInfo = FromJSON(result.source.droppableId);
-            const sourceIndex = result.source.index;
-            const targetDroppableInfo = result.destination && FromJSON(result.destination.droppableId);
-            let targetIndex = result.destination && result.destination.index;
-            const draggableInfo = FromJSON(result.draggableId);
-            if (targetDroppableInfo == null) {
-            }
-            else if (targetDroppableInfo.type == "ProposalsUserRankingColumn") {
-                if (manager.GetUserID() == null)
-                    return void manager.ShowSignInPopup();
-                // if we're moving an item to later in the same list, increment the target-index again (since react-beautiful-dnd pre-applies target-index adjustment, unlike the rest of our code that uses SetBookEventIndex/Array.Move())
-                if (sourceDroppableInfo.type == targetDroppableInfo.type && sourceIndex < targetIndex) {
-                    targetIndex++;
+        Object.defineProperty(this, "OnDragEnd", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: result => {
+                const sourceDroppableInfo = FromJSON(result.source.droppableId);
+                const sourceIndex = result.source.index;
+                const targetDroppableInfo = result.destination && FromJSON(result.destination.droppableId);
+                let targetIndex = result.destination && result.destination.index;
+                const draggableInfo = FromJSON(result.draggableId);
+                if (targetDroppableInfo == null) {
                 }
-                new SetProposalOrder({ fire }, { proposalID: draggableInfo.proposalID, userID: manager.GetUserID(), index: targetIndex }).Run();
+                else if (targetDroppableInfo.type == "ProposalsUserRankingColumn") {
+                    if (manager.GetUserID() == null)
+                        return void manager.ShowSignInPopup();
+                    // if we're moving an item to later in the same list, increment the target-index again (since react-beautiful-dnd pre-applies target-index adjustment, unlike the rest of our code that uses SetBookEventIndex/Array.Move())
+                    if (sourceDroppableInfo.type == targetDroppableInfo.type && sourceIndex < targetIndex) {
+                        targetIndex++;
+                    }
+                    new SetProposalOrder({ fire }, { proposalID: draggableInfo.proposalID, userID: manager.GetUserID(), index: targetIndex }).Run();
+                }
             }
-        };
+        });
     }
     /*constructor(props) {
         super(props);
@@ -71,7 +76,12 @@ let ProposalsUI = class ProposalsUI extends BaseComponent {
                 React.createElement(ProposalsUserRankingColumn, { proposals: proposals, ml: 10 }))));
     }
 };
-ProposalsUI.defaultProps = { subNavBarWidth: 0 };
+Object.defineProperty(ProposalsUI, "defaultProps", {
+    enumerable: true,
+    configurable: true,
+    writable: true,
+    value: { subNavBarWidth: 0 }
+});
 ProposalsUI = __decorate([
     observer
 ], ProposalsUI);
