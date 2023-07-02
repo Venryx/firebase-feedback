@@ -1,7 +1,8 @@
 import Ajv from "ajv";
 import AJV from "ajv";
 import AJVKeywords from "ajv-keywords";
-import {IsString, ToJSON, Assert, E} from "js-vextensions";
+import {IsString, ToJSON, Assert, E, Clone} from "js-vextensions";
+import {JSONSchema7} from "json-schema";
 
 export const ajv = AJVKeywords(new AJV()) as AJV_Extended;
 
@@ -10,10 +11,11 @@ export function Schema(schema) {
 	return schema;
 }
 
-let schemaJSON = {};
+//let schemaEntryJSONs = {};
+export const schemaEntryJSONs = new Map<string, JSONSchema7>();
 export function AddSchema(schema, name: string) {
 	schema = Schema(schema);
-	schemaJSON[name] = schema;
+	schemaEntryJSONs.set(name, schema);
 	ajv.removeSchema(name); // for hot-reloading
 	let result = ajv.addSchema(schema, name);
 	Assert(GetSchemaJSON(name), `Failed to add schema "${name}".`);
@@ -28,8 +30,14 @@ export function AddSchema(schema, name: string) {
 	return result;
 }
 
-export function GetSchemaJSON(name: string) {
-	return schemaJSON[name];
+export function GetSchemaJSON(name: string, errorOnMissing = true): JSONSchema7 {
+	const schemaJSON = schemaEntryJSONs.get(name);
+	Assert(schemaJSON != null || !errorOnMissing, `Could not find schema "${name}".`);
+	//return Clone(schemaJSON);
+	return schemaJSON!;
+}
+export function GetSchemaJSON_Cloned(name: string, errorOnMissing = true): JSONSchema7 {
+	return Clone(GetSchemaJSON(name, errorOnMissing));
 }
 
 var schemaAddListeners = {};

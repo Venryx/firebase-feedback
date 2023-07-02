@@ -1,13 +1,14 @@
 import { WaitTillSchemaAddedThenRun, GetSchemaJSON, AddSchema, Schema, AssertValidate } from "../Server.js";
 import { Command, AssertV } from "mobx-firelink";
 import { GetProposal } from "../../Store/firebase/proposals.js";
+import { CE } from "js-vextensions";
 let MTName = "Proposal";
 WaitTillSchemaAddedThenRun(MTName, () => {
     AddSchema({
         properties: {
             id: { type: "string" },
             updates: Schema({
-                properties: GetSchemaJSON(MTName).properties.Including("title", "text", "completedAt"),
+                properties: CE(GetSchemaJSON(MTName).properties).IncludeKeys("title", "text", "completedAt"),
             }),
         },
         required: ["id", "updates"],

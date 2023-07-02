@@ -3,6 +3,7 @@ import {Proposal} from "./../../Store/firebase/proposals/@Proposal.js";
 import {GetAsync, GetDoc, Command, AssertV} from "mobx-firelink";
 import {fire} from "../../Utils/Database/Firelink.js";
 import {GetProposal} from "../../Store/firebase/proposals.js";
+import {CE} from "js-vextensions";
 
 type MainType = Proposal;
 let MTName = "Proposal";
@@ -12,7 +13,7 @@ WaitTillSchemaAddedThenRun(MTName, ()=> {
 		properties: {
 			id: {type: "string"},
 			updates: Schema({
-				properties: GetSchemaJSON(MTName).properties.Including("title", "text", "completedAt"),
+				properties: CE(GetSchemaJSON(MTName).properties).IncludeKeys("title", "text", "completedAt"),
 			}),
 		},
 		required: ["id", "updates"],

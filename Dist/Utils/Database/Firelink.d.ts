@@ -1,4 +1,4 @@
 import { Firelink } from "mobx-firelink";
-import { FirebaseDBShape } from "../../Store/firebase.js";
-import { RootState } from "../../Store/index.js";
+import type { RootState } from "../../Store";
+import type { FirebaseDBShape } from "../../Store/firebase";
 export declare let fire: Firelink<RootState, FirebaseDBShape>;
