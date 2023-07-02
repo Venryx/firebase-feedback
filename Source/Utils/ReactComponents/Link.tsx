@@ -5,6 +5,7 @@ import {WithStore} from "mobx-firelink";
 import {runInAction} from "mobx";
 import {RootState, store} from "../../Store";
 import {manager} from "../../Manager";
+import {RunInAction} from "react-vmessagebox/Dist/General";
 
 export function GetCurrentURL() {
 	return VURL.Parse(GetCurrentURLString());
@@ -40,7 +41,7 @@ export class Link extends BaseComponentPlus({} as Link_Props, {}) {
 
 		if (actionFunc != null) {
 			event.preventDefault();
-			runInAction("Link.handleClick", ()=>actionFunc(store));
+			RunInAction("Link.handleClick", ()=>actionFunc(store));
 		} else if (to != null) {
 			const isExternalOrNewTab = VURL.Parse(to, true).domain != GetCurrentURL().domain;
 			if (isExternalOrNewTab || target) return; // let browser handle external or new-tab links

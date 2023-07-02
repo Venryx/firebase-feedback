@@ -12,9 +12,9 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { VURL, Assert, GetCurrentURLString } from "js-vextensions";
 import React from "react";
 import { FilterOutUnrecognizedProps, BaseComponentPlus } from "react-vextensions";
-import { runInAction } from "mobx";
 import { store } from "../../Store";
 import { manager } from "../../Manager";
+import { RunInAction } from "react-vmessagebox/Dist/General";
 export function GetCurrentURL() {
     return VURL.Parse(GetCurrentURLString());
 }
@@ -39,7 +39,7 @@ export class Link extends BaseComponentPlus({}, {}) {
             return; // ignore clicks with modifier keys
         if (actionFunc != null) {
             event.preventDefault();
-            runInAction("Link.handleClick", () => actionFunc(store));
+            RunInAction("Link.handleClick", () => actionFunc(store));
         }
         else if (to != null) {
             const isExternalOrNewTab = VURL.Parse(to, true).domain != GetCurrentURL().domain;

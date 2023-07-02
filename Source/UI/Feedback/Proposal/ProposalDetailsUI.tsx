@@ -10,6 +10,7 @@ import {store} from "../../../Store";
 import {runInAction} from "mobx";
 import {fire} from "../../../Utils/Database/Firelink";
 import {Link} from "../../../Utils/ReactComponents/Link";
+import {RunInAction} from "react-vmessagebox/Dist/General";
 
 let aa = {MarkdownEditor} as any;
 
@@ -92,7 +93,7 @@ export function ShowAddProposalDialog(userID: string, type: string) {
 		},
 		onOK: async ()=> {
 			let id = await new AddProposal({fire}, {data: newEntry}).Run();
-			runInAction("ShowAddProposalDialog.onOK", ()=>store.main.proposals.selectedProposalID = id);
+			RunInAction("ShowAddProposalDialog.onOK", ()=>store.main.proposals.selectedProposalID = id);
 		}
 	});
 }

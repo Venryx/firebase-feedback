@@ -18,6 +18,7 @@ import {observer} from "mobx-react";
 import {fire} from "../Utils/Database/Firelink";
 import {GetDocs} from "mobx-firelink";
 import {runInAction} from "mobx";
+import {RunInAction} from "react-vmessagebox/Dist/General";
 
 /*export class ProposalsUI_Outer extends BaseComponent<Props, {}> {
 	render() {
@@ -150,7 +151,7 @@ export class ProposalsColumn extends BaseComponentPlus({} as {proposals: Proposa
 					<Row style={{position: "relative", height: 40, padding: 10}}>
 						{/*<Pre>Show: </Pre>*/}
 						<CheckBox ml={5} text="Show completed" value={showCompleted} onChange={val=>{
-							runInAction("ProposalsColumn.showCompleted.onChange", ()=>store.main.proposals[`${type}s_showCompleted`] = val);
+							RunInAction("ProposalsColumn.showCompleted.onChange", ()=>store.main.proposals[`${type}s_showCompleted`] = val);
 						}}/>
 						<span style={{position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: "18px"}}>
 							{type.replace(/^(.)/, (m,s0)=>s0.toUpperCase())}s

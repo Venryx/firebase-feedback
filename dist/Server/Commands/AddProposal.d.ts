@@ -1,6 +1,6 @@
 import { Proposal } from "../../index";
 import { Command } from "mobx-firelink";
-export declare type _MainType = Proposal;
+export type _MainType = Proposal;
 export declare class AddProposal extends Command<{
     data: _MainType;
 }, string> {

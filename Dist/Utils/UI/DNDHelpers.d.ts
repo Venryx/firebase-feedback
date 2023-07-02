@@ -1,33 +1,33 @@
 import React from "react";
-declare type DraggableCompProps = {
+type DraggableCompProps = {
     type: string;
     draggableInfo: DraggableInfo;
     index: number;
 };
-export declare type DropProvided = {
+export type DropProvided = {
     innerRef: (element: HTMLElement) => any;
     placeholder?: React.ReactElement<any>;
     droppableProps: any;
 };
-export declare type DropSnapshot = {
+export type DropSnapshot = {
     isDraggingOver: boolean;
     draggingOverWith?: string;
 };
-export declare type DropInfo = {
+export type DropInfo = {
     provided: DropProvided;
     snapshot: DropSnapshot;
 };
-export declare type DragProvided = {
+export type DragProvided = {
     draggableProps: any;
     dragHandleProps: any;
 };
-export declare type DragSnapshot = {
+export type DragSnapshot = {
     isDragging: boolean;
 };
-export declare type DragInfo = {
+export type DragInfo = {
     provided: DragProvided;
     snapshot: DragSnapshot;
 };
-declare type DraggableInfo = any;
+type DraggableInfo = any;
 export declare function MakeDraggable(getDraggableCompProps: (props: Object) => DraggableCompProps): (WrappedComponent: any) => any;
 export {};

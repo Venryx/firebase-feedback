@@ -1,8 +1,8 @@
-/// <reference types="react" />
+import React from "react";
 import { BaseComponent } from "react-vextensions";
 import { Proposal } from "./../../../Store/firebase/proposals/@Proposal";
-export declare type _MainType = Proposal;
-export declare type ProposalDetailsUI_Props = {
+export type _MainType = Proposal;
+export type ProposalDetailsUI_Props = {
     baseData: _MainType;
     forNew: boolean;
     enabled?: boolean;
@@ -16,7 +16,7 @@ export declare class ProposalDetailsUI extends BaseComponent<ProposalDetailsUI_P
         enabled: boolean;
     };
     ComponentWillMountOrReceiveProps(props: any, forMount: any): void;
-    render(): JSX.Element;
+    render(): React.JSX.Element;
     GetValidationError(): any;
     GetNewData(): Proposal;
 }

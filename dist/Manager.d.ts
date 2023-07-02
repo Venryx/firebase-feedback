@@ -7,8 +7,8 @@ export declare class PermissionGroupSet {
     mod: boolean;
     admin: boolean;
 }
-export declare type ActionFunc<StoreType> = (store: StoreType) => void;
-export declare type Link_Props = {
+export type ActionFunc<StoreType> = (store: StoreType) => void;
+export type Link_Props = {
     onClick?: any;
     style?: any;
     text?: string;
@@ -17,7 +17,7 @@ export declare type Link_Props = {
     replace?: boolean;
     actionFunc?: ActionFunc<RootState>;
 } & React.HTMLProps<HTMLAnchorElement>;
-export declare type User = {
+export type User = {
     _key?: string;
     displayName: string;
 };

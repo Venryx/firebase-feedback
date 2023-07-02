@@ -39,7 +39,7 @@ let ProposalUI = class ProposalUI extends BaseComponent {
         return (React.createElement(Column, { style: ES({
                 flex: 1, borderRadius: 10,
                 //marginTop: 30, height: "calc(100% - 30px)",
-                height: "100%",
+                height: "100%", // scroll-bar overlays action-bar-right, but I guess that's better than sub-nav-bar not showing text behind it
             }) },
             React.createElement(ActionBar_Left, { proposal: proposal, subNavBarWidth: subNavBarWidth }),
             React.createElement(ActionBar_Right, { proposal: proposal, subNavBarWidth: subNavBarWidth }),
@@ -77,7 +77,7 @@ let ProposalUI_Inner = class ProposalUI_Inner extends BaseComponentPlus({}, { ed
         let creatorOrMod = IsUserCreatorOrMod(manager.GetUserID(), proposal);
         return (React.createElement(Row, { sel: true, style: { flexShrink: 0, background: "rgba(0,0,0,.7)", borderRadius: 10, alignItems: "initial", cursor: "auto" } },
             React.createElement(Column, { p: 10, style: ES({ flex: 1 }) },
-                React.createElement(Text, { style: { fontSize: "18px", } }, proposal.title),
+                React.createElement(Text, { style: { fontSize: "18px", /*width: "100%", textAlign: "center"*/ } }, proposal.title),
                 React.createElement(Row, { mt: 10, style: { width: "100%" } },
                     React.createElement(manager.MarkdownRenderer, { source: proposal.text })),
                 React.createElement(Row, { mt: 5 },
@@ -117,6 +117,7 @@ class ActionBar_Left extends BaseComponent {
         let { proposal, subNavBarWidth } = this.props;
         return (React.createElement("nav", { style: {
                 position: "absolute", zIndex: manager.actionBarZIndex, left: 0, width: `calc(50% - ${subNavBarWidth / 2}px)`, top: 0, textAlign: "center",
+                //background: "rgba(0,0,0,.5)", boxShadow: "3px 3px 7px rgba(0,0,0,.07)",
             } },
             React.createElement(Row, { style: {
                     justifyContent: "flex-start", background: "rgba(0,0,0,.7)", boxShadow: colors.navBarBoxShadow,
@@ -193,6 +194,7 @@ class ActionBar_Right extends BaseComponent {
         let { proposal, subNavBarWidth } = this.props;
         return (React.createElement("nav", { style: {
                 position: "absolute", zIndex: manager.actionBarZIndex, left: `calc(50% + ${subNavBarWidth / 2}px)`, right: 0, top: 0, textAlign: "center",
+                //background: "rgba(0,0,0,.5)", boxShadow: "3px 3px 7px rgba(0,0,0,.07)",
             } },
             React.createElement(Row, { style: {
                     justifyContent: "flex-end", background: "rgba(0,0,0,.7)", boxShadow: colors.navBarBoxShadow,
