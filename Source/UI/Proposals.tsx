@@ -11,7 +11,7 @@ import {ShowAddProposalDialog} from "./Feedback/Proposal/ProposalDetailsUI.js";
 import {ProposalEntryUI} from "./Feedback/ProposalEntryUI.js";
 import {ProposalUI} from "./Feedback/ProposalUI.js";
 import {Assert, ToJSON, FromJSON, CE} from "js-vextensions";
-import {DragDropContext as DragDropContext_Beautiful, Droppable} from "react-beautiful-dnd";
+import {DragDropContext as DragDropContext_Beautiful, Droppable} from "@hello-pangea/dnd";
 import {DroppableInfo, DraggableInfo} from "../Utils/UI/DNDStructures.js";
 import {store} from "../Store/index.js";
 import {observer} from "mobx-react";
@@ -163,7 +163,7 @@ export class ProposalsColumn extends BaseComponent<{proposals: Proposal[], type:
 					</Row>
 				</Column>
 				<Droppable type="Proposal" droppableId={ToJSON(droppableInfo)}>{(provided, snapshot)=>(
-					<ScrollView ref={c=>provided.innerRef(GetDOM(c))} scrollVBarStyle={{width: 10}} style={ES({flex: 1})}>
+					<ScrollView ref={c=>provided.innerRef(GetDOM(c) as HTMLElement)} scrollVBarStyle={{width: 10}} style={ES({flex: 1})}>
 						{shownProposals.length == 0 && provided.placeholder == null &&
 							<Row p="7px 10px" style={{background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px"}}>
 								There are currently no {type == "feature" ? "feature proposals" : "issue reports"}.
@@ -207,7 +207,7 @@ export class ProposalsUserRankingColumn extends BaseComponent<{proposals: Propos
 					</div>
 				</Column>
 				<Droppable type="Proposal" droppableId={ToJSON(droppableInfo)}>{(provided, snapshot)=>(
-					<ScrollView ref={c=>provided.innerRef(GetDOM(c))} scrollVBarStyle={{width: 10}} style={ES({flex: 1})}>
+					<ScrollView ref={c=>provided.innerRef(GetDOM(c) as HTMLElement)} scrollVBarStyle={{width: 10}} style={ES({flex: 1})}>
 						{proposals.length == 0 && provided.placeholder == null &&
 							<Row p="7px 10px" style={{background: "rgba(30,30,30,.7)", borderRadius: "0 0 10px 10px"}}>
 								You have not yet added any proposals to your ranking.

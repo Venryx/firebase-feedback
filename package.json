@@ -1,7 +1,7 @@
 {
   "name": "firebase-feedback",
   "description": "Feedback (proposals + issues + roadmap) solution built using ReactJS, MobX, and Firebase.",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "main": "Dist/index.js",
   "type": "module",
   "typings": "Dist/index.d.ts",
@@ -23,6 +23,7 @@
     "dist": "tsc"
   },
   "peerDependencies": {
+    "@hello-pangea/dnd": "^16.0.0",
     "js-vextensions": "^1.0.0",
     "mobx": "^6.0.0",
     "react": "^17.0.0",
@@ -30,15 +31,15 @@
     "react-vextensions": "^1.0.0",
     "react-vcomponents": "^1.0.0",
     "react-vmessagebox": "^1.0.0",
-    "react-vscrollview": "^1.0.0",
-    "react-beautiful-dnd": "^10.0.0"
+    "react-vscrollview": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
+    "@hello-pangea/dnd": "16.5.0",
     "@types/firebase": "^3.2.1",
-    "@types/react": "17.0.9",
+		"@types/react": "17.0.74",
     "babel-cli": "^6.4.5",
     "babel-loader": "^8.0.4",
     "firebase": "^9.1.1",
@@ -46,7 +47,6 @@
     "json-loader": "^0.5.7",
     "mobx": "^6.3.2",
     "react": "17.0.2",
-    "react-beautiful-dnd": "^13.1.0",
     "react-dom": "17.0.2",
     "react-vcomponents": "^1.0.43",
     "react-vextensions": "^1.0.18",

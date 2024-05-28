@@ -1,4 +1,4 @@
-import { Draggable } from "react-beautiful-dnd";
+import { Draggable } from "@hello-pangea/dnd";
 import { GetDOM, ShallowChanged } from "react-vextensions";
 import { ToJSON } from "js-vextensions";
 import React from "react";
@@ -44,7 +44,7 @@ export function MakeDraggable(getDraggableCompProps) {
                     return React.createElement(WrappedComponent, Object.assign({}, this.props, { dragInfo: null }));
                 }
                 const draggableID = ToJSON(this.compProps.draggableInfo);
-                return (React.createElement(Draggable, { type: this.compProps.type, key: draggableID, draggableId: draggableID, index: this.compProps.index }, (provided, snapshot) => {
+                return (React.createElement(Draggable /*type={this.compProps.type}*/, { key: draggableID, draggableId: draggableID, index: this.compProps.index }, (provided, snapshot) => {
                     let dragInfo = { provided, snapshot };
                     // if drag-info data actually changed, store ref to first object with that data
                     if (ShallowChanged(dragInfo, this.firstDragInfoForCurrentData)) {

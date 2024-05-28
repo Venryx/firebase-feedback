@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from "react";
 import { BaseComponent } from "react-vextensions";
 import { Proposal } from "./../../Store/firebase/proposals/@Proposal.js";
 import { ProposalDetailsUI } from "./Proposal/ProposalDetailsUI.js";
@@ -10,7 +10,7 @@ export declare class ProposalUI extends BaseComponent<ProposalUI_Props, {}> {
     static defaultProps: {
         subNavBarWidth: number;
     };
-    render(): JSX.Element;
+    render(): React.JSX.Element;
 }
 export declare class ProposalUI_Inner extends BaseComponent<{
     proposal: Proposal;
@@ -22,5 +22,5 @@ export declare class ProposalUI_Inner extends BaseComponent<{
         editing: boolean;
     };
     editorUI: ProposalDetailsUI;
-    render(): JSX.Element;
+    render(): React.JSX.Element;
 }

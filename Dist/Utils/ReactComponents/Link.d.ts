@@ -16,5 +16,5 @@ export type Link_Props = {
 export declare class Link extends BaseComponent<Link_Props, {}> {
     static ValidateProps(props: Link_Props): void;
     handleClick(event: any): void;
-    render(): JSX.Element;
+    render(): React.JSX.Element;
 }

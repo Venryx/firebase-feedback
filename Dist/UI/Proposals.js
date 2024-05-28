@@ -16,7 +16,7 @@ import { ShowAddProposalDialog } from "./Feedback/Proposal/ProposalDetailsUI.js"
 import { ProposalEntryUI } from "./Feedback/ProposalEntryUI.js";
 import { ProposalUI } from "./Feedback/ProposalUI.js";
 import { ToJSON, FromJSON, CE } from "js-vextensions";
-import { DragDropContext as DragDropContext_Beautiful, Droppable } from "react-beautiful-dnd";
+import { DragDropContext as DragDropContext_Beautiful, Droppable } from "@hello-pangea/dnd";
 import { DroppableInfo } from "../Utils/UI/DNDStructures.js";
 import { store } from "../Store/index.js";
 import { observer } from "mobx-react";
